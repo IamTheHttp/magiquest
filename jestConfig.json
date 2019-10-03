@@ -1,0 +1,36 @@
+{
+  "modulePaths": [
+    "<rootDir>/",
+    "<rootDir>/src"
+  ],
+  "testRegex": "(/__tests__/.*|(\\.|/)(jest))\\.jsx?$",
+  "transformIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "collectCoverageFrom": [
+    "src/**/*.{js,jsx}",
+    "!src/develop.js",
+    "!src/.dll/*",
+    "!src/polyfill/*.*",
+    "!src/liveExample.js",
+    "!src/index.js"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 85,
+      "statements": 85
+    }
+  },
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "node_modules/jarb/lib/statics/jest/__mocks__/fileMock.js",
+    "\\.(css|less|scss)$": "node_modules/jarb/lib/statics/jest/__mocks__/styleMock.js"
+  },
+  "setupFiles": [
+    "<rootDir>/node_modules/jarb/lib/testSetup.js",
+    "<rootDir>/src/polyfill/rAF.js",
+    "jest-canvas-mock"
+  ],
+  "bail": true
+}

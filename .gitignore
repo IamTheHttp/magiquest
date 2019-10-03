@@ -1,0 +1,8 @@
+.idea
+docs
+coverage
+node_modules
+npm-debug.log
+src/.dll
+report.html
+stats.json
