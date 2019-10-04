@@ -5,9 +5,13 @@ import {MOVE_ACTION} from '../gameEngine/constants';
 
 let {GameCanvas} = GAME_PLATFORM;
 import tileMap from 'levels/test_15x15';
+import {bit} from '../gameEngine/config';
 
-let mapWidth = tileMap[0].length * 32;
-let mapHeight = tileMap.length * 32;
+
+
+
+let mapWidth = tileMap[0].length * bit;
+let mapHeight = tileMap.length * bit;
 
 // MAIN VIEW, Where the player moves!
 // This is the actual resolution of the player, changing these values will create bigger displays

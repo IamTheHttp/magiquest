@@ -11,6 +11,7 @@ import filterOutFarEntities from './utils/filterOutFarEntities';
 import GAME_PLATFORM from 'game-platform/dist';
 import {BACKGROUND_COMP, POSITION_COMP, UI_COMP} from '../components/ComponentNamesConfig';
 import {CIRCLE_SHAPE, MAP_TILE_SHAPE} from '../constants';
+import {bit} from '../config';
 
 
 
@@ -20,12 +21,11 @@ let {Entity, entityLoop} = GAME_PLATFORM;
 
 function getSprite(col, row) {
   return {
-    cropStartX: 32 * col, cropStartY: 32 * row, cropSizeX: 32, cropSizeY: 32
+    cropStartX: bit * col, cropStartY: bit * row, cropSizeX: bit, cropSizeY: bit
   };
 }
 
 // TODO utility crops, move to somewhere useful
-// TODO all these 32s are magical
 let grassTile = getSprite(0, 0);
 let mountainTile = getSprite(6, 11);
 let riverTiles = getSprite(5, 10);
