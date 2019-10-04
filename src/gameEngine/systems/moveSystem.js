@@ -3,24 +3,35 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   MOVEMENT_COMP,
   POSITION,
-  MOVING, PLAYER_CONTROLLED
+  MOVING, PLAYER_CONTROLLED, TRAVERSABLE_COMP
 } from 'gameEngine/constants';
 import getPos from '../components/utils/positionUtils/getPos';
 import getDest from '../components/utils/positionUtils/getDest';
 import destReached from '../components/utils/positionUtils/destReached';
-
+import isTraversable from '../components/utils/movementUtils/isTraversable';
 let {Entity, entityLoop} = GAME_PLATFORM;
+
+
 function moveEntity(systemArguments, entity) {
-  let {mapAPI, game} = systemArguments;
+  let {mapAPI, game, tileIdx} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
+  
+  let destX = getDest(entity).x;
+  let destY = getDest(entity).y;
+  
+  // is destX traversable?
+  // ix destY traversable?
+  
+  if (!isTraversable(tileIdx, destX, destY)) {
+    // DONE, stop moving.
+    entity.removeComponent(MOVING);
+    return;
+  }
   
   if (destReached(entity)) {
     entity.removeComponent(MOVING);
     return;
   }
-  
-  let destX = getDest(entity).x;
-  let destY = getDest(entity).y;
   
   let marginFromSides = 16;
   
@@ -54,7 +65,6 @@ function moveEntity(systemArguments, entity) {
   entity[POSITION].x = newX;
   entity[POSITION].y = newY;
   
-  // TODO - This should be throttled, or at least the requestBackground should be throttled!
   if (entity[PLAYER_CONTROLLED]) {
     let {x, y} = getPos(entity);
     let {panX, panY} = mapAPI.getPan();

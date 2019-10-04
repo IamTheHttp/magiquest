@@ -1,7 +1,7 @@
 // import Entity from 'lib/ECS/Entity';
 import GAME_PLATFORM from 'game-platform/dist';
 
-let {Entity, entityLoop} = GAME_PLATFORM;
+let {Entity} = GAME_PLATFORM;
 
 import renderSystem from './systems/renderSystem';
 import Tile from './entities/Tile';
@@ -15,36 +15,33 @@ class GameLoop {
     this.renderBackground = true;
     let count = 0;
     Entity.reset();
-    this.createMapEntites(tileMap, viewSize);
+    let tileIdx = this.createMapEntites(tileMap, viewSize);
     new Player({x: 16, y: 16});
     
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 50);
     
     this.loop = () => {
-      /* istanbul ignore else */
-      if (true) {
-        let systemArguments = {
-          tileMap,
-          Entity,
-          viewSize,
-          getRenderBackground: () => {
-            return this.renderBackground;
-          },
-          mapAPI: getMapAPI(),
-          miniMapAPI: getMinimapAPI(),
-          game: this
-        };
-        
-        userInputSystem();
-        moveSystem(systemArguments);
-  
-  
-        renderSystem(systemArguments);
-        this.frameID = requestAnimationFrame(this.loop);
-  
-        this.renderBackground = false;
-        count++;
-      }
+      let systemArguments = {
+        tileIdx,
+        Entity,
+        viewSize,
+        getRenderBackground: () => {
+          return this.renderBackground;
+        },
+        mapAPI: getMapAPI(),
+        miniMapAPI: getMinimapAPI(),
+        game: this
+      };
+      
+      userInputSystem();
+      moveSystem(systemArguments);
+
+
+      renderSystem(systemArguments);
+      this.frameID = requestAnimationFrame(this.loop);
+
+      this.renderBackground = false;
+      count++;
     };
     
     this.dispatchAction = this.dispatchAction.bind(this);
@@ -57,25 +54,30 @@ class GameLoop {
   
   createMapEntites(tileMap, viewSize) {
     let {mapHeight, mapWidth} = viewSize;
+  
+    let idx = {};
     
     for (let rowIdx = 0; rowIdx < tileMap.length; rowIdx++) {
       let row = tileMap[rowIdx];
       for (let colIdx = 0; colIdx < row.length; colIdx++) {
         let numOfCols = row.length;
         let numOfRows = tileMap.length;
-        
+      
         let tileWidth = mapWidth / numOfCols;
         let tileHeight = mapHeight / numOfRows; // num of cols
-        
-        new Tile({
+      
+        let tile = new Tile({
           x: colIdx * tileWidth,
           y: rowIdx * tileHeight,
           width: tileWidth,
           height: tileHeight,
           tileType: tileMap[rowIdx][colIdx]
         });
+      
+        idx[`${rowIdx}-${colIdx}`] = tile;
       }
     }
+    return idx;
   }
   
   resume() {

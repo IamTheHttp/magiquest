@@ -1,3 +1,8 @@
+import tiles from '../../assets/tileSet.png';
+
+let tileSetImage = new Image();
+tileSetImage.src = tiles;
+
 import {
   UI_COMP,
   POSITION,
@@ -7,35 +12,39 @@ import {
 
 // TODO should probably not be here :)
 // MOVE to where assets are loaded
-import tiles from '../../assets/tileSet.png';
+
 import filterOutFarEntities from './utils/filterOutFarEntities';
 import GAME_PLATFORM from 'game-platform/dist';
-let tileSetImage = new Image();
-tileSetImage.src = tiles;
+
+
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 
+function getSprite(col, row) {
+  return {
+    cropStartX: 32 * col, cropStartY: 32 * row, cropSizeX: 32, cropSizeY: 32
+  };
+}
+
 // TODO utility crops, move to somewhere useful
 // TODO all these 32s are magical
-let grassTile = () => {
-  return {
-    cropStartX: 0, cropStartY: 0, cropSizeX: 32, cropSizeY: 32
-  };
-};
-
-let mountainTile = () => {
-  // 7 x 12
-  return {
-    cropStartX: 32 * 6, cropStartY: 32 * 11, cropSizeX: 32, cropSizeY: 32
-  };
-};
+let grassTile = getSprite(0, 0);
+let mountainTile = getSprite(6, 11);
+let riverTiles = getSprite(5, 10);
+let brownBrickDay = getSprite(17, 2);
+let brownDoorDay = getSprite(15, 20);
+let redRoofDay = getSprite(14, 10);
+let monument = getSprite(22, 7);
 
 let tileTypes = {
   0: mountainTile,
-  1: grassTile
+  1: grassTile,
+  2: riverTiles,
+  3: brownBrickDay,
+  4: brownDoorDay,
+  5: redRoofDay,
+  6: monument
 };
-
-
 
 
 function renderBackgroundLayer(systemArguments, closeBackgroundEnts) {
@@ -51,9 +60,9 @@ function renderBackgroundLayer(systemArguments, closeBackgroundEnts) {
           {
             id: `${entity.id}-${i}`,
             image: tileSetImage,
-            x:entity[POSITION].x, y: entity[POSITION].y,
+            x: entity[POSITION].x, y: entity[POSITION].y,
             height: entity[POSITION].height, width: entity[POSITION].width,
-            ...tileTypes[section.data.tileType](),
+            ...tileTypes[section.data.tileType],
             rotation: 0 // in radians
           },
           'background'
@@ -95,7 +104,6 @@ function renderSystem(systemArguments) {
   // render background
   if (getRenderBackground()) {
     mapAPI.clear('background');
-    console.log('Rendering background');
     let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
     let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
     
@@ -111,7 +119,6 @@ function renderSystem(systemArguments) {
   
   renderMainLayer(systemArguments, closeEnts);
   mapAPI.draw();
-  
   
   
   // renderOnMinimap(allEntsToDraw);

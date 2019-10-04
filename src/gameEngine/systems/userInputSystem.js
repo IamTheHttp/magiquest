@@ -31,7 +31,6 @@ function userInputSystem() {
   actions.forEach((action) => {
     if (action.name === MOVE_ACTION) {
       let {direction} = action;
-      // console.log(Entity);
       let ent = Entity.getByComps(PLAYER_CONTROLLED)[0];
       
       // can't move while already moving
