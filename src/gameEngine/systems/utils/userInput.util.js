@@ -27,16 +27,16 @@
 // }
 //
 // export function setEntityDest(entity, action) {
-//   entity[POSITION].destX = action.x;
-//   entity[POSITION].destY = action.y;
+//   entity[POSITION_COMP].destX = action.x;
+//   entity[POSITION_COMP].destY = action.y;
 // }
 //
 // export function getEntitiesAtPos(x, y) {
 //   let entities = Entity.getByComps(POSITION);
 //   return entityLoop(entities, (ent) => {
-//     let centerX = ent[POSITION].x;
-//     let centerY = ent[POSITION].y;
-//     let radius = ent[POSITION].radius;
+//     let centerX = ent[POSITION_COMP].x;
+//     let centerY = ent[POSITION_COMP].y;
+//     let radius = ent[POSITION_COMP].radius;
 //     if (isPosInsideCircle(x, y, centerX, centerY, radius)) {
 //       return true;
 //     }
@@ -46,9 +46,9 @@
 // export function selectEntity({x, y}) {
 //   let entities = Entity.getByComps([POSITION, PLAYER_CONTROLLED, OWNER_COMPONENT]);
 //   entityLoop(entities, (ent) => {
-//     let centerX = ent[POSITION].x;
-//     let centerY = ent[POSITION].y;
-//     let radius = ent[POSITION].radius;
+//     let centerX = ent[POSITION_COMP].x;
+//     let centerY = ent[POSITION_COMP].y;
+//     let radius = ent[POSITION_COMP].radius;
 //     // this is what stops us from selecting an entity that does not belong to us
 //     let ownedByPlayer = getOwner(ent) === PLAYER_1;
 //     ent[PLAYER_CONTROLLED].selected = ownedByPlayer && isPosInsideCircle(x, y, centerX, centerY, radius);
@@ -65,8 +65,8 @@
 //   let maxY = Math.max(selectedBox.start.y, selectedBox.end.y);
 //
 //   return entityLoop(entities, (ent) => {
-//     let centerX = ent[POSITION].x;
-//     let centerY = ent[POSITION].y;
+//     let centerX = ent[POSITION_COMP].x;
+//     let centerY = ent[POSITION_COMP].y;
 //
 //     let ownedByPlayer = getOwner(ent) === PLAYER_1;
 //     if (ownedByPlayer && centerX >= minX && centerX <= maxX && centerY >= minY && centerY <= maxY) {

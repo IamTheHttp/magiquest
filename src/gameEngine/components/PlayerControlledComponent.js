@@ -1,8 +1,8 @@
-import {PLAYER_CONTROLLED} from 'gameEngine/constants';
+import {PLAYER_CONTROLLED_COMP} from './ComponentNamesConfig';
 
 class PlayerControlledComponent {
   constructor() {
-    this.name = PLAYER_CONTROLLED;
+    this.name = PLAYER_CONTROLLED_COMP;
   }
 }
 

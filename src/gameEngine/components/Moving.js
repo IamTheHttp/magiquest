@@ -1,7 +1,8 @@
-import {MOVING} from 'gameEngine/constants';
+import {MOVING_COMP} from './ComponentNamesConfig';
+
 class Moving {
   constructor() {
-    this.name = MOVING;
+    this.name = MOVING_COMP;
   }
 }
 

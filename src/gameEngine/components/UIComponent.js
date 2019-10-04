@@ -1,4 +1,5 @@
-import {UI_COMP} from 'gameEngine/constants';
+import {UI_COMP} from './ComponentNamesConfig';
+
 
 class UIComponent {
   constructor(sections) {

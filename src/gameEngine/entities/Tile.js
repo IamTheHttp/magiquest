@@ -1,5 +1,5 @@
 import GAME_PLATFORM from 'game-platform/dist';
-import {CANVAS, RECT, MAP_TILE} from '../constants';
+import {CANVAS_OUTPUT, MAP_TILE_SHAPE} from '../constants';
 import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
@@ -20,8 +20,8 @@ class Tile {
     
     ent.addComponent(new BackgroundComponent(
       [{
-        name: CANVAS,
-        shape: MAP_TILE,
+        name: CANVAS_OUTPUT,
+        shape: MAP_TILE_SHAPE,
         data: {
           tileType
         }

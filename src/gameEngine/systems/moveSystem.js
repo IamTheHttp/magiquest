@@ -1,15 +1,14 @@
 
 import GAME_PLATFORM from 'game-platform/dist';
 import {
-  MOVEMENT_COMP,
-  POSITION,
-  MOVING, PLAYER_CONTROLLED, TRAVERSABLE_COMP
 } from 'gameEngine/constants';
 import getPos from '../components/utils/positionUtils/getPos';
 import getDest from '../components/utils/positionUtils/getDest';
 import destReached from '../components/utils/positionUtils/destReached';
 import isTraversable from '../components/utils/movementUtils/isTraversable';
+import {MOVEMENT_COMP, MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
 let {Entity, entityLoop} = GAME_PLATFORM;
+
 
 
 function moveEntity(systemArguments, entity) {
@@ -24,20 +23,20 @@ function moveEntity(systemArguments, entity) {
   
   if (!isTraversable(tileIdx, destX, destY)) {
     // DONE, stop moving.
-    entity.removeComponent(MOVING);
+    entity.removeComponent(MOVING_COMP);
     return;
   }
   
   if (destReached(entity)) {
-    entity.removeComponent(MOVING);
+    entity.removeComponent(MOVING_COMP);
     return;
   }
   
   let marginFromSides = 16;
   
   // 0 is minY and minX
-  entity[POSITION].destX = Math.max(Math.min(destX, mapWidth - marginFromSides), 0, marginFromSides);
-  entity[POSITION].destY = Math.max(Math.min(destY, mapHeight - marginFromSides), 0, marginFromSides);
+  entity[POSITION_COMP].destX = Math.max(Math.min(destX, mapWidth - marginFromSides), 0, marginFromSides);
+  entity[POSITION_COMP].destY = Math.max(Math.min(destY, mapHeight - marginFromSides), 0, marginFromSides);
   
   destX = getDest(entity).x;
   destY = getDest(entity).y;
@@ -62,10 +61,10 @@ function moveEntity(systemArguments, entity) {
     newY = Math.max(curY - speed, destY);
   }
   
-  entity[POSITION].x = newX;
-  entity[POSITION].y = newY;
+  entity[POSITION_COMP].x = newX;
+  entity[POSITION_COMP].y = newY;
   
-  if (entity[PLAYER_CONTROLLED]) {
+  if (entity[PLAYER_CONTROLLED_COMP]) {
     let {x, y} = getPos(entity);
     let {panX, panY} = mapAPI.getPan();
     
@@ -89,7 +88,7 @@ function moveEntity(systemArguments, entity) {
 }
 
 function moveSystem(systemArguments, mapAPI) {
-  let entities = Entity.getByComps([MOVEMENT_COMP, POSITION, MOVING]);
+  let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, MOVING_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity, mapAPI);

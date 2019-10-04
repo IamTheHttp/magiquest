@@ -1,8 +1,9 @@
-import {POSITION} from 'gameEngine/constants';
+import {POSITION_COMP} from './ComponentNamesConfig';
+
 
 class PositionComponent {
   constructor({x, y, radius, height, width}) {
-    this.name = POSITION;
+    this.name = POSITION_COMP;
     this.x = x;
     this.y = y;
     this.radius = radius;

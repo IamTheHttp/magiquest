@@ -1,4 +1,4 @@
-import {TRAVERSABLE_COMP} from '../../../constants';
+import {TRAVERSABLE_COMP} from '../../ComponentNamesConfig';
 
 function isTraversable(tileIdx, x, y) {
   // What tile are we going to?

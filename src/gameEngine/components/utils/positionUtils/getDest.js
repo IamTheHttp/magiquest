@@ -1,9 +1,9 @@
-import {POSITION} from '../../../constants';
+import {POSITION_COMP} from '../../ComponentNamesConfig';
 
 function getDest(ent) {
   return {
-    x:ent[POSITION].destX,
-    y:ent[POSITION].destY
+    x:ent[POSITION_COMP].destX,
+    y:ent[POSITION_COMP].destY
   };
 }
 

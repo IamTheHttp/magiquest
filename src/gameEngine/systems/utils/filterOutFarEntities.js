@@ -1,4 +1,4 @@
-import {POSITION} from '../../constants';
+import {POSITION_COMP} from '../../components/ComponentNamesConfig';
 
 function filterOutFarEntities(systemArguments, entsToDraw) {
   let {mapAPI} = systemArguments;
@@ -9,7 +9,7 @@ function filterOutFarEntities(systemArguments, entsToDraw) {
   for (let i = 0; i < entsToDraw.length; i++) {
     let entity = entsToDraw[i];
     
-    let {x, y, radius, height, width} = entity[POSITION];
+    let {x, y, radius, height, width} = entity[POSITION_COMP];
     let entWidth = radius * 2 || width;
     let entHeight = radius * 2 || height;
     

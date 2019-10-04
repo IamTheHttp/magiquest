@@ -1,4 +1,4 @@
-import {BACKGROUND_COMP} from 'gameEngine/constants';
+import {BACKGROUND_COMP} from './ComponentNamesConfig';
 
 class BackgroundComponent {
   constructor(sections) {

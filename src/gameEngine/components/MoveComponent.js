@@ -1,4 +1,5 @@
-import {MOVEMENT_COMP} from 'gameEngine/constants';
+import {MOVEMENT_COMP} from './ComponentNamesConfig';
+
 class MoveComponent {
   constructor(speed) {
     this.name = MOVEMENT_COMP;
