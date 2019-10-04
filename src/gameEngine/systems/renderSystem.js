@@ -9,9 +9,10 @@ import {
 // MOVE to where assets are loaded
 import tiles from '../../assets/tileSet.png';
 import filterOutFarEntities from './utils/filterOutFarEntities';
+import GAME_PLATFORM from 'game-platform/dist';
 let tileSetImage = new Image();
 tileSetImage.src = tiles;
-
+let {Entity, entityLoop} = GAME_PLATFORM;
 
 
 // TODO utility crops, move to somewhere useful
@@ -37,7 +38,9 @@ let tileTypes = {
 
 
 
-function renderBackgroundLayer(closeBackgroundEnts, mapAPI, miniMapAPI) {
+function renderBackgroundLayer(systemArguments, closeBackgroundEnts) {
+  let {mapAPI} = systemArguments;
+  
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     let entity = closeBackgroundEnts[i];
     
@@ -60,7 +63,8 @@ function renderBackgroundLayer(closeBackgroundEnts, mapAPI, miniMapAPI) {
   }
 }
 
-function renderMainLayer(closeEnts, mapAPI, miniMapAPI) {
+function renderMainLayer(systemArguments, closeEnts) {
+  let {mapAPI} = systemArguments;
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
     entity[UI_COMP].sections.forEach((section) => {
@@ -82,27 +86,30 @@ function renderMainLayer(closeEnts, mapAPI, miniMapAPI) {
   }
 }
 
-function renderSystem(systemArguments, mapAPI, miniMapAPI) {
+function renderSystem(systemArguments) {
+  let {mapAPI, miniMapAPI, getRenderBackground} = systemArguments;
   // clear everything before we move forward
   mapAPI.clear();
   miniMapAPI.clear();
   
   // render background
-  if (systemArguments.renderBackground) {
-    let allBackgroundEnts = systemArguments.Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
-    let closeBackgroundEnts = filterOutFarEntities(systemArguments, mapAPI, allBackgroundEnts);
+  if (getRenderBackground()) {
+    mapAPI.clear('background');
+    console.log('Rendering background');
+    let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
+    let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
     
-    renderBackgroundLayer(closeBackgroundEnts, mapAPI, miniMapAPI);
+    renderBackgroundLayer(systemArguments, closeBackgroundEnts);
     mapAPI.draw('background');
   }
   
   
   // render main...
   
-  let allEntsToDraw = systemArguments.Entity.getByComps([UI_COMP]); // O1 fetching
-  let closeEnts = filterOutFarEntities(systemArguments, mapAPI, allEntsToDraw);
+  let allEntsToDraw = Entity.getByComps([UI_COMP]); // O1 fetching
+  let closeEnts = filterOutFarEntities(systemArguments, allEntsToDraw);
   
-  renderMainLayer(closeEnts, mapAPI, miniMapAPI);
+  renderMainLayer(systemArguments, closeEnts);
   mapAPI.draw();
   
   

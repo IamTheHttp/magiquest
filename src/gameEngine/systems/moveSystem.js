@@ -3,54 +3,86 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   MOVEMENT_COMP,
   POSITION,
-  MOVING
+  MOVING, PLAYER_CONTROLLED
 } from 'gameEngine/constants';
 import getPos from '../components/utils/positionUtils/getPos';
 import getDest from '../components/utils/positionUtils/getDest';
 import destReached from '../components/utils/positionUtils/destReached';
 
 let {Entity, entityLoop} = GAME_PLATFORM;
-
-function moveEntity(entity) {
+function moveEntity(systemArguments, entity) {
+  let {mapAPI, game} = systemArguments;
+  let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
+  
   if (destReached(entity)) {
     entity.removeComponent(MOVING);
     return;
   }
-
+  
   let destX = getDest(entity).x;
   let destY = getDest(entity).y;
+  
+  let marginFromSides = 16;
+  
+  // 0 is minY and minX
+  entity[POSITION].destX = Math.max(Math.min(destX, mapWidth - marginFromSides), 0, marginFromSides);
+  entity[POSITION].destY = Math.max(Math.min(destY, mapHeight - marginFromSides), 0, marginFromSides);
+  
+  destX = getDest(entity).x;
+  destY = getDest(entity).y;
 
-  if (destX && destY) {
-    let curX = getPos(entity).x;
-    let curY = getPos(entity).y;
-    let speed = entity[MOVEMENT_COMP].speed;
+  let curX = getPos(entity).x;
+  let curY = getPos(entity).y;
+  let speed = entity[MOVEMENT_COMP].speed;
+  
+  let newX = 0;
+  let newY = 0;
+  
+  // right
+  if (destX > curX) {
+    newX = Math.min(curX + speed, destX);
+  } else { // left
+    newX = Math.max(curX - speed, destX);
+  }
+  // down
+  if (destY > curY) {
+    newY = Math.min(curY + speed, destY);
+  } else { // up
+    newY = Math.max(curY - speed, destY);
+  }
+  
+  entity[POSITION].x = newX;
+  entity[POSITION].y = newY;
+  
+  // TODO - This should be throttled, or at least the requestBackground should be throttled!
+  if (entity[PLAYER_CONTROLLED]) {
+    let {x, y} = getPos(entity);
+    let {panX, panY} = mapAPI.getPan();
     
-    let newX = 0;
-    let newY = 0;
+    let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
+    let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
     
-    // if we go back
-    if (destX > curX) {
-      newX = Math.min(curX + speed, destX);
-    } else {
-      newX = Math.max(curX - speed, destX);
+    
+    if (x + viewWidth / 2 > mapWidth) {
+      panToX = panX;
     }
   
-    if (destY > curY) {
-      newY = Math.min(curY + speed, destY);
-    } else {
-      newY = Math.max(curY - speed, destY);
+    if (y + viewHeight / 2 > mapHeight) {
+      panToY = panY;
     }
     
-    entity[POSITION].x = newX;
-    entity[POSITION].y = newY;
+    
+    mapAPI.pan(panToX, panToY);
+    game.requestBackgroundRender();
+    // pan to user
   }
 }
 
-function moveSystem(systemArguments) {
+function moveSystem(systemArguments, mapAPI) {
   let entities = Entity.getByComps([MOVEMENT_COMP, POSITION, MOVING]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
-      moveEntity(entity);
+      moveEntity(systemArguments, entity, mapAPI);
     });
   }
 }

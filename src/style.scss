@@ -6,18 +6,49 @@ canvas {
   top:0;
 }
 
+body {
+  margin:0;
+}
+
+
+
+$border-light: #b78846;
+$border-dark: brown;
+$border-width: 20px;
+$ratio: 1.66666;
+
+$height: 480px;
+$width: $height * $ratio;
+
 .canvas-main-container, .canvas-minimap-container {
   position:relative;
 }
 
 .canvas-main-container {
-  height:480px;
-  width:800px;
+  width:100%;
+  height:100%;
+  border:5px solid $border-light;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  background-color:$border-dark;
+  margin-top:15%;
+  border:5px solid $border-light;
+  padding:$border-width;
+  height:$height;
+  width:$width;
+  margin-left:auto;
+  margin-right:auto;
+  box-sizing: border-box;
 }
 
 .canvas-minimap-container {
   width:200px;
   height:120px;
   border:1px solid black;
+  display:none;
 }
+
+
 

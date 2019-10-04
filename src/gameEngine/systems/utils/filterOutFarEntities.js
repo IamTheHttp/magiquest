@@ -1,6 +1,7 @@
 import {POSITION} from '../../constants';
 
-function filterOutFarEntities(systemArguments, mapAPI, entsToDraw) {
+function filterOutFarEntities(systemArguments, entsToDraw) {
+  let {mapAPI} = systemArguments;
   let arr = [];
   let {panX, panY} = mapAPI.getPan();
   let {viewWidth, viewHeight} = systemArguments.viewSize;

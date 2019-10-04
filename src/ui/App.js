@@ -82,6 +82,8 @@ class App extends React.Component {
       }
     }).getNewCanvasPairs({
       getMapRef: (API, el) => {
+        // Todo - feels strange that we need this here...
+        console.log(API);
         API.addLayer('background');
         this.setState({
           mapAPI: API
@@ -146,9 +148,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className='canvas-main-container'>
-          {this.state.map}
+        <div className='wrapper'>
+          <div className='canvas-main-container'>
+            {this.state.map}
+          </div>
         </div>
+
         <div className='canvas-minimap-container'>
           {this.state.minimap}
         </div>

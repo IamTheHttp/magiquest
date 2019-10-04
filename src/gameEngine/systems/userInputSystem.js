@@ -9,12 +9,12 @@ import {
   MOVE_ACTION, MOVING, PLAYER_CONTROLLED, POSITION
 } from 'gameEngine/constants';
 
-import move from 'gameEngine/systems/userInputActions/move';
 import Moving from '../components/Moving';
 import moveUp from '../components/utils/positionUtils/moveUp';
 import moveDown from '../components/utils/positionUtils/moveDown';
 import moveLeft from '../components/utils/positionUtils/moveLeft';
 import moveRight from '../components/utils/positionUtils/moveRight';
+import getPos from '../components/utils/positionUtils/getPos';
 
 
 // import select from 'gameEngine/systems/userInputActions/select';
@@ -31,24 +31,25 @@ function userInputSystem() {
   actions.forEach((action) => {
     if (action.name === MOVE_ACTION) {
       let {direction} = action;
-      console.log('Moving...', direction);
       // console.log(Entity);
       let ent = Entity.getByComps(PLAYER_CONTROLLED)[0];
       
-      // can't move while moving
+      // can't move while already moving
+      // TODO create a util called 'isMoving'
       if (ent[MOVING]) {
         return;
       }
-      let {x, y} = ent[POSITION];
+  
+      let {x, y} = getPos(ent);
       
-      let map = {
+      let moveTo = {
         up:  moveUp,
         down: moveDown,
         left: moveLeft,
         right: moveRight
       };
   
-      map[direction](ent);
+      moveTo[direction](ent);
       ent.addComponent(new Moving());
     }
     

@@ -8,6 +8,7 @@ import Tile from './entities/Tile';
 import Player from './entities/Player';
 import userInputSystem, {pushAction} from './systems/userInputSystem';
 import moveSystem from './systems/moveSystem';
+import throttle from './utils/throttle';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
@@ -15,10 +16,9 @@ class GameLoop {
     let count = 0;
     Entity.reset();
     this.createMapEntites(tileMap, viewSize);
-    
-    
     new Player({x: 16, y: 16});
-    console.log(getMapAPI);
+    
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 50);
     
     this.loop = () => {
       /* istanbul ignore else */
@@ -27,15 +27,19 @@ class GameLoop {
           tileMap,
           Entity,
           viewSize,
-          renderBackground: this.renderBackground
+          getRenderBackground: () => {
+            return this.renderBackground;
+          },
+          mapAPI: getMapAPI(),
+          miniMapAPI: getMinimapAPI(),
+          game: this
         };
-        let mapAPI = getMapAPI();
-        let miniMapAPI = getMinimapAPI();
         
         userInputSystem();
-        renderSystem(systemArguments, mapAPI, miniMapAPI);
         moveSystem(systemArguments);
-        
+  
+  
+        renderSystem(systemArguments);
         this.frameID = requestAnimationFrame(this.loop);
   
         this.renderBackground = false;
