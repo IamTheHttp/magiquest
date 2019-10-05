@@ -9,8 +9,8 @@ tileSetImage.src = tiles;
 
 import filterOutFarEntities from './utils/filterOutFarEntities';
 import GAME_PLATFORM from 'game-platform/dist';
-import {BACKGROUND_COMP, POSITION_COMP, UI_COMP} from '../components/ComponentNamesConfig';
-import {CIRCLE_SHAPE, MAP_TILE_SHAPE} from '../constants';
+import {BACKGROUND_COMP, HEALTH_COMP, POSITION_COMP, UI_COMP} from '../components/ComponentNamesConfig';
+import {CIRCLE_SHAPE, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE} from '../constants';
 import {bit} from '../config';
 
 
@@ -84,8 +84,45 @@ function renderMainLayer(systemArguments, closeEnts) {
             x: entity[POSITION_COMP].x,
             y: entity[POSITION_COMP].y,
             radius: entity[POSITION_COMP].radius,
-            strokeStyle: 'green',
-            fillColor: 'red'
+            fillColor: 'red',
+            strokeStyle: 'red',
+            lineWidth:1
+          }
+        );
+      }
+      
+      if (section.shape === HEALTH_BAR_SHAPE) {
+        let healthWidth = entity[POSITION_COMP].width || entity[POSITION_COMP].radius * 2 || 200;
+        let healthMargin = entity[POSITION_COMP].height || entity[POSITION_COMP].radius * 1 + 2 || 200;
+        let healthHeight = 2;
+        
+        
+        let healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
+        
+        
+        mapAPI.addRect(
+          {
+            id: `${entity.id}-${i}-${HEALTH_BAR_SHAPE}-`,
+            image: tileSetImage,
+            x: entity[POSITION_COMP].x - healthWidth / 2,
+            y: entity[POSITION_COMP].y + healthMargin,
+            width: healthWidth,
+            height: healthHeight,
+            strokeStyle: 'black',
+            lineWidth:2
+          }
+        );
+  
+        mapAPI.addRect(
+          {
+            id: `${entity.id}-${i}-${HEALTH_BAR_SHAPE}`,
+            image: tileSetImage,
+            x: entity[POSITION_COMP].x - healthWidth / 2,
+            y: entity[POSITION_COMP].y + healthMargin,
+            width: healthWidth * healthPercent,
+            height: healthHeight,
+            strokeStyle: 'lime',
+            lineWidth:2
           }
         );
       }

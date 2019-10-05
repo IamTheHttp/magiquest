@@ -46,8 +46,6 @@ function userInputSystem() {
         return;
       }
   
-      let {x, y} = getPos(ent);
-      
       let moveTo = {
         up:  moveUp,
         down: moveDown,
@@ -55,8 +53,10 @@ function userInputSystem() {
         right: moveRight
       };
   
-      moveTo[direction](ent);
-      ent.addComponent(new Moving());
+      if (moveTo[direction]) {
+        moveTo[direction](ent);
+        ent.addComponent(new Moving());
+      }
     }
     
     

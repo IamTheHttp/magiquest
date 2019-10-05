@@ -7,83 +7,64 @@ import getDest from '../components/utils/positionUtils/getDest';
 import destReached from '../components/utils/positionUtils/destReached';
 import isTraversable from '../components/utils/movementUtils/isTraversable';
 import {MOVEMENT_COMP, MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
+import {getTileIdxByPos} from '../components/utils/tileUtils/getTileIdx';
+import calcNewPosToMove from './utils/calcNewPosToMove';
+import centerCameraOnEntity from './utils/centerCameraOnEntity';
+import getSafeDest from './utils/getSafeDest';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 
 
 function moveEntity(systemArguments, entity) {
-  let {mapAPI, game, tileIdx} = systemArguments;
+  let {mapAPI, game, tileIdxMap} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
+  let {x: originX, y: originY} = getPos(entity);
   
-  let destX = getDest(entity).x;
-  let destY = getDest(entity).y;
+  // get adjusted destination, make sure you can't leave the map
+  let {x: destX, y: destY} = getDest(entity);
+  let {x: safeX, y: safeY} = getSafeDest(destX, destY, mapWidth, mapHeight);
+  destX = entity[POSITION_COMP].destX = safeX;
+  destY = entity[POSITION_COMP].destY = safeY;
   
-  // is destX traversable?
-  // ix destY traversable?
-  
-  if (!isTraversable(tileIdx, destX, destY)) {
-    // DONE, stop moving.
+  /**
+   * Is our destination traversable? if not, we stop.
+   */
+  if (!isTraversable(tileIdxMap, destX, destY)) {
+    // stop the entity
     entity.removeComponent(MOVING_COMP);
     return;
   }
   
+  /**
+   * was our destination reached? if it was, we stop.
+   */
   if (destReached(entity)) {
+    // insert the entity as an occupant of the tile
+    updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY});
+    // stop the entity
     entity.removeComponent(MOVING_COMP);
     return;
   }
   
-  let marginFromSides = 16;
+  /**
+   * Lets start moving...
+   */
   
-  // 0 is minY and minX
-  entity[POSITION_COMP].destX = Math.max(Math.min(destX, mapWidth - marginFromSides), 0, marginFromSides);
-  entity[POSITION_COMP].destY = Math.max(Math.min(destY, mapHeight - marginFromSides), 0, marginFromSides);
+  // since we're moving - make sure the entity leaves the origin tile
+  updateMapTileIdx({entity, tileIdxMap, oldX: originX, oldY: originY});
   
-  destX = getDest(entity).x;
-  destY = getDest(entity).y;
-
-  let curX = getPos(entity).x;
-  let curY = getPos(entity).y;
-  let speed = entity[MOVEMENT_COMP].speed;
+  let {x: newX, y: newY} = calcNewPosToMove(entity, originX, originY, destX, destY);
   
-  let newX = 0;
-  let newY = 0;
-  
-  // right
-  if (destX > curX) {
-    newX = Math.min(curX + speed, destX);
-  } else { // left
-    newX = Math.max(curX - speed, destX);
-  }
-  // down
-  if (destY > curY) {
-    newY = Math.min(curY + speed, destY);
-  } else { // up
-    newY = Math.max(curY - speed, destY);
-  }
-  
+  // update position
   entity[POSITION_COMP].x = newX;
   entity[POSITION_COMP].y = newY;
   
-  if (entity[PLAYER_CONTROLLED_COMP]) {
-    let {x, y} = getPos(entity);
-    let {panX, panY} = mapAPI.getPan();
-    
-    let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
-    let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
-    
-    
-    if (x + viewWidth / 2 > mapWidth) {
-      panToX = panX;
-    }
   
-    if (y + viewHeight / 2 > mapHeight) {
-      panToY = panY;
-    }
-    
-    
-    mapAPI.pan(panToX, panToY);
-    game.requestBackgroundRender();
-    // pan to user
+  /**
+   * Pan the camera around the player controlled entity
+   */
+  if (entity[PLAYER_CONTROLLED_COMP]) {
+    centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight);
   }
 }
 
@@ -97,3 +78,18 @@ function moveSystem(systemArguments, mapAPI) {
 }
 
 export default moveSystem;
+
+
+
+
+
+function updateMapTileIdx({entity, tileIdxMap,  oldX, oldY, newX, newY}) {
+  let oldIndexedTile = tileIdxMap[getTileIdxByPos(oldX, oldY)];
+  let newIndexedTile = tileIdxMap[getTileIdxByPos(newX, newY)];
+  
+  oldIndexedTile && oldIndexedTile.removeEnt(entity);
+  newIndexedTile && newIndexedTile.addEnt(entity);
+  console.log(newIndexedTile);
+}
+
+export {updateMapTileIdx};

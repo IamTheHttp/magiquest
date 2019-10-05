@@ -1,14 +1,21 @@
 import {TRAVERSABLE_COMP} from '../../ComponentNamesConfig';
 import {bit} from '../../../config';
+import getTileIdx, {getTileIdxByPos} from '../tileUtils/getTileIdx';
 
-function isTraversable(tileIdx, x, y) {
-  // What tile are we going to?
-  // easy to calc, no?
-  let col = Math.floor(x / bit);
-  let row = Math.floor(y / bit);
+
+function isTraversable(tileIdxMap, x, y) {
+  let tileIdx = getTileIdxByPos(x, y);
+  if (!tileIdxMap[tileIdx]) {
+    return;
+  }
   
-  let tile = tileIdx[`${row}-${col}`]; // TODO, we need a function to properly access the idx
+  let indexedTile = tileIdxMap[tileIdx];
   
+  if (indexedTile.getEntCount() > 0) {
+    return false;
+  }
+  
+  let {tile} = tileIdxMap[tileIdx];
   return tile && tile.hasComponents(TRAVERSABLE_COMP);
 }
 

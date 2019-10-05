@@ -5,3 +5,5 @@ export const MOVEMENT_COMP = 'MOVEMENT_COMP';
 export const TRAVERSABLE_COMP = 'TRAVERSABLE_COMP';
 export const POSITION_COMP = 'POSITION_COMP';
 export const UI_COMP = 'UI_COMP';
+export const HEALTH_COMP = 'HEALTH_COMP';
+export const AI_CONTROLLED_COMP = 'AI_CONTROLLED_COMP';
