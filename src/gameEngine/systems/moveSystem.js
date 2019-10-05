@@ -14,11 +14,10 @@ import getSafeDest from './utils/getSafeDest';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 
-
 function moveEntity(systemArguments, entity) {
   let {mapAPI, game, tileIdxMap} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
-  let {x: originX, y: originY} = getPos(entity);
+  let {x: currX, y: currY} = getPos(entity);
   
   // get adjusted destination, make sure you can't leave the map
   let {x: destX, y: destY} = getDest(entity);
@@ -26,34 +25,43 @@ function moveEntity(systemArguments, entity) {
   destX = entity[POSITION_COMP].destX = safeX;
   destY = entity[POSITION_COMP].destY = safeY;
   
+  
   /**
    * Is our destination traversable? if not, we stop.
    */
-  if (!isTraversable(tileIdxMap, destX, destY)) {
+  if (!isTraversable(tileIdxMap, destX, destY, entity)) {
     // stop the entity
+    // updateMapTileIdx({entity, tileIdxMap, newX: currX, newY: currY, oldX: entity[POSITION_COMP].originX, oldY: entity[POSITION_COMP].originY});
     entity.removeComponent(MOVING_COMP);
+    entity[POSITION_COMP].originX = null;
+    entity[POSITION_COMP].originY = null;
+    
     return;
   }
+  
+  // always occupy your destination first
+  updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY});
   
   /**
    * was our destination reached? if it was, we stop.
    */
   if (destReached(entity)) {
     // insert the entity as an occupant of the tile
-    updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY});
+    // since we're moving - make sure the entity leaves the origin tile
+    // we need the original Y and X...
+    updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY, oldX: entity[POSITION_COMP].originX, oldY: entity[POSITION_COMP].originY});
     // stop the entity
+    // TODO does originX belong in MOVING_COMP?
     entity.removeComponent(MOVING_COMP);
+    entity[POSITION_COMP].originX = null;
+    entity[POSITION_COMP].originY = null;
     return;
   }
   
   /**
    * Lets start moving...
    */
-  
-  // since we're moving - make sure the entity leaves the origin tile
-  updateMapTileIdx({entity, tileIdxMap, oldX: originX, oldY: originY});
-  
-  let {x: newX, y: newY} = calcNewPosToMove(entity, originX, originY, destX, destY);
+  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, destX, destY);
   
   // update position
   entity[POSITION_COMP].x = newX;
@@ -80,16 +88,12 @@ function moveSystem(systemArguments, mapAPI) {
 export default moveSystem;
 
 
-
-
-
 function updateMapTileIdx({entity, tileIdxMap,  oldX, oldY, newX, newY}) {
   let oldIndexedTile = tileIdxMap[getTileIdxByPos(oldX, oldY)];
   let newIndexedTile = tileIdxMap[getTileIdxByPos(newX, newY)];
   
   oldIndexedTile && oldIndexedTile.removeEnt(entity);
   newIndexedTile && newIndexedTile.addEnt(entity);
-  console.log(newIndexedTile);
 }
 
 export {updateMapTileIdx};

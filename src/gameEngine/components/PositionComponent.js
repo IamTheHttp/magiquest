@@ -11,6 +11,8 @@ class PositionComponent {
     this.width = width;
     this.destY = null;
     this.destX = null;
+    this.originX = null;
+    this.originY = null;
   }
 }
 

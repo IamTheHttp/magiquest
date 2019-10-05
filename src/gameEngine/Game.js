@@ -12,47 +12,56 @@ import throttle from './utils/throttle';
 import Sentry from './entities/Sentry';
 import aiSystem from './systems/ai';
 import getPos from './components/utils/positionUtils/getPos';
+import {bit} from './config';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
-    this.renderBackground = true;
-    let count = 0;
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 16);
+    this.renderBackground = true; // for the first time
+    
+    // Reset the entities
     Entity.reset();
+    // create a mapped index of all the tiles
     let tileIdxMap = this.createMapEntites(tileMap, viewSize);
+    // create a player
     let player = new Player({x: 16, y: 16});
     let playerPOS = getPos(player);
     updateMapTileIdx({entity: player, tileIdxMap,  newX: playerPOS.x, newY: playerPOS.y});
   
+    
+    
+    for (let i = 0; i < 20; i++) {
+      // create an enemy
+      let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
+      let sentryPOS = getPos(sentry);
+      updateMapTileIdx({entity: sentry, tileIdxMap,  newX: sentryPOS.x, newY: sentryPOS.y});
+    }
+
+    
+    // arguments that are passed to every system
   
-    let sentry = new Sentry({x: 32 * 1 + 16, y: 32 * 2 + 16});
-    let sentryPOS = getPos(sentry);
-    updateMapTileIdx({entity: sentry, tileIdxMap,  newX: sentryPOS.x, newY: sentryPOS.y});
+    let systemArguments = {
+      tileIdxMap,
+      Entity,
+      viewSize,
+      getRenderBackground: () => {
+        return this.renderBackground;
+      },
+      mapAPI: getMapAPI(),
+      miniMapAPI: getMinimapAPI(),
+      game: this
+    };
     
-    
-    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 16);
     
     this.loop = () => {
-      let systemArguments = {
-        tileIdxMap,
-        Entity,
-        viewSize,
-        getRenderBackground: () => {
-          return this.renderBackground;
-        },
-        mapAPI: getMapAPI(),
-        miniMapAPI: getMinimapAPI(),
-        game: this
-      };
-      
       userInputSystem();
       moveSystem(systemArguments);
-      // aiSystem();
+      aiSystem();
       renderSystem(systemArguments);
       
       
       this.frameID = requestAnimationFrame(this.loop);
       this.renderBackground = false;
-      count++;
     };
     
     this.dispatchAction = this.dispatchAction.bind(this);

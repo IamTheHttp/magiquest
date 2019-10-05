@@ -15,8 +15,8 @@ let mapHeight = tileMap.length * bit;
 
 // MAIN VIEW, Where the player moves!
 // This is the actual resolution of the player, changing these values will create bigger displays
-let viewWidth = 400;
-let viewHeight = 240;
+let viewWidth = 400 * 3;
+let viewHeight = 240 * 3;
 
 class App extends React.Component {
   constructor(props) {
@@ -25,14 +25,12 @@ class App extends React.Component {
       mapCanvasEl: null,
       minimapCanvasEl: null
     };
-    
+  }
+  
+  componentDidMount() {
     // app starts game...
-    setTimeout(() => {
-      this.startGame();
-    }, 1000);
-    
-    
-    this.registerEvents();
+    this.startGame();
+    this.registerUserInputEvents();
   }
   
   initGameCanvas() {
@@ -87,7 +85,11 @@ class App extends React.Component {
   
   startGame() {
     let {map, minimap} = this.initGameCanvas();
-    this.game = this.initGameLoop();
+    
+    // the game needs the canvas to be ready, and it will be the next tick
+    setTimeout(() => {
+      this.game = this.initGameLoop();
+    }, 0);
     
     this.setState({
       map,
@@ -95,8 +97,7 @@ class App extends React.Component {
     });
   }
   
-  
-  registerEvents() {
+  registerUserInputEvents() {
     document.body.addEventListener('keyup', (event) => {
       let map = {
         37: 'left',
