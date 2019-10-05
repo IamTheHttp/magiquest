@@ -13,7 +13,7 @@ class Player {
     
     // TODO 16 should not be hard-coded
   
-    ent.addComponent(new MoveComponent(4));
+    ent.addComponent(new MoveComponent(2));
     ent.addComponent(new PlayerControlledComponent());
     ent.addComponent(new PositionComponent({x, y, radius}));
     ent.addComponent(new UIComponent(
