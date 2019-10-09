@@ -13,6 +13,7 @@ import Sentry from './entities/Sentry';
 import aiSystem from './systems/ai';
 import getPos from './components/utils/positionUtils/getPos';
 import {bit} from './config';
+import attackSystem from './systems/attackSystem';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
@@ -54,11 +55,11 @@ class GameLoop {
     
     
     this.loop = () => {
-      userInputSystem();
+      userInputSystem(systemArguments);
       moveSystem(systemArguments);
-      aiSystem();
+      aiSystem(systemArguments);
+      attackSystem(systemArguments);
       renderSystem(systemArguments);
-      
       
       this.frameID = requestAnimationFrame(this.loop);
       this.renderBackground = false;
@@ -75,31 +76,11 @@ class GameLoop {
   createMapEntites(tileMap, viewSize) {
     let {mapHeight, mapWidth} = viewSize;
   
+    /**
+     *
+     * @type {Object.<string, IndexedTile>}
+     */
     let idx = {};
-    
-    class indexedTile {
-      constructor(tile) {
-        this.entities = {
-          ['[[COUNT]]']: 0
-        };
-        this.tile = tile;
-      }
-      addEnt(ent) {
-        if (!this.entities[ent.id]) {
-          this.entities['[[COUNT]]']++;
-          this.entities[ent.id] = ent;
-        }
-      }
-      removeEnt(ent) {
-        if (this.entities[ent.id]) {
-          this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
-          delete this.entities[ent.id];
-        }
-      }
-      getEntCount() {
-        return this.entities['[[COUNT]]'];
-      }
-    }
     
     for (let rowIdx = 0; rowIdx < tileMap.length; rowIdx++) {
       let row = tileMap[rowIdx];
@@ -118,7 +99,16 @@ class GameLoop {
           tileType: tileMap[rowIdx][colIdx]
         });
       
-        idx[`${rowIdx}-${colIdx}`] = new indexedTile(tile);
+        idx[`${rowIdx}-${colIdx}`] = new IndexedTile(tile);
+  
+        Object.defineProperty(idx[`${rowIdx}-${colIdx}`], 'entities', {
+          writable: false
+        });
+        
+        Object.defineProperty(idx[`${rowIdx}-${colIdx}`].entities, '[[COUNT]]', {
+          enumerable: false,
+          writable: true
+        });
       }
     }
     return idx;
@@ -139,5 +129,41 @@ class GameLoop {
     pushAction(action);
   }
 }
+
+
+class IndexedTile {
+  /**
+   * @param {Tile} tile
+   */
+  constructor(tile) {
+    /**
+     * @type {Object.<number, Entity>}
+     */
+    this.entities = {
+      ['[[COUNT]]']: 0
+    };
+  
+    /**
+     * @type {Tile}
+     */
+    this.tile = tile;
+  }
+  addEnt(ent) {
+    if (!this.entities[ent.id]) {
+      this.entities['[[COUNT]]']++;
+      this.entities[ent.id] = ent;
+    }
+  }
+  removeEnt(ent) {
+    if (this.entities[ent.id]) {
+      this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
+      delete this.entities[ent.id];
+    }
+  }
+  getEntCount() {
+    return this.entities['[[COUNT]]'];
+  }
+}
+
 
 export default GameLoop;

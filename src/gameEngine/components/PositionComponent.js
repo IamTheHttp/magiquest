@@ -1,4 +1,5 @@
 import {POSITION_COMP} from './ComponentNamesConfig';
+import {DIRECTIONS} from '../constants';
 
 
 class PositionComponent {
@@ -13,6 +14,7 @@ class PositionComponent {
     this.destX = null;
     this.originX = null;
     this.originY = null;
+    this.direction = DIRECTIONS.DOWN;
   }
 }
 

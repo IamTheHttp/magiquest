@@ -9,11 +9,10 @@ tileSetImage.src = tiles;
 
 import filterOutFarEntities from './utils/filterOutFarEntities';
 import GAME_PLATFORM from 'game-platform/dist';
-import {BACKGROUND_COMP, HEALTH_COMP, POSITION_COMP, UI_COMP} from '../components/ComponentNamesConfig';
-import {CIRCLE_SHAPE, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE} from '../constants';
+import {ATTACK_COMP, BACKGROUND_COMP, HEALTH_COMP, POSITION_COMP, UI_COMP} from '../components/ComponentNamesConfig';
+import {CIRCLE_SHAPE, DIRECTIONS, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE} from '../constants';
 import {bit} from '../config';
-
-
+import onDirection from '../components/utils/positionUtils/onDirection';
 
 
 let {Entity, entityLoop} = GAME_PLATFORM;
@@ -70,25 +69,121 @@ function renderBackgroundLayer(systemArguments, closeBackgroundEnts) {
   }
 }
 
+
+/**
+ * @param systemArguments
+ * @param {Entity[]} closeEnts
+ * @return void
+ */
 function renderMainLayer(systemArguments, closeEnts) {
   let {mapAPI} = systemArguments;
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
+    let {x: curX, y: curY, radius, direction: curDirection} = entity[POSITION_COMP];
+    
     entity[UI_COMP].sections.forEach((section) => {
       if (section.shape === CIRCLE_SHAPE) {
-        // tile type
+        // We draw a circle
         mapAPI.addCircle(
           {
             id: `${entity.id}-${i}`,
-            image: tileSetImage,
-            x: entity[POSITION_COMP].x,
-            y: entity[POSITION_COMP].y,
-            radius: entity[POSITION_COMP].radius,
+            x: curX,
+            y: curY,
+            radius,
             fillColor: 'red',
             strokeStyle: 'red',
-            lineWidth:1
+            lineWidth: 1
           }
         );
+        
+        // We set the direction of the circle
+        let dirXOffset = 0;
+        let dirYOffset = 0;
+        
+        if (curDirection === DIRECTIONS.LEFT) {
+          dirXOffset = -radius;
+        }
+        
+        if (curDirection === DIRECTIONS.RIGHT) {
+          dirXOffset = entity[POSITION_COMP].radius;
+        }
+        
+        if (curDirection === DIRECTIONS.UP) {
+          dirYOffset = -entity[POSITION_COMP].radius;
+        }
+        
+        if (curDirection === DIRECTIONS.DOWN) {
+          dirYOffset = entity[POSITION_COMP].radius;
+        }
+        
+        mapAPI.addCircle(
+          {
+            id: `${entity.id}-${i}-direction`,
+            x: curX + dirXOffset,
+            y: curY + dirYOffset,
+            radius: 2,
+            fillColor: 'white',
+            strokeStyle: 'white',
+            lineWidth: 1
+          }
+        );
+        
+        
+        /**
+         * @type {AttackComponent}
+         */
+        let attackComp = entity[ATTACK_COMP];
+        let isAnimationStillGoing = attackComp && attackComp.currentFrame < attackComp.animationDuration && attackComp.targetForAnimation;
+        
+        // TODO - Why only for circle shapes?
+        
+        // if entity has the attack component, and it has a target for animation....
+        // if animation is still not done, draw an animation frame
+        if (isAnimationStillGoing) {
+          attackComp.currentFrame++;
+          
+          let animationX = curX;
+          let animationY = curY;
+          let animSpeed = 2;
+          
+          onDirection(
+            entity,
+            () => {
+              animationY = curY - attackComp.currentFrame * animSpeed; // 5 == animation speed
+            },
+            () => {
+              animationX = curX + attackComp.currentFrame * animSpeed;
+            },
+            () => {
+              animationY = curY + attackComp.currentFrame * animSpeed;
+            },
+            () => {
+              animationX = curX - attackComp.currentFrame * animSpeed;
+            }
+          );
+          
+          mapAPI.addCircle(
+            {
+              id: `${entity.id}-${i}-direction`,
+              x: animationX,
+              y: animationY,
+              radius: 2,
+              fillColor: 'black',
+              strokeStyle: 'black',
+              lineWidth: 1
+            }
+          );
+        } else {
+          if (attackComp) {
+            attackComp.currentFrame = 0;
+            attackComp.targetForAnimation = null;
+          }
+        }
+        // if (entity[ATTACK_COMP].current < entity[ATTACK_COMP].animationDuration)
+        // What animation data do we need?
+        // current frame
+        // total frame
+        // what to do.
       }
       
       if (section.shape === HEALTH_BAR_SHAPE) {
@@ -109,10 +204,10 @@ function renderMainLayer(systemArguments, closeEnts) {
             width: healthWidth,
             height: healthHeight,
             strokeStyle: 'black',
-            lineWidth:2
+            lineWidth: 2
           }
         );
-  
+        
         mapAPI.addRect(
           {
             id: `${entity.id}-${i}-${HEALTH_BAR_SHAPE}`,
@@ -122,7 +217,7 @@ function renderMainLayer(systemArguments, closeEnts) {
             width: healthWidth * healthPercent,
             height: healthHeight,
             strokeStyle: 'lime',
-            lineWidth:2
+            lineWidth: 2
           }
         );
       }

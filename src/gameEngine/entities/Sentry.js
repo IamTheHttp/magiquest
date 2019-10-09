@@ -13,7 +13,7 @@ class Sentry {
   constructor({x, y, radius = 8}) {
     let ent = new Entity(Sentry);
     
-    ent.addComponent(new MoveComponent(1));
+    ent.addComponent(new MoveComponent(0.25));
     ent.addComponent(new PositionComponent({x, y, radius}));
     ent.addComponent(new Health(100));
   

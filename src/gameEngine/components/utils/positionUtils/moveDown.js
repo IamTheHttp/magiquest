@@ -1,7 +1,9 @@
 import {POSITION_COMP} from '../../ComponentNamesConfig';
 import {bit} from '../../../config';
+import {DIRECTIONS} from '../../../constants';
 
 export function moveDown(ent) {
+  ent[POSITION_COMP].direction = DIRECTIONS.DOWN;
   ent[POSITION_COMP].destX = ent[POSITION_COMP].x;
   ent[POSITION_COMP].destY = ent[POSITION_COMP].y + bit;
   ent[POSITION_COMP].originY = ent[POSITION_COMP].y;

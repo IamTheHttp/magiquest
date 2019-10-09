@@ -4,6 +4,7 @@ import PositionComponent from '../components/PositionComponent';
 import PlayerControlledComponent from '../components/PlayerControlledComponent';
 import MoveComponent from '../components/MoveComponent';
 import {CANVAS_OUTPUT, CIRCLE_SHAPE} from '../constants';
+import AttackComponent from '../components/AttackComponent';
 
 let {Entity} = GAME_PLATFORM;
 
@@ -15,6 +16,7 @@ class Player {
   
     ent.addComponent(new MoveComponent(2));
     ent.addComponent(new PlayerControlledComponent());
+    ent.addComponent(new AttackComponent(35));
     ent.addComponent(new PositionComponent({x, y, radius}));
     ent.addComponent(new UIComponent(
       [{

@@ -7,3 +7,5 @@ export const POSITION_COMP = 'POSITION_COMP';
 export const UI_COMP = 'UI_COMP';
 export const HEALTH_COMP = 'HEALTH_COMP';
 export const AI_CONTROLLED_COMP = 'AI_CONTROLLED_COMP';
+export const ATTACK_COMP = 'ATTACK_COMP';
+export const IS_ATTACKING_COMP = 'IS_ATTACKING_COMP';

@@ -61,8 +61,12 @@ function moveEntity(systemArguments, entity) {
   /**
    * Lets start moving...
    */
+
   let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, destX, destY);
   
+  Promise.resolve().then(() => {
+    updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
+  });
   // update position
   entity[POSITION_COMP].x = newX;
   entity[POSITION_COMP].y = newY;
