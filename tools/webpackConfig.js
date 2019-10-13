@@ -1,6 +1,6 @@
 module.exports = function(config){
   config.resolve = {
-    modules: ["./src", "node_modules"]
+    modules: ["./src", "./src/gameEngine/components", "node_modules"]
   };
 
   if (process.env.NODE_ENV === 'production') {

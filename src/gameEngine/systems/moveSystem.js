@@ -2,16 +2,23 @@
 import GAME_PLATFORM from 'game-platform/dist';
 import {
 } from 'gameEngine/constants';
-import getPos from '../components/utils/positionUtils/getPos';
-import getDest from '../components/utils/positionUtils/getDest';
-import destReached from '../components/utils/positionUtils/destReached';
-import isTraversable from '../components/utils/movementUtils/isTraversable';
+// import getPos from '../components/utils/positionUtils/getPos';
+// import getDest from '../components/utils/positionUtils/getDest';
+// import destReached from '../components/utils/positionUtils/destReached';
+// import isTraversable from '../components/utils/movementUtils/isTraversable';
 import {MOVEMENT_COMP, MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
-import {getTileIdxByPos} from '../components/utils/tileUtils/getTileIdx';
-import calcNewPosToMove from './utils/calcNewPosToMove';
-import centerCameraOnEntity from './utils/centerCameraOnEntity';
-import getSafeDest from './utils/getSafeDest';
+import getPos from '../utils/componentUtils/positionUtils/getPos';
+import getDest from '../utils/componentUtils/positionUtils/getDest';
+import getSafeDest from '../utils/systemUtils/getSafeDest';
+import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
+import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
+import destReached from '../utils/componentUtils/positionUtils/destReached';
+import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
+import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 let {Entity, entityLoop} = GAME_PLATFORM;
+
+
+
 
 
 function moveEntity(systemArguments, entity) {
@@ -31,7 +38,6 @@ function moveEntity(systemArguments, entity) {
    */
   if (!isTraversable(tileIdxMap, destX, destY, entity)) {
     // stop the entity
-    // updateMapTileIdx({entity, tileIdxMap, newX: currX, newY: currY, oldX: entity[POSITION_COMP].originX, oldY: entity[POSITION_COMP].originY});
     entity.removeComponent(MOVING_COMP);
     entity[POSITION_COMP].originX = null;
     entity[POSITION_COMP].originY = null;
@@ -49,7 +55,13 @@ function moveEntity(systemArguments, entity) {
     // insert the entity as an occupant of the tile
     // since we're moving - make sure the entity leaves the origin tile
     // we need the original Y and X...
-    updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY, oldX: entity[POSITION_COMP].originX, oldY: entity[POSITION_COMP].originY});
+    updateMapTileIdx({entity,
+      tileIdxMap,
+      newX: destX,
+      newY: destY,
+      oldX: entity[POSITION_COMP].originX,
+      oldY: entity[POSITION_COMP].originY
+    });
     // stop the entity
     // TODO does originX belong in MOVING_COMP?
     entity.removeComponent(MOVING_COMP);
@@ -92,12 +104,3 @@ function moveSystem(systemArguments, mapAPI) {
 export default moveSystem;
 
 
-function updateMapTileIdx({entity, tileIdxMap,  oldX, oldY, newX, newY}) {
-  let oldIndexedTile = tileIdxMap[getTileIdxByPos(oldX, oldY)];
-  let newIndexedTile = tileIdxMap[getTileIdxByPos(newX, newY)];
-  
-  oldIndexedTile && oldIndexedTile.removeEnt(entity);
-  newIndexedTile && newIndexedTile.addEnt(entity);
-}
-
-export {updateMapTileIdx};

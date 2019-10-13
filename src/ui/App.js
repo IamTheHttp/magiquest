@@ -50,7 +50,7 @@ class App extends React.Component {
     }).getNewCanvasPairs({
       getMapRef: (API, el) => {
         // Todo - feels strange that we need this here...
-        console.log(API);
+        window.API = API;
         API.addLayer('background');
         this.setState({
           mapAPI: API

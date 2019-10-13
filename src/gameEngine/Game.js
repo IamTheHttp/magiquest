@@ -7,18 +7,62 @@ import renderSystem from './systems/renderSystem';
 import Tile from './entities/Tile';
 import Player from './entities/Player';
 import userInputSystem, {pushAction} from './systems/userInputSystem';
-import moveSystem, {updateMapTileIdx} from './systems/moveSystem';
+import moveSystem from './systems/moveSystem';
 import throttle from './utils/throttle';
 import Sentry from './entities/Sentry';
 import aiSystem from './systems/ai';
-import getPos from './components/utils/positionUtils/getPos';
 import {bit} from './config';
 import attackSystem from './systems/attackSystem';
+import tiles from '../assets/tileSet.png';
+import getPos from './utils/componentUtils/positionUtils/getPos';
+import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
+let tileSetImage = new Image();
+tileSetImage.src = tiles;
+
+
+// TODO - Where should we move this class?
+class IndexedTile {
+  /**
+   * @param {Tile} tile
+   */
+  constructor(tile) {
+    /**
+     * @type {Object.<number, Entity>}
+     */
+    this.entities = {
+      ['[[COUNT]]']: 0
+    };
+    
+    /**
+     * @type {Tile}
+     */
+    this.tile = tile;
+  }
+  addEnt(ent) {
+    if (!this.entities[ent.id]) {
+      this.entities['[[COUNT]]']++;
+      this.entities[ent.id] = ent;
+    }
+  }
+  removeEnt(ent) {
+    if (this.entities[ent.id]) {
+      this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
+      delete this.entities[ent.id];
+    }
+  }
+  getEntCount() {
+    return this.entities['[[COUNT]]'];
+  }
+}
+
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
-    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 16);
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 1000);
     this.renderBackground = true; // for the first time
+  
+  
+
     
     // Reset the entities
     Entity.reset();
@@ -31,18 +75,16 @@ class GameLoop {
   
     
     
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 1; i++) {
       // create an enemy
       let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
       let sentryPOS = getPos(sentry);
       updateMapTileIdx({entity: sentry, tileIdxMap,  newX: sentryPOS.x, newY: sentryPOS.y});
     }
-
-    
     // arguments that are passed to every system
-  
     let systemArguments = {
       tileIdxMap,
+      tileSetImage,
       Entity,
       viewSize,
       getRenderBackground: () => {
@@ -52,24 +94,27 @@ class GameLoop {
       miniMapAPI: getMinimapAPI(),
       game: this
     };
+  
+    tileSetImage.onload = () => {
+      this.loop = () => {
+        userInputSystem(systemArguments);
+        moveSystem(systemArguments);
+        aiSystem(systemArguments);
+        attackSystem(systemArguments);
+        renderSystem(systemArguments);
     
-    
-    this.loop = () => {
-      userInputSystem(systemArguments);
-      moveSystem(systemArguments);
-      aiSystem(systemArguments);
-      attackSystem(systemArguments);
-      renderSystem(systemArguments);
-      
-      this.frameID = requestAnimationFrame(this.loop);
-      this.renderBackground = false;
+        this.frameID = requestAnimationFrame(this.loop);
+        this.renderBackground = false;
+      };
+  
+      this.resume();
     };
     
     this.dispatchAction = this.dispatchAction.bind(this);
-    this.resume();
   }
   
   requestBackgroundRender() {
+    console.log('Requesting background draw!');
     this.renderBackground = true;
   }
   
@@ -127,41 +172,6 @@ class GameLoop {
    */
   dispatchAction(action) {
     pushAction(action);
-  }
-}
-
-
-class IndexedTile {
-  /**
-   * @param {Tile} tile
-   */
-  constructor(tile) {
-    /**
-     * @type {Object.<number, Entity>}
-     */
-    this.entities = {
-      ['[[COUNT]]']: 0
-    };
-  
-    /**
-     * @type {Tile}
-     */
-    this.tile = tile;
-  }
-  addEnt(ent) {
-    if (!this.entities[ent.id]) {
-      this.entities['[[COUNT]]']++;
-      this.entities[ent.id] = ent;
-    }
-  }
-  removeEnt(ent) {
-    if (this.entities[ent.id]) {
-      this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
-      delete this.entities[ent.id];
-    }
-  }
-  getEntCount() {
-    return this.entities['[[COUNT]]'];
   }
 }
 

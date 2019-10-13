@@ -11,11 +11,6 @@ appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';
 document.body.removeChild(document.getElementById('progress'));
 
-let tileSetImage = new Image();
-tileSetImage.src = tiles;
-
-tileSetImage.onload = () => {
-  render(<App/>, document.getElementById('app'));
-};
+render(<App/>, document.getElementById('app'));
 
 
