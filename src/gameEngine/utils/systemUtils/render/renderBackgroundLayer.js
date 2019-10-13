@@ -1,8 +1,13 @@
 import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {MAP_TILE_SHAPE} from '../../../constants';
 import {tileTypes} from 'gameEngine/config';
-function renderBackgroundLayer(systemArguments, closeBackgroundEnts) {
-  let {mapAPI, tileSetImage} = systemArguments;
+import filterOutFarEntities from '../filterOutFarEntities';
+
+
+function renderBackgroundLayer(systemArguments) {
+  let {mapAPI, tileSetImage, Entity} = systemArguments;
+  let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
+  let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
   
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     let entity = closeBackgroundEnts[i];

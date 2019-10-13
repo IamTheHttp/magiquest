@@ -58,7 +58,7 @@ class IndexedTile {
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
-    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 1000);
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
     this.renderBackground = true; // for the first time
   
   
@@ -114,7 +114,6 @@ class GameLoop {
   }
   
   requestBackgroundRender() {
-    console.log('Requesting background draw!');
     this.renderBackground = true;
   }
   

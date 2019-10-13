@@ -1,6 +1,8 @@
 import {POSITION_COMP} from '../../components/ComponentNamesConfig';
+import {bit} from '../../config';
 
 function filterOutFarEntities(systemArguments, entsToDraw) {
+  let buffer = bit * 4;
   let {mapAPI} = systemArguments;
   let arr = [];
   let {panX, panY} = mapAPI.getPan();
@@ -13,8 +15,9 @@ function filterOutFarEntities(systemArguments, entsToDraw) {
     let entWidth = radius * 2 || width;
     let entHeight = radius * 2 || height;
     
-    let xOutOfBound = x + entWidth + 200 < -panX || x - entWidth - 200 > -panX + viewWidth;
-    let yOutOfBound = y + entHeight + 200 < -panY || y - entHeight - 200 > -panY + viewHeight;
+    // TODO - Can we make it easier to understand?
+    let xOutOfBound = x + entWidth + buffer < -panX || x - entWidth - buffer > -panX + viewWidth;
+    let yOutOfBound = y + entHeight + buffer < -panY || y - entHeight - buffer > -panY + viewHeight;
     
     // out of screen? do nothing
     if (xOutOfBound || yOutOfBound) {
