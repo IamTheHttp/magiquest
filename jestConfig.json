@@ -23,6 +23,7 @@
       "statements": 85
     }
   },
+  "moduleDirectories" : ["./src", "./src/gameEngine/components", "node_modules"],
   "moduleNameMapper": {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "node_modules/jarb/lib/statics/jest/__mocks__/fileMock.js",
     "\\.(css|less|scss)$": "node_modules/jarb/lib/statics/jest/__mocks__/styleMock.js"

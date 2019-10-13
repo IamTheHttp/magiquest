@@ -14,6 +14,7 @@ module.exports = function (jestConfig) {
   jestConfig.setupFiles.push("<rootDir>/src/polyfill/rAF.js");
   jestConfig.setupFiles.push("jest-canvas-mock");
 
+  jestConfig.moduleDirectories = ["./src", "./src/gameEngine/components", "node_modules"];
   jestConfig.bail = true;
   jestConfig.coverageThreshold.global = {
     "branches": 80,

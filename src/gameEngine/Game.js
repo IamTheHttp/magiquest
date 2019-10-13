@@ -14,7 +14,6 @@ import aiSystem from './systems/ai';
 import {bit} from './config';
 import attackSystem from './systems/attackSystem';
 import tiles from '../assets/tileSet.png';
-import getPos from './utils/componentUtils/positionUtils/getPos';
 import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
 import {ANIMATION_COMP} from './components/ComponentNamesConfig';
 import animationSystem from './systems/animationSystem';
@@ -23,7 +22,7 @@ tileSetImage.src = tiles;
 
 
 // TODO - Where should we move this class?
-class IndexedTile {
+export class IndexedTile {
   /**
    * @param {Tile} tile
    */
@@ -58,6 +57,7 @@ class IndexedTile {
 }
 
 
+
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
@@ -70,7 +70,7 @@ class GameLoop {
     let tileIdxMap = this.createMapEntites(tileMap, viewSize);
     // create a player
     let player = new Player({x: 16, y: 16});
-    let playerPOS = getPos(player);
+    let playerPOS = player.getPos();
     updateMapTileIdx({entity: player, tileIdxMap,  newX: playerPOS.x, newY: playerPOS.y});
   
     
@@ -78,7 +78,7 @@ class GameLoop {
     for (let i = 0; i < 1; i++) {
       // create an enemy
       let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
-      let sentryPOS = getPos(sentry);
+      let sentryPOS = sentry.getPos();
       updateMapTileIdx({entity: sentry, tileIdxMap,  newX: sentryPOS.x, newY: sentryPOS.y});
     }
     // arguments that are passed to every system

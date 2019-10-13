@@ -1,4 +1,3 @@
-import getPos from '../positionUtils/getPos';
 import {bit} from '../../../config';
 
 function getTileIdxByPos(x, y) {
@@ -9,7 +8,7 @@ function getTileIdxByPos(x, y) {
 }
 
 function getTileIdxByEnt(ent) {
-  let {x, y} = getPos(ent);
+  let {x, y} = ent.getPos();
   
   return getTileIdxByPos(x, y);
 }

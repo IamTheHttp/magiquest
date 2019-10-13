@@ -1,7 +1,6 @@
-import getPos from '../componentUtils/positionUtils/getPos';
 
 function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight) {
-  let {x, y} = getPos(entity);
+  let {x, y} = entity.getPos();
   let {panX, panY} = mapAPI.getPan();
   
   let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
