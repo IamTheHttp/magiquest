@@ -4,12 +4,13 @@ import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
+import BaseEntity from '../BaseEntity';
 
 let {Entity} = GAME_PLATFORM;
 
 class Tile {
   constructor({x, y, height, width, tileType}) {
-    let ent = new Entity(Tile);
+    let ent = new BaseEntity(Tile);
     
     ent.addComponent(new PositionComponent({x, y, height, width}));
     

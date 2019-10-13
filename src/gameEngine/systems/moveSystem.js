@@ -1,11 +1,8 @@
 
 import GAME_PLATFORM from 'game-platform/dist';
 import {
+  ANIMATIONS
 } from 'gameEngine/constants';
-// import getPos from '../components/utils/positionUtils/getPos';
-// import getDest from '../components/utils/positionUtils/getDest';
-// import destReached from '../components/utils/positionUtils/destReached';
-// import isTraversable from '../components/utils/movementUtils/isTraversable';
 import {MOVEMENT_COMP, MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
 import getPos from '../utils/componentUtils/positionUtils/getPos';
 import getDest from '../utils/componentUtils/positionUtils/getDest';
@@ -15,6 +12,7 @@ import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
 import destReached from '../utils/componentUtils/positionUtils/destReached';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
+import {animationTypes} from '../config';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 
@@ -67,6 +65,8 @@ function moveEntity(systemArguments, entity) {
     entity.removeComponent(MOVING_COMP);
     entity[POSITION_COMP].originX = null;
     entity[POSITION_COMP].originY = null;
+    
+    entity.addAnimation(animationTypes[ANIMATIONS.IDLE]);
     return;
   }
   
@@ -79,6 +79,7 @@ function moveEntity(systemArguments, entity) {
   Promise.resolve().then(() => {
     updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
   });
+  
   // update position
   entity[POSITION_COMP].x = newX;
   entity[POSITION_COMP].y = newY;
@@ -92,11 +93,11 @@ function moveEntity(systemArguments, entity) {
   }
 }
 
-function moveSystem(systemArguments, mapAPI) {
+function moveSystem(systemArguments) {
   let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, MOVING_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
-      moveEntity(systemArguments, entity, mapAPI);
+      moveEntity(systemArguments, entity);
     });
   }
 }

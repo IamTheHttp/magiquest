@@ -6,12 +6,13 @@ import MoveComponent from '../components/MoveComponent';
 import {CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE} from '../constants';
 import Health from '../components/Health';
 import AIControlledComp from '../components/AIControlledComp';
+import BaseEntity from '../BaseEntity';
 
 let {Entity} = GAME_PLATFORM;
 
 class Sentry {
   constructor({x, y, radius = 8}) {
-    let ent = new Entity(Sentry);
+    let ent = new BaseEntity(Sentry);
     
     ent.addComponent(new MoveComponent(0.25));
     ent.addComponent(new PositionComponent({x, y, radius}));

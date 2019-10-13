@@ -13,7 +13,10 @@ export const DIRECTIONS = {
 };
 
 
-
+export const ANIMATIONS = {
+  BREATHING: 'BREATHING',
+  IDLE : 'IDLE'
+};
 
 
 

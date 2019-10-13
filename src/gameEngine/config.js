@@ -1,3 +1,5 @@
+import {ANIMATIONS} from './constants';
+
 const bit = 32;
 
 
@@ -32,11 +34,22 @@ const tileTypes = {
   6: monument
 };
 
-export {
-  bit,
-  tileTypes
+const animationTypes = {
+  [ANIMATIONS.IDLE]: {
+    frames: 60,
+    animationName:ANIMATIONS.IDLE,
+    size: 0.5, // in percent
+    loops: true
+  },
+  [ANIMATIONS.BREATHING]: {
+    frames: 15,
+    animationName:ANIMATIONS.BREATHING,
+    size: 0.5 // in percent
+  }
 };
 
-
-
-
+export {
+  bit,
+  tileTypes,
+  animationTypes
+};

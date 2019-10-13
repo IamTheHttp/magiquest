@@ -1,19 +1,16 @@
-import GAME_PLATFORM from 'game-platform/dist';
 import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import PlayerControlledComponent from '../components/PlayerControlledComponent';
 import MoveComponent from '../components/MoveComponent';
-import {CANVAS_OUTPUT, CIRCLE_SHAPE} from '../constants';
+import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE} from '../constants';
 import AttackComponent from '../components/AttackComponent';
-
-let {Entity} = GAME_PLATFORM;
+import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
+import {animationTypes} from '../config';
 
 class Player {
   constructor({x, y, radius = 16}) {
-    let ent = new Entity(Player);
+    let ent = new BaseEntity(Player);
     
-    // TODO 16 should not be hard-coded
-  
     ent.addComponent(new MoveComponent(2));
     ent.addComponent(new PlayerControlledComponent());
     ent.addComponent(new AttackComponent(35));
@@ -24,6 +21,9 @@ class Player {
         shape: CIRCLE_SHAPE
       }]
     ));
+    
+    ent.addAnimation(animationTypes[ANIMATIONS.IDLE]);
+    
     return ent;
   }
 }

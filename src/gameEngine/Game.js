@@ -16,6 +16,8 @@ import attackSystem from './systems/attackSystem';
 import tiles from '../assets/tileSet.png';
 import getPos from './utils/componentUtils/positionUtils/getPos';
 import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
+import {ANIMATION_COMP} from './components/ComponentNamesConfig';
+import animationSystem from './systems/animationSystem';
 let tileSetImage = new Image();
 tileSetImage.src = tiles;
 
@@ -60,8 +62,6 @@ class GameLoop {
   constructor({getMapAPI, getMinimapAPI, tileMap, viewSize}) {
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
     this.renderBackground = true; // for the first time
-  
-  
 
     
     // Reset the entities
@@ -102,7 +102,8 @@ class GameLoop {
         aiSystem(systemArguments);
         attackSystem(systemArguments);
         renderSystem(systemArguments);
-    
+        animationSystem(systemArguments);
+        
         this.frameID = requestAnimationFrame(this.loop);
         this.renderBackground = false;
       };

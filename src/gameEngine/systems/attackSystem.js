@@ -2,6 +2,8 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
+import {ANIMATIONS} from '../constants';
+import {animationTypes} from '../config';
 
 let {Entity, entityLoop} = GAME_PLATFORM;
 
@@ -22,8 +24,11 @@ function attackSystem(systemArguments) {
       // We'll try to go with 1, using the ATTACK_COMP
       entity[ATTACK_COMP].targetForAnimation = targetTile;
       
-      
       for (let entID in targetTile.entities) {
+        /**
+         *
+         * @type {BaseEntity}
+         */
         let entTarget = targetTile.entities[entID];
         
         // ensure you can't accidentally attack yourself :D
@@ -33,9 +38,8 @@ function attackSystem(systemArguments) {
         
         // do the attack
         entTarget[HEALTH_COMP].current -= dmg;
-        
-        
-
+  
+        entTarget.addAnimation(animationTypes[ANIMATIONS.BREATHING]);
         
         // remove dead entities
         if (entTarget[HEALTH_COMP].current <= 0) {

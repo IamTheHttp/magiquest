@@ -49,61 +49,6 @@ function renderCircle(systemArguments, entity) {
       lineWidth: 1
     }
   );
-  
-  
-  /**
-   * @type {AttackComponent}
-   */
-  let attackComp = entity[ATTACK_COMP];
-  let isAnimationStillGoing =
-    attackComp &&
-    attackComp.currentFrame < attackComp.animationDuration &&
-    attackComp.targetForAnimation;
-  
-  // TODO - Why only for circle shapes?
-  
-  // if entity has the attack component, and it has a target for animation....
-  // if animation is still not done, draw an animation frame
-  if (isAnimationStillGoing) {
-    attackComp.currentFrame++;
-    
-    let animationX = curX;
-    let animationY = curY;
-    let animSpeed = 2;
-    
-    onDirection(
-      entity,
-      () => {
-        animationY = curY - attackComp.currentFrame * animSpeed; // 5 == animation speed
-      },
-      () => {
-        animationX = curX + attackComp.currentFrame * animSpeed;
-      },
-      () => {
-        animationY = curY + attackComp.currentFrame * animSpeed;
-      },
-      () => {
-        animationX = curX - attackComp.currentFrame * animSpeed;
-      }
-    );
-    
-    mapAPI.addCircle(
-      {
-        id: `${entity.id}-attack-direction`,
-        x: animationX,
-        y: animationY,
-        radius: 2,
-        fillColor: 'black',
-        strokeStyle: 'black',
-        lineWidth: 1
-      }
-    );
-  } else {
-    if (attackComp) {
-      attackComp.currentFrame = 0;
-      attackComp.targetForAnimation = null;
-    }
-  }
 }
 
 export default renderCircle;
