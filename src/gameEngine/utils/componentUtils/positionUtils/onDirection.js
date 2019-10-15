@@ -11,7 +11,7 @@ import {DIRECTIONS} from 'gameEngine/constants';
  * @param {function} left
  */
 function onDirection(entity, up, right, down, left) {
-  let curDirection = entity[POSITION_COMP].direction;
+  let curDirection = entity[POSITION_COMP].ORIENTATION;
   
   if (curDirection === DIRECTIONS.UP) {
     up();

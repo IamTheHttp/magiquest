@@ -1,7 +1,7 @@
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import GAME_PLATFORM from 'game-platform';
 import Player from '../../../src/gameEngine/entities/Player';
-import Moving from '../../../src/gameEngine/components/Moving';
+import IsMoving from '../../../src/gameEngine/components/Moving';
 import Tile from '../../../src/gameEngine/entities/Tile';
 import {IndexedTile} from '../../../src/gameEngine/Game';
 import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
@@ -22,7 +22,7 @@ describe('move system tests', () => {
       radius: 16
     });
     
-    player.addComponent(new Moving());
+    player.addComponent(new IsMoving());
     
     moveDown(player);
     let spyPan = jest.fn();

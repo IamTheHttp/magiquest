@@ -97,7 +97,26 @@ class App extends React.Component {
   }
   
   registerUserInputEvents() {
-    let cb = throttle((event) => {
+    let glob = {};
+  
+    // TODO - we should keep our own tracking of what's up and what's down
+    // this will allow us to fire while we move
+    // (We should not STOP the user every time any key is up, only the arrow keys in the direction we were going to
+    document.body.addEventListener('keyup', (event) => {
+      glob.keyPressed = false;
+      // Stop.. on key up, right?
+      this.game.dispatchAction({
+        name: MOVE_ACTION
+      });
+    });
+    
+    document.body.addEventListener('keydown', (event) => {
+      if (glob.keyPressed) {
+        return true;
+      }
+      
+      glob.keyPressed = true;
+      
       let code = event.which || event.keyCode || event.code;
       let map = {
         37: 'left',
@@ -106,24 +125,22 @@ class App extends React.Component {
         40: 'down',
         32: 'space'
       };
-      
+  
       if (code === 32) {
         this.game.dispatchAction({
           name: ATTACK_ACTION
         });
       }
-      
+  
       let direction = map[code];
-      
+  
       if (direction) {
         this.game.dispatchAction({
           name: MOVE_ACTION,
           direction
         });
       }
-    }, 40);
-    
-    document.body.addEventListener('keydown', cb);
+    });
   }
   
   render() {

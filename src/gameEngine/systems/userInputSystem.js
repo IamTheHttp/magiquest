@@ -15,6 +15,7 @@ let actionMap = {
 // store our actions, singleton
 let actions = [];
 
+// on key down, send action to start
 function userInputSystem(systemArguments) {
   // loop over all actions
   actions.forEach((action) => {

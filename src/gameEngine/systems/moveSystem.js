@@ -1,9 +1,8 @@
-
 import GAME_PLATFORM from 'game-platform/dist';
 import {
   ANIMATIONS
 } from 'gameEngine/constants';
-import {MOVEMENT_COMP, MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
+import {MOVEMENT_COMP, IS_MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
 import getDest from '../utils/componentUtils/positionUtils/getDest';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
@@ -12,76 +11,110 @@ import destReached from '../utils/componentUtils/positionUtils/destReached';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import {animationTypes} from '../config';
+
 let {Entity, entityLoop} = GAME_PLATFORM;
 
+// TODO fix orientation
 
+function isNum(num) {
+  return typeof num === 'number';
+}
 
-
-
+/**
+ *
+ * @param systemArguments
+ * @param {BaseEntity} entity
+ */
 function moveEntity(systemArguments, entity) {
   let {mapAPI, game, tileIdxMap} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
   let {x: currX, y: currY} = entity.getPos();
+  let {x: desiredDestX, y : desiredDestY} = entity.getDest();
+  let dir = entity.getMoveDirection();
   
-  // get adjusted destination, make sure you can't leave the map
-  let {x: destX, y: destY} = getDest(entity);
-  let {x: safeX, y: safeY} = getSafeDest(destX, destY, mapWidth, mapHeight);
-  destX = entity[POSITION_COMP].destX = safeX;
-  destY = entity[POSITION_COMP].destY = safeY;
   
   /**
-   * Is our destination traversable? if not, we stop.
-   */
-  if (!isTraversable(tileIdxMap, destX, destY, entity)) {
-    // stop the entity
-    entity.removeComponent(MOVING_COMP);
-    entity[POSITION_COMP].originX = null;
-    entity[POSITION_COMP].originY = null;
-    return;
-  }
-  
-  
-  // always occupy your destination first
-  updateMapTileIdx({entity, tileIdxMap, newX: destX, newY: destY});
-  
-  /**
-   * was our destination reached? if it was, we stop.
+   * Stopping Point - Was our destination reached? if it was, we stop.
    */
   if (destReached(entity)) {
     // insert the entity as an occupant of the tile
     // since we're moving - make sure the entity leaves the origin tile
-    // we need the original Y and X...
-    updateMapTileIdx({entity,
+    updateMapTileIdx({
+      entity,
       tileIdxMap,
-      newX: destX,
-      newY: destY,
+      newX: entity.getDest().x,
+      newY: entity.getDest().y,
       oldX: entity[POSITION_COMP].originX,
       oldY: entity[POSITION_COMP].originY
     });
-    // stop the entity
-    // TODO does originX belong in MOVING_COMP?
-    entity.removeComponent(MOVING_COMP);
-    entity[POSITION_COMP].originX = null;
-    entity[POSITION_COMP].originY = null;
     
-    entity.addAnimation(animationTypes[ANIMATIONS.IDLE]);
+    // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
+    entity.stop();
+    if (dir) {
+      entity.setMoveDirection(dir);
+    }
+
+    return;
+  }
+  
+  // the user has a desired place he wants to go..
+  let modDestX = desiredDestX;
+  let modDestY = desiredDestY;
+  
+  // Set the modified, safe destination for the user
+  if (isNum(desiredDestX) && isNum(desiredDestY)) {
+    // make sure the that the desired destination is valid, and doesn't leave the map
+    let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
+    modDestY = y;
+    modDestX = x;
+  } else if (dir) {
+    // create destination from the direction we want to go
+    let {x, y} = entity.getDestFromDirection(dir);
+    modDestY = y;
+    modDestX = x;
+  } else {
+    // no direction, no destination? too bad, stop.
+    entity.stop();
+    return;
+  }
+  
+  // Update the entity's dest for future loops
+  entity.setDest({
+    x: modDestX,
+    y: modDestY
+  });
+  
+  /**
+   * Stopping Point - Is our (modified) destination traversable? if not, we stop.
+   */
+  if (!isTraversable(tileIdxMap, modDestX, modDestY, entity)) {
+    entity.stop();
     return;
   }
   
   /**
-   * Lets start moving...
+   * Prep before we move, occupy the target tile
    */
-
-  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, destX, destY);
+  updateMapTileIdx({entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y});
   
+  /**
+   * Calc the new X,Y to move to
+   */
+  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
+  
+  /**
+   * Update, at the end of the tick, the indexMap
+   * If you update it too soon, what happens?
+   * TODO - Check what happens here, this was written for a reason
+   */
   Promise.resolve().then(() => {
     updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
   });
   
-  // update position
-  entity[POSITION_COMP].x = newX;
-  entity[POSITION_COMP].y = newY;
-  
+  entity.setPos({
+    x: newX,
+    y: newY
+  });
   
   /**
    * Pan the camera around the player controlled entity
@@ -92,7 +125,7 @@ function moveEntity(systemArguments, entity) {
 }
 
 function moveSystem(systemArguments) {
-  let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, MOVING_COMP]);
+  let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity);
@@ -102,4 +135,12 @@ function moveSystem(systemArguments) {
 
 export default moveSystem;
 
-
+// once dest is reached, we nullify dest
+// if we have direction, we keep moving
+// keep the IS_MOVING comp
+// finish the loop, user hits a button, removing the direction
+// finish the rAF loop
+// go into the moveSystem again, assuming there's a direction...
+// user has no direction or dest, BOOM.
+// if no direction
+// remove IS_MOVING comp, no more movement
