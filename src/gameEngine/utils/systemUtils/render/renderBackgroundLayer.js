@@ -1,7 +1,7 @@
 import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {MAP_TILE_SHAPE} from '../../../constants';
 import {tileTypes} from 'gameEngine/config';
 import filterOutFarEntities from '../filterOutFarEntities';
+import {MAP_TILE_SHAPE} from 'gameConstants';
 
 
 function renderBackgroundLayer(systemArguments) {

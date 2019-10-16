@@ -3,7 +3,7 @@ import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import PlayerControlledComponent from '../components/PlayerControlledComponent';
 import MoveComponent from '../components/MoveComponent';
-import {CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE} from '../constants';
+import {CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE} from '../gameConstants';
 import Health from '../components/Health';
 import AIControlledComp from '../components/AIControlledComp';
 import BaseEntity from '../BaseEntity';

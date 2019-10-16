@@ -1,4 +1,4 @@
-import {TRAVERSABLE_COMP} from 'ComponentNamesConfig';
+import {TRAVERSABLE_COMP} from 'components/ComponentNamesConfig';
 import {bit} from 'gameEngine/config';
 import getTileIdx, {getTileIdxByPos} from '../tileUtils/getTileIdx';
 

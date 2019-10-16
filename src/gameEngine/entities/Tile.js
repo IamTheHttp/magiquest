@@ -1,5 +1,5 @@
 import GAME_PLATFORM from 'game-platform/dist';
-import {CANVAS_OUTPUT, MAP_TILE_SHAPE} from '../constants';
+import {CANVAS_OUTPUT, MAP_TILE_SHAPE} from '../gameConstants';
 import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';

@@ -1,4 +1,4 @@
-import {ANIMATIONS} from './constants';
+import {ANIMATIONS} from 'gameConstants';
 
 const bit = 32;
 

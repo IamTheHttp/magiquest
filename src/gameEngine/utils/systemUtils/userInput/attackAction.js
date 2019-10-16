@@ -1,6 +1,6 @@
 import {IS_MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {getTileIdxByEnt} from '../../componentUtils/tileUtils/getTileIdx';
-import {DIRECTIONS} from '../../../constants';
+import {DIRECTIONS} from '../../../gameConstants';
 import IsAttackingComp from '../../../components/IsAttacking';
 
 function attackAction(systemArguments, action) {

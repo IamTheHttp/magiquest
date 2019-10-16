@@ -2,8 +2,9 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {ANIMATION_COMP, IS_MOVING_COMP, POSITION_COMP} from './components/ComponentNamesConfig';
 import AnimationComp from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
-import {DIRECTIONS} from './constants';
-import {bit} from './config';
+import {DIRECTIONS} from './gameConstants';
+import {bit} from 'config';
+
 
 let {Entity} = GAME_PLATFORM;
 

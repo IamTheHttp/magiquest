@@ -1,12 +1,10 @@
-import moveSystem from '../../../src/gameEngine/systems/moveSystem';
-import GAME_PLATFORM from 'game-platform';
-import Player from '../../../src/gameEngine/entities/Player';
-import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import Tile from '../../../src/gameEngine/entities/Tile';
-import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
-import {DIRECTIONS} from '../../../src/gameEngine/constants';
-import IndexedTile from '../../../src/gameEngine/classes/IndexedTile';
+import GAME_PLATFORM from 'game-platform/dist';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import {DIRECTIONS} from 'gameConstants';
+import Player from 'entities/Player';
+import IsMoving from 'components/IsMoving';
+import {POSITION_COMP} from 'components/ComponentNamesConfig';
+import moveSystem from 'systems/moveSystem';
 let {Entity} = GAME_PLATFORM;
 
 describe('move system tests', () => {

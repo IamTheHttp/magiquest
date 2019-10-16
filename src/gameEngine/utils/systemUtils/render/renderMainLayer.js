@@ -1,5 +1,5 @@
-import {ANIMATION_COMP, POSITION_COMP, UI_COMP} from '../../../components/ComponentNamesConfig';
-import {CIRCLE_SHAPE, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR} from '../../../constants';
+import {ANIMATION_COMP, POSITION_COMP, UI_COMP} from 'components/ComponentNamesConfig';
+import {CIRCLE_SHAPE, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import renderAnimations from './renderAnimations';

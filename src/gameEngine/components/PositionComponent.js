@@ -1,6 +1,5 @@
-import {POSITION_COMP} from './ComponentNamesConfig';
-import {DIRECTIONS} from '../constants';
-
+import {DIRECTIONS} from 'gameConstants';
+import {POSITION_COMP} from 'components/ComponentNamesConfig';
 
 class PositionComponent {
   constructor({x, y, radius, height, width}) {

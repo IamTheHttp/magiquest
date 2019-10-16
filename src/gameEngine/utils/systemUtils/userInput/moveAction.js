@@ -1,5 +1,5 @@
 import {IS_MOVING_COMP, PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
-import {DIRECTIONS} from '../../../constants';
+import {DIRECTIONS} from '../../../gameConstants';
 
 function moveAction(systemArguments, action) {
   let {Entity} = systemArguments;

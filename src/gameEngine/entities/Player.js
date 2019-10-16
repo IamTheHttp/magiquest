@@ -2,7 +2,7 @@ import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
 import PlayerControlledComponent from '../components/PlayerControlledComponent';
 import MoveComponent from '../components/MoveComponent';
-import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE, PLAYER_CHAR} from '../constants';
+import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE, PLAYER_CHAR} from '../gameConstants';
 import AttackComponent from '../components/AttackComponent';
 import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
 import {animationTypes} from '../config';

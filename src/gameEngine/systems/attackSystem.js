@@ -2,7 +2,7 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
-import {ANIMATIONS} from '../constants';
+import {ANIMATIONS} from '../gameConstants';
 import {animationTypes} from '../config';
 
 let {Entity, entityLoop} = GAME_PLATFORM;

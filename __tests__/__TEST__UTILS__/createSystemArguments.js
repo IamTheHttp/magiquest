@@ -1,8 +1,14 @@
 import IndexedTile from '../../src/gameEngine/classes/IndexedTile';
 import Tile from '../../src/gameEngine/entities/Tile';
+import GAME_PLATFORM from 'game-platform/dist';
+
+let {Entity} = GAME_PLATFORM;
+
+
 
 function createSystemArgs(spyPan) {
   return {
+    Entity,
     mapAPI: {
       getPan: () => {
         return {
@@ -17,10 +23,14 @@ function createSystemArgs(spyPan) {
     },
     tileIdxMap: {
       '0-0': new IndexedTile(new Tile({tileType: 1})),
-      '1-0': new IndexedTile(new Tile({tileType: 1})),
       '0-1': new IndexedTile(new Tile({tileType: 1})),
+      '0-2': new IndexedTile(new Tile({tileType: 1})),
+      '1-0': new IndexedTile(new Tile({tileType: 1})),
       '1-1': new IndexedTile(new Tile({tileType: 1})),
-      '2-0': new IndexedTile(new Tile({tileType: 0})) // mountain
+      '1-2': new IndexedTile(new Tile({tileType: 1})),
+      '2-0': new IndexedTile(new Tile({tileType: 0})), // mountain
+      '2-1': new IndexedTile(new Tile({tileType: 1})),
+      '2-2': new IndexedTile(new Tile({tileType: 1})),
     },
     viewSize: {
       mapWidth: 1000,

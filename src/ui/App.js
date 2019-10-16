@@ -1,7 +1,7 @@
 import React from 'react';
 import GAME_PLATFORM from 'game-platform/dist';
 import GameLoop from 'gameEngine/Game';
-import {MOVE_ACTION, ATTACK_ACTION} from '../gameEngine/constants';
+import {MOVE_ACTION, ATTACK_ACTION} from '../gameEngine/gameConstants';
 
 let {GameCanvas} = GAME_PLATFORM;
 import tileMap from 'levels/test_15x15';

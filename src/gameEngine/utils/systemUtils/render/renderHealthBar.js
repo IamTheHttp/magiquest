@@ -1,13 +1,11 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {HEALTH_BAR_SHAPE} from '../../../constants';
+import {HEALTH_BAR_SHAPE} from 'gameConstants';
 
 function renderHealthBar(systemArguments, entity) {
   let {mapAPI, tileSetImage} = systemArguments;
   let healthWidth = entity[POSITION_COMP].width || entity[POSITION_COMP].radius * 2 || 200;
   let healthMargin = entity[POSITION_COMP].height || entity[POSITION_COMP].radius * 1 + 2 || 200;
   let healthHeight = 2;
-  
-  
   let healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
   
   

@@ -34,7 +34,7 @@
   ],
   "moduleDirectories": [
     "./src",
-    "./src/gameEngine/components",
+    "./src/gameEngine",
     "node_modules"
   ],
   "bail": true

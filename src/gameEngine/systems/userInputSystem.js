@@ -5,7 +5,7 @@ import attackAction from '../utils/systemUtils/userInput/attackAction';
 import {
   ATTACK_ACTION,
   MOVE_ACTION
-} from 'gameEngine/constants';
+} from 'gameEngine/gameConstants';
 
 let actionMap = {
   [MOVE_ACTION]: moveAction,

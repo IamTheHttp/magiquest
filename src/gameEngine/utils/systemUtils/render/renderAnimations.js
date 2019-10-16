@@ -1,5 +1,5 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {ANIMATIONS} from '../../../constants';
+import {ANIMATIONS} from '../../../gameConstants';
 
 function renderAnimations(systemArguments, entity) {
   let {mapAPI} = systemArguments;

@@ -1,11 +1,12 @@
-import Tile from '../../../src/gameEngine/entities/Tile';
-import IndexedTile from '../../../src/gameEngine/classes/IndexedTile';
-import aiSystem from '../../../src/gameEngine/systems/aiSystem';
-import Sentry from '../../../src/gameEngine/entities/Sentry';
-import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 
+import aiSystem from 'systems/aiSystem';
+import GAME_PLATFORM from 'game-platform/dist';
+import moveSystem from 'systems/moveSystem';
+import Sentry from 'entities/Sentry';
+import IsMoving from 'components/IsMoving';
 
+let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
   let systemArguments, spyPan;
@@ -16,16 +17,40 @@ describe('Tests for the AI system', () => {
     systemArguments = createSystemArgs(spyPan);
   });
   
-  it ('Moves the AI', () => {
+  it('doesnt break with no ents', () => {
+    aiSystem(systemArguments);
+  });
+  
+  it('Moves the AI', () => {
+    // position in the center, so it can move up down left or right
     let ent = new Sentry({
-      x: 16,
-      y: 16
+      x: 48,
+      y: 48
     });
     
     aiSystem(systemArguments);
     moveSystem(systemArguments);
     
-    expect(ent.getPos().x).toBeGreaterThan(0);
-    expect(ent.getPos().y).toBeGreaterThan(0);
+    let {x, y} = ent.getPos();
+    
+    let xOrYDiff = x !== 48 || y !== 48;
+    expect(xOrYDiff).toBe(true);
+  });
+  
+  it('doesnt move an already moving AI', () => {
+    let ent = new Sentry({
+      x: 48,
+      y: 48
+    });
+    
+    ent.addComponent(new IsMoving());
+    
+    aiSystem(systemArguments);
+    moveSystem(systemArguments);
+    
+    let {x, y} = ent.getPos();
+    
+    let xOrYDiff = x !== 48 || y !== 48;
+    expect(xOrYDiff).toBe(false);
   });
 });

@@ -1,4 +1,4 @@
-import {ANIMATION_COMP} from 'ComponentNamesConfig';
+import {ANIMATION_COMP} from 'components/ComponentNamesConfig';
 
 class AnimationComp {
   constructor() {
