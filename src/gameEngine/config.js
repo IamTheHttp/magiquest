@@ -12,7 +12,6 @@ function getSprite(col, row) {
   };
 }
 
-// TODO utility crops, move to somewhere useful
 let grassTile = getSprite(0, 0);
 let mountainTile = getSprite(6, 11);
 let riverTiles = getSprite(5, 10);
@@ -48,8 +47,14 @@ const animationTypes = {
   }
 };
 
+const resolution = {
+  width: 400,
+  height: 240
+};
+
 export {
   bit,
   tileTypes,
-  animationTypes
+  animationTypes,
+  resolution
 };

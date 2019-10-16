@@ -2,7 +2,7 @@ import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConf
 import {HEALTH_BAR_SHAPE} from 'gameConstants';
 
 function renderHealthBar(systemArguments, entity) {
-  let {mapAPI, tileSetImage} = systemArguments;
+  let {mapAPI} = systemArguments;
   let healthWidth = entity[POSITION_COMP].width || entity[POSITION_COMP].radius * 2 || 200;
   let healthMargin = entity[POSITION_COMP].height || entity[POSITION_COMP].radius * 1 + 2 || 200;
   let healthHeight = 2;
@@ -12,7 +12,6 @@ function renderHealthBar(systemArguments, entity) {
   mapAPI.addRect(
     {
       id: `${entity.id}-full-${HEALTH_BAR_SHAPE}-`,
-      image: tileSetImage,
       x: entity[POSITION_COMP].x - healthWidth / 2,
       y: entity[POSITION_COMP].y + healthMargin,
       width: healthWidth,
@@ -25,7 +24,6 @@ function renderHealthBar(systemArguments, entity) {
   mapAPI.addRect(
     {
       id: `${entity.id}-damage-${HEALTH_BAR_SHAPE}`,
-      image: tileSetImage,
       x: entity[POSITION_COMP].x - healthWidth / 2,
       y: entity[POSITION_COMP].y + healthMargin,
       width: healthWidth * healthPercent,

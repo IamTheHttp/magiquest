@@ -13,14 +13,19 @@ import Sentry from './entities/Sentry';
 import aiSystem from './systems/aiSystem';
 import {bit} from './config';
 import attackSystem from './systems/attackSystem';
-import tiles from '../assets/tileSet.png';
+import tileSetImageURL from '../assets/tileSet.png';
 import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
 import {ANIMATION_COMP} from './components/ComponentNamesConfig';
 import animationSystem from './systems/animationSystem';
 import IndexedTile from './classes/IndexedTile';
-// TODO add the character image to this initiation
-let tileSetImage = new Image();
-tileSetImage.src = tiles;
+import charSpriteURL from 'assets/finalchar.png';
+
+
+let tileSetSprite = new Image();
+tileSetSprite.src = tileSetImageURL;
+
+let characterSprite = new Image();
+characterSprite.src = charSpriteURL;
 
 
 class GameLoop {
@@ -49,7 +54,8 @@ class GameLoop {
     // arguments that are passed to every system
     let systemArguments = {
       tileIdxMap,
-      tileSetImage,
+      tileSetSprite,
+      characterSprite,
       Entity,
       viewSize,
       getRenderBackground: () => {
@@ -60,7 +66,7 @@ class GameLoop {
       game: this
     };
   
-    tileSetImage.onload = () => {
+    tileSetSprite.onload = () => {
       this.loop = () => {
         userInputSystem(systemArguments);
         moveSystem(systemArguments);

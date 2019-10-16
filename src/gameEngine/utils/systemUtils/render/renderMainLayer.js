@@ -42,12 +42,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   }
   
   for (let i = 0; i < closeEntsWithAnimation.length; i++) {
-    let entity = closeEnts[i];
-    
-    // TODO - Animation System needs to adjust position (x, y etc.) of the component.
-    // Since we don't want to adjust the real X,Y, we probably need an X,Y for animations on the anim component
-    // Since we can have multiple animations applied, we need to use each animation to transform the character
-    // renderAnimations(systemArguments, entity);
+  
   }
 }
 

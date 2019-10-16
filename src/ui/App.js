@@ -2,20 +2,14 @@ import React from 'react';
 import GAME_PLATFORM from 'game-platform/dist';
 import GameLoop from 'gameEngine/Game';
 import {MOVE_ACTION, ATTACK_ACTION} from '../gameEngine/gameConstants';
+import tileMap from 'levels/test_15x15';
+import {bit, resolution} from '../gameEngine/config';
 
 let {GameCanvas} = GAME_PLATFORM;
-import tileMap from 'levels/test_15x15';
-import {bit} from '../gameEngine/config';
-import throttle from '../gameEngine/utils/throttle';
-
-
 let mapWidth = tileMap[0].length * bit;
 let mapHeight = tileMap.length * bit;
 
-// MAIN VIEW, Where the player moves!
-// This is the actual resolution of the player, changing these values will create bigger displays
-let viewWidth = 400 * 1;
-let viewHeight = 240 * 1;
+
 
 class App extends React.Component {
   constructor(props) {
@@ -36,8 +30,8 @@ class App extends React.Component {
     return new GameCanvas({
       mapHeight,
       mapWidth,
-      viewHeight,
-      viewWidth,
+      viewHeight: resolution.height,
+      viewWidth: resolution.width,
       onViewMapMove: (dataObj) => {
       },
       onViewMapClick: (dataObj) => {
@@ -49,7 +43,6 @@ class App extends React.Component {
       }
     }).getNewCanvasPairs({
       getMapRef: (API, el) => {
-        // Todo - feels strange that we need this here...
         window.API = API;
         API.addLayer('background');
         this.setState({
@@ -74,8 +67,8 @@ class App extends React.Component {
         return this.state.minimapAPI;
       },
       viewSize: {
-        viewHeight,
-        viewWidth,
+        viewHeight: resolution.height,
+        viewWidth: resolution.width,
         mapHeight,
         mapWidth
       }
@@ -98,10 +91,7 @@ class App extends React.Component {
   
   registerUserInputEvents() {
     let glob = {};
-  
-    // TODO - we should keep our own tracking of what's up and what's down
-    // this will allow us to fire while we move
-    // (We should not STOP the user every time any key is up, only the arrow keys in the direction we were going to
+
     document.body.addEventListener('keyup', (event) => {
       glob.keyPressed = false;
       // Stop.. on key up, right?

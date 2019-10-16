@@ -5,16 +5,12 @@ import oneOf from '../utils/oneOf';
 import {DIRECTIONS} from '../gameConstants';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
-// this system simply sets the destination, the move system actually does the moving
-
-// TODO - Fix this system :)
 function aiSystem() {
   let entities = Entity.getByComps([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
   
   if (entities.length) {
     entityLoop(entities, (ent) => {
-      // TODO create a util called 'isMoving'
-      if (ent[IS_MOVING_COMP]) {
+      if (ent.isMoving()) {
         return;
       }
   

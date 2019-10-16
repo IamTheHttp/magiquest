@@ -5,14 +5,8 @@ import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
-
+import isNum from 'utils/isNum';
 let {Entity, entityLoop} = GAME_PLATFORM;
-
-// TODO fix orientation
-
-function isNum(num) {
-  return typeof num === 'number';
-}
 
 /**
  *
@@ -97,9 +91,16 @@ function moveEntity(systemArguments, entity) {
   
   /**
    * Update, at the end of the tick, the indexMap
-   * If you update it too soon, what happens?
-   * TODO - Check what happens here, this was written for a reason
+   *
+   * Do not free your tile until the end of the tick
+   * If you release it too soon, this situation occures;
+   * player -> going from 0 to 1
+   * enemy -> going from 1 to 0
+   * since at the moment of 'going' the tile is already free, the entities pass through each other
+   * by waiting for the next tick(or the end of this one), we guarantee that for the duration of THIS tick
+   * both destination and origin are occupied
    */
+  
   Promise.resolve().then(() => {
     updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
   });
