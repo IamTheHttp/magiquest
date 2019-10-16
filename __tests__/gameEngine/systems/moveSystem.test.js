@@ -13,7 +13,7 @@ describe('move system tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(spyPan);
+    systemArguments = createSystemArgs({spyPan});
     player = new Player({
       x: 16,
       y: 16,

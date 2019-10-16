@@ -14,7 +14,7 @@ describe('Tests for the AI system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(spyPan);
+    systemArguments = createSystemArgs({spyPan});
   });
   
   it ('doesnt break with no ents', () => {

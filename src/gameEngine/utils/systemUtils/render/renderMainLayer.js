@@ -2,7 +2,6 @@ import {ANIMATION_COMP, POSITION_COMP, UI_COMP} from 'components/ComponentNamesC
 import {CIRCLE_SHAPE, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
-import renderAnimations from './renderAnimations';
 import {bit} from '../../../config';
 import char from 'assets/finalchar.png';
 let img = new Image();
@@ -10,6 +9,7 @@ img.src = char;
 
 function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   let {mapAPI} = systemArguments;
+  
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
     

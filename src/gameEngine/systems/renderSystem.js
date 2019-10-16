@@ -10,7 +10,6 @@ function renderSystem(systemArguments) {
   let {mapAPI, miniMapAPI, getRenderBackground} = systemArguments;
   // clear everything before we move forward
   mapAPI.clear();
-  miniMapAPI.clear();
   
   // render background
   if (getRenderBackground()) {
