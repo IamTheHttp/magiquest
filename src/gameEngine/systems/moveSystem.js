@@ -1,16 +1,10 @@
 import GAME_PLATFORM from 'game-platform/dist';
-import {
-  ANIMATIONS
-} from 'gameEngine/constants';
 import {MOVEMENT_COMP, IS_MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
-import getDest from '../utils/componentUtils/positionUtils/getDest';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
-import destReached from '../utils/componentUtils/positionUtils/destReached';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
-import {animationTypes} from '../config';
 
 let {Entity, entityLoop} = GAME_PLATFORM;
 
@@ -31,31 +25,6 @@ function moveEntity(systemArguments, entity) {
   let {x: currX, y: currY} = entity.getPos();
   let {x: desiredDestX, y : desiredDestY} = entity.getDest();
   let dir = entity.getMoveDirection();
-  
-  
-  /**
-   * Stopping Point - Was our destination reached? if it was, we stop.
-   */
-  if (destReached(entity)) {
-    // insert the entity as an occupant of the tile
-    // since we're moving - make sure the entity leaves the origin tile
-    updateMapTileIdx({
-      entity,
-      tileIdxMap,
-      newX: entity.getDest().x,
-      newY: entity.getDest().y,
-      oldX: entity[POSITION_COMP].originX,
-      oldY: entity[POSITION_COMP].originY
-    });
-    
-    // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
-    entity.stop();
-    if (dir) {
-      entity.setMoveDirection(dir);
-    }
-
-    return;
-  }
   
   // the user has a desired place he wants to go..
   let modDestX = desiredDestX;
@@ -83,6 +52,30 @@ function moveEntity(systemArguments, entity) {
     x: modDestX,
     y: modDestY
   });
+  
+  /**
+   * Stopping Point - Was our destination reached? if it was, we stop.
+   */
+  if (entity.isDestReached()) {
+    // insert the entity as an occupant of the tile
+    // since we're moving - make sure the entity leaves the origin tile
+    updateMapTileIdx({
+      entity,
+      tileIdxMap,
+      newX: entity.getDest().x,
+      newY: entity.getDest().y,
+      oldX: entity[POSITION_COMP].originX,
+      oldY: entity[POSITION_COMP].originY
+    });
+    
+    // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
+    entity.stop();
+    if (dir) {
+      entity.setMoveDirection(dir);
+    }
+    
+    return;
+  }
   
   /**
    * Stopping Point - Is our (modified) destination traversable? if not, we stop.
@@ -119,6 +112,7 @@ function moveEntity(systemArguments, entity) {
   /**
    * Pan the camera around the player controlled entity
    */
+  /* istanbul ignore else */
   if (entity[PLAYER_CONTROLLED_COMP]) {
     centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight);
   }

@@ -73,6 +73,10 @@ class BaseEntity extends Entity {
     return this[IS_MOVING_COMP] && this[IS_MOVING_COMP].direction;
   }
   
+  isMoving() {
+    return this[IS_MOVING_COMP];
+  }
+  
   setPos({x, y}) {
     this[POSITION_COMP].x = x;
     this[POSITION_COMP].y = y;
@@ -119,11 +123,16 @@ class BaseEntity extends Entity {
     }
   }
   
+  isDestReached() {
+    let xReached = this.getPos().x === this.getDest().x;
+    let yReached = this.getPos().y === this.getDest().y;
+    return xReached && yReached;
+  }
+  
   setDestTo(dir) {
     let {x, y} = this.getPos();
     this[POSITION_COMP].originX = x;
     this[POSITION_COMP].originY = y;
-    this[POSITION_COMP].ORIENTATION = dir;
     
     if (dir === DIRECTIONS.UP) {
       this.setDest({

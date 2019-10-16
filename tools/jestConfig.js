@@ -16,6 +16,8 @@ module.exports = function (jestConfig) {
 
   jestConfig.moduleDirectories = ["./src", "./src/gameEngine/components", "node_modules"];
   jestConfig.bail = true;
+  
+  jestConfig.testRegex = "test.js$";
   jestConfig.coverageThreshold.global = {
     "branches": 80,
     "functions": 80,

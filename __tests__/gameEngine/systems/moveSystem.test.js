@@ -1,66 +1,47 @@
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import GAME_PLATFORM from 'game-platform';
 import Player from '../../../src/gameEngine/entities/Player';
-import IsMoving from '../../../src/gameEngine/components/Moving';
+import IsMoving from '../../../src/gameEngine/components/IsMoving';
 import Tile from '../../../src/gameEngine/entities/Tile';
-import {IndexedTile} from '../../../src/gameEngine/Game';
 import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
-import moveDown from '../../../src/gameEngine/utils/componentUtils/positionUtils/moveDown';
-
+import {DIRECTIONS} from '../../../src/gameEngine/constants';
+import IndexedTile from '../../../src/gameEngine/classes/IndexedTile';
+import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 let {Entity} = GAME_PLATFORM;
 
 describe('move system tests', () => {
+  let systemArguments, spyPan, player;
+  
   beforeEach(() => {
     Entity.reset();
-  });
-  
-  
-  it('moves an entity', () => {
-    let player = new Player({
+    spyPan = jest.fn();
+    systemArguments = createSystemArgs(spyPan);
+    player = new Player({
       x: 16,
       y: 16,
       radius: 16
     });
-    
+  });
+  
+  it ('doesnt break without entities', () => {
+    moveSystem(systemArguments);
+  });
+  
+  it('moves an entity', () => {
     player.addComponent(new IsMoving());
-    
-    moveDown(player);
-    let spyPan = jest.fn();
-    
-    
-    let systemArguments = {
-      mapAPI: {
-        getPan: () => {
-          return {
-            panX: 0,
-            panY: 0
-          };
-        },
-        pan: spyPan
-      },
-      game: {
-        requestBackgroundRender: () => {}
-      },
-      tileIdxMap: {
-        '0-0': new IndexedTile(new Tile({tileType: 1})),
-        '1-0': new IndexedTile(new Tile({tileType: 1}))
-      },
-      viewSize: {
-        mapWidth: 1000,
-        mapHeight: 1000
-      }
-    };
+  
+    player.setDestTo(DIRECTIONS.DOWN);
     
     moveSystem(systemArguments);
     
     // Player moved - Camera should pan!
     expect(spyPan.mock.calls.length).toBe(1);
     // Dest + move = Check position was changed.
-    expect(player.getPos().x).toBeGreaterThan(0);
-    // expect originX to still be zero.
+    expect(player.getPos().y).toBeGreaterThan(16);
+    // expect originX to still be 16 (where we started)
     expect(player[POSITION_COMP].originX).toBe(16);
     
-    while (player[POSITION_COMP].originX) {
+    while (player[POSITION_COMP].originY) {
       moveSystem(systemArguments);
     }
     
@@ -69,11 +50,71 @@ describe('move system tests', () => {
     expect(player[POSITION_COMP].originX).toBe(null);
   });
   
-  it('Test trying to move to a mountain', () => {
+  it('Test trying to move out of screen', () => {
+    player.addComponent(new IsMoving());
   
+    player.setDestTo(DIRECTIONS.LEFT);
+  
+    moveSystem(systemArguments);
+  
+    // we can't move to the edge of screen, equal to edge of screen
+    expect(spyPan.mock.calls.length).toBe(0);
+    expect(player[POSITION_COMP].originX).toBe(null);
+    expect(player[POSITION_COMP].originY).toBe(null);
+    expect(player.getDest().y).toBe(null);
   });
   
-  it('Test trying to move to an occupied land', () => {
-    // Create two ents, one in an occupied position, try to move from  A to B
+  it('Test movement with a direction instead of X,Y', () => {
+    player.setMoveDirection(DIRECTIONS.DOWN);
+    expect(player.getDest().y).toBe(null);
+    moveSystem(systemArguments);
+    expect(player.getDest().y).toBe(48); // since we start at 16 16 and go one tile down
+    
+    while (player.getDest().y) {
+      moveSystem(systemArguments);
+    }
+  
+    expect(player.getDest().y).toBe(null); // dest reached
+  });
+  
+  it('Nothing breaks if no direction, and no destination', () => {
+    player.addComponent(new IsMoving());
+  
+    moveSystem(systemArguments);
+    
+    expect(player.isMoving()).toBeFalsy();
+    expect(player.getDest().x).toBe(null);
+  });
+  
+  
+  it('Test moving over a mountain (two steps down in our mock data)', () => {
+    player.addComponent(new IsMoving());
+    player.setDestTo(DIRECTIONS.DOWN);
+
+    // move one tile down
+    while (player.getDest().y) {
+      moveSystem(systemArguments);
+    }
+  
+    player.addComponent(new IsMoving());
+    player.setDestTo(DIRECTIONS.DOWN);
+  
+    // move two tiles down
+    while (player.getDest().y) {
+      moveSystem(systemArguments);
+    }
+  
+    // try a third move down (we can't, there's a mountain there)
+    player.addComponent(new IsMoving());
+    player.setDestTo(DIRECTIONS.DOWN);
+  
+    let currY = player.getPos().y;
+    // move two tiles down
+    while (player.getDest().y) {
+      moveSystem(systemArguments);
+    }
+    
+    // no movement, as we can't go through a mountain
+    expect(player.getPos().y).toBe(currY);
   });
 });

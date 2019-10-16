@@ -3,7 +3,7 @@
     "<rootDir>/",
     "<rootDir>/src"
   ],
-  "testRegex": "(/__tests__/.*|(\\.|/)(jest))\\.jsx?$",
+  "testRegex": "test.js$",
   "transformIgnorePatterns": [
     "/node_modules/"
   ],

@@ -10,52 +10,17 @@ import userInputSystem, {pushAction} from './systems/userInputSystem';
 import moveSystem from './systems/moveSystem';
 import throttle from './utils/throttle';
 import Sentry from './entities/Sentry';
-import aiSystem from './systems/ai';
+import aiSystem from './systems/aiSystem';
 import {bit} from './config';
 import attackSystem from './systems/attackSystem';
 import tiles from '../assets/tileSet.png';
 import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
 import {ANIMATION_COMP} from './components/ComponentNamesConfig';
 import animationSystem from './systems/animationSystem';
+import IndexedTile from './classes/IndexedTile';
+// TODO add the character image to this initiation
 let tileSetImage = new Image();
 tileSetImage.src = tiles;
-
-
-// TODO - Where should we move this class?
-export class IndexedTile {
-  /**
-   * @param {Tile} tile
-   */
-  constructor(tile) {
-    /**
-     * @type {Object.<number, Entity>}
-     */
-    this.entities = {
-      ['[[COUNT]]']: 0
-    };
-    
-    /**
-     * @type {Tile}
-     */
-    this.tile = tile;
-  }
-  addEnt(ent) {
-    if (!this.entities[ent.id]) {
-      this.entities['[[COUNT]]']++;
-      this.entities[ent.id] = ent;
-    }
-  }
-  removeEnt(ent) {
-    if (this.entities[ent.id]) {
-      this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
-      delete this.entities[ent.id];
-    }
-  }
-  getEntCount() {
-    return this.entities['[[COUNT]]'];
-  }
-}
-
 
 
 class GameLoop {
@@ -75,7 +40,7 @@ class GameLoop {
   
     
     
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < 20; i++) {
       // create an enemy
       let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
       let sentryPOS = sentry.getPos();

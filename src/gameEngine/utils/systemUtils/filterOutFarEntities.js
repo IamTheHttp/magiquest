@@ -2,7 +2,7 @@ import {POSITION_COMP} from '../../components/ComponentNamesConfig';
 import {bit} from '../../config';
 
 function filterOutFarEntities(systemArguments, entsToDraw) {
-  let buffer = bit * 4;
+  let buffer = bit * 8;
   let {mapAPI} = systemArguments;
   let arr = [];
   let {panX, panY} = mapAPI.getPan();
