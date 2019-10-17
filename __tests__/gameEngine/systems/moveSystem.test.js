@@ -32,8 +32,6 @@ describe('move system tests', () => {
     
     moveSystem(systemArguments);
     
-    // Player moved - Camera should pan!
-    expect(spyPan.mock.calls.length).toBe(1);
     // Dest + move = Check position was changed.
     expect(player.getPos().y).toBeGreaterThan(16);
     // expect originX to still be 16 (where we started)

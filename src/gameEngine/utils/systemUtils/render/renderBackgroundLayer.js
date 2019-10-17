@@ -11,7 +11,6 @@ function renderBackgroundLayer(systemArguments) {
   
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     let entity = closeBackgroundEnts[i];
-    
     entity[BACKGROUND_COMP].sections.forEach((section) => {
       if (section.shape === MAP_TILE_SHAPE) {
         // tile type

@@ -1,32 +1,62 @@
 import React from 'react';
 import GAME_PLATFORM from 'game-platform/dist';
 import GameLoop from 'gameEngine/Game';
-import {MOVE_ACTION, ATTACK_ACTION} from '../gameEngine/gameConstants';
-import tileMap from 'levels/test_15x15';
 import {bit, resolution} from '../gameEngine/config';
-
+import oneMap from 'levels/test_15x15';
+import twoMap from 'levels/test_50x32';
+import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 let {GameCanvas} = GAME_PLATFORM;
-let mapWidth = tileMap[0].length * bit;
-let mapHeight = tileMap.length * bit;
 
-
+// TODO - At the end of a level, we should show some summary data about the level
+// TODO move this configuration somewhere else
+// TODO can this be loaded from a server somehow?
+let levels = {
+  0: {
+    areas: {
+      0: {
+        tileMap: oneMap,
+        portals: [
+          // TODO Create a portal in this config
+          // TODO - This portal should be created as an Entity in the game
+          // TODO create a system that detects if the user is 'ON' the portal
+          // TODO trigger callbacks all the way up to the App, so we can switch map based on the target of the portal,
+          // TODO The portal should specify the playerStart position
+        ],
+        enemies: [], // Map of
+        startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
+          x:16,
+          y:16
+        }
+      }
+    }
+  },
+  1: {
+    portals: [
+    
+    ],
+    areas: {
+      0: {
+        tileMap: twoMap
+      }
+    }
+  }
+};
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       mapCanvasEl: null,
-      minimapCanvasEl: null
+      minimapCanvasEl: null,
+      currentLevel: 0,
+      currentArea: 0,
+      mapHeight:null,
+      mapWidth:null
     };
   }
-  
-  componentDidMount() {
-    // app starts game...
-    this.startGame();
-    this.registerUserInputEvents();
-  }
-  
-  initGameCanvas() {
+
+  initGameCanvas(mapWidth, mapHeight) {
     return new GameCanvas({
       mapHeight,
       mapWidth,
@@ -36,10 +66,10 @@ class App extends React.Component {
       },
       onViewMapClick: (dataObj) => {
       },
-      onMiniMapClick:() => {
+      onMiniMapClick: () => {
         this.game.requestBackgroundRender();
       },
-      onMiniMapMove:() => {
+      onMiniMapMove: () => {
       }
     }).getNewCanvasPairs({
       getMapRef: (API, el) => {
@@ -57,9 +87,9 @@ class App extends React.Component {
     });
   }
   
-  initGameLoop() {
+  initGameLoop(areaToLoad, mapWidth, mapHeight) {
     return new GameLoop({
-      tileMap,
+      areaToLoad,
       getMapAPI: () => {
         return this.state.mapAPI;
       },
@@ -75,78 +105,94 @@ class App extends React.Component {
     });
   }
   
-  startGame() {
-    let {map, minimap} = this.initGameCanvas();
-    
-    // the game needs the canvas to be ready, and it will be the next tick
-    setTimeout(() => {
-      this.game = this.initGameLoop();
-    }, 0);
+  setNewCanvas(currentAreaMap) {
+    if (this.state.mapAPI) {
+      this.state.mapAPI.removeLayer('background');
+    }
+  
+    let mapWidth = currentAreaMap[0].length * bit;
+    let mapHeight = currentAreaMap.length * bit;
+  
+    // creates the new canvas
+    let {map, minimap} = this.initGameCanvas(mapWidth, mapHeight);
     
     this.setState({
       map,
-      minimap
+      minimap,
+      mapHeight,
+      mapWidth
     });
   }
   
-  registerUserInputEvents() {
-    let glob = {};
-
-    document.body.addEventListener('keyup', (event) => {
-      glob.keyPressed = false;
-      // Stop.. on key up, right?
-      this.game.dispatchAction({
-        name: MOVE_ACTION
-      });
-    });
+  changeMap(levelNum, areaNum) {
+    // TODO this looks identical to startGame, can we combine these two?
+    let nextArea = levels[levelNum].areas[areaNum];
+    let areaTileMap = nextArea.tileMap;
+    this.setNewCanvas(areaTileMap);
     
-    document.body.addEventListener('keydown', (event) => {
-      if (glob.keyPressed) {
-        return true;
-      }
-      
-      glob.keyPressed = true;
-      
-      let code = event.which || event.keyCode || event.code;
-      let map = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down',
-        32: 'space'
-      };
+    let viewSize = {
+      viewHeight: resolution.height,
+      viewWidth: resolution.width,
+      mapHeight:this.state.mapHeight,
+      mapWidth: this.state.mapWidth
+    };
+    
+    this.game.changeMap(nextArea, viewSize);
+  }
   
-      if (code === 32) {
-        this.game.dispatchAction({
-          name: ATTACK_ACTION
-        });
-      }
+  startGame() {
+    // Load some initial state, what level are we on?
+    let levelNum = this.state.currentLevel;
+    let areaNum = this.state.currentArea;
+    // Use the level to get the current map for that level
+    let areaToLoad = levels[levelNum].areas[areaNum];
+    let areaTileMap = areaToLoad.tileMap;
+    this.setNewCanvas(areaTileMap);
   
-      let direction = map[code];
+    let mapWidth = areaTileMap[0].length * bit;
+    let mapHeight = areaTileMap.length * bit;
+    // Start the game loop
+    setTimeout(() => {
+      this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight);
+      registerUserInputEvents(this.game);
+    }, 0);
+  }
   
-      if (direction) {
-        this.game.dispatchAction({
-          name: MOVE_ACTION,
-          direction
-        });
-      }
+  
+  clickToStartGame() {
+    this.startGame();
+    this.setState({
+      gameStarted: true
     });
   }
   
   render() {
-    return (
-      <div>
-        <div className='wrapper'>
-          <div className='canvas-main-container'>
-            {this.state.map}
+    if (!this.state.gameStarted) {
+      return (
+        <div>
+          <button
+            onClick={() => {
+              this.clickToStartGame();
+            }}
+          >Start Game
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className='wrapper'>
+            <div className='canvas-main-container'>
+              {this.state.map}
+            </div>
+          </div>
+          
+          <div className='canvas-minimap-container'>
+            {this.state.minimap}
           </div>
         </div>
-
-        <div className='canvas-minimap-container'>
-          {this.state.minimap}
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
