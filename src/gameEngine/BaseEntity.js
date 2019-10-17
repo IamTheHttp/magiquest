@@ -55,8 +55,6 @@ class BaseEntity extends Entity {
   stop() {
     this[POSITION_COMP].originX = null;
     this[POSITION_COMP].originY = null;
-    this[POSITION_COMP].destX = null;
-    this[POSITION_COMP].destY = null;
     this.removeComponent(IS_MOVING_COMP);
     this.setDest({
       x: null,

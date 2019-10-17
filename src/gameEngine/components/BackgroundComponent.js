@@ -1,4 +1,5 @@
 import {BACKGROUND_COMP} from './ComponentNamesConfig';
+import assertType from 'utils/assertType';
 
 class BackgroundComponent {
   constructor(sections) {
@@ -9,13 +10,9 @@ class BackgroundComponent {
     this.sections = sectionsArray.map((section) => {
       // if it's an object, great, we're done.
       if (typeof section === 'object') {
-        // if it doesn't have our expected fields, throw..
-        if (!section.name) {
-          throw ('Missing field "name" for section in UIComponent');
-        }
+        assertType(section.name, 'section.name', 'string');
         return section;
       } else {
-        // if it's a string, make it an object..
         return {
           name: section,
           data: {}

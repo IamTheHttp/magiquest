@@ -45,7 +45,7 @@ class GameLoop {
   
     
     
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 0; i++) {
       // create an enemy
       let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
       let sentryPOS = sentry.getPos();

@@ -6,6 +6,10 @@ function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWi
   let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
   let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
   
+  // if we don't need to pan, stop
+  if (panX === panToX && panY === panToY) {
+    return;
+  }
   
   if (x + viewWidth / 2 > mapWidth) {
     panToX = panX;
@@ -15,10 +19,8 @@ function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWi
     panToY = panY;
   }
   
-  
-  mapAPI.pan(panToX, panToY);
   game.requestBackgroundRender();
-  // pan to user
+  mapAPI.pan(panToX, panToY);
 }
 
 
