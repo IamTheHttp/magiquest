@@ -7,21 +7,25 @@ import twoMap from 'levels/test_50x32';
 import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 let {GameCanvas} = GAME_PLATFORM;
 
+
+
 // TODO - At the end of a level, we should show some summary data about the level
 // TODO move this configuration somewhere else
 // TODO can this be loaded from a server somehow?
+// TODO - Not sure how to specify the start pos in a new level
 let levels = {
   0: {
     areas: {
       0: {
         tileMap: oneMap,
-        portals: [
-          // TODO Create a portal in this config
-          // TODO - This portal should be created as an Entity in the game
-          // TODO create a system that detects if the user is 'ON' the portal
-          // TODO trigger callbacks all the way up to the App, so we can switch map based on the target of the portal,
-          // TODO The portal should specify the playerStart position
-        ],
+        portals: {
+          '1-1' : { // tile on index 1-1 Y/X index
+            target: {
+              level: 1,
+              area: 0
+            }
+          }
+        },
         enemies: [], // Map of
         startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
           x:16,
@@ -36,7 +40,12 @@ let levels = {
     ],
     areas: {
       0: {
-        tileMap: twoMap
+        tileMap: twoMap,
+        portals: {},
+        startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
+          x:16,
+          y:16
+        }
       }
     }
   }
@@ -89,7 +98,10 @@ class App extends React.Component {
   
   initGameLoop(areaToLoad, mapWidth, mapHeight) {
     return new GameLoop({
-      areaToLoad,
+      levelArea: areaToLoad,
+      onAreaChange: (level, area) => {
+        this.changeMap(level, area);
+      },
       getMapAPI: () => {
         return this.state.mapAPI;
       },
@@ -137,7 +149,7 @@ class App extends React.Component {
       mapWidth: this.state.mapWidth
     };
     
-    this.game.changeMap(nextArea, viewSize);
+    this.game.setLevelArea(nextArea, viewSize);
   }
   
   startGame() {

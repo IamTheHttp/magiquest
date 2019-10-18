@@ -7,14 +7,15 @@ let {Entity, entityLoop} = GAME_PLATFORM;
 
 
 function renderSystem(systemArguments) {
-  let {mapAPI, miniMapAPI, getRenderBackground} = systemArguments;
+  let {mapAPI, miniMapAPI, shouldRenderBackground, game} = systemArguments;
   // clear everything before we move forward
   mapAPI.clear();
   
   // render background
-  if (getRenderBackground()) {
+  if (shouldRenderBackground) {
     mapAPI.clear('background');
     renderBackgroundLayer(systemArguments);
+    game.notifyBackgroundWasRendered();
     mapAPI.draw('background');
   }
   

@@ -4,8 +4,7 @@ import {DIRECTIONS} from '../../../gameConstants';
 import IsAttackingComp from '../../../components/IsAttacking';
 
 function attackAction(systemArguments, action) {
-  let {getCurrentMap, Entity} = systemArguments;
-  let tileIdxMap = getCurrentMap();
+  let {tileIdxMap, Entity} = systemArguments;
   let ent = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
   let curDirection = ent[POSITION_COMP].direction;
   

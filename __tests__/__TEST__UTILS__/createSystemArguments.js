@@ -21,9 +21,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw}) {
   
   return {
     Entity,
-    getRenderBackground: () => {
-      return true; // always render background
-    },
+    shouldRenderBackground: true,
     mapAPI: {
       addImage: spyAddImage,
       draw: spyDraw,
@@ -38,12 +36,11 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw}) {
     },
     game: {
       requestBackgroundRender: () => {
+      },
+      notifyBackgroundWasRendered: () => {
       }
     },
-    getCurrentMap() {
-      return map;
-    },
-    
+    tileIdxMap: map,
     viewSize: {
       mapWidth: 100,
       mapHeight: 100,

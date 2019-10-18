@@ -4,7 +4,7 @@ import renderSystem from 'systems/renderSystem';
 import Player from 'entities/Player';
 let {Entity} = GAME_PLATFORM;
 
-describe('Tests for the AI system', () => {
+describe('Tests for the Render system', () => {
   let systemArguments;
   let spyPan;
   let spyClear;
@@ -37,9 +37,7 @@ describe('Tests for the AI system', () => {
   });
   
   it('Does not render background if was not requested', () => {
-    systemArguments.getRenderBackground = () => {
-      return false;
-    };
+    systemArguments.shouldRenderBackground = false;
     
     renderSystem(systemArguments);
     expect(spyAddImage.mock.calls.length).toBe(0);

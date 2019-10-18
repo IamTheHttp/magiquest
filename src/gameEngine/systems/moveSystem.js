@@ -14,8 +14,7 @@ let {Entity, entityLoop} = GAME_PLATFORM;
  * @param {BaseEntity} entity
  */
 function moveEntity(systemArguments, entity) {
-  let {mapAPI, game, getCurrentMap} = systemArguments;
-  let tileIdxMap = getCurrentMap();
+  let {mapAPI, game, tileIdxMap} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
   let {x: currX, y: currY} = entity.getPos();
   let {x: desiredDestX, y : desiredDestY} = entity.getDest();
