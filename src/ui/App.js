@@ -2,54 +2,10 @@ import React from 'react';
 import GAME_PLATFORM from 'game-platform/dist';
 import GameLoop from 'gameEngine/Game';
 import {bit, resolution} from '../gameEngine/config';
-import oneMap from 'levels/test_15x15';
-import twoMap from 'levels/test_50x32';
 import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
+import levelConfig from 'levels/levelConfig';
 let {GameCanvas} = GAME_PLATFORM;
 
-
-
-// TODO - At the end of a level, we should show some summary data about the level
-// TODO move this configuration somewhere else
-// TODO can this be loaded from a server somehow?
-// TODO - Not sure how to specify the start pos in a new level
-let levels = {
-  0: {
-    areas: {
-      0: {
-        tileMap: oneMap,
-        portals: {
-          '1-1' : { // tile on index 1-1 Y/X index
-            target: {
-              level: 1,
-              area: 0
-            }
-          }
-        },
-        enemies: [], // Map of
-        startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-          x:16,
-          y:16
-        }
-      }
-    }
-  },
-  1: {
-    portals: [
-    
-    ],
-    areas: {
-      0: {
-        tileMap: twoMap,
-        portals: {},
-        startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-          x:16,
-          y:16
-        }
-      }
-    }
-  }
-};
 
 class App extends React.Component {
   constructor(props) {
@@ -137,8 +93,7 @@ class App extends React.Component {
   }
   
   changeMap(levelNum, areaNum) {
-    // TODO this looks identical to startGame, can we combine these two?
-    let nextArea = levels[levelNum].areas[areaNum];
+    let nextArea = levelConfig[levelNum].areas[areaNum];
     let areaTileMap = nextArea.tileMap;
     this.setNewCanvas(areaTileMap);
     
@@ -157,7 +112,7 @@ class App extends React.Component {
     let levelNum = this.state.currentLevel;
     let areaNum = this.state.currentArea;
     // Use the level to get the current map for that level
-    let areaToLoad = levels[levelNum].areas[areaNum];
+    let areaToLoad = levelConfig[levelNum].areas[areaNum];
     let areaTileMap = areaToLoad.tileMap;
     this.setNewCanvas(areaTileMap);
   

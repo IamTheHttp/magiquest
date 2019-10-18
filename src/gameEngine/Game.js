@@ -14,29 +14,12 @@ import IndexedTile from './classes/IndexedTile';
 import charSpriteURL from 'assets/finalchar.png';
 import entityLoop from 'game-platform/src/lib/ECS/util/entityLoop';
 import portalSystem from 'systems/portalSystem';
-import {PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';
+import {AI_CONTROLLED_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';
 import {bit} from 'config';
 
 let {Entity} = GAME_PLATFORM;
-// TODO move to some image buffer?
-let tileSetSprite = new Image();
-tileSetSprite.src = tileSetImageURL;
-
-let characterSprite = new Image();
-characterSprite.src = charSpriteURL;
-
-
-// for (let i = 0; i < 0; i++) {
-//   // create an enemy
-//   let sentry = new Sentry({x: bit * 10 + bit / 2, y: bit * 10 + bit / 2, radius: bit / 4});
-//   let sentryPOS = sentry.getPos();
-//   updateMapTileIdx({entity: sentry, tileIdxMap, newX: sentryPOS.x, newY: sentryPOS.y});
-// }
-
-// create a player
-// TODO this should be based on the configuration of the level
-
-
+import {loader} from 'cache/loader';
+import Sentry from 'entities/Sentry';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
@@ -45,7 +28,7 @@ class GameLoop {
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
     this.dispatchAction = this.dispatchAction.bind(this);
     this.onAreaChange = onAreaChange;
-  
+    
     this.setLevelArea(levelArea, viewSize);
     
     this.loop = () => {
@@ -69,8 +52,8 @@ class GameLoop {
     return {
       tileIdxMap: this.tileIdxMap,
       levelArea: this.levelArea,
-      tileSetSprite,
-      characterSprite,
+      tileSetSprite: loader.getAsset(tileSetImageURL),
+      characterSprite: loader.getAsset(charSpriteURL),
       Entity,
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,
@@ -83,25 +66,26 @@ class GameLoop {
   setLevelArea(levelArea, viewSize) {
     // DONE - destroy the entities in the current tile map
     // DONE - destroy the old indexTile
-  
+    
     let mapAPI = this.getMapAPI();
-    let ents = Entity.getByComps('BACKGROUND_COMP');
-    entityLoop(ents, (ent) => {
+    let oldTiles = Entity.getByComps(BACKGROUND_COMP);
+    entityLoop(oldTiles, (ent) => {
       ent.destroy();
     });
   
+    let oldEnemies = Entity.getByComps(AI_CONTROLLED_COMP);
+    entityLoop(oldEnemies, (ent) => {
+      ent.destroy();
+    });
+    
     this.renderBackground = true; // for the first time
     this.levelArea = levelArea;
     this.viewSize = viewSize;
     this.tileIdxMap = this.createMapEntites(levelArea.tileMap, viewSize);
     
-    // TODO - Init the level
-    // TODO Create player in proper position!
-    // TODO Create enemies in proper position
-    // TODO Ensure enemies/player occupy their place in the map
     
+    // create player
     let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
-    
     let {x, y} = levelArea.startPos;
     if (!player) {
       player = new Player({x, y});
@@ -112,6 +96,16 @@ class GameLoop {
     }
     
     updateMapTileIdx({entity: player, tileIdxMap: this.tileIdxMap, newX: x, newY: y});
+    
+    // create enemies
+    for (let i = 0; i < levelArea.enemies.length; i++) {
+      let enemy = levelArea.enemies[i];
+      // create an enemy
+      let sentry = new Sentry({x: enemy.pos.x, y: enemy.pos.y});
+      let sentryPOS = sentry.getPos();
+      updateMapTileIdx({entity: sentry, tileIdxMap: this.tileIdxMap, newX: sentryPOS.x, newY: sentryPOS.y});
+    }
+    
     this.renderBackground = true; // for the first time
   }
   

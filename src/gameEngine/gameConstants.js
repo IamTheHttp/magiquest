@@ -22,3 +22,7 @@ export const ANIMATIONS = {
 
 
 
+export const CHARACTERS = {
+  SENTRY: 'SENTRY'
+};
+

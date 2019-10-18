@@ -1,12 +1,6 @@
-import filterOutFarEntities from '../utils/systemUtils/filterOutFarEntities';
-import GAME_PLATFORM from 'game-platform/dist';
-import {ANIMATION_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP, UI_COMP} from '../components/ComponentNamesConfig';
-import renderBackgroundLayer from '../utils/systemUtils/render/renderBackgroundLayer';
-import renderMainLayer from '../utils/systemUtils/render/renderMainLayer';
-import {getTileIdxByEnt, getTileIdxByPos} from 'utils/componentUtils/tileUtils/getTileIdx';
+import {PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
+import {getTileIdxByEnt} from 'utils/componentUtils/tileUtils/getTileIdx';
 import assertType from 'utils/assertType';
-let {Entity, entityLoop} = GAME_PLATFORM;
-
 
 function portalSystem(systemArguments) {
   let {levelArea, game, Entity} = systemArguments;
