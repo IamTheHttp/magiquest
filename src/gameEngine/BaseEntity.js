@@ -1,21 +1,50 @@
 import GAME_PLATFORM from 'game-platform/dist';
-import {ANIMATION_COMP, IS_MOVING_COMP, POSITION_COMP} from './components/ComponentNamesConfig';
+import {
+  ANIMATION_COMP,
+  IS_MOVING_COMP,
+  MOVEMENT_COMP,
+  PLAYER_CONTROLLED_COMP,
+  POSITION_COMP
+} from './components/ComponentNamesConfig';
 import AnimationComp from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
 import {DIRECTIONS} from './gameConstants';
 import {bit} from 'config';
 
-
 let {Entity} = GAME_PLATFORM;
-
 
 class BaseEntity extends Entity {
   addAnimation(animation) {
-    if (!this[ANIMATION_COMP]) {
-      this.addComponent(new AnimationComp());
-    }
-    
     this[ANIMATION_COMP].addAnimationVariant(animation);
+  }
+  
+  isPlayer() {
+    return !!this[PLAYER_CONTROLLED_COMP];
+  }
+  
+  clearAllAnimations() {
+    if (!this[ANIMATION_COMP]) {
+      return;
+    }
+  
+    this[ANIMATION_COMP].animations = {};
+  }
+  
+  
+  getAnimations() {
+    return (this[ANIMATION_COMP] && this[ANIMATION_COMP].animations) || {};
+  }
+  
+  getAnimationTypes() {
+    return this[ANIMATION_COMP] && this[ANIMATION_COMP].animationTypes;
+  }
+  
+  hasSpecificAnimation(name) {
+    return !!this.getAnimations()[name];
+  }
+  
+  getMovementSpeed() {
+    return this[MOVEMENT_COMP] && this[MOVEMENT_COMP].speed;
   }
   
   removeAnimation(animationName) {
@@ -24,10 +53,12 @@ class BaseEntity extends Entity {
     }
     
     delete this[ANIMATION_COMP].animations[animationName];
-    
-    if (Object.keys(this[ANIMATION_COMP].animations).length === 0) {
-      this.removeComponent(ANIMATION_COMP);
-    }
+  
+    // TODO - we're now saving some configuration on ANIMATION_COMP so we can't delete it
+    // TODO - can we still remove the component? it's a waste to keep it if we don't need it
+    // if (Object.keys(this[ANIMATION_COMP].animations).length === 0) {
+    //   this.removeComponent(ANIMATION_COMP);
+    // }
   }
   
   setDest({x, y}) {
@@ -126,12 +157,6 @@ class BaseEntity extends Entity {
     }
   }
   
-  isDestReached() {
-    let xReached = this.getPos().x === this.getDest().x;
-    let yReached = this.getPos().y === this.getDest().y;
-    return xReached && yReached;
-  }
-  
   setDestTo(dir) {
     let {x, y} = this.getPos();
     this[POSITION_COMP].originX = x;
@@ -164,6 +189,12 @@ class BaseEntity extends Entity {
         y
       });
     }
+  }
+  
+  isDestReached() {
+    let xReached = this.getPos().x === this.getDest().x;
+    let yReached = this.getPos().y === this.getDest().y;
+    return xReached && yReached;
   }
 }
 

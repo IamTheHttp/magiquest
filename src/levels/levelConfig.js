@@ -9,39 +9,87 @@ let levelConfig = {
       0: {
         tileMap: oneMap,
         portals: {
-          '10-10' : { // tile on index 1-1 Y/X index
+          '10-10': { // tile on index 1-1 Y/X index
             target: {
               level: 1,
               area: 0
             }
           }
         },
-        enemies: [],
+        enemies: [
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          },
+          {
+            type: CHARACTERS.SENTRY,
+            pos: {
+              x: 48 * 5,
+              y: 48 * 5
+            }
+          }
+        ],
         startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-          x:16,
-          y:16
+          x: 16,
+          y: 16
         }
       }
     }
   },
   1: {
-    portals: [
-    
-    ],
+    portals: [],
     areas: {
       0: {
         enemies: [{
           type: CHARACTERS.SENTRY,
           pos: {
-            x:50,
+            x: 50,
             y: 50
           }
         }],
         tileMap: twoMap,
         portals: {},
         startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-          x:16,
-          y:16
+          x: 16,
+          y: 16
         }
       }
     }

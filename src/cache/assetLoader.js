@@ -1,4 +1,6 @@
-class Loader {
+import assertType from 'utils/assertType';
+
+class AssetLoader {
   constructor() {
     this.cache = {};
   }
@@ -29,10 +31,13 @@ class Loader {
   }
   
   getAsset(name) {
+    if (!this.cache[name]) {
+      throw `Cannot get asset that was not loaded before hand, assetName attempted: ${name}`;
+    }
     return this.cache[name];
   }
 }
 
-let loader = new Loader();
-export default Loader;
-export {loader};
+let assetLoader = new AssetLoader();
+export default AssetLoader;
+export {assetLoader};

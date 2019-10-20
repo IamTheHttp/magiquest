@@ -1,8 +1,8 @@
 import {ANIMATIONS} from 'gameConstants';
 import getSpriteCrop from 'utils/getSpriteCrop';
+import charImageURL from 'assets/characters.png';
 
 const bit = 32;
-
 
 
 let grassTile = getSpriteCrop(0, 0);
@@ -12,8 +12,6 @@ let brownBrickDay = getSpriteCrop(17, 2);
 let brownDoorDay = getSpriteCrop(15, 20);
 let redRoofDay = getSpriteCrop(14, 10);
 let monument = getSpriteCrop(22, 7);
-
-
 
 
 const tileTypes = {
@@ -26,20 +24,6 @@ const tileTypes = {
   6: monument
 };
 
-const animationTypes = {
-  [ANIMATIONS.IDLE]: {
-    frames: 60,
-    animationName:ANIMATIONS.IDLE,
-    size: 0.5, // in percent
-    loops: true
-  },
-  [ANIMATIONS.BREATHING]: {
-    frames: 15,
-    animationName:ANIMATIONS.BREATHING,
-    size: 0.5 // in percent
-  }
-};
-
 const resolution = {
   width: 400,
   height: 240
@@ -48,6 +32,5 @@ const resolution = {
 export {
   bit,
   tileTypes,
-  animationTypes,
   resolution
 };

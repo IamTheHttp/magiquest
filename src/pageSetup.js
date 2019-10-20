@@ -6,7 +6,8 @@ import App from './ui/App';
 import './style.scss';
 import tiles from './assets/tileSet.png';
 import charSpriteURL from 'assets/characters.png';
-import {loader} from 'cache/loader';
+import sentrySpriteURL from 'assets/sentry.png';
+import {assetLoader} from 'cache/assetLoader';
 
 
 
@@ -15,7 +16,7 @@ appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';
 document.body.removeChild(document.getElementById('progress'));
 
-loader.load([
+assetLoader.load([
   {
     type: 'image',
     url: tiles,
@@ -25,6 +26,11 @@ loader.load([
     type: 'image',
     url: charSpriteURL,
     name: charSpriteURL
+  },
+  {
+    type: 'image',
+    url: sentrySpriteURL,
+    name: sentrySpriteURL
   }
 ], () => {
   render(<App/>, document.getElementById('app'));

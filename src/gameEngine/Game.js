@@ -18,7 +18,7 @@ import {AI_CONTROLLED_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP} from 'compo
 import {bit} from 'config';
 
 let {Entity} = GAME_PLATFORM;
-import {loader} from 'cache/loader';
+import {assetLoader} from 'cache/assetLoader';
 import Sentry from 'entities/Sentry';
 
 class GameLoop {
@@ -52,8 +52,8 @@ class GameLoop {
     return {
       tileIdxMap: this.tileIdxMap,
       levelArea: this.levelArea,
-      tileSetSprite: loader.getAsset(tileSetImageURL),
-      characterSprite: loader.getAsset(charSpriteURL),
+      tileSetSprite: assetLoader.getAsset(tileSetImageURL),
+      characterSprite: assetLoader.getAsset(charSpriteURL),
       Entity,
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,

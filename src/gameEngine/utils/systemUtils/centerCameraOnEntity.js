@@ -1,3 +1,4 @@
+import {bit} from 'config';
 
 function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight) {
   let {x, y} = entity.getPos();
@@ -20,6 +21,7 @@ function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWi
   }
   
   game.requestBackgroundRender();
+  
   mapAPI.pan(panToX, panToY);
 }
 

@@ -13,16 +13,13 @@ export const DIRECTIONS = {
   RIGHT: 'RIGHT'
 };
 
-
 export const ANIMATIONS = {
-  BREATHING: 'BREATHING',
-  IDLE : 'IDLE'
+  MOVE_LEFT: 'MOVE_LEFT',
+  MOVE_RIGHT: 'MOVE_RIGHT',
+  MOVE_UP: 'MOVE_UP',
+  MOVE_DOWN: 'MOVE_DOWN'
 };
-
-
-
 
 export const CHARACTERS = {
   SENTRY: 'SENTRY'
 };
-

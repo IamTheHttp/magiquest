@@ -30,13 +30,21 @@ function moveEntity(systemArguments, entity) {
     let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
+    
+    // TODO - Set animation, we need the direction for what, but we don't have direction
   } else if (dir) {
     // create destination from the direction we want to go
     let {x, y} = entity.getDestFromDirection(dir);
     modDestY = y;
     modDestX = x;
+    
+    // TODO we should set orientation everytime, not just when we have 'dir'
+    // TODO if we don't, the animations won't trigger for setDest({x,y}), since no dir is set
+  
     entity.setOrientation(dir);
-    // TODO this means we can only change the player dest by setting a direction, not great...
+  
+    entity.clearAllAnimations();
+    entity.addAnimation(entity.getAnimationTypes()[`MOVE_${dir}`]);
   } else {
     // no direction, no destination? too bad, stop.
     entity.stop();
@@ -115,7 +123,7 @@ function moveEntity(systemArguments, entity) {
    * Pan the camera around the player controlled entity
    */
   /* istanbul ignore else */
-  if (entity[PLAYER_CONTROLLED_COMP]) {
+  if (entity.isPlayer()) {
     centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight);
   }
 }

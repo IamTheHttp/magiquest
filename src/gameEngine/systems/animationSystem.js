@@ -1,4 +1,5 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
+import {bit} from 'config';
 
 function animationSystem(systemArguments) {
   let {Entity} = systemArguments;
@@ -6,20 +7,31 @@ function animationSystem(systemArguments) {
   let ents = Entity.getByComps([ANIMATION_COMP]);
   
   for (let i = 0; i < ents.length; i++) {
-    let ent = ents[i];
-    let animations = ent[ANIMATION_COMP].animations;
+    let entity = ents[i];
+    let animations = entity[ANIMATION_COMP].animations;
     
     
     for (let anim in animations) {
       let animation = animations[anim];
-      let isOver = animation.currentFrame >= animation.frames;
+      animation.realFrameCount = animation.realFrameCount || 0;
+      
+      let framesLength = animation.frames.length - 1;
+      let isOver = animation.currentFrame >= framesLength;
       
       if (isOver && animation.loops) {
         animation.currentFrame = 0;
+        animation.realFrameCount = 0;
       } else if (isOver && !animation.loops) {
-        ent.removeAnimation(animation.animationName);
+        entity.removeAnimation(animation.animationName);
       } else {
-        animation.currentFrame++;
+        // TODO What would we do with an animation that does not depend on movement speed?
+        let movementSpeed = entity.getMovementSpeed();
+        
+        // the duration of the animation is the time it takes to cross a bit (32px)
+        let frameRatio = (bit / movementSpeed) / framesLength;
+  
+        animation.realFrameCount++;
+        animation.currentFrame = Math.floor(animation.realFrameCount / frameRatio);
       }
     }
   }

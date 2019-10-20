@@ -2,8 +2,6 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
-import {ANIMATIONS} from '../gameConstants';
-import {animationTypes} from '../config';
 
 let {Entity, entityLoop} = GAME_PLATFORM;
 
@@ -38,8 +36,6 @@ function attackSystem(systemArguments) {
         
         // do the attack
         entTarget[HEALTH_COMP].current -= dmg;
-  
-        entTarget.addAnimation(animationTypes[ANIMATIONS.BREATHING]);
         
         // remove dead entities
         if (entTarget[HEALTH_COMP].current <= 0) {

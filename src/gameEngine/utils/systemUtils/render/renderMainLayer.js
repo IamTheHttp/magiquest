@@ -5,8 +5,8 @@ import renderHealthBar from './renderHealthBar';
 import {bit} from '../../../config';
 import char from 'assets/characters.png';
 import getSpriteCrop from 'utils/getSpriteCrop';
-let img = new Image();
-img.src = char;
+import renderAnimations from 'utils/systemUtils/render/renderAnimations';
+import {assetLoader} from 'cache/assetLoader';
 
 function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   let {mapAPI} = systemArguments;
@@ -26,10 +26,10 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
       
       if (section.shape === PLAYER_CHAR) {
         let spriteCrop = {
-          [DIRECTIONS.LEFT]: getSpriteCrop(0, 1),
-          [DIRECTIONS.RIGHT]: getSpriteCrop(0, 0),
-          [DIRECTIONS.UP]: getSpriteCrop(0, 3),
-          [DIRECTIONS.DOWN]: getSpriteCrop(0, 2)
+          [DIRECTIONS.LEFT]: getSpriteCrop(1, 1),
+          [DIRECTIONS.RIGHT]: getSpriteCrop(1, 0),
+          [DIRECTIONS.UP]: getSpriteCrop(1, 3),
+          [DIRECTIONS.DOWN]: getSpriteCrop(1, 2)
         };
   
         let crops = spriteCrop[entity[POSITION_COMP].orientation] || {
@@ -40,7 +40,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
         mapAPI.addImage(
           {
             id: `${entity.id}`,
-            image: img,
+            image: assetLoader.getAsset(char),
             x: entity[POSITION_COMP].x - entity[POSITION_COMP].radius, y: entity[POSITION_COMP].y - entity[POSITION_COMP].radius,
             height: 32,
             width: 32,
@@ -55,7 +55,9 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   }
   
   for (let i = 0; i < closeEntsWithAnimation.length; i++) {
-  
+    let entity = closeEntsWithAnimation[i];
+    
+    renderAnimations(systemArguments, entity);
   }
 }
 
