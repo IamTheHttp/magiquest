@@ -1,24 +1,17 @@
 import {ANIMATIONS} from 'gameConstants';
+import getSpriteCrop from 'utils/getSpriteCrop';
 
 const bit = 32;
 
 
-function getSprite(col, row) {
-  return {
-    cropStartX: bit * col,
-    cropStartY: bit * row,
-    cropSizeX: bit,
-    cropSizeY: bit
-  };
-}
 
-let grassTile = getSprite(0, 0);
-let mountainTile = getSprite(6, 11);
-let riverTiles = getSprite(5, 10);
-let brownBrickDay = getSprite(17, 2);
-let brownDoorDay = getSprite(15, 20);
-let redRoofDay = getSprite(14, 10);
-let monument = getSprite(22, 7);
+let grassTile = getSpriteCrop(0, 0);
+let mountainTile = getSpriteCrop(6, 11);
+let riverTiles = getSpriteCrop(5, 10);
+let brownBrickDay = getSpriteCrop(17, 2);
+let brownDoorDay = getSpriteCrop(15, 20);
+let redRoofDay = getSpriteCrop(14, 10);
+let monument = getSpriteCrop(22, 7);
 
 
 

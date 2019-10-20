@@ -72,6 +72,10 @@ class BaseEntity extends Entity {
     return this[IS_MOVING_COMP] && this[IS_MOVING_COMP].direction;
   }
   
+  setOrientation(direction) {
+    this[POSITION_COMP].orientation = direction;
+  }
+  
   isMoving() {
     return this[IS_MOVING_COMP];
   }

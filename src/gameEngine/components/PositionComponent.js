@@ -13,7 +13,6 @@ class PositionComponent {
     this.destX = null;
     this.originX = null;
     this.originY = null;
-    this.direction = DIRECTIONS.DOWN;
   }
 }
 

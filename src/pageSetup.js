@@ -5,7 +5,7 @@ import {render} from 'react-dom';
 import App from './ui/App';
 import './style.scss';
 import tiles from './assets/tileSet.png';
-import charSpriteURL from 'assets/finalchar.png';
+import charSpriteURL from 'assets/characters.png';
 import {loader} from 'cache/loader';
 
 

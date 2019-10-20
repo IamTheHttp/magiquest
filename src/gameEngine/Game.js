@@ -11,7 +11,7 @@ import tileSetImageURL from '../assets/tileSet.png';
 import updateMapTileIdx from './utils/systemUtils/move/updateMapTileIdx';
 import animationSystem from './systems/animationSystem';
 import IndexedTile from './classes/IndexedTile';
-import charSpriteURL from 'assets/finalchar.png';
+import charSpriteURL from 'assets/characters.png';
 import entityLoop from 'game-platform/src/lib/ECS/util/entityLoop';
 import portalSystem from 'systems/portalSystem';
 import {AI_CONTROLLED_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';

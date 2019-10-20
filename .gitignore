@@ -6,3 +6,4 @@ npm-debug.log
 src/.dll
 report.html
 stats.json
+.DS_Store

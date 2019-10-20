@@ -6,7 +6,7 @@ import IsAttackingComp from '../../../components/IsAttacking';
 function attackAction(systemArguments, action) {
   let {tileIdxMap, Entity} = systemArguments;
   let ent = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
-  let curDirection = ent[POSITION_COMP].direction;
+  let curOrientation = ent[POSITION_COMP].orientation;
   
   // tile to attack?
   
@@ -16,19 +16,19 @@ function attackAction(systemArguments, action) {
   let col = +tileIdx.split('-')[1];
   
   
-  if (curDirection === DIRECTIONS.LEFT) {
+  if (curOrientation === DIRECTIONS.LEFT) {
     col -= 1;
   }
   
-  if (curDirection === DIRECTIONS.RIGHT) {
+  if (curOrientation === DIRECTIONS.RIGHT) {
     col += 1;
   }
   
-  if (curDirection === DIRECTIONS.UP) {
+  if (curOrientation === DIRECTIONS.UP) {
     row -= 1;
   }
   
-  if (curDirection === DIRECTIONS.DOWN) {
+  if (curOrientation === DIRECTIONS.DOWN) {
     row += 1;
   }
   

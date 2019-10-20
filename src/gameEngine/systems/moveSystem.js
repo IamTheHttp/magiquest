@@ -35,13 +35,14 @@ function moveEntity(systemArguments, entity) {
     let {x, y} = entity.getDestFromDirection(dir);
     modDestY = y;
     modDestX = x;
+    entity.setOrientation(dir);
+    // TODO this means we can only change the player dest by setting a direction, not great...
   } else {
     // no direction, no destination? too bad, stop.
     entity.stop();
     return;
   }
   
-  // Update the entity's dest for future loops
   entity.setDest({
     x: modDestX,
     y: modDestY
