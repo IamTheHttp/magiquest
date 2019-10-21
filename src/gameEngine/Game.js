@@ -17,34 +17,32 @@ import portalSystem from 'systems/portalSystem';
 import {AI_CONTROLLED_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';
 import {bit} from 'config';
 
-let {Entity} = GAME_PLATFORM;
+let {Entity, Engine} = GAME_PLATFORM;
 import {assetLoader} from 'cache/assetLoader';
 import Sentry from 'entities/Sentry';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
     Entity.reset();
+
+    let engine = new Engine();
+    this.engine = engine;
     this.getMapAPI = getMapAPI;
+    this.getMinimapAPI = getMinimapAPI;
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
     this.dispatchAction = this.dispatchAction.bind(this);
     this.onAreaChange = onAreaChange;
     
     this.setLevelArea(levelArea, viewSize);
-    
-    this.loop = () => {
-      let systemArguments = this.getSystemArguments(getMapAPI, getMinimapAPI);
-      
-      userInputSystem(systemArguments);
-      moveSystem(systemArguments);
-      aiSystem(systemArguments);
-      attackSystem(systemArguments);
-      renderSystem(systemArguments);
-      animationSystem(systemArguments);
-      portalSystem(systemArguments);
-      
-      this.frameID = requestAnimationFrame(this.loop);
-    };
-    
+
+    engine.addSystem(userInputSystem);
+    engine.addSystem(moveSystem);
+    engine.addSystem(aiSystem);
+    engine.addSystem(attackSystem);
+    engine.addSystem(renderSystem);
+    engine.addSystem(animationSystem);
+    engine.addSystem(portalSystem);
+
     this.resume();
   }
   
@@ -64,9 +62,6 @@ class GameLoop {
   }
   
   setLevelArea(levelArea, viewSize) {
-    // DONE - destroy the entities in the current tile map
-    // DONE - destroy the old indexTile
-    
     let mapAPI = this.getMapAPI();
     let oldTiles = Entity.getByComps(BACKGROUND_COMP);
     entityLoop(oldTiles, (ent) => {
@@ -163,11 +158,13 @@ class GameLoop {
   }
   
   resume() {
-    this.frameID = requestAnimationFrame(this.loop);
+    this.engine.run(() => {
+      return this.getSystemArguments(this.getMapAPI, this.getMinimapAPI);
+    });
   }
   
   stop() {
-    cancelAnimationFrame(this.frameID);
+    this.engine.stop();
   }
   
   /**
