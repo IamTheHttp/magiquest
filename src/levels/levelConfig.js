@@ -1,4 +1,3 @@
-// TODO - Not sure how to specify the start pos in a new level
 import oneMap from 'levels/data/test_15x15';
 import twoMap from 'levels/data/test_50x32';
 import {CHARACTERS} from 'gameConstants';
@@ -17,48 +16,6 @@ let levelConfig = {
           }
         },
         enemies: [
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
-          {
-            type: CHARACTERS.SENTRY,
-            pos: {
-              x: 48 * 5,
-              y: 48 * 5
-            }
-          },
           {
             type: CHARACTERS.SENTRY,
             pos: {

@@ -44,7 +44,7 @@ const sentryAnimations = {
         ...getSpriteCrop(3, 1)
       }
     ],
-    animationName: ANIMATIONS.MOVE_RIGHT,
+    animationName: ANIMATIONS.MOVE_LEFT,
     loops: false
   },
   [ANIMATIONS.MOVE_UP]: {
@@ -66,7 +66,7 @@ const sentryAnimations = {
         ...getSpriteCrop(3, 3)
       }
     ],
-    animationName: ANIMATIONS.MOVE_RIGHT,
+    animationName: ANIMATIONS.MOVE_UP,
     loops: false
   },
   [ANIMATIONS.MOVE_DOWN]: {
@@ -88,7 +88,7 @@ const sentryAnimations = {
         ...getSpriteCrop(3, 2)
       }
     ],
-    animationName: ANIMATIONS.MOVE_RIGHT,
+    animationName: ANIMATIONS.MOVE_DOWN,
     loops: false
   }
 };

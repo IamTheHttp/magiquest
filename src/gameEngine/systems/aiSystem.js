@@ -15,12 +15,9 @@ function aiSystem() {
       }
   
       let dir = oneOf(Object.keys(DIRECTIONS));
-  
-      // Enemies now go in a straight line until they can't no longer
-      // not exactly what we wanted :)
-      // wanted to switch direction now and then
-      ent.setMoveDirection(dir);
-      // ent.addComponent(new IsMoving());
+
+      ent.setDestTo(dir);
+      ent.addComponent(new IsMoving());
     });
   }
 }

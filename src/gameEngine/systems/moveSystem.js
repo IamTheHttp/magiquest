@@ -1,11 +1,18 @@
 import GAME_PLATFORM from 'game-platform/dist';
-import {MOVEMENT_COMP, IS_MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from '../components/ComponentNamesConfig';
+import {
+  MOVEMENT_COMP,
+  IS_MOVING_COMP,
+  PLAYER_CONTROLLED_COMP,
+  POSITION_COMP,
+  ANIMATION_COMP
+} from '../components/ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'utils/isNum';
+import {DIRECTIONS} from 'gameConstants';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 /**
@@ -30,32 +37,35 @@ function moveEntity(systemArguments, entity) {
     let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
-    
-    // TODO - Set animation, we need the direction for what, but we don't have direction
   } else if (dir) {
     // create destination from the direction we want to go
     let {x, y} = entity.getDestFromDirection(dir);
     modDestY = y;
     modDestX = x;
-    
-    // TODO we should set orientation everytime, not just when we have 'dir'
-    // TODO if we don't, the animations won't trigger for setDest({x,y}), since no dir is set
-  
-    entity.setOrientation(dir);
-  
-    entity.clearAllAnimations();
-    entity.addAnimation(entity.getAnimationTypes()[`MOVE_${dir}`]);
   } else {
     // no direction, no destination? too bad, stop.
     entity.stop();
     return;
   }
-  
+
+  entity.setOrientation(entity.calcOrientation(modDestX, modDestY));
+
+  let animationName = `MOVE_${entity.getOrientation()}`;
+  let animationToAdd = entity.getAnimationTypes()[animationName];
+
+  // Only add this animation if we don't have it already
+  if (animationToAdd && !entity.hasSpecificAnimation(animationName)) {
+    entity.clearAllAnimations();
+    entity.addAnimation(entity.getAnimationTypes()[animationName]);
+  }
+
+  // set destination
   entity.setDest({
     x: modDestX,
     y: modDestY
   });
-  
+
+
   /**
    * Stopping Point - Was our destination reached? if it was, we stop.
    */

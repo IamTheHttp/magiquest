@@ -24,7 +24,6 @@ function animationSystem(systemArguments) {
       } else if (isOver && !animation.loops) {
         entity.removeAnimation(animation.animationName);
       } else {
-        // TODO What would we do with an animation that does not depend on movement speed?
         let movementSpeed = entity.getMovementSpeed();
         
         // the duration of the animation is the time it takes to cross a bit (32px)

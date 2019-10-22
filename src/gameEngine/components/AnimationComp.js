@@ -13,14 +13,15 @@ class AnimationComp {
     if (Object.keys(rest).length > 0) {
       throw `Extra arguments not supported to addAnimationVariant ${JSON.stringify(Object.keys(rest))}`;
     }
-    
+
     this.animations[animationName] = {
       animationName,
       frames,
       currentFrame: 0,
       loops,
       size,
-      speed
+      speed,
+      realFrameCount:0
     };
   };
 }
