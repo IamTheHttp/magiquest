@@ -1,13 +1,16 @@
+let count = Symbol('Count');
+
 class IndexedTile {
   /**
    * @param {Tile} tile
    */
-  constructor(tile) {
+  constructor(tile, idx) {
     /**
      * @type {Object.<number, BaseEntity>}
      */
+    this.idx = idx;
     this.entities = {
-      ['[[COUNT]]']: 0
+      [count]: 0
     };
     
     /**
@@ -17,18 +20,19 @@ class IndexedTile {
   }
   addEnt(ent) {
     if (!this.entities[ent.id]) {
-      this.entities['[[COUNT]]']++;
+      this.entities[count]++;
       this.entities[ent.id] = ent;
     }
   }
+
   removeEnt(ent) {
     if (this.entities[ent.id]) {
-      this.entities['[[COUNT]]'] = Math.max(this.entities['[[COUNT]]'] - 1, 0);
+      this.entities[count] = Math.max(this.entities[count] - 1, 0);
       delete this.entities[ent.id];
     }
   }
   getEntCount() {
-    return this.entities['[[COUNT]]'];
+    return this.entities[count];
   }
 }
 

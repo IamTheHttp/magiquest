@@ -6,7 +6,7 @@ import getSpriteCrop from 'utils/getSpriteCrop';
 
 let {Entity} = GAME_PLATFORM;
 
-describe('Tests for the AI system', () => {
+describe('Tests for the Animation system', () => {
   let systemArguments, spyPan;
   
   beforeEach(() => {
@@ -56,25 +56,19 @@ describe('Tests for the AI system', () => {
     expect(player.getAnimations()['MOVE_RIGHT'].realFrameCount).toBe(1);
   });
 
-  it ('Animation will run its course successfully', () => {
+  it('Animation will run its course successfully', () => {
     let player = new Player({x: 16, y: 16});
     player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
 
     // animation duration (in frames) is related to the frame count it takes to move 32 pixels
-    let framesToMove = 32 / player.getMovementSpeed();
-    let i = 0;
-
     // run all the frames
-    while (i < framesToMove) {
+    let i = 0;
+    while (player.getAnimations()['MOVE_RIGHT']) {
+      let anim = player.getAnimations()['MOVE_RIGHT'];
+      expect(anim.realFrameCount).toBe(i);
+
       animationSystem(systemArguments);
       i++;
     }
-
-    // the animation still exists (the last frame of the animation)
-    expect(player.getAnimations()['MOVE_RIGHT'].realFrameCount).toBe(framesToMove);
-
-    // one more run should remove the animation, as this animation does not loop
-    animationSystem(systemArguments);
-    expect(player.getAnimations()['MOVE_RIGHT']).toBeUndefined();
   });
 });

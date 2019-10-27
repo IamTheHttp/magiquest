@@ -1,6 +1,7 @@
 import GAME_PLATFORM from 'game-platform/dist';
 import {
-  ANIMATION_COMP,
+  AI_VISION_COMP,
+  ANIMATION_COMP, IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
@@ -10,6 +11,7 @@ import AnimationComp from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
 import {DIRECTIONS} from './gameConstants';
 import {bit} from 'config';
+import AIVisionComponent from 'components/AIVisionComponent';
 
 let {Entity} = GAME_PLATFORM;
 
@@ -42,7 +44,7 @@ class BaseEntity extends Entity {
     } else if (destY < y) {
       return DIRECTIONS.UP;
     } else {
-      return null; // default
+      return this.getOrientation(); // by default, get current one
     }
   }
 
@@ -68,6 +70,14 @@ class BaseEntity extends Entity {
       return;
     }
     delete this[ANIMATION_COMP].animations[animationName];
+  }
+
+  getAIVisionRange() {
+    return this[AI_VISION_COMP] && this[AI_VISION_COMP].range;
+  }
+
+  isAttacking() {
+    return !!this[IS_ATTACKING_COMP];
   }
 
   setDest({x, y}) {
@@ -116,7 +126,7 @@ class BaseEntity extends Entity {
     this[POSITION_COMP].orientation = direction;
   }
 
-  getOrientation(direction) {
+  getOrientation() {
     return this[POSITION_COMP].orientation;
   }
 
@@ -174,6 +184,7 @@ class BaseEntity extends Entity {
     let {x, y} = this.getPos();
     this[POSITION_COMP].originX = x;
     this[POSITION_COMP].originY = y;
+
 
     if (dir === DIRECTIONS.UP) {
       this.setDest({

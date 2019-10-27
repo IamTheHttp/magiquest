@@ -12,7 +12,6 @@ import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'utils/isNum';
-import {DIRECTIONS} from 'gameConstants';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 /**
@@ -148,13 +147,3 @@ function moveSystem(systemArguments) {
 }
 
 export default moveSystem;
-
-// once dest is reached, we nullify dest
-// if we have direction, we keep moving
-// keep the IS_MOVING comp
-// finish the loop, user hits a button, removing the direction
-// finish the rAF loop
-// go into the moveSystem again, assuming there's a direction...
-// user has no direction or dest, BOOM.
-// if no direction
-// remove IS_MOVING comp, no more movement

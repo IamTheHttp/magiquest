@@ -5,12 +5,12 @@ import IsAttackingComp from '../../../components/IsAttacking';
 
 function attackAction(systemArguments, action) {
   let {tileIdxMap, Entity} = systemArguments;
-  let ent = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
-  let curOrientation = ent[POSITION_COMP].orientation;
+  let entity = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let curOrientation = entity[POSITION_COMP].orientation;
   
   // tile to attack?
   
-  let tileIdx = getTileIdxByEnt(ent);
+  let tileIdx = getTileIdxByEnt(entity);
   
   let row = +tileIdx.split('-')[0];
   let col = +tileIdx.split('-')[1];
@@ -37,8 +37,8 @@ function attackAction(systemArguments, action) {
   let targetTile = tileIdxMap[targetIdx];
   
   // we could target out of bounds
-  if (targetTile) {
-    ent.addComponent(new IsAttackingComp(targetTile));
+  if (targetTile && !entity.isAttacking()) {
+    entity.addComponent(new IsAttackingComp(targetTile));
   }
 }
 

@@ -1,6 +1,7 @@
 import oneMap from 'levels/data/test_15x15';
 import twoMap from 'levels/data/test_50x32';
 import {CHARACTERS} from 'gameConstants';
+import {bit} from 'config';
 
 let levelConfig = {
   0: {
@@ -38,8 +39,8 @@ let levelConfig = {
         enemies: [{
           type: CHARACTERS.SENTRY,
           pos: {
-            x: 50,
-            y: 50
+            x: bit * 3 - 16,
+            y: bit * 3 - 16
           }
         }],
         tileMap: twoMap,

@@ -32,11 +32,11 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
           [DIRECTIONS.DOWN]: getSpriteCrop(1, 2)
         };
   
-        let crops = spriteCrop[entity[POSITION_COMP].orientation] || {
+        let crops = spriteCrop[entity.getOrientation()] || {
           cropStartX: 0,
           cropStartY: 0
         };
-        
+
         mapAPI.addImage(
           {
             id: `${entity.id}`,

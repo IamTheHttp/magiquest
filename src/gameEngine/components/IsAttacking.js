@@ -11,6 +11,12 @@ class IsAttackingComp {
      * @type {IndexedTile}
      */
     this.targetTile = targetTile;
+
+    /**
+     * @type {number}
+     * @Desc An attack lasts a set amount of frames, specified in the attack_comp
+     */
+    this.currentFrame = 0;
   }
 }
 

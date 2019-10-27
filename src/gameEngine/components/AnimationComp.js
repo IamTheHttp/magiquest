@@ -8,7 +8,7 @@ class AnimationComp {
     this.animationTypes = animationTypes;
   }
   
-  addAnimationVariant({animationName, frames = [], loops = false, size = 0.25, speed, ...rest} = {}) {
+  addAnimationVariant({animationName, frames = [], loops = false, size = 0.25, speed, animationDuration, ...rest} = {}) {
     assertType(animationName, 'Name of animation', 'string');
     if (Object.keys(rest).length > 0) {
       throw `Extra arguments not supported to addAnimationVariant ${JSON.stringify(Object.keys(rest))}`;
@@ -21,7 +21,8 @@ class AnimationComp {
       loops,
       size,
       speed,
-      realFrameCount:0
+      realFrameCount:0,
+      animationDuration
     };
   };
 }

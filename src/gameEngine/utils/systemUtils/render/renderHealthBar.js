@@ -1,7 +1,10 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {HEALTH_BAR_SHAPE} from 'gameConstants';
+import assertType from 'utils/assertType';
+
 
 function renderHealthBar(systemArguments, entity) {
+  assertType(entity[HEALTH_COMP], 'Health Component', 'object');
   let {mapAPI} = systemArguments;
   let healthWidth = entity[POSITION_COMP].width || entity[POSITION_COMP].radius * 2 || 200;
   let healthMargin = entity[POSITION_COMP].height || entity[POSITION_COMP].radius * 1 + 2 || 200;

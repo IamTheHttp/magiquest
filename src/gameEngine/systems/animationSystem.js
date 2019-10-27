@@ -15,8 +15,8 @@ function animationSystem(systemArguments) {
       let animation = animations[anim];
       animation.realFrameCount = animation.realFrameCount || 0;
       
-      let framesLength = animation.frames.length - 1;
-      let isOver = animation.currentFrame >= framesLength;
+      let numberOfFrames = animation.frames.length - 1;
+      let isOver = animation.currentFrame >= numberOfFrames;
       
       if (isOver && animation.loops) {
         animation.currentFrame = 0;
@@ -24,13 +24,18 @@ function animationSystem(systemArguments) {
       } else if (isOver && !animation.loops) {
         entity.removeAnimation(animation.animationName);
       } else {
-        let movementSpeed = entity.getMovementSpeed();
-        
         // the duration of the animation is the time it takes to cross a bit (32px)
-        let frameRatio = (bit / movementSpeed) / framesLength;
-  
+        let animationDuration = animation.animationDuration || (bit / entity.getMovementSpeed()) / numberOfFrames;
+
         animation.realFrameCount++;
-        animation.currentFrame = Math.floor(animation.realFrameCount / frameRatio);
+        // the animation lasts for {animationDuration} frames (bigger = longer)
+        // the animation has {numberOfFrames}
+        // each frameDuration is {animationDuration / numberOfFrames}
+        // current frame is Math.min{realFrameCount / frameDuration}
+
+        let frameDuration = animationDuration / numberOfFrames;
+
+        animation.currentFrame = Math.floor(animation.realFrameCount / frameDuration);
       }
     }
   }
