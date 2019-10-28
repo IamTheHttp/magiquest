@@ -12,8 +12,7 @@ class FamNPC {
     ent.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: PLAYER_CHAR,
-        rotation: -0.5 * Math.PI
+        shape: PLAYER_CHAR
       }]
     ));
   
