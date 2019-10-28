@@ -93,6 +93,7 @@ describe('Tests for the AI system', () => {
     let {x: playerX, y: playerY} = player.getPos();
     let {x, y} = sentry.getPos();
 
+
     expect(x - playerX + y - playerY).toBe(bit);
 
     // we expect to be a tile away from the player
@@ -108,5 +109,38 @@ describe('Tests for the AI system', () => {
 
     currentHealth = player[HEALTH_COMP].current;
     expect(currentHealth).toBeLessThan(max);
+  });
+
+  it('Should only attack adjacent tile (Non aligned entities)', () => {
+    /**
+     * @type {BaseEntity}
+     */
+    let player = new Player({
+      x: 16,
+      y: 16
+    });
+
+    updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
+
+    /**
+     * @type {BaseEntity}
+     */
+    let sentry = new Sentry({
+      x: 32,
+      y: 32,
+      vision: 200
+    });
+
+    // since both X and Y are different, no attack is possible
+    aiSystem(systemArguments);
+
+    let currentHealth = player[HEALTH_COMP].current;
+    let max = player[HEALTH_COMP].max;
+    expect(currentHealth).toBe(max);
+    // the attack system should now kick in to attack the player
+    attackSystem(systemArguments);
+
+    currentHealth = player[HEALTH_COMP].current;
+    expect(currentHealth).toBe(max);
   });
 });

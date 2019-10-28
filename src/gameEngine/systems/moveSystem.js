@@ -12,6 +12,7 @@ import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'utils/isNum';
+import assertType from 'utils/assertType';
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 /**
@@ -64,7 +65,6 @@ function moveEntity(systemArguments, entity) {
     y: modDestY
   });
 
-
   /**
    * Stopping Point - Was our destination reached? if it was, we stop.
    */
@@ -79,9 +79,13 @@ function moveEntity(systemArguments, entity) {
       oldX: entity[POSITION_COMP].originX,
       oldY: entity[POSITION_COMP].originY
     });
-    
+
     // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
     entity.stop();
+
+    let {x, y} = entity.getPos();
+    assertType((x + 16) % 32 === 0, `Entities should be on the grid ${x} ${y}`, true);
+    assertType((y + 16) % 32 === 0, 'Entities should be on the grid', true);
     if (dir) {
       entity.setMoveDirection(dir);
     }

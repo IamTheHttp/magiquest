@@ -21,6 +21,10 @@ let {Entity, Engine} = GAME_PLATFORM;
 import {assetLoader} from 'cache/assetLoader';
 import Sentry from 'entities/Sentry';
 import ShockWave from 'entities/ShockWave';
+import spawnEnemiesSystem from 'systems/spawnEnemiesSystem';
+import {CHARACTERS} from 'gameConstants';
+import assertType from 'utils/assertType';
+import FamNPC from 'entities/FamNPC';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
@@ -43,6 +47,7 @@ class GameLoop {
     engine.addSystem(renderSystem);
     engine.addSystem(animationSystem);
     engine.addSystem(portalSystem);
+    engine.addSystem(spawnEnemiesSystem);
 
     this.resume();
   }
@@ -77,8 +82,8 @@ class GameLoop {
     this.renderBackground = true; // for the first time
     this.levelArea = levelArea;
     this.viewSize = viewSize;
-    this.tileIdxMap = this.createMapEntites(levelArea.tileMap, viewSize);
 
+    this.tileIdxMap = this.createMapEntites(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
 
     // create player
     let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
@@ -93,14 +98,34 @@ class GameLoop {
 
     updateMapTileIdx({entity: player, tileIdxMap: this.tileIdxMap, newX: x, newY: y});
 
-    // create enemies
-    for (let i = 0; i < levelArea.enemies.length; i++) {
-      let enemy = levelArea.enemies[i];
-      // create an enemy
-      let sentry = new Sentry({x: enemy.pos.x, y: enemy.pos.y});
+    // create entities
+    for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
+      let entityToPlace = levelArea.entitiesToPlace[i];
 
-      let sentryPOS = sentry.getPos();
-      updateMapTileIdx({entity: sentry, tileIdxMap: this.tileIdxMap, newX: sentryPOS.x, newY: sentryPOS.y});
+      /**
+       *
+       * @type {BaseEntity}
+       */
+      let entity = null;
+
+      let x = entityToPlace.pos.col * bit + 0.5 * bit;
+      let y = entityToPlace.pos.row * bit + 0.5 * bit;
+
+      // create an entity
+      if (entityToPlace.type === CHARACTERS.SENTRY) {
+        entity = new Sentry({x, y});
+      }
+
+      if (entityToPlace.type === CHARACTERS.FAM_NPC) {
+        entity = new FamNPC({x, y});
+      }
+
+      if (!entity) {
+        assertType(entity, 'Entity to place', 'object');
+        return;
+      }
+
+      updateMapTileIdx({entity, tileIdxMap: this.tileIdxMap, newX: entity.getPos().x, newY: entity.getPos().y});
     }
 
     this.renderBackground = true; // for the first time
@@ -118,7 +143,7 @@ class GameLoop {
     this.renderBackground = false;
   }
 
-  createMapEntites(tileMap, viewSize) {
+  createMapEntites(tileMap, viewSize, spawnableEnemies) {
     let {mapHeight, mapWidth} = viewSize;
 
     /**
@@ -141,7 +166,8 @@ class GameLoop {
           y: rowIdx * tileHeight,
           width: tileWidth,
           height: tileHeight,
-          tileType: tileMap[rowIdx][colIdx]
+          tileType: tileMap[rowIdx][colIdx],
+          spawnableEnemies
         });
 
         let tileIndex = `${rowIdx}-${colIdx}`;

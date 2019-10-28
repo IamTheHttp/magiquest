@@ -1,24 +1,24 @@
-import GAME_PLATFORM from 'game-platform/dist';
-import {CANVAS_OUTPUT, MAP_TILE_SHAPE} from '../gameConstants';
-import UIComponent from '../components/UIComponent';
+import {CANVAS_OUTPUT, CHARACTERS, MAP_TILE_SHAPE} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import BaseEntity from '../BaseEntity';
-
-let {Entity} = GAME_PLATFORM;
+import CanSpawn from 'components/CanSpawn';
 
 class Tile {
-  constructor({x, y, height, width, tileType}) {
+  constructor({x, y, height, width, tileType, spawnableEnemies = []}) {
     let ent = new BaseEntity(Tile);
-    
+
     ent.addComponent(new PositionComponent({x, y, height, width}));
-    
+
     // 1 is grass
-    if (tileType === 1) {
+    // REFACTOR - Seems strange here.. (if type === 1?)
+    if (tileType === 1 || tileType === 7) {
       ent.addComponent(new TraversableComponent());
+      ent.addComponent(new CanSpawn(spawnableEnemies));
     }
-    
+
+
     ent.addComponent(new BackgroundComponent(
       [{
         name: CANVAS_OUTPUT,

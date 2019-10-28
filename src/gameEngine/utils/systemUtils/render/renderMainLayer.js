@@ -47,7 +47,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
             ...crops,
             cropSizeX: bit,
             cropSizeY: bit,
-            rotation: 0 // in radians
+            rotation: section.rotation || 0 // in radians
           }
         );
       }

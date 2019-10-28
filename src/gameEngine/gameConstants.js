@@ -31,5 +31,6 @@ export const ANIMATIONS = {
 };
 
 export const CHARACTERS = {
-  SENTRY: 'SENTRY'
+  SENTRY: 'SENTRY',
+  FAM_NPC: 'FAM_NPC'
 };

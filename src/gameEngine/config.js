@@ -8,6 +8,8 @@ let brownBrickDay = getSpriteCrop(17, 2);
 let brownDoorDay = getSpriteCrop(15, 20);
 let redRoofDay = getSpriteCrop(14, 10);
 let monument = getSpriteCrop(22, 7);
+let dirtPath = getSpriteCrop(2, 0);
+let treeGrassTile = getSpriteCrop(0, 1);
 
 let tileTypes = {
   0: mountainTile,
@@ -16,7 +18,9 @@ let tileTypes = {
   3: brownBrickDay,
   4: brownDoorDay,
   5: redRoofDay,
-  6: monument
+  6: monument,
+  7: dirtPath,
+  8: treeGrassTile
 };
 
 let attackSpeeds = {

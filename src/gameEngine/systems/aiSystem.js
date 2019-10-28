@@ -53,7 +53,14 @@ function aiSystem(systemArguments) {
       }
 
       // attack if close
-      let isNextToPlayer = Math.abs(playerX - x + playerY - y) === bit;
+      let isNextToPlayer = false;
+
+      if (x === playerX) {
+        isNextToPlayer = Math.abs(playerY - y) === bit;
+      } else if (y === playerY) {
+        isNextToPlayer = Math.abs(playerX - x) === bit;
+      }
+
       let isCurrentlyAttacking = entity.isAttacking();
 
       if (isNextToPlayer && !isCurrentlyAttacking) {
