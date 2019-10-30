@@ -21,9 +21,9 @@ function renderBackgroundLayer(systemArguments) {
             x: entity[POSITION_COMP].x, y: entity[POSITION_COMP].y,
             height: entity[POSITION_COMP].height, width: entity[POSITION_COMP].width,
             ...tileTypes[section.data.tileType],
-            rotation: 0 // in radians
-          },
-          'background'
+            rotation: 0, // in radians
+            layerName: 'background'
+          }
         );
       }
     });

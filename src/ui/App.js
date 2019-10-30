@@ -26,20 +26,12 @@ class App extends React.Component {
       mapHeight,
       mapWidth,
       viewHeight: resolution.height,
-      viewWidth: resolution.width,
-      onViewMapMove: (dataObj) => {
-      },
-      onViewMapClick: (dataObj) => {
-      },
-      onMiniMapClick: () => {
-        this.game.requestBackgroundRender();
-      },
-      onMiniMapMove: () => {
-      }
+      viewWidth: resolution.width
     }).getNewCanvasPairs({
       getMapRef: (API, el) => {
         window.API = API;
         API.addLayer('background');
+        console.log('New API made');
         this.setState({
           mapAPI: API
         });
