@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "canvas": "2.6.0",
-    "game-platform": "^0.3.0",
+    "game-platform": "0.3.1",
     "react": "16.8.2",
     "react-dom": "16.8.2"
   },
