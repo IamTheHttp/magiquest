@@ -47,7 +47,7 @@ let levelConfig = {
             lines: [
               {
                 text: 'I haven\'t heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?',
-                speaker: 0 // TODO - speaker 0 means player? =/
+                speaker: 0
               }
             ]
           }],
@@ -62,7 +62,7 @@ let levelConfig = {
                 },
                 {
                   text: 'Is everything okay?\nI had a very bad feeling this morning',
-                  speaker: 0 // so our player? TODO - is this the best way?
+                  speaker: 0
                 },
                 {
                   text: 'This morning I tried to gather berries from the valley ahead\nI was attacked by a horrible creature!',

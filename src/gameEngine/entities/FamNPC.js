@@ -17,7 +17,7 @@ class FamNPC extends BaseEntity {
     ));
   
     this.addComponent(new AnimationComp(sentryAnimations));
-    this.name = name; // TODO - should this be wrapped in a component?
+    this.name = name;
   }
 }
 

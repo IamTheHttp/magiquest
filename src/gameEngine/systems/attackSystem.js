@@ -46,7 +46,6 @@ function attackSystem(systemArguments) {
         });
 
         // remove dead entities
-        // TODO this might be needed at some different system for XP, drops etc.
         if (entTarget[HEALTH_COMP].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);

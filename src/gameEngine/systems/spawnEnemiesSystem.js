@@ -15,7 +15,6 @@ function spawnEnemiesSystem(systemArguments) {
   entityLoop(entities, (entity) => {
     let {x, y} = entity.getPos();
     entity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
-      // TODO use some random seed?
       if (Math.random() < enemyToSpawn.chance) {
         if (enemyToSpawn.enemy === CHARACTERS.SENTRY) {
           new Sentry({x: x + 16, y: y + 16});

@@ -88,7 +88,6 @@ class GameLoop {
     let hasStartTriggers = levelArea.triggers.levelStart.length;
     hasStartTriggers && levelArea.triggers.levelStart.forEach((configuredTrigger) => {
       // activateTrigger ...
-      // TODO should really be a utility function as it WILL be reused inside the systems
       if (configuredTrigger.type === 'dialog') {
         pushTrigger(new Trigger({
           type: 'dialog',
@@ -97,11 +96,6 @@ class GameLoop {
         }));
       }
     });
-
-    // do we have any
-    // if (levelArea.dialogs.start) {
-    //   player.addComponent(new Dialog(levelArea.dialogs.start));
-    // }
 
     centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
     this.renderBackground = true; // for the first time

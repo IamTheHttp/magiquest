@@ -11,7 +11,7 @@ class Tile {
 
     ent.addComponent(new PositionComponent({x, y, height, width}));
 
-    // 1 is grass
+    // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)
     if (tileType === 1 || tileType === 7) {
       ent.addComponent(new TraversableComponent());
