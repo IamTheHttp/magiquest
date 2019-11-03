@@ -11,16 +11,16 @@ import playerAnimations from 'entities/animations/playerAnimations';
 import Health from 'components/Health';
 import {attackSpeeds} from 'config';
 
-class Player {
+class Player extends BaseEntity {
   constructor({x, y, radius = 16}) {
-    let ent = new BaseEntity(Player);
-    
-    ent.addComponent(new MoveComponent(2));   // we move 32px, so it has to be divisible
-    ent.addComponent(new PlayerControlledComponent());
-    ent.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS.FAST]));
-    ent.addComponent(new PositionComponent({x, y, radius}));
-    ent.addComponent(new Health(100));
-    ent.addComponent(new UIComponent([
+    super(Player);
+
+    this.addComponent(new MoveComponent(2));   // we move 32px, so it has to be divisible
+    this.addComponent(new PlayerControlledComponent());
+    this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS.FAST]));
+    this.addComponent(new PositionComponent({x, y, radius}));
+    this.addComponent(new Health(100));
+    this.addComponent(new UIComponent([
       {
         name: CANVAS_OUTPUT,
         shape: PLAYER_CHAR
@@ -30,10 +30,9 @@ class Player {
         shape: HEALTH_BAR_SHAPE
       }]
     ));
-    
-    ent.addComponent(new AnimationComp(playerAnimations));
-    
-    return ent;
+
+    this.addComponent(new AnimationComp(playerAnimations));
+    this.name = 'Jenny';
   }
 }
 

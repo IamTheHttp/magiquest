@@ -1,7 +1,7 @@
 import GAME_PLATFORM from 'game-platform/dist';
 import {
   AI_VISION_COMP,
-  ANIMATION_COMP, IS_ATTACKING_COMP,
+  ANIMATION_COMP, HEALTH_COMP, IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
@@ -78,6 +78,10 @@ class BaseEntity extends Entity {
 
   isAttacking() {
     return !!this[IS_ATTACKING_COMP];
+  }
+
+  isAttackable() {
+    return !!this[HEALTH_COMP];
   }
 
   setDest({x, y}) {

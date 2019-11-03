@@ -1,4 +1,4 @@
-import {ANIMATION_COMP, POSITION_COMP, UI_COMP} from 'components/ComponentNamesConfig';
+import {ANIMATION_COMP, DIALOG_COMP, POSITION_COMP, UI_COMP} from 'components/ComponentNamesConfig';
 import {CIRCLE_SHAPE, DIRECTIONS, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
@@ -7,10 +7,13 @@ import char from 'assets/characters.png';
 import getSpriteCrop from 'utils/getSpriteCrop';
 import renderAnimations from 'utils/systemUtils/render/renderAnimations';
 import {assetLoader} from 'cache/assetLoader';
+import renderDialog from 'utils/systemUtils/render/renderDialog';
+import {Entity} from 'BaseEntity';
 
 function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   let {mapAPI} = systemArguments;
-  
+
+  // render entities
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
     
@@ -53,11 +56,20 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
       }
     });
   }
-  
+
+  // render animations
   for (let i = 0; i < closeEntsWithAnimation.length; i++) {
     let entity = closeEntsWithAnimation[i];
     
     renderAnimations(systemArguments, entity);
+  }
+  // one dialog at a time!
+
+  let entity = Entity.getByComps(DIALOG_COMP)[0];
+  if (entity) {
+    renderDialog(systemArguments, entity);
+    systemArguments.game.stop();
+    entity.removeComponent(DIALOG_COMP);
   }
 }
 

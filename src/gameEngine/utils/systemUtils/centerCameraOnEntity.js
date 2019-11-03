@@ -1,6 +1,6 @@
 import {bit} from 'config';
 
-function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight) {
+function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight, force = false) {
   let {x, y} = entity.getPos();
   let {panX, panY} = mapAPI.getPan();
   
@@ -8,7 +8,7 @@ function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWi
   let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
   
   // if we don't need to pan, stop
-  if (panX === panToX && panY === panToY) {
+  if (panX === panToX && panY === panToY && !force) {
     return;
   }
   

@@ -1,15 +1,15 @@
 import GAME_PLATFORM from 'game-platform/dist';
 import moveAction from '../utils/systemUtils/userInput/moveAction';
-import attackAction from '../utils/systemUtils/userInput/attackAction';
+import performAction from '../utils/systemUtils/userInput/performAction';
 
 import {
-  ATTACK_ACTION,
+  PERFORM_ACTION,
   MOVE_ACTION
 } from 'gameEngine/gameConstants';
 
 let actionMap = {
   [MOVE_ACTION]: moveAction,
-  [ATTACK_ACTION]: attackAction
+  [PERFORM_ACTION]: performAction
 };
 
 // store our actions, singleton

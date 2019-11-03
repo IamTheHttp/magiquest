@@ -12,6 +12,7 @@ body {
 
 
 
+
 $border-light: #b78846;
 $border-dark: rgb(153, 82, 12);
 $border-width: 20px;
@@ -50,5 +51,13 @@ $width: $height * $ratio;
   display:none;
 }
 
+
+
+button {
+  position:fixed;
+  top:30%;
+  left:50%;
+  font-size:50px;
+}
 
 

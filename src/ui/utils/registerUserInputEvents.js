@@ -1,4 +1,4 @@
-import {ATTACK_ACTION, MOVE_ACTION} from 'gameConstants';
+import {PERFORM_ACTION, MOVE_ACTION} from 'gameConstants';
 
 function registerUserInputEvents(game) {
   let glob = {};
@@ -28,18 +28,22 @@ function registerUserInputEvents(game) {
     };
     
     if (code === 32) {
-      game.dispatchAction({
-        name: ATTACK_ACTION
-      });
-    }
-    
-    let direction = map[code];
-    
-    if (direction) {
-      game.dispatchAction({
-        name: MOVE_ACTION,
-        direction
-      });
+      if (!game.isRunning) {
+        game.resume(); // if it was paused, this unpauses it..
+      } else {
+        game.dispatchAction({
+          name: PERFORM_ACTION
+        });
+      }
+    } else {
+      let direction = map[code];
+
+      if (direction) {
+        game.dispatchAction({
+          name: MOVE_ACTION,
+          direction
+        });
+      }
     }
   });
 }

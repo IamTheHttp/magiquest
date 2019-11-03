@@ -6,7 +6,7 @@ export const RECT_SHAPE = 'RECT_SHAPE';
 export const HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE';
 export const PLAYER_CHAR = 'PLAYER_CHAR';
 export const MOVE_ACTION = 'MOVE_ACTION';
-export const ATTACK_ACTION = 'ATTACK_ACTION';
+export const PERFORM_ACTION = 'PERFORM_ACTION';
 
 export const ATTACK_SPEEDS = {
   SLOW: 'SLOW',
