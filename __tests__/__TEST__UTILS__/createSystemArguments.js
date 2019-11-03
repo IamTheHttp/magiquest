@@ -1,24 +1,22 @@
 import IndexedTile from '../../src/gameEngine/classes/IndexedTile';
 import Tile from '../../src/gameEngine/entities/Tile';
 import GAME_PLATFORM from 'game-platform/dist';
+import placeLevelTerrainTiles from 'utils/placeLevelTerrainTiles';
 
 let {Entity} = GAME_PLATFORM;
 
 
 function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw}) {
-  let map = {
-    '0-0': new IndexedTile(new Tile({y: 0, x: 0, tileType: 1}),  '0-0'),
-    '0-1': new IndexedTile(new Tile({y: 0, x: 1, tileType: 1}),  '0-1'),
-    '0-2': new IndexedTile(new Tile({y: 0, x: 2, tileType: 1}),  '0-2'),
-    '1-0': new IndexedTile(new Tile({y: 1, x: 0, tileType: 1}),  '1-0'),
-    '1-1': new IndexedTile(new Tile({y: 1, x: 1, tileType: 1}),  '1-1'),
-    '1-2': new IndexedTile(new Tile({y: 1, x: 2, tileType: 1}),  '1-2'),
-    '2-0': new IndexedTile(new Tile({y: 2, x: 0, tileType: 0}),  '2-0'), // mountain
-    '2-1': new IndexedTile(new Tile({y: 2, x: 1, tileType: 1}),  '2-1'),
-    '2-2': new IndexedTile(new Tile({y: 2, x: 2, tileType: 1}),  '2-2')
+  let tileMap = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [0, 1, 1],
+  ];
+  let viewSize = {
+    mapWidth: 32 * 3,
+    mapHeight: 32 * 3
   };
-  
-  
+
   return {
     Entity,
     shouldRenderBackground: true,
@@ -40,7 +38,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw}) {
       notifyBackgroundWasRendered: () => {
       }
     },
-    tileIdxMap: map,
+    tileIdxMap: placeLevelTerrainTiles(tileMap, viewSize, []),
     viewSize: {
       mapWidth: 100,
       mapHeight: 100,

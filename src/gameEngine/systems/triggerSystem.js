@@ -10,7 +10,7 @@ import Dialog from 'components/Dialog';
 let triggers = [];
 
 class Trigger {
-  constructor({type, lines, actedOnEntity = null}) {
+  constructor({type, lines, actedOnEntity}) {
     this.type = type;
     this.lines = lines;
     this.actedOnEntity = actedOnEntity;
@@ -59,7 +59,7 @@ function triggerSystem(systemArguments) {
   });
 
   // reset triggers when we're done
-  if (triggers) {
+  if (triggers.length) {
     triggers = [];
   }
 }

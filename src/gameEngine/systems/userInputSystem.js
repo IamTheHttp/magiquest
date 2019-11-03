@@ -22,7 +22,7 @@ function userInputSystem(systemArguments) {
     actionMap[action.name](systemArguments, action);
   });
   // reset actions when we're done
-  if (actions) {
+  if (actions.length) {
     actions = [];
   }
 }
