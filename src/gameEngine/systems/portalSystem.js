@@ -7,13 +7,12 @@ function portalSystem(systemArguments) {
   let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
   let index = getTileIdxByEnt(player);
   
-  assertType(levelArea.portals, 'levelArea.portals', 'object');
   assertType(index, 'level index', 'string');
   
-  let portal = levelArea.portals[index];
-  
-  if (portal) {
-    let {level, area} = portal.target;
+  let trigger = levelArea.triggers.move[index] || {};
+
+  if (trigger.type === 'portal') {
+    let {level, area} = trigger;
     game.handleAreaChange(level, area);
   }
 }

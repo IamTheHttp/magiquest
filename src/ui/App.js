@@ -113,6 +113,7 @@ class App extends React.Component {
     // Start the game loop
     setTimeout(() => {
       this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight);
+      window.game = this.game;
       registerUserInputEvents(this.game);
     }, 0);
   }
