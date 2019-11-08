@@ -11,8 +11,8 @@ import {ARC_SHAPE} from 'gameConstants';
 
 
 function getCenterPosOfTile(tileIdx) {
-  let col = tileIdx.split('-')[1];
-  let row = tileIdx.split('-')[0];
+  let col = tileIdx.split('-')[0]; // TODO this is used elsewhere, we might want to put it as a function
+  let row = tileIdx.split('-')[1];
 
   return {
     x: col * bit + bit / 2,

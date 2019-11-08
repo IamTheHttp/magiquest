@@ -15,8 +15,8 @@ function performAction(systemArguments, action) {
 
   // tile to perform action on...
   let tileIdx = getTileIdxByEnt(entity);
-  let row = +tileIdx.split('-')[0];
-  let col = +tileIdx.split('-')[1];
+  let col = +tileIdx.split('-')[0];
+  let row = +tileIdx.split('-')[1];
 
   if (curOrientation === DIRECTIONS.LEFT) {
     col -= 1;
@@ -34,7 +34,7 @@ function performAction(systemArguments, action) {
     row += 1;
   }
 
-  let targetIdx = `${row}-${col}`;
+  let targetIdx = `${col}-${row}`;
   /**
    * @type {IndexedTile}
    */

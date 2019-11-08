@@ -4,7 +4,7 @@ function getTileIdxByPos(x, y) {
   let col = Math.floor(x / bit);
   let row = Math.floor(y / bit);
   
-  return `${row}-${col}`;
+  return `${col}-${row}`;
 }
 
 function getTileIdxByEnt(ent) {

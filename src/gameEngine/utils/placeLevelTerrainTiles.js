@@ -28,7 +28,7 @@ function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
         spawnableEnemies
       });
 
-      let tileIndex = `${rowIdx}-${colIdx}`;
+      let tileIndex = `${colIdx}-${rowIdx}`;
       idx[tileIndex] = new IndexedTile(tile, tileIndex);
 
       Object.defineProperty(idx[tileIndex], 'entities', {

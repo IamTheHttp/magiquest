@@ -13,15 +13,35 @@ export default {
       }
     }
   ],
-  spawnableEnemies: [
-    {
-      chance: 0.005,
-      enemy: CHARACTERS.SENTRY
-    }
-  ],
+  spawnableEnemies: [],
   triggers: {
     levelStart: [],
-    actOnEntity: {},
+    actOnEntity: {
+      NPC_1: [
+        {
+          oneOff: true,
+          type: 'dialog',
+          lines: [
+            {
+              text: 'Hey Jenny!, I\'m so glad to see you!\n',
+              speaker: 1
+            },
+            {
+              text: 'Is everything okay?\nI had a very bad feeling this morning',
+              speaker: 0
+            },
+            {
+              text: 'I was taking a walk this morning in the valley,\nI was attacked by a horrible creature!',
+              speaker: 1
+            },
+            {
+              text: 'Please, take this sword!\nYou\'ll need it if you want to get to the town',
+              speaker: 1
+            }
+          ]
+        }
+      ]
+    },
     move: {
       '14-14': {
         oneOff: true,
@@ -34,7 +54,7 @@ export default {
   tileMap: twoMap,
   portals: {},
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-    x: 16,
-    y: 16
+    col: 0,
+    row: 0
   }
 };

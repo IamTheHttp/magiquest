@@ -2,7 +2,7 @@ import oneMap from 'levels/data/0-0_home';
 import twoMap from 'levels/data/0-1_adventure';
 import {CHARACTERS} from 'gameConstants';
 import {bit} from 'config';
-
+// TODO - Ensure all tests pass!
 
 /**
  * @name levelArea

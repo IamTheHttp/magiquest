@@ -9,9 +9,7 @@ import attackSystem from './systems/attackSystem';
 import tileSetImageURL from '../assets/tileSet.png';
 import animationSystem from './systems/animationSystem';
 import charSpriteURL from 'assets/characters.png';
-import entityLoop from 'game-platform/src/lib/ECS/util/entityLoop';
 import portalSystem from 'systems/portalSystem';
-import {AI_CONTROLLED_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';
 
 let {Entity, Engine} = GAME_PLATFORM;
 import {assetLoader} from 'cache/assetLoader';
@@ -20,8 +18,7 @@ import placeLevelTerrainTiles from 'utils/placeLevelTerrainTiles';
 import placeLevelEntities from 'utils/placeLevelEntities';
 import placePlayerInLevel from 'utils/placePlayerInLevel';
 import centerCameraOnEntity from 'utils/systemUtils/centerCameraOnEntity';
-import destroyAIEntities from 'utils/destroyAIEntities';
-import destroyBackgroundEntities from 'utils/destroyBackgroundEntities';
+import destroyAllButPlayer from 'utils/destroyAllButPlayer';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
@@ -77,8 +74,7 @@ class GameLoop {
     this.levelArea = levelArea;
     this.viewSize = viewSize;
 
-    destroyAIEntities();
-    destroyBackgroundEntities();
+    destroyAllButPlayer();
 
     this.tileIdxMap = placeLevelTerrainTiles(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
     let player = placePlayerInLevel(levelArea, this.tileIdxMap);

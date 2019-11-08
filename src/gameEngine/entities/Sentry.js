@@ -23,7 +23,7 @@ class Sentry extends BaseEntity {
    * @param dmg
    * @return {Object} BaseEntity instance
    */
-  constructor({x, y, radius = 16, vision = 200, speed = 0.5, health = 100, dmg = 10}) {
+  constructor({x, y, radius = 16, vision = 200, speed = 0.5, health = 100, dmg = 1}) {
     super(Sentry);
     this.addComponent(new MoveComponent(speed));
     this.addComponent(new PositionComponent({x, y, radius}));

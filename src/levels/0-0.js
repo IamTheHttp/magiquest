@@ -15,7 +15,7 @@ export default {
     }],
     actOnEntity: {},
     move: {
-      '13-14': {
+      '14-13': {
         oneOff: true,
         type: 'portal',
         level: 0,
@@ -25,7 +25,7 @@ export default {
   },
   entitiesToPlace: [],
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-    x: 48,
-    y: 80
+    col: 1,
+    row: 2
   }
 };
