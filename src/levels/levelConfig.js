@@ -43,7 +43,6 @@ function requireAllMapLevels() {
 
 requireAllMapLevels();
 
-console.log(levelConfig);
 /**
  * @name levelConfig
  */

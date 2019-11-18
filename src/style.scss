@@ -51,9 +51,22 @@ $width: $height * $ratio;
   display:none;
 }
 
+#editor-panel {
+  height:100px;
+  background-color:black;
+  width:100%;
+}
 
+#tiles {
+  display:flex;
+  .tile {
+    &.active {
+      border:3px solid white;
+    }
+  }
+}
 
-button {
+#start {
   position:fixed;
   top:30%;
   left:50%;

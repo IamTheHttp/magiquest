@@ -35,6 +35,3 @@ assetLoader.load([
 ], () => {
   render(<App/>, document.getElementById('app'));
 });
-
-
-

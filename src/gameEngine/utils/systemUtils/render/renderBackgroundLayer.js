@@ -8,7 +8,7 @@ function renderBackgroundLayer(systemArguments) {
   let {mapAPI, tileSetSprite, Entity} = systemArguments;
   let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
   let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
-  
+
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     let entity = closeBackgroundEnts[i];
     entity[BACKGROUND_COMP].sections.forEach((section) => {

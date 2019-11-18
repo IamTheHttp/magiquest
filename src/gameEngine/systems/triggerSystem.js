@@ -9,6 +9,10 @@ import Dialog from 'components/Dialog';
  */
 let triggers = [];
 
+function pushTrigger(action) {
+  triggers.push(action);
+}
+
 class Trigger {
   constructor({type, lines, actedOnEntity}) {
     this.type = type;
@@ -66,9 +70,7 @@ function triggerSystem(systemArguments) {
 
 export default triggerSystem;
 
-function pushTrigger(action) {
-  triggers.push(action);
-}
+
 
 export {pushTrigger, Trigger};
 

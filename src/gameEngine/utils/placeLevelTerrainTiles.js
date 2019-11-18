@@ -15,6 +15,7 @@ function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
     for (let colIdx = 0; colIdx < row.length; colIdx++) {
       let numOfCols = row.length;
       let numOfRows = tileMap.length;
+      let tileIdx = `${colIdx}-${rowIdx}`;
 
       let tileWidth = mapWidth / numOfCols;
       let tileHeight = mapHeight / numOfRows; // num of cols
@@ -22,16 +23,17 @@ function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
       let tile = new Tile({
         x: colIdx * tileWidth,
         y: rowIdx * tileHeight,
+        tileIdx,
         width: tileWidth,
         height: tileHeight,
         tileType: tileMap[rowIdx][colIdx],
         spawnableEnemies
       });
 
-      let tileIndex = `${colIdx}-${rowIdx}`;
-      idx[tileIndex] = new IndexedTile(tile, tileIndex);
 
-      Object.defineProperty(idx[tileIndex], 'entities', {
+      idx[tileIdx] = new IndexedTile(tile, tileIdx);
+
+      Object.defineProperty(idx[tileIdx], 'entities', {
         writable: false
       });
     }

@@ -19,6 +19,8 @@ import placeLevelEntities from 'utils/placeLevelEntities';
 import placePlayerInLevel from 'utils/placePlayerInLevel';
 import centerCameraOnEntity from 'utils/systemUtils/centerCameraOnEntity';
 import destroyAllButPlayer from 'utils/destroyAllButPlayer';
+import Tile from 'entities/Tile';
+import assertType from 'utils/assertType';
 
 class GameLoop {
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
@@ -96,6 +98,19 @@ class GameLoop {
     centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
     this.renderBackground = true; // for the first time
   }
+
+  // For editor mode only
+  changeTileType(tile, newType) {
+    assertType(tile, 'Tile', 'object');
+    let [col, row] = tile.tileIdx.split('-');
+    let idx = tile.tileIdx;
+
+    this.levelArea.tileMap[row][col] = +newType;
+    destroyAllButPlayer();
+    this.tileIdxMap = placeLevelTerrainTiles(this.levelArea.tileMap, this.viewSize, this.levelArea.spawnableEnemies);
+
+    this.renderBackground = true; // for the first time
+    console.log(JSON.stringify(this.levelArea.tileMap));
 
   handleAreaChange(level, area) {
     this.onAreaChange(level, area);

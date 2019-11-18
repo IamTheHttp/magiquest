@@ -6,9 +6,10 @@ import BaseEntity from '../BaseEntity';
 import CanSpawn from 'components/CanSpawn';
 
 class Tile {
-  constructor({x, y, height, width, tileType, spawnableEnemies = []}) {
+  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}) {
     let ent = new BaseEntity(Tile);
 
+    ent.tileIdx = tileIdx;
     ent.addComponent(new PositionComponent({x, y, height, width}));
 
     // 1 is grass, 7 is road

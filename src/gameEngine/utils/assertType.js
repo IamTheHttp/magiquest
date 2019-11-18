@@ -1,8 +1,15 @@
-function assertType(v, name, type) {
-  if (typeof v === 'boolean') {
-    console.assert(v === type, `Error, expected ${name} to be ${type} but ${v} recieved instead`);
+/* eslint no-console: "off" */
+function assertType(expectedType, name, type) {
+  if (typeof expectedType === 'boolean') {
+    console.assert(
+      expectedType === type,
+      `Error, expected ${name} to be ${type} but ${expectedType} received instead`
+    );
   } else {
-    console.assert(typeof v === type, `Error, expected ${name} to be ${type} but ${typeof v} recieved instead`);
+    console.assert(
+      typeof expectedType === type,
+      `Error, expected ${name} to be ${type} but ${typeof expectedType} received instead`
+    );
   }
 }
 

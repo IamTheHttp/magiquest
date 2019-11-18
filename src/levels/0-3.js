@@ -17,6 +17,6 @@ export default {
   entitiesToPlace: [],
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
     col: 0,
-    row: 0
+    row: 3
   }
 };

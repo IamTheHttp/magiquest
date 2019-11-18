@@ -40,11 +40,12 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
           cropStartY: 0
         };
 
+        let {radius, x, y} = entity[POSITION_COMP];
         mapAPI.addImage(
           {
             id: `${entity.id}`,
             image: assetLoader.getAsset(char),
-            x: entity[POSITION_COMP].x - entity[POSITION_COMP].radius, y: entity[POSITION_COMP].y - entity[POSITION_COMP].radius,
+            x: x - radius, y: y - radius,
             height: 32,
             width: 32,
             ...crops,
