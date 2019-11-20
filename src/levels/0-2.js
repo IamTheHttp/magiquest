@@ -13,7 +13,7 @@ export default {
     levelStart: [],
     actOnEntity: {},
     move: {
-      '29-4': {
+      '21-0': {
         oneOff: true,
         type: 'portal',
         level: 0,

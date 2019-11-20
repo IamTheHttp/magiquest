@@ -6,7 +6,7 @@ export default {
     levelStart: [],
     actOnEntity: {},
     move: {
-      '13-14': {
+      '29-4': {
         oneOff: true,
         type: 'portal',
         level: 0,

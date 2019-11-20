@@ -43,7 +43,7 @@ export default {
       ]
     },
     move: {
-      '14-14': {
+      '14-6': {
         oneOff: true,
         type: 'portal',
         level: 0,

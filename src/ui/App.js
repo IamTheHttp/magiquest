@@ -17,6 +17,7 @@ class Editor extends React.Component {
   render() {
     return (
       <div id={'editor-panel'}>
+
         <div id='tiles'>
           {Object.keys(tileTypes).map((key) => {
             let {cropStartX, cropStartY, cropSizeX, cropSizeY} = tileTypes[key];
@@ -50,7 +51,10 @@ class Editor extends React.Component {
           })}
         </div>
         <div>
-          List of tiles
+          <h1>Clicked Tile</h1>
+          <h2>
+            {this.props.clickedTileIdx}
+          </h2>
         </div>
       </div>
     );
@@ -86,7 +90,11 @@ class App extends React.Component {
           if (shape.layerName === 'background') {
             let entityID = shape.id.split('-')[0];
             let tile = Entity.entities[entityID];
-            this.game.changeTileType(tile, this.state.editorTileType);
+            if (this.state.editorTileType) {
+              this.game.changeTileType(tile, this.state.editorTileType);
+            }
+            this.setState({clickedTileIdx: tile.tileIdx});
+
             // this is what was clicked.
             // what we want to do is set THIS col/row to be the tileType that's currently selected.
             // TODO - this should ONLY work in editor mode
@@ -150,6 +158,11 @@ class App extends React.Component {
   }
 
   changeMap(levelNum, areaNum) {
+    this.setState({
+      currentLevel: levelNum,
+      currentArea: areaNum
+    });
+
     let nextArea = levelConfig[levelNum].areas[areaNum];
     let areaTileMap = nextArea.tileMap;
     this.setNewCanvas(areaTileMap);
@@ -166,7 +179,7 @@ class App extends React.Component {
 
   startGame() {
     // Load some initial state, what level are we on?
-    let levelNum = this.state.currentLevel;
+    let levelNum = this.state.currentLevel; // this should probably be set every time it changes
     let areaNum = this.state.currentArea;
     // Use the level to get the current map for that level
     let areaToLoad = levelConfig[levelNum].areas[areaNum];
@@ -216,7 +229,11 @@ class App extends React.Component {
           >
             Editor
           </button>
+          <h1>
+            {this.state.currentLevel}-{this.state.currentArea}
+          </h1>
           <Editor
+            clickedTileIdx={this.state.clickedTileIdx}
             onTileSelect={(tileType) => {
               this.setState({
                 editorTileType: tileType

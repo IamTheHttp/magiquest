@@ -112,6 +112,7 @@ class GameLoop {
     this.renderBackground = true; // for the first time
     console.log(JSON.stringify(this.levelArea.tileMap));
   }
+
   handleAreaChange(level, area) {
     this.onAreaChange(level, area);
   }
