@@ -28,10 +28,7 @@ describe('Tests for the AI system', () => {
   
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = new Sentry({
-      x: 48,
-      y: 48
-    });
+    let ent = new Sentry({col:1, row:1});
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
@@ -43,10 +40,8 @@ describe('Tests for the AI system', () => {
   });
   
   it('doesnt move an already moving AI', () => {
-    let ent = new Sentry({
-      x: 48,
-      y: 48
-    });
+    let ent = new Sentry({col:1, row:1});
+
     
     ent.addComponent(new IsMoving());
 
@@ -63,21 +58,14 @@ describe('Tests for the AI system', () => {
     /**
      * @type {BaseEntity}
      */
-    let player = new Player({
-      x: 16,
-      y: 16
-    });
+    let player = new Player({col:0, row:0});
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
     /**
      * @type {BaseEntity}
      */
-    let sentry = new Sentry({
-      x: 80,
-      y: 48,
-      vision: 200
-    });
+    let sentry = new Sentry({col:2, row:1, vision:200});
 
     // in two moves, sentry should be next to the player
     aiSystem(systemArguments);
@@ -115,10 +103,7 @@ describe('Tests for the AI system', () => {
     /**
      * @type {BaseEntity}
      */
-    let player = new Player({
-      x: 16,
-      y: 16
-    });
+    let player = new Player({col:0, row:0});
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
@@ -126,8 +111,8 @@ describe('Tests for the AI system', () => {
      * @type {BaseEntity}
      */
     let sentry = new Sentry({
-      x: 32,
-      y: 32,
+      col: 1,
+      row: 1,
       vision: 200
     });
 

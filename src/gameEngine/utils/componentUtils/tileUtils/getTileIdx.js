@@ -14,7 +14,6 @@ function getTileIdxByEnt(ent) {
 }
 
 
-
 export {
   getTileIdxByEnt,
   getTileIdxByPos

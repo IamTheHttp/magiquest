@@ -4,7 +4,8 @@ import {getTileIdxByEnt} from 'utils/componentUtils/tileUtils/getTileIdx';
 
 import {DIRECTIONS} from 'gameConstants';
 import IsAttackingComp from 'components/IsAttacking';
-import entityLoop from 'game-platform/src/lib/ECS/util/entityLoop';
+import GAME_PLATFORM from 'game-platform/dist';
+let {entityLoop} = GAME_PLATFORM;
 import Dialog from 'components/Dialog';
 import {pushTrigger, Trigger} from 'systems/triggerSystem';
 
@@ -70,6 +71,8 @@ function performAction(systemArguments, action) {
         }
       }
     );
+  } else {
+    return false;
   }
 }
 

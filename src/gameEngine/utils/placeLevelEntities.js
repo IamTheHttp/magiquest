@@ -4,6 +4,7 @@ import Sentry from 'entities/Sentry';
 import FamNPC from 'entities/FamNPC';
 import assertType from 'utils/assertType';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
+import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 
 function placeLevelEntities(levelArea, tileIdxMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
@@ -12,15 +13,16 @@ function placeLevelEntities(levelArea, tileIdxMap) {
     /** @type {BaseEntity} */
     let entity = null;
 
-    let x = entityToPlace.pos.col * bit + 0.5 * bit;
-    let y = entityToPlace.pos.row * bit + 0.5 * bit;
+    let {col, row} = entityToPlace.pos;
+    let {x, y} = getCenterPosOfGridIdx(col, row);
 
     // create an entity
     if (entityToPlace.type === CHARACTERS.SENTRY) {
-      entity = new Sentry({x, y});
+      entity = new Sentry({col, row});
     }
 
     if (entityToPlace.type === CHARACTERS.FAM_NPC) {
+      // TODO place with col/row instead of x,y
       entity = new FamNPC({x, y, name: entityToPlace.name});
     }
 

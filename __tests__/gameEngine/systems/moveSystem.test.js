@@ -15,8 +15,8 @@ describe('move system tests', () => {
     spyPan = jest.fn();
     systemArguments = createSystemArgs({spyPan});
     player = new Player({
-      x: 16,
-      y: 16,
+      col:0,
+      row:0,
       radius: 16
     });
   });

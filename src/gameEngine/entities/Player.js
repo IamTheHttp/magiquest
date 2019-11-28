@@ -9,11 +9,13 @@ import BackgroundComponent from '../components/BackgroundComponent';
 import AnimationComp from 'components/AnimationComp';
 import playerAnimations from 'entities/animations/playerAnimations';
 import Health from 'components/Health';
-import {attackSpeeds} from 'config';
+import {attackSpeeds, bit} from 'config';
+import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 
 class Player extends BaseEntity {
-  constructor({x, y, radius = 16}) {
+  constructor({radius = 16, col, row}) {
     super(Player);
+    let {x, y} = getCenterPosOfGridIdx(col, row);
 
     this.addComponent(new MoveComponent(2));   // we move 32px, so it has to be divisible
     this.addComponent(new PlayerControlledComponent());

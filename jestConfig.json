@@ -13,7 +13,8 @@
     "!src/.dll/*",
     "!src/polyfill/*.*",
     "!src/liveExample.js",
-    "!src/index.js"
+    "!src/index.js",
+    "!src/levels/*.*"
   ],
   "coverageThreshold": {
     "global": {

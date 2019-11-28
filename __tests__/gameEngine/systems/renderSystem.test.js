@@ -45,7 +45,7 @@ describe('Tests for the Render system', () => {
   
   it('Does not render a very far away Entity', () => {
     Entity.reset(); // remove all others
-    new Player({x: 5000, y: 5000}); // add one player
+    new Player({col: 5000, row: 5000}); // add one player
     renderSystem(systemArguments);
     
     // nothing to render, as it's too far
