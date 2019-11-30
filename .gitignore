@@ -7,3 +7,4 @@ src/.dll
 report.html
 stats.json
 .DS_Store
+.vscode
