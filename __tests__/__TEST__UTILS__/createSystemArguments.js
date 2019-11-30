@@ -20,6 +20,11 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw}) {
   return {
     Entity,
     shouldRenderBackground: true,
+    levelArea: {
+      triggers: {
+        move: {}
+      }
+    },
     mapAPI: {
       addImage: spyAddImage,
       draw: spyDraw,

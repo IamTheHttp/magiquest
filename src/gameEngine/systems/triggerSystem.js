@@ -9,8 +9,8 @@ import Dialog from 'components/Dialog';
  */
 let triggers = [];
 
-function pushTrigger(action) {
-  triggers.push(action);
+function pushTrigger(trigger) {
+  triggers.push(trigger);
 }
 
 class Trigger {

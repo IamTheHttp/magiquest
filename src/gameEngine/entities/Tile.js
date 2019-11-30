@@ -14,7 +14,7 @@ class Tile {
 
     // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)
-    if (tileType === 1 || tileType === 7) {
+    if (tileType === 1 || tileType === 7 || tileType === 100) {
       ent.addComponent(new TraversableComponent());
       ent.addComponent(new CanSpawn(spawnableEnemies));
     }

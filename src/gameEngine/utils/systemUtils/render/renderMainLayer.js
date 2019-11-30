@@ -1,9 +1,10 @@
 import {ANIMATION_COMP, DIALOG_COMP, POSITION_COMP, UI_COMP} from 'components/ComponentNamesConfig';
-import {CIRCLE_SHAPE, DIRECTIONS, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR} from '../../../gameConstants';
+import {CIRCLE_SHAPE, DIRECTIONS, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR, CHEST_SHAPE} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import {bit} from '../../../config';
 import char from 'assets/characters.png';
+import misc from 'assets/misc.png';
 import getSpriteCrop from 'utils/getSpriteCrop';
 import renderAnimations from 'utils/systemUtils/render/renderAnimations';
 import {assetLoader} from 'cache/assetLoader';
@@ -25,8 +26,30 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
       if (section.shape === HEALTH_BAR_SHAPE) {
         renderHealthBar(systemArguments, entity);
       }
-  
-      
+
+      if (section.shape === CHEST_SHAPE) {
+        let crops = {
+          cropStartX: 32,
+          cropStartY: 0
+        };
+
+        let {radius, x, y} = entity[POSITION_COMP];
+        // When the player is out of animation phase, this is what we show
+        mapAPI.addImage(
+          {
+            id: `${entity.id}`,
+            image: assetLoader.getAsset(misc),
+            x: x - radius, y: y - radius,
+            height: 32,
+            width: 32,
+            ...crops,
+            cropSizeX: bit,
+            cropSizeY: bit,
+            rotation: section.rotation || 0 // in radians
+          }
+        );
+      }
+
       if (section.shape === PLAYER_CHAR) {
         let spriteCrop = {
           [DIRECTIONS.LEFT]: getSpriteCrop(1, 1),
@@ -41,6 +64,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
         };
 
         let {radius, x, y} = entity[POSITION_COMP];
+        // When the player is out of animation phase, this is what we show
         mapAPI.addImage(
           {
             id: `${entity.id}`,

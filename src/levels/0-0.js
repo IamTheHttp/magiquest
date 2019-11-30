@@ -1,4 +1,5 @@
 import oneMap from 'levels/data/0-0_home';
+import { CHARACTERS } from 'gameEngine/gameConstants';
 
 export default {
   tileMap: oneMap,
@@ -20,10 +21,28 @@ export default {
         type: 'portal',
         level: 0,
         area: 1
+      },
+      '2-5': {
+        oneOff: true,
+        type: 'dialog',
+        lines: [
+          {
+            text: 'I should collect my sword\n(hit space to open chests)',
+            speaker: 0
+          }
+        ]
       }
     }
   },
-  entitiesToPlace: [],
+  entitiesToPlace: [
+    {
+      pos: {
+        col: 3,
+        row: 5
+      },
+      type: CHARACTERS.CHEST
+    }
+  ],
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
     col: 1,
     row: 2

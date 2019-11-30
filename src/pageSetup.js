@@ -7,6 +7,7 @@ import './style.scss';
 import tiles from './assets/tileSet.png';
 import charSpriteURL from 'assets/characters.png';
 import sentrySpriteURL from 'assets/sentry.png';
+import miscURL from 'assets/misc.png';
 import {assetLoader} from 'cache/assetLoader';
 
 
@@ -31,6 +32,11 @@ assetLoader.load([
     type: 'image',
     url: sentrySpriteURL,
     name: sentrySpriteURL
+  },
+  {
+    type: 'image',
+    url: miscURL,
+    name: miscURL
   }
 ], () => {
   render(<App/>, document.getElementById('app'));

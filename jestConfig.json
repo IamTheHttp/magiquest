@@ -14,7 +14,8 @@
     "!src/polyfill/*.*",
     "!src/liveExample.js",
     "!src/index.js",
-    "!src/levels/*.*"
+    "!src/levels/*.*",
+    "!src/pageSetup.js"
   ],
   "coverageThreshold": {
     "global": {

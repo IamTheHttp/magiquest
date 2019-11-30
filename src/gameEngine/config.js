@@ -1,4 +1,4 @@
-import getSpriteCrop from 'utils/getSpriteCrop';
+import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
 
 let bit = 32;
 let grassTile = getSpriteCrop(0, 0);
@@ -10,6 +10,10 @@ let redRoofDay = getSpriteCrop(14, 10);
 let monument = getSpriteCrop(22, 7);
 let dirtPath = getSpriteCrop(2, 0);
 let treeGrassTile = getSpriteCrop(0, 1);
+let treeGrassTileGreen = getSpriteCrop(5, 19);
+let treeGrassTilePine = getSpriteCrop(9, 19);
+let sand = getSpriteCrop(9, 10);
+let sea = getSpriteCrop(6, 10);
 
 let tileTypes = {
   0: mountainTile,
@@ -20,7 +24,11 @@ let tileTypes = {
   5: redRoofDay,
   6: monument,
   7: dirtPath,
-  8: treeGrassTile
+  8: treeGrassTile,
+  9: treeGrassTileGreen,
+  10: treeGrassTilePine,
+  100: sand,
+  1000: sea
 };
 
 let attackSpeeds = {

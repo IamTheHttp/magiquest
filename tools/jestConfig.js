@@ -9,6 +9,7 @@ module.exports = function (jestConfig) {
   jestConfig.collectCoverageFrom.push("!src/liveExample.js");
   jestConfig.collectCoverageFrom.push("!src/index.js");
   jestConfig.collectCoverageFrom.push("!src/levels/*.*");
+  jestConfig.collectCoverageFrom.push("!src/pageSetup.js");
 
   jestConfig.setupFiles = jestConfig.setupFiles || [];
 

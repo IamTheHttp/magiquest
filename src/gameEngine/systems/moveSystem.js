@@ -13,7 +13,10 @@ import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'utils/isNum';
 import assertType from 'utils/assertType';
-let {Entity, entityLoop} = GAME_PLATFORM;
+import { getGridIdxFromPos } from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import { getTileIdxByPos } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import { Trigger, pushTrigger } from 'gameEngine/systems/triggerSystem';
+let { Entity, entityLoop } = GAME_PLATFORM;
 
 /**
  *
@@ -21,25 +24,25 @@ let {Entity, entityLoop} = GAME_PLATFORM;
  * @param {BaseEntity} entity
  */
 function moveEntity(systemArguments, entity) {
-  let {mapAPI, game, tileIdxMap} = systemArguments;
-  let {mapHeight, mapWidth, viewHeight, viewWidth} = systemArguments.viewSize;
-  let {x: currX, y: currY} = entity.getPos();
-  let {x: desiredDestX, y : desiredDestY} = entity.getDest();
+  let { mapAPI, game, tileIdxMap, viewSize, levelArea } = systemArguments;
+  let { mapHeight, mapWidth, viewHeight, viewWidth } = viewSize;
+  let { x: currX, y: currY } = entity.getPos();
+  let { x: desiredDestX, y: desiredDestY } = entity.getDest();
   let dir = entity.getMoveDirection();
-  
+
   // the user has a desired place he wants to go..
   let modDestX = desiredDestX;
   let modDestY = desiredDestY;
-  
+
   // Set the modified, safe destination for the user
   if (isNum(desiredDestX) && isNum(desiredDestY)) {
     // make sure the that the desired destination is valid, and doesn't leave the map
-    let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
+    let { x, y } = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
   } else if (dir) {
     // create destination from the direction we want to go
-    let {x, y} = entity.getDestFromDirection(dir);
+    let { x, y } = entity.getDestFromDirection(dir);
     modDestY = y;
     modDestX = x;
   } else {
@@ -83,16 +86,30 @@ function moveEntity(systemArguments, entity) {
     // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
     entity.stop();
 
-    let {x, y} = entity.getPos();
+    let { x, y } = entity.getPos();
     assertType((x + 16) % 32 === 0, `Entities should be on the grid ${x} ${y}`, true);
     assertType((y + 16) % 32 === 0, 'Entities should be on the grid', true);
     if (dir) {
       entity.setMoveDirection(dir);
     }
-    
+
+    /**
+     * Execute possible triggers when movement is done
+     */
+    let { col, row } = getGridIdxFromPos(x, y);
+    let tileIdx = getTileIdxByPos(x, y);
+
+    if (levelArea.triggers.move[tileIdx]) {
+      let trigger = levelArea.triggers.move[tileIdx];
+      pushTrigger(new Trigger({
+        type: 'dialog',
+        lines: trigger.lines
+      }));
+    };
+
     return;
   }
-  
+
   /**
    * Stopping Point - Is our (modified) destination traversable? if not, we stop.
    */
@@ -100,17 +117,17 @@ function moveEntity(systemArguments, entity) {
     entity.stop();
     return;
   }
-  
+
   /**
    * Prep before we move, occupy the target tile
    */
-  updateMapTileIdx({entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y});
-  
+  updateMapTileIdx({ entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y });
+
   /**
    * Calc the new X,Y to move to
    */
-  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
-  
+  let { x: newX, y: newY } = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
+
   /**
    * Update, at the end of the tick, the indexMap
    *
@@ -122,16 +139,19 @@ function moveEntity(systemArguments, entity) {
    * by waiting for the next tick(or the end of this one), we guarantee that for the duration of THIS tick
    * both destination and origin are occupied
    */
-  
+
   Promise.resolve().then(() => {
-    updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
+    updateMapTileIdx({ entity, tileIdxMap, oldX: currX, oldY: currY });
   });
-  
+
   entity.setPos({
     x: newX,
     y: newY
   });
-  
+
+
+
+
   /**
    * Pan the camera around the player controlled entity
    */

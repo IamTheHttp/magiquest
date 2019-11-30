@@ -1,6 +1,13 @@
 {
-  "baseUrl": ".",
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "*": [
+        "./src/gameEngine/utils"
+      ]
+    }
+  }
 }

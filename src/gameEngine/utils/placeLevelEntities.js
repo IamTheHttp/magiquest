@@ -1,10 +1,11 @@
 import {bit} from 'config';
-import {CHARACTERS} from 'gameConstants';
 import Sentry from 'entities/Sentry';
 import FamNPC from 'entities/FamNPC';
 import assertType from 'utils/assertType';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import { CHARACTERS } from 'gameEngine/gameConstants';
+import Chest from 'gameEngine/entities/Chest';
 
 function placeLevelEntities(levelArea, tileIdxMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
@@ -24,6 +25,11 @@ function placeLevelEntities(levelArea, tileIdxMap) {
     if (entityToPlace.type === CHARACTERS.FAM_NPC) {
       // TODO place with col/row instead of x,y
       entity = new FamNPC({x, y, name: entityToPlace.name});
+    }
+
+    if (entityToPlace.type === CHARACTERS.CHEST) {
+      // TODO place with col/row instead of x,y
+      entity = new Chest({col, row});
     }
 
     if (!entity) {

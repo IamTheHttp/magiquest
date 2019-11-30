@@ -4,6 +4,7 @@ export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
 export const MAP_TILE_SHAPE = 'MAP_TILE_SHAPE';
 export const RECT_SHAPE = 'RECT_SHAPE';
 export const HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE';
+export const CHEST_SHAPE = 'CHEST_SHAPE';
 export const PLAYER_CHAR = 'PLAYER_CHAR';
 export const MOVE_ACTION = 'MOVE_ACTION';
 export const PERFORM_ACTION = 'PERFORM_ACTION';
@@ -32,5 +33,6 @@ export const ANIMATIONS = {
 
 export const CHARACTERS = {
   SENTRY: 'SENTRY',
-  FAM_NPC: 'FAM_NPC'
+  FAM_NPC: 'FAM_NPC',
+  CHEST: 'CHEST'
 };

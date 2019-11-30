@@ -13,6 +13,7 @@
     "release": "jarb release"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.23",
     "jarb": "3.0.6",
     "jest-canvas-mock": "2.1.1"
   },
