@@ -11,6 +11,7 @@ import {bit} from 'config';
 import attackSystem from 'systems/attackSystem';
 import {HEALTH_COMP} from 'components/ComponentNamesConfig';
 
+
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
@@ -55,16 +56,10 @@ describe('Tests for the AI system', () => {
   });
 
   it('Chases the player if within vision', () => {
-    /**
-     * @type {BaseEntity}
-     */
     let player = new Player({col:0, row:0});
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    /**
-     * @type {BaseEntity}
-     */
     let sentry = new Sentry({col:2, row:1, vision:200});
 
     // in two moves, sentry should be next to the player
@@ -81,10 +76,8 @@ describe('Tests for the AI system', () => {
     let {x: playerX, y: playerY} = player.getPos();
     let {x, y} = sentry.getPos();
 
-
-    expect(x - playerX + y - playerY).toBe(bit);
-
     // we expect to be a tile away from the player
+    expect(x - playerX + y - playerY).toBe(bit);
 
     // now that the enemy stopped moving, lets run the system again to attack
     aiSystem(systemArguments);
@@ -92,11 +85,61 @@ describe('Tests for the AI system', () => {
     let currentHealth = player[HEALTH_COMP].current;
     let max = player[HEALTH_COMP].max;
     expect(currentHealth).toBe(max);
-    // the attack system should now kick in to attack the player
+    // the attack system should now kick-in to attack the player
     attackSystem(systemArguments);
 
     currentHealth = player[HEALTH_COMP].current;
     expect(currentHealth).toBeLessThan(max);
+  });
+
+  it('Chase player right', () => {
+    let player = new Player({col:2, row:1});
+
+    updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
+
+    let sentry = new Sentry({col:0, row:1, vision:200});
+
+    // in two moves, sentry should be next to the player
+    aiSystem(systemArguments);
+    while (sentry.isMoving()) {
+      moveSystem(systemArguments);
+    }
+
+    aiSystem(systemArguments);
+    while (sentry.isMoving()) {
+      moveSystem(systemArguments);
+    }
+
+    let {x: playerX, y: playerY} = player.getPos();
+    let {x, y} = sentry.getPos();
+
+    // we expect to be a tile away from the player
+    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
+  });
+
+  it('Chase player down', () => {
+    let player = new Player({col:0, row:2});
+
+    updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
+
+    let sentry = new Sentry({col:0, row:0, vision:200});
+
+    // in two moves, sentry should be next to the player
+    aiSystem(systemArguments);
+    while (sentry.isMoving()) {
+      moveSystem(systemArguments);
+    }
+
+    aiSystem(systemArguments);
+    while (sentry.isMoving()) {
+      moveSystem(systemArguments);
+    }
+
+    let {x: playerX, y: playerY} = player.getPos();
+    let {x, y} = sentry.getPos();
+
+    // we expect to be a tile away from the player
+    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
   });
 
   it('Should only attack adjacent tile (Non aligned entities)', () => {

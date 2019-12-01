@@ -71,4 +71,23 @@ describe('Tests for the Animation system', () => {
       i++;
     }
   });
+
+  it('Animation will loop when over if so configured', () => {
+    let player = new Player({col:0, row:0});
+
+    player.addAnimation({
+      loops: true,
+      frames: [{},{}],
+      animationDuration: 2,
+      animationName: 'TEST_LOOP'
+    });
+
+    // animation duration (in frames) is related to the frame count it takes to move 32 pixels
+
+    animationSystem(systemArguments);
+    animationSystem(systemArguments);
+    animationSystem(systemArguments);
+    let anim = player.getAnimations()['TEST_LOOP'];
+    expect(anim.realFrameCount).toBe(0);
+  });
 });

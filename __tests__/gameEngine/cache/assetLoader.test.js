@@ -47,4 +47,4 @@ describe('Tests the placeLevelEntities util', () => {
 
     expect(requests.length).toBe(0);
   });
-});
+}); 

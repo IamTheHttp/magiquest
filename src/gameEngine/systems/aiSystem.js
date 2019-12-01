@@ -33,6 +33,7 @@ function aiSystem(systemArguments) {
       let dist = Math.sqrt(Math.pow(playerX - x, 2) + Math.pow(playerY - y, 2));
 
       // chase
+        /* istanbul ignore else */
       if (visionRange > dist) {
         // go towards the player!
         if (x < playerX) {
