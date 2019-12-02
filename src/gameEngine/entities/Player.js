@@ -5,7 +5,6 @@ import MoveComponent from '../components/MoveComponent';
 import {ANIMATIONS, ATTACK_SPEEDS, CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE, PLAYER_CHAR} from '../gameConstants';
 import AttackComponent from '../components/AttackComponent';
 import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
-import BackgroundComponent from '../components/BackgroundComponent';
 import AnimationComp from 'components/AnimationComp';
 import playerAnimations from 'entities/animations/playerAnimations';
 import Health from 'components/Health';

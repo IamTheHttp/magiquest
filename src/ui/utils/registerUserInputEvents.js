@@ -1,4 +1,5 @@
 import {PERFORM_ACTION, MOVE_ACTION} from 'gameConstants';
+import { DIRECTIONS } from 'gameEngine/gameConstants';
 
 function registerUserInputEvents(game) {
   let glob = {};
@@ -20,10 +21,10 @@ function registerUserInputEvents(game) {
     
     let code = event.which || event.keyCode || event.code;
     let map = {
-      37: 'left',
-      38: 'up',
-      39: 'right',
-      40: 'down',
+      37: DIRECTIONS.LEFT,
+      38: DIRECTIONS.UP,
+      39: DIRECTIONS.RIGHT,
+      40: DIRECTIONS.DOWN,
       32: 'space'
     };
     

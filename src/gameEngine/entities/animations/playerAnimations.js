@@ -1,5 +1,5 @@
 import {ANIMATIONS} from 'gameConstants';
-import charImageURL from 'assets/charachters.png';
+import charImageURL from 'assets/characters.png';
 import getSpriteCrop from 'utils/getSpriteCrop';
 
 const playerAnimations = {

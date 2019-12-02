@@ -3,7 +3,7 @@ import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import BaseEntity from '../BaseEntity';
-import CanSpawn from 'components/CanSpawn';
+import CanSpawn from 'gameEngine/components/CanSpawn';
 
 class Tile {
   constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}) {

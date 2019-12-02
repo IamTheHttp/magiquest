@@ -2,10 +2,10 @@ import GAME_PLATFORM from 'game-platform/dist';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
-import ShockWave from 'entities/ShockWave';
-import {getTileIdxByEnt} from 'utils/componentUtils/tileUtils/getTileIdx';
+import ShockWave from 'gameEngine/entities/ShockWave';
+import { getTileIdxByEnt } from 'utils/componentUtils/tileUtils/getTileIdx';
 
-let {Entity, entityLoop} = GAME_PLATFORM;
+let { Entity, entityLoop } = GAME_PLATFORM;
 
 function attackSystem(systemArguments) {
   let entities = Entity.getByComps([IS_ATTACKING_COMP, ATTACK_COMP]);
@@ -23,6 +23,11 @@ function attackSystem(systemArguments) {
 
       if (currentFrame > 0) {
         entity[IS_ATTACKING_COMP].currentFrame++;
+        return;
+      }
+
+      if (targetTile.getEntCount() === 0) {
+        entity.removeComponent(IS_ATTACKING_COMP);
         return;
       }
 

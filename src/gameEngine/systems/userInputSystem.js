@@ -1,4 +1,3 @@
-import GAME_PLATFORM from 'game-platform/dist';
 import moveAction from '../utils/systemUtils/userInput/moveAction';
 import performAction from '../utils/systemUtils/userInput/performAction';
 
@@ -19,7 +18,10 @@ let actions = [];
 function userInputSystem(systemArguments) {
   // loop over all actions
   actions.forEach((action) => {
-    actionMap[action.name](systemArguments, action);
+    console.log(action);
+    if (actionMap[action.name]) {
+      actionMap[action.name](systemArguments, action);
+    }
   });
   // reset actions when we're done
   if (actions.length) {

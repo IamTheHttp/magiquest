@@ -7,12 +7,12 @@ import {
 } from '../components/ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
-import {DIRECTIONS} from '../gameConstants';
-import {getTileIdxByEnt} from 'utils/componentUtils/tileUtils/getTileIdx';
+import { DIRECTIONS } from '../gameConstants';
+import { getTileIdxByEnt } from 'utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'components/IsAttacking';
-import {bit} from 'config';
+import { bit } from 'config';
 
-let {Entity, entityLoop} = GAME_PLATFORM;
+let { Entity, entityLoop } = GAME_PLATFORM;
 
 function aiSystem(systemArguments) {
   let entities = Entity.getByComps([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
@@ -28,12 +28,12 @@ function aiSystem(systemArguments) {
     let chaseDirections = [];
 
     if (visionRange && player) {
-      let {x: playerX, y: playerY} = player.getPos();
-      let {x, y} = entity.getPos();
+      let { x: playerX, y: playerY } = player.getPos();
+      let { x, y } = entity.getPos();
       let dist = Math.sqrt(Math.pow(playerX - x, 2) + Math.pow(playerY - y, 2));
 
       // chase
-        /* istanbul ignore else */
+      /* istanbul ignore else */
       if (visionRange > dist) {
         // go towards the player!
         if (x < playerX) {

@@ -15,8 +15,8 @@ describe('Tests for the AI system', () => {
     Entity.reset();
     spyPan = jest.fn();
     player = new Player({
-      x: 16,
-      y: 16,
+      col: 0,
+      row: 0,
       radius: 16
     });
     NPC = new FamNPC({

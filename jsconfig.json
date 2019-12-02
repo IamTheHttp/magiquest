@@ -3,12 +3,7 @@
     "node_modules"
   ],
   "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "*": [
-        "./gameEngine/*"
-      ]
-    }
+    "baseUrl": "./src"
   }
 }
 

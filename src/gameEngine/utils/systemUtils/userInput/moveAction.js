@@ -6,15 +6,8 @@ function moveAction(systemArguments, action) {
   let {direction} = action;
   let ent = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
   
-  let moveTo = {
-    up: DIRECTIONS.UP,
-    down: DIRECTIONS.DOWN,
-    left: DIRECTIONS.LEFT,
-    right: DIRECTIONS.RIGHT
-  };
-  
-  if (moveTo[direction]) {
-    ent.setMoveDirection(moveTo[direction]);
+  if (direction) {
+    ent.setMoveDirection(direction);
   } else {
     ent.removeDirection();
   }
