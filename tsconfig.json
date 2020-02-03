@@ -7,8 +7,6 @@
     "jsx": "react",
     "allowJs": true,
     "moduleResolution": "node",
-    "resolveJsonModule":  true,
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "src/",
     "paths": {
       "*": [
@@ -16,5 +14,12 @@
         "gameEngine/*"
       ]
     }
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./src/.dll/**/*",
+    "node_modules"
+  ]
 }

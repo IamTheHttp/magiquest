@@ -1,4 +1,5 @@
 declare module '*.png';
+declare module '*.json';
 
 // declare module 'game-platform/dist' {
 //   class Entity {
