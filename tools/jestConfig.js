@@ -13,7 +13,7 @@ module.exports = function (jestConfig) {
 
   jestConfig.setupFiles = jestConfig.setupFiles || [];
 
-  jestConfig.setupFiles.push("<rootDir>/src/polyfill/rAF.js");
+  jestConfig.setupFiles.push("<rootDir>/src/polyfill/rAF.ts");
   jestConfig.setupFiles.push("jest-canvas-mock");
 
   jestConfig.moduleDirectories = ["./src", "./src/gameEngine", "node_modules"];
