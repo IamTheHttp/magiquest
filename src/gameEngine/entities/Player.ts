@@ -10,6 +10,7 @@ import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import Health from 'gameEngine/components/Health';
 import {attackSpeeds, bit} from 'gameEngine/config';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {POSITION_COMP} from "components/ComponentNamesConfig";
 
 class Player extends BaseEntity {
   name:string;
@@ -21,7 +22,7 @@ class Player extends BaseEntity {
     this.addComponent(new PlayerControlledComponent());
     this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS.FAST]));
     this.addComponent(new PositionComponent({x, y, radius}));
-    this.addComponent(new Health(100));
+    this.addComponent(new Health(100, radius * 2, radius));
     this.addComponent(new UIComponent([
       {
         name: CANVAS_OUTPUT,

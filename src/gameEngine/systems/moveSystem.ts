@@ -42,7 +42,6 @@ function moveEntity(systemArguments, entity) {
     modDestX = x;
   } else if (dir) {
     // create destination from the direction we want to go
-    console.log(entity.getDestFromDirection(dir));
     let { x, y } = entity.getDestFromDirection(dir);
     modDestY = y;
     modDestX = x;

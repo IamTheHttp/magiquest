@@ -1,17 +1,18 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {HEALTH_BAR_SHAPE} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
+import BaseEntity from "BaseEntity";
 
 
-function renderHealthBar(systemArguments, entity) {
+function renderHealthBar(systemArguments, entity: BaseEntity) {
   assertType(entity[HEALTH_COMP], 'Health Component', 'object');
   let {mapAPI} = systemArguments;
-  let healthWidth = entity[POSITION_COMP].width || entity[POSITION_COMP].radius * 2 || 200;
-  let healthMargin = entity[POSITION_COMP].height || entity[POSITION_COMP].radius * 1 + 2 || 200;
+
+  let healthWidth = entity[HEALTH_COMP].width;
+  let healthMargin = entity[HEALTH_COMP].height;
   let healthHeight = 2;
   let healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
-  
-  
+
   mapAPI.addRect(
     {
       id: `${entity.id}-full-${HEALTH_BAR_SHAPE}-`,

@@ -18,7 +18,6 @@ let actions = [];
 function userInputSystem(systemArguments) {
   // loop over all actions
   actions.forEach((action) => {
-    console.log(action);
     if (actionMap[action.name]) {
       actionMap[action.name](systemArguments, action);
     }

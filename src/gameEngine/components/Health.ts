@@ -4,10 +4,14 @@ class Health {
   name:string;
   max:number;
   current:number;
-  constructor(maxHealth) {
+  width: number;
+  height:number;
+  constructor(maxHealth, width, height) {
     this.name = HEALTH_COMP;
     this.max = maxHealth;
     this.current = maxHealth;
+    this.width = width;
+    this.height = height;
   }
 }
 

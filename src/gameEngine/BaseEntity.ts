@@ -12,10 +12,13 @@ import IsMoving from './components/IsMoving';
 import {DIRECTIONS} from 'gameEngine/gameConstants';
 import {bit} from 'gameEngine/config';
 import AIVisionComponent from 'gameEngine/components/AIVisionComponent';
+import Health from "components/Health";
 
 let {Entity} = GAME_PLATFORM;
 
 class BaseEntity extends Entity {
+  id: number;
+  [HEALTH_COMP]: Health;
   constructor(entity: any) {
     super(entity);
   }

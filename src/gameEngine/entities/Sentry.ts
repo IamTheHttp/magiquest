@@ -19,7 +19,7 @@ class Sentry extends BaseEntity {
 
     this.addComponent(new MoveComponent(speed));
     this.addComponent(new PositionComponent({x, y, radius}));
-    this.addComponent(new Health(health));
+    this.addComponent(new Health(health, radius * 2, radius));
     this.addComponent(new AIVisionComponent(vision));
     this.addComponent(new AttackComponent(dmg, attackSpeeds[ATTACK_SPEEDS.SLOW]));
     this.addComponent(new AIControlledComp());

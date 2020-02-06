@@ -14,7 +14,7 @@ class Chest extends BaseEntity {
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
     this.addComponent(new PositionComponent({x, y, radius}));
-    this.addComponent(new Health(health));
+    this.addComponent(new Health(health, radius * 2, radius));
 
     this.addComponent(new UIComponent(
       [{
