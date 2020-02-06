@@ -1,1 +1,2 @@
-/* entry point for production build */
+import './pageSetup';
+

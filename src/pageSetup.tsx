@@ -10,12 +10,23 @@ import sentrySpriteURL from 'assets/sentry.png';
 import miscURL from 'assets/misc.png';
 import {assetLoader} from 'cache/assetLoader';
 
+if (!document.getElementById('app')) {
+  let div = document.createElement('div');
+  div.id = 'app';
+  document.body.appendChild(div);
+}
+
+if (!document.getElementById('progress')) {
+  let div = document.createElement('div');
+  div.id = 'progress';
+  document.body.appendChild(div);
+}
 
 
-let appDiv = document.getElementById('app') || document.createElement('div');
+let appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';
-document.body.removeChild(document.getElementById('progress'));
+
 
 assetLoader.load([
   {
@@ -39,5 +50,6 @@ assetLoader.load([
     name: miscURL
   }
 ], () => {
+  document.body.removeChild(document.getElementById('progress'));
   render(<App/>, document.getElementById('app'));
 });
