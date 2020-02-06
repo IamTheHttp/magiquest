@@ -7,6 +7,7 @@ import Sentry from 'entities/Sentry';
 import FamNPC from 'entities/FamNPC';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import { MOVE_ACTION, DIRECTIONS } from 'gameEngine/gameConstants';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -21,7 +22,7 @@ describe('Tests for the AI system', () => {
       row: 0,
       radius: 16
     });
-    systemArguments = createSystemArgs({spyPan});
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
   
   it('Runs without actions', () => {

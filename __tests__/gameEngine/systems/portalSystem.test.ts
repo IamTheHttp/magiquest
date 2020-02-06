@@ -3,6 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import Player from 'entities/Player';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -18,7 +19,7 @@ describe('Tests for the AI system', () => {
       radius: 16
     });
 
-    systemArguments = createSystemArgs({spyHandleAreaChange});
+    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
   });
   
   it('doesnt break with no portals to run', () => {

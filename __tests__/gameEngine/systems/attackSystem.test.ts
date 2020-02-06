@@ -7,6 +7,7 @@ import { IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP } from 'gameEngine/componen
 import Sentry from 'gameEngine/entities/Sentry';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -21,7 +22,8 @@ describe('attack system tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs({spyPan});
+
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
     player = new Player({
       col:0,
       row:0,

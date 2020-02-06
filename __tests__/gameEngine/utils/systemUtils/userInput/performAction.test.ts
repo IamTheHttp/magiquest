@@ -6,11 +6,12 @@ import React from 'react';
 import {Entity} from 'BaseEntity';
 import performAction from 'utils/systemUtils/userInput/performAction';
 import Player from 'entities/Player';
-import createSystemArgs from '__tests__/__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
 import Sentry from 'entities/Sentry';
 import {DIRECTIONS} from 'gameConstants';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
+import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments = null;
@@ -25,7 +26,7 @@ describe('Tests the placeLevelEntities util', () => {
     Entity.reset();
 
     player = new Player({col: 0, row:0});
-    systemArguments = createSystemArgs({});
+    systemArguments = createSystemArgs(new SpyFns());
   });
 
   it('performs an action when there is no adjacent entity', () => {

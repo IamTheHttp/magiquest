@@ -5,11 +5,12 @@ module.exports = function (jestConfig) {
   }
 
   //let's prevent Jest from collecting code coverage from the examples directory - we don't plan on testing it anyway.
+  jestConfig.collectCoverageFrom.push("src/**/*.{ts,tsx}");
   jestConfig.collectCoverageFrom.push("!src/polyfill/*.*");
-  jestConfig.collectCoverageFrom.push("!src/liveExample.js");
-  jestConfig.collectCoverageFrom.push("!src/index.js");
+  jestConfig.collectCoverageFrom.push("!src/liveExample.ts");
+  jestConfig.collectCoverageFrom.push("!src/index.ts");
   jestConfig.collectCoverageFrom.push("!src/levels/*.*");
-  jestConfig.collectCoverageFrom.push("!src/pageSetup.js");
+  jestConfig.collectCoverageFrom.push("!src/pageSetup.ts");
 
   jestConfig.setupFiles = jestConfig.setupFiles || [];
 
@@ -19,12 +20,14 @@ module.exports = function (jestConfig) {
   jestConfig.moduleDirectories = ["./src", "./src/gameEngine", "node_modules"];
   jestConfig.bail = true;
   
-  jestConfig.testRegex = "test.js$";
+  jestConfig.testRegex = "test.ts$";
   jestConfig.coverageThreshold.global = {
     "branches": 80,
     "functions": 80,
     "lines": 85,
     "statements": 85
   };
+
+  jestConfig.preset = 'ts-jest';
   return jestConfig;
 };

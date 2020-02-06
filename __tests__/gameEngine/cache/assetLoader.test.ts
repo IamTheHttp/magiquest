@@ -1,13 +1,15 @@
 import { Entity } from 'gameEngine/BaseEntity';
 import { assetLoader } from 'cache/assetLoader';
 
+let global2 = global as any;
 
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
     // setup the test
     Entity.reset();
-    global.Image = class {
+    global2.Image = class {
+      onload:() => {}
       constructor() {
         setTimeout(() => {
           this.onload();

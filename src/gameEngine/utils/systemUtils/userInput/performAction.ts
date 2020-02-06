@@ -9,7 +9,7 @@ let {entityLoop} = GAME_PLATFORM;
 import Dialog from 'gameEngine/components/Dialog';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
 
-function performAction(systemArguments, action) {
+function performAction(systemArguments) {
   let {tileIdxMap, Entity, levelArea} = systemArguments;
   let entity = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
   let curOrientation = entity[POSITION_COMP].orientation;

@@ -3,6 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import GAME_PLATFORM from 'game-platform/dist';
 import Player from 'entities/Player';
 import getSpriteCrop from 'utils/getSpriteCrop';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -12,7 +13,7 @@ describe('Tests for the Animation system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs({spyPan});
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
   
   it ('doesnt break with no ents', () => {

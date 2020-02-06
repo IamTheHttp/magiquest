@@ -2,6 +2,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import GAME_PLATFORM from 'game-platform/dist';
 import renderSystem from 'systems/renderSystem';
 import Player from 'entities/Player';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the Render system', () => {
@@ -17,7 +18,7 @@ describe('Tests for the Render system', () => {
     spyClear = jest.fn();
     spyAddImage = jest.fn();
     spyDraw = jest.fn();
-    systemArguments = createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw});
+    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw));
   });
   
   it('doesnt break with no ents', () => {

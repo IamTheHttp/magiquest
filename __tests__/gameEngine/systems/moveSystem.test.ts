@@ -5,6 +5,7 @@ import Player from 'entities/Player';
 import IsMoving from 'components/IsMoving';
 import {POSITION_COMP} from 'components/ComponentNamesConfig';
 import moveSystem from 'systems/moveSystem';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 let {Entity} = GAME_PLATFORM;
 
 describe('move system tests', () => {
@@ -13,7 +14,8 @@ describe('move system tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs({spyPan});
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
+
     player = new Player({
       col:0,
       row:0,

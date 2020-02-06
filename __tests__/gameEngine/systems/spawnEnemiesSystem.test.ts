@@ -4,6 +4,7 @@ import Player from 'entities/Player';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import { AI_CONTROLLED_COMP, CAN_SPAWN_COMP } from 'gameEngine/components/ComponentNamesConfig';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -19,7 +20,7 @@ describe('Tests for the AI system', () => {
       radius: 16
     });
 
-    systemArguments = createSystemArgs({spyHandleAreaChange});
+    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
   });
   
   it('Attempts to spawn enemies on the map', () => {

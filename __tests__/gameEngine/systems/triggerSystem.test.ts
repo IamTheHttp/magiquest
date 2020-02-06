@@ -5,6 +5,7 @@ import Player from 'entities/Player';
 import {DIALOG_COMP} from 'components/ComponentNamesConfig';
 import Sentry from 'entities/Sentry';
 import FamNPC from 'entities/FamNPC';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -24,7 +25,8 @@ describe('Tests for the AI system', () => {
       y: 48,
       name: 'Forest'
     });
-    systemArguments = createSystemArgs({spyPan});
+
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
   
   it('doesnt break with no triggers to run', () => {

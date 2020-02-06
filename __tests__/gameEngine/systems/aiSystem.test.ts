@@ -10,6 +10,7 @@ import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {bit} from 'config';
 import attackSystem from 'systems/attackSystem';
 import {HEALTH_COMP} from 'components/ComponentNamesConfig';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 
 let {Entity} = GAME_PLATFORM;
@@ -20,7 +21,7 @@ describe('Tests for the AI system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs({spyPan});
+    systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
   
   it('doesnt break with no ents', () => {

@@ -3,11 +3,12 @@
 /* global expect */
 /* global beforeEach */
 import React from 'react';
-import createSystemArgs from '__tests__/__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import placeLevelEntities from 'utils/placeLevelEntities';
 import {CHARACTERS} from 'gameConstants';
 import {Entity} from 'BaseEntity';
 import {ANIMATION_COMP} from 'components/ComponentNamesConfig';
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
@@ -16,7 +17,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('places some entities', () => {
-    let {tileIdxMap} = createSystemArgs({});
+    let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities({
       entitiesToPlace: [
         {
