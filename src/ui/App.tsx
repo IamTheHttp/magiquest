@@ -6,9 +6,10 @@ import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 import levelConfig from 'levels/levelConfig';
 import tileSet from 'assets/tileSet.png';
 import {Entity} from 'gameEngine/BaseEntity';
+import Editor from './Editor';
+import IGameCanvas  from "game-platform/types/lib/GameCanvas/GameCanvas";
 
 let {GameCanvas} = GAME_PLATFORM;
-import Editor from './Editor';
 
 type IState = {
   mapCanvasEl: any;
@@ -60,7 +61,7 @@ class App extends React.Component<any, IState> {
     }, 10);
   }
 
-  initGameCanvas(mapWidth, mapHeight) {
+  initGameCanvas(mapWidth, mapHeight): IGameCanvas {
     return new GameCanvas({
       mapHeight,
       mapWidth,
@@ -128,11 +129,13 @@ class App extends React.Component<any, IState> {
     let mapHeight = currentAreaMap.length * bit;
 
     // creates the new canvas
-    let {map, minimap} = this.initGameCanvas(mapWidth, mapHeight);
+    let gameCanvas = this.initGameCanvas(mapWidth, mapHeight);
+
+    let {viewMapCanvas, miniMapCanvas} = gameCanvas;
 
     this.setState({
-      map,
-      minimap,
+      map: viewMapCanvas,
+      minimap: miniMapCanvas,
       mapHeight,
       mapWidth
     });

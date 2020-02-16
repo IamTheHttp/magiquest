@@ -16,6 +16,7 @@ import Health from "components/Health";
 
 let {Entity} = GAME_PLATFORM;
 
+
 class BaseEntity extends Entity {
   id: number;
   components: object; // TODO this should be extended from Entity
