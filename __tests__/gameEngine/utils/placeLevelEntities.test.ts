@@ -47,7 +47,7 @@ describe('Tests the placeLevelEntities util', () => {
       ],
     }, tileIdxMap);
 
-    let entsPlaced = Entity.getByComps(ANIMATION_COMP);
+    let entsPlaced = Entity.getByComp(ANIMATION_COMP);
     expect(entsPlaced.length).toBe(2); // and not 3
   });
 });
