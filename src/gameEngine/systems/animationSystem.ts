@@ -1,11 +1,14 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
 import {bit} from 'gameEngine/config';
+import {ISystemArguments} from "../../interfaces";
+import BaseEntity from "BaseEntity";
 
-function animationSystem(systemArguments) {
+function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   // Animation system
-  let ents = Entity.getByComps([ANIMATION_COMP]);
-  
+  // TODO whats the right way to handle this situation?
+  let ents = Entity.getByComps([ANIMATION_COMP]) as unknown as BaseEntity[];
+
   for (let i = 0; i < ents.length; i++) {
     let entity = ents[i];
     let animations = entity[ANIMATION_COMP].animations;

@@ -1,7 +1,7 @@
 import IndexedTile from '../../src/gameEngine/classes/IndexedTile';
 import Tile from '../../src/gameEngine/entities/Tile';
 import GAME_PLATFORM from 'game-platform/dist';
-import placeLevelTerrainTiles from 'gameEngine/utils/placeLevelTerrainTiles';
+import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import { CHARACTERS } from 'gameEngine/gameConstants';
 
 let {Entity} = GAME_PLATFORM;
@@ -45,7 +45,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       },
       handleAreaChange :spyHandleAreaChange
     },
-    tileIdxMap: placeLevelTerrainTiles(tileMap, viewSize, [{
+    tileIdxMap: createTileIndexMap(tileMap, viewSize, [{
       chance: 1,
       enemy: CHARACTERS.SENTRY
     }]),

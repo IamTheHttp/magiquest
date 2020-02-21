@@ -16,6 +16,7 @@ import assertType from 'gameEngine/utils/assertType';
 import { getGridIdxFromPos } from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import { getTileIdxByPos } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import { Trigger, pushTrigger } from 'gameEngine/systems/triggerSystem';
+import {ISystemArguments} from "../../interfaces";
 let { Entity, entityLoop } = GAME_PLATFORM;
 
 /**
@@ -23,7 +24,7 @@ let { Entity, entityLoop } = GAME_PLATFORM;
  * @param systemArguments
  * @param {BaseEntity} entity
  */
-function moveEntity(systemArguments, entity) {
+function moveEntity(systemArguments: ISystemArguments, entity) {
   let { mapAPI, game, tileIdxMap, viewSize, levelArea } = systemArguments;
   let { mapHeight, mapWidth, viewHeight, viewWidth } = viewSize;
   let { x: currX, y: currY } = entity.getPos();

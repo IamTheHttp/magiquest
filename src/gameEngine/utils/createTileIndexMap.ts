@@ -1,15 +1,17 @@
 import Tile from 'gameEngine/entities/Tile';
 import IndexedTile from 'gameEngine/classes/IndexedTile';
+import {ITileIndexMap} from '../../interfaces';
 
-function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
+
+
+function createTileIndexMap(tileMap, viewSize, spawnableEnemies): ITileIndexMap {
   let {mapHeight, mapWidth} = viewSize;
 
   /**
    *
    * @type {Object.<string, IndexedTile>}
    */
-  let idx = {};
-
+  let idx = {} as ITileIndexMap;
   for (let rowIdx = 0; rowIdx < tileMap.length; rowIdx++) {
     let row = tileMap[rowIdx];
     for (let colIdx = 0; colIdx < row.length; colIdx++) {
@@ -31,6 +33,7 @@ function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
       });
 
 
+
       idx[tileIdx] = new IndexedTile(tile, tileIdx);
 
       Object.defineProperty(idx[tileIdx], 'gameEngine/entities', {
@@ -38,7 +41,9 @@ function placeLevelTerrainTiles(tileMap, viewSize, spawnableEnemies) {
       });
     }
   }
+
+
   return idx;
 }
 
-export default placeLevelTerrainTiles;
+export default createTileIndexMap;

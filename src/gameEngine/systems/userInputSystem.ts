@@ -5,6 +5,7 @@ import {
   PERFORM_ACTION,
   MOVE_ACTION
 } from 'gameEngine/gameConstants';
+import {ISystemArguments} from "../../interfaces";
 
 let actionMap = {
   [MOVE_ACTION]: moveAction,
@@ -15,7 +16,7 @@ let actionMap = {
 let actions = [];
 
 // on key down, send action to start
-function userInputSystem(systemArguments) {
+function userInputSystem(systemArguments: ISystemArguments) {
   // loop over all actions
   actions.forEach((action) => {
     if (actionMap[action.name]) {

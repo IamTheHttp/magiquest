@@ -85,7 +85,6 @@ class App extends React.Component<any, IState> {
       }
     }).getNewCanvasPairs({
       getMapRef: (API) => {
-        console.log('map ref', API);
         window.API = API;
         API.addLayer('background');
         this.setState({
@@ -93,13 +92,13 @@ class App extends React.Component<any, IState> {
         });
       },
       getMiniRef: (API) => {
-        console.log('minimap ref', API);
         this.setState({
           minimapAPI: API
         });
       }
     });
   }
+
 
   initGameLoop(areaToLoad, mapWidth, mapHeight) {
     return new GameLoop({
@@ -135,7 +134,6 @@ class App extends React.Component<any, IState> {
 
     let {map, minimap} = gameCanvas;
 
-    console.log(gameCanvas);
     this.setState({
       map,
       minimap,

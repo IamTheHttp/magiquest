@@ -16,7 +16,7 @@ import IEntity from "game-platform/types/lib/ECS/Entity";
 
 import {assetLoader} from 'cache/assetLoader';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
-import placeLevelTerrainTiles from 'gameEngine/utils/placeLevelTerrainTiles';
+import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import placeLevelEntities from 'gameEngine/utils/placeLevelEntities';
 import placePlayerInLevel from 'gameEngine/utils/placePlayerInLevel';
 import centerCameraOnEntity from 'gameEngine/utils/systemUtils/centerCameraOnEntity';
@@ -24,6 +24,7 @@ import destroyAllButPlayer from 'gameEngine/utils/destroyAllButPlayer';
 import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
+import {ILevelArea, ITileIndexMap, IViewSize} from "../interfaces";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -37,11 +38,11 @@ class GameLoop {
   engine:IEngine;
   getMapAPI: () => ICanvasAPI;
   getMinimapAPI: () => ICanvasAPI;
-  onAreaChange: any;
-  tileIdxMap: any;
-  viewSize: any;
-  levelArea:any;
-  renderBackground:any;
+  onAreaChange: (...args) => void;
+  tileIdxMap: ITileIndexMap;
+  viewSize: IViewSize;
+  levelArea:ILevelArea;
+  renderBackground:boolean;
   isRunning: boolean;
 
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
@@ -100,7 +101,8 @@ class GameLoop {
 
     destroyAllButPlayer();
 
-    this.tileIdxMap = placeLevelTerrainTiles(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
+    this.tileIdxMap = createTileIndexMap(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
+
     let player = placePlayerInLevel(levelArea, this.tileIdxMap);
     placeLevelEntities(levelArea, this.tileIdxMap);
 
@@ -129,10 +131,9 @@ class GameLoop {
 
     this.levelArea.tileMap[row][col] = +newType;
     destroyAllButPlayer();
-    this.tileIdxMap = placeLevelTerrainTiles(this.levelArea.tileMap, this.viewSize, this.levelArea.spawnableEnemies);
+    this.tileIdxMap = createTileIndexMap(this.levelArea.tileMap, this.viewSize, this.levelArea.spawnableEnemies);
 
     this.renderBackground = true; // for the first time
-    console.log(JSON.stringify(this.levelArea.tileMap));
   }
 
   handleAreaChange(level, area) {

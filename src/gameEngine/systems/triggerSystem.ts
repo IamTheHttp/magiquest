@@ -2,6 +2,7 @@
 import {Entity} from 'gameEngine/BaseEntity';
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import Dialog from 'gameEngine/components/Dialog';
+import {ISystemArguments} from "../../interfaces";
 
 /**
  *
@@ -32,7 +33,7 @@ class Trigger {
 //
 // }
 
-function triggerSystem(systemArguments) {
+function triggerSystem(systemArguments: ISystemArguments) {
   let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
 
   // loop over all actions

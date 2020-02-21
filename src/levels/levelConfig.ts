@@ -27,11 +27,9 @@ import {bit} from 'gameEngine/config';
 
 // take all files
 let levelConfig = {};
-console.log('YES!');
 function requireAllMapLevels() {
   let ctx = require.context('levels', true, /\.ts$/);
 
-  console.log('Picking up all levels!');
   ctx.keys().forEach((path) => {
     let name = path.replace('./', '').replace('.ts', '');
     let [level, area] = name.split('-');

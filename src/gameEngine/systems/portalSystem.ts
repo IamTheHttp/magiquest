@@ -1,8 +1,9 @@
 import {PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import assertType from 'gameEngine/utils/assertType';
+import {ISystemArguments} from "../../interfaces";
 
-function portalSystem(systemArguments) {
+function portalSystem(systemArguments: ISystemArguments) {
   let {levelArea, game, Entity} = systemArguments;
   let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
   let index = getTileIdxByEnt(player);

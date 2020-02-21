@@ -4,10 +4,11 @@ import {
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {ISystemArguments} from "../../interfaces";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
-function attackSystem(systemArguments) {
+function attackSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps([IS_ATTACKING_COMP, ATTACK_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
