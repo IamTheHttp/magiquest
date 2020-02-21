@@ -33,7 +33,7 @@ class Trigger {
 // }
 
 function triggerSystem(systemArguments) {
-  let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
 
   // loop over all actions
   triggers.forEach((trigger) => {

@@ -1,5 +1,5 @@
 import * as  React from 'react';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import GameLoop from 'gameEngine/Game';
 import {bit, resolution, tileTypes} from 'gameEngine/config';
 import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
@@ -61,7 +61,7 @@ class App extends React.Component<any, IState> {
     }, 10);
   }
 
-  initGameCanvas(mapWidth, mapHeight): IGameCanvas {
+  initGameCanvas(mapWidth, mapHeight): {map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
     return new GameCanvas({
       mapHeight,
       mapWidth,
@@ -84,14 +84,16 @@ class App extends React.Component<any, IState> {
         });
       }
     }).getNewCanvasPairs({
-      getMapRef: (API, el) => {
+      getMapRef: (API) => {
+        console.log('map ref', API);
         window.API = API;
         API.addLayer('background');
         this.setState({
           mapAPI: API
         });
       },
-      getMiniRef: (API, el) => {
+      getMiniRef: (API) => {
+        console.log('minimap ref', API);
         this.setState({
           minimapAPI: API
         });
@@ -131,11 +133,12 @@ class App extends React.Component<any, IState> {
     // creates the new canvas
     let gameCanvas = this.initGameCanvas(mapWidth, mapHeight);
 
-    let {viewMapCanvas, miniMapCanvas} = gameCanvas;
+    let {map, minimap} = gameCanvas;
 
+    console.log(gameCanvas);
     this.setState({
-      map: viewMapCanvas,
-      minimap: miniMapCanvas,
+      map,
+      minimap,
       mapHeight,
       mapWidth
     });

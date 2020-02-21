@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import {
   MOVEMENT_COMP,
   IS_MOVING_COMP,

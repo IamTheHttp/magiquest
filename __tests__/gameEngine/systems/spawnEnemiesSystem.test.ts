@@ -24,19 +24,19 @@ describe('Tests for the AI system', () => {
   });
   
   it('Attempts to spawn enemies on the map', () => {
-    expect(Entity.getByComps(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComps(AI_CONTROLLED_COMP).length).toBeGreaterThan(0);
+    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBeGreaterThan(0);
   });
 
   it('Can safely not create any enemies', () => {
     global.Math.random = () => {
       return 1; // prevents all spawns from being created
     }
-    expect(Entity.getByComps(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComps(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
   });
 });

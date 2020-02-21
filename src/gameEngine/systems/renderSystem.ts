@@ -1,5 +1,5 @@
 import filterOutFarEntities from '../utils/systemUtils/filterOutFarEntities';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import {ANIMATION_COMP, BACKGROUND_COMP, UI_COMP} from '../components/ComponentNamesConfig';
 import renderBackgroundLayer from '../utils/systemUtils/render/renderBackgroundLayer';
 import renderMainLayer from '../utils/systemUtils/render/renderMainLayer';

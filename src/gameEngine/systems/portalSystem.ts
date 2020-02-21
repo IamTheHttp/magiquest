@@ -4,7 +4,7 @@ import assertType from 'gameEngine/utils/assertType';
 
 function portalSystem(systemArguments) {
   let {levelArea, game, Entity} = systemArguments;
-  let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
   let index = getTileIdxByEnt(player);
   
   assertType(index, 'level index', 'string');

@@ -7,7 +7,7 @@ import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUti
 
 function placePlayerInLevel(levelArea, tileIdxMap) {
   /** @type {BaseEntity} */
-  let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
   let {col, row} = levelArea.startPos;
 
   let {x, y} = getCenterPosOfGridIdx(col, row);

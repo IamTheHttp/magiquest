@@ -4,14 +4,14 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 
 import {DIRECTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 let {entityLoop} = GAME_PLATFORM;
 import Dialog from 'gameEngine/components/Dialog';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
 
 function performAction(systemArguments) {
   let {tileIdxMap, Entity, levelArea} = systemArguments;
-  let entity = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let entity = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
   let curOrientation = entity[POSITION_COMP].orientation;
 
   // tile to perform action on...

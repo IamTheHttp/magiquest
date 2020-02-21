@@ -90,7 +90,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   }
   // one dialog at a time!
 
-  let entity = Entity.getByComps(DIALOG_COMP)[0];
+  let entity = Entity.getByComp(DIALOG_COMP)[0];
   if (entity) {
     renderDialog(systemArguments, entity);
     systemArguments.game.stop();

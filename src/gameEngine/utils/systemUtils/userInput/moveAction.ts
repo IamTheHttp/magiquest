@@ -4,7 +4,7 @@ import {DIRECTIONS} from '../../../gameConstants';
 function moveAction(systemArguments, action) {
   let {Entity} = systemArguments;
   let {direction} = action;
-  let ent = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let ent = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
   
   if (direction) {
     ent.setMoveDirection(direction);

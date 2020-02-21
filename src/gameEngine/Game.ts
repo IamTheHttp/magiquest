@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import renderSystem from './systems/renderSystem';
 import userInputSystem, {pushAction} from './systems/userInputSystem';
 import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
@@ -11,7 +11,9 @@ import animationSystem from './systems/animationSystem';
 import charSpriteURL from 'assets/characters.png';
 import portalSystem from 'gameEngine/systems/portalSystem';
 
-let {Entity, Engine} = GAME_PLATFORM;
+import IEngine from "game-platform/types/lib/Engine/Engine";
+import IEntity from "game-platform/types/lib/ECS/Entity";
+
 import {assetLoader} from 'cache/assetLoader';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import placeLevelTerrainTiles from 'gameEngine/utils/placeLevelTerrainTiles';
@@ -21,11 +23,20 @@ import centerCameraOnEntity from 'gameEngine/utils/systemUtils/centerCameraOnEnt
 import destroyAllButPlayer from 'gameEngine/utils/destroyAllButPlayer';
 import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
+import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 
+let {Entity, Engine} = GAME_PLATFORM;
+
+
+
+
+
+
+// TODO this shouldn't be any
 class GameLoop {
-  engine:any;
-  getMapAPI:any;
-  getMinimapAPI:any;
+  engine:IEngine;
+  getMapAPI: () => ICanvasAPI;
+  getMinimapAPI: () => ICanvasAPI;
   onAreaChange: any;
   tileIdxMap: any;
   viewSize: any;
@@ -46,6 +57,7 @@ class GameLoop {
 
     this.setLevelArea(levelArea, viewSize);
 
+    // TODO create interface for SystemArguments
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
     engine.addSystem(moveSystem);

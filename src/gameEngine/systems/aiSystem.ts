@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import {
   MOVEMENT_COMP,
   AI_CONTROLLED_COMP,
@@ -11,12 +11,14 @@ import { DIRECTIONS } from '../gameConstants';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import { bit } from 'gameEngine/config';
+import {ISystemArguments} from "../../interfaces";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
-function aiSystem(systemArguments) {
+// TODO do this for all systems
+function aiSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
-  let player = Entity.getByComps(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
 
 
   entityLoop(entities, (entity) => {

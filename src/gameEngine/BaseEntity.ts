@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import {
   AI_VISION_COMP,
   ANIMATION_COMP, HEALTH_COMP, IS_ATTACKING_COMP,

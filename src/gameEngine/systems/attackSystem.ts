@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
