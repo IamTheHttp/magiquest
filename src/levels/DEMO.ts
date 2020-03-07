@@ -17,9 +17,9 @@ function generateMap(width: number, height: number) {
 }
 
 export default {
+  locations: [],
   levelName: '0-0',
   tileMap: generateMap(100, 100),
-  spawnableEnemies:[],
   triggers: {
     levelStart: [{
       oneOff: true,

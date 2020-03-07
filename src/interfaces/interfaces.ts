@@ -1,4 +1,5 @@
 import IndexedTile from "classes/IndexedTile";
+import {CHARACTERS} from "gameConstants";
 
 /**
  * Represents the resolution properties of the game
@@ -18,7 +19,7 @@ export interface ITileIndexMap {
 
 export type ISpawnableEnemies = Array<{
   chance: number,
-  enemy: string
+  enemy: CHARACTERS
 }>;
 
 

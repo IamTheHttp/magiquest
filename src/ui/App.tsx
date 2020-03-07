@@ -77,7 +77,7 @@ class App extends React.Component<any, IState> {
             // Ideally this should all be moved internally into game.changeTileType
             let entityID = +shape.id.split('-')[0];
             let tile = Entity.entities[entityID] as Tile; // TODO can we change these 'AS' things?
-            if (typeof this.state.editorTileType !== 'undefined') {
+            if (this.state.editorTileType !== null) {
               let levelArea = this.game.changeTileType(tile, this.state.editorTileType);
 
               // TODO this whole function is EDITOR MODE ONLY

@@ -114,7 +114,7 @@ class GameLoop {
 
     destroyAllButPlayer();
 
-    this.tileIdxMap = createTileIndexMap(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
+    this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
 
     let player = placePlayerInLevel(levelArea, this.tileIdxMap);
     placeLevelEntities(levelArea, this.tileIdxMap);

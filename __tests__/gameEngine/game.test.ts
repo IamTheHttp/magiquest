@@ -16,6 +16,21 @@ describe('Full integration test for game.ts', () => {
   it('can initialize the game', () => {
     new GameLoop({
       levelArea: {
+        locations: [{
+          name: 'test area',
+          spawnableEnemies: [{
+            chance: 1,
+            enemy: CHARACTERS.SENTRY
+          }],
+          start: {
+            col: 0,
+            row: 0,
+          },
+          end: {
+            col: 2,
+            row: 2
+          }
+        }],
         levelName: 'TEST',
         startPos: {
           col:0,
@@ -27,11 +42,7 @@ describe('Full integration test for game.ts', () => {
           move: {}
         },
         entitiesToPlace: [],
-        tileMap: [[1, 1, 1],[1, 1, 1],[1, 1, 1]],
-        spawnableEnemies: [{
-          chance: 1,
-          enemy: CHARACTERS.SENTRY
-        }]
+        tileMap: [[1, 1, 1],[1, 1, 1],[1, 1, 1]]
       },
       onAreaChange: function (level, area) {
         this.changeMap(level, area);

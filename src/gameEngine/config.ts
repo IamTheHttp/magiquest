@@ -54,8 +54,8 @@ let attackSpeeds = {
 
 
 let resolution = {
-  width: 400 * 2,
-  height: 240 * 2
+  width: 400 * 5,
+  height: 240 * 5
 };
 
 let ATTACK_CONFIG = {

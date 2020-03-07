@@ -5,16 +5,31 @@ import {CHARACTERS} from "gameConstants";
 export type ITileMap = Array<Array<number>>
 
 export type IEntitiesToPlace = {
-  type:CHARACTERS,
-  pos : {
-    col:number,
-    row:number
+  type: CHARACTERS,
+  pos: {
+    col: number,
+    row: number
   }
-  name:string
+  name: string
 }[];
 
-export type PossibleTriggersArray = (IDialogTrigger|IPortalTrigger)[];
+export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];
+
+export interface ILevelLocation {
+  name: string,
+  spawnableEnemies: ISpawnableEnemies,
+  start: {
+    col: number;
+    row: number;
+  },
+  end: {
+    col: number;
+    row: number;
+  }
+}
+
 export interface ILevelArea {
+  locations: ILevelLocation[],
   levelName: string,
   startPos: {
     col: number,
@@ -26,6 +41,5 @@ export interface ILevelArea {
     move: MoveTriggers
   },
   entitiesToPlace: IEntitiesToPlace,
-  tileMap: ITileMap,
-  spawnableEnemies: ISpawnableEnemies
+  tileMap: ITileMap
 }

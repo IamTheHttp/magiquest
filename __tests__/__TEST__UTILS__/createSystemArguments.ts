@@ -36,8 +36,8 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     Entity,
     shouldRenderBackground: true,
     levelArea: {
-      levelName: 'TEST-LEVEL',
-      spawnableEnemies: [],
+      levelName: 'TEST LEVEL',
+      locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
       startPos: {
@@ -70,10 +70,30 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       },
       handleAreaChange :spyHandleAreaChange
     } as unknown as GameLoop,
-    tileIdxMap: createTileIndexMap(tileMap, viewSize, [{
-      chance: 1,
-      enemy: CHARACTERS.SENTRY
-    }]),
+    tileIdxMap: createTileIndexMap({
+      entitiesToPlace: [],
+      levelName: "Test Level",
+      startPos: {col: 0, row: 0},
+      triggers: {actOnEntity: {}, levelStart: [], move: {}},
+      locations: [
+        {
+          name: 'test',
+          spawnableEnemies: [{
+            chance: 1,
+            enemy: CHARACTERS.SENTRY
+          }],
+          start: {
+            col:0,
+            row:0
+          },
+          end: {
+            col:50,
+            row:50
+          }
+        }
+      ],
+      tileMap
+    }, viewSize, ),
     viewSize
   };
 }
