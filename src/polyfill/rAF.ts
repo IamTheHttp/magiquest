@@ -3,7 +3,7 @@
 
 // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 // MIT license
-let windowCopy = window as any;
+let windowCopy = window as any; // TODO this should not be any
 (function() {
   let lastTime = 0;
   let vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -14,7 +14,7 @@ let windowCopy = window as any;
   }
 
   if (!windowCopy.requestAnimationFrame)    {
-    windowCopy.requestAnimationFrame = function(callback) {
+    windowCopy.requestAnimationFrame = function(callback: (time:number) => {}) {
       let currTime = new Date().getTime();
       let timeToCall = Math.max(0, 16 - (currTime - lastTime));
       let id = windowCopy.setTimeout(() => {
@@ -27,7 +27,7 @@ let windowCopy = window as any;
   }
 
   if (!windowCopy.cancelAnimationFrame)    {
-    windowCopy.cancelAnimationFrame = function(id) {
+    windowCopy.cancelAnimationFrame = function(id: number) {
       clearTimeout(id);
     };
   }

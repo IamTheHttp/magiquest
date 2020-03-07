@@ -1,42 +1,38 @@
-let count = Symbol('Count');
+import Tile from "entities/Tile";
+import BaseEntity from "BaseEntity";
+import {IEntityMap} from "game-platform/types/lib/interfaces";
 
 class IndexedTile {
-  idx: any;
-  entities: object;
-  tile: any;
+  idx: any; // TODO this should not be any
+  entities: IEntityMap;
+  tile: any; // TODO this should not be any
+  entityCount:number;
 
-  /**
-   * @param {Tile} tile
-   */
-  constructor(tile, idx) {
-    /**
-     * @type {Object.<number, BaseEntity>}
-     */
+  constructor(tile: Tile, idx: string) {
     this.idx = idx;
-    this.entities = {
-      [count]: 0
-    };
-    
+    this.entities = {};
+    this.entityCount = 0;
+
     /**
      * @type {Tile}
      */
     this.tile = tile;
   }
-  addEnt(ent) {
+  addEnt(ent: BaseEntity) {
     if (!this.entities[ent.id]) {
-      this.entities[count]++;
+      this.entityCount++;
       this.entities[ent.id] = ent;
     }
   }
 
-  removeEnt(ent) {
+  removeEnt(ent: BaseEntity) {
     if (this.entities[ent.id]) {
-      this.entities[count] = Math.max(this.entities[count] - 1, 0);
+      this.entityCount = Math.max(this.entityCount - 1, 0);
       delete this.entities[ent.id];
     }
   }
   getEntCount() {
-    return this.entities[count];
+    return this.entityCount;
   }
 }
 

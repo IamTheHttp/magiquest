@@ -8,7 +8,7 @@ type IProps = {
 }
 
 class Editor extends React.Component<IProps, any> {
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
     this.state = {}
   }
@@ -19,7 +19,7 @@ class Editor extends React.Component<IProps, any> {
 
         <div id='tiles'>
           {Object.keys(tileTypes).map((key) => {
-            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = tileTypes[key];
+            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = tileTypes[+key];
 
             let style = {
               backgroundImage: `url("${tileSet}")`,

@@ -1,10 +1,11 @@
 import {CAN_SPAWN_COMP} from './ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
+import {ISpawnableEnemies} from "../../interfaces/interfaces";
 
 class CanSpawn {
   name:string;
-  enemies:any;
-  constructor(enemies = []) {
+  enemies:ISpawnableEnemies
+  constructor(enemies: ISpawnableEnemies = []) {
     this.name = CAN_SPAWN_COMP;
 
     enemies.forEach((enemyToSpawn) => {

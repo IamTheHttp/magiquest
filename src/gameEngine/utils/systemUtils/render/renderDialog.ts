@@ -1,7 +1,9 @@
 import {DIALOG_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {bit} from 'gameEngine/config';
+import {ISystemArguments} from "../../../../interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
-function renderDialog(systemArguments, entity) {
+function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI, viewSize} = systemArguments;
 
   let {panY, panX} = mapAPI.getPan();

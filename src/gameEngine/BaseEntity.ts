@@ -1,34 +1,57 @@
-import GAME_PLATFORM from 'game-platform';
+import GAME_PLATFORM, {Entity} from 'game-platform';
 import {
   AI_VISION_COMP,
-  ANIMATION_COMP, HEALTH_COMP, IS_ATTACKING_COMP,
+  ANIMATION_COMP, ATTACK_COMP, BACKGROUND_COMP, CAN_SPAWN_COMP, DIALOG_COMP, HEALTH_COMP, IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP
+  POSITION_COMP, UI_COMP
 } from './components/ComponentNamesConfig';
-import AnimationComp from './components/AnimationComp';
+import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
-import {DIRECTIONS} from 'gameEngine/gameConstants';
+import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import {bit} from 'gameEngine/config';
 import AIVisionComponent from 'gameEngine/components/AIVisionComponent';
 import Health from "components/Health";
+import PlayerControlledComponent from "components/PlayerControlledComponent";
+import MoveComponent from "components/MoveComponent";
+import PositionComponent from "components/PositionComponent";
+import {ICoordinates} from "game-platform/types/lib/interfaces";
+import {IAnimation, IAnimationMap} from "../interfaces/interfaces";
+import IsAttackingComp from "components/IsAttacking";
+import AttackComponent from "components/AttackComponent";
+import Dialog from "components/Dialog";
+import BackgroundComponent from "components/BackgroundComponent";
+import CanSpawn from "components/CanSpawn";
+import UIComponent from "components/UIComponent"; // TODO Rename to DialogComp?
 
-let {Entity} = GAME_PLATFORM;
 
 
 class BaseEntity extends Entity {
   id: number;
-  components: object; // TODO this should be extended from Entity
-  [HEALTH_COMP]: Health;
+  name:string;
+  [HEALTH_COMP]: Health;// Rename to HealthComp?
+  [ANIMATION_COMP]: AnimationComp;
+  [PLAYER_CONTROLLED_COMP]: PlayerControlledComponent;
+  [MOVEMENT_COMP]: MoveComponent;
+  [POSITION_COMP] : PositionComponent;
+  [IS_MOVING_COMP]: IsMoving;
+  [AI_VISION_COMP] : AIVisionComponent;
+  [IS_ATTACKING_COMP]: IsAttackingComp;
+  [ATTACK_COMP]: AttackComponent;
+  [DIALOG_COMP]: Dialog;
+  [BACKGROUND_COMP]: BackgroundComponent;
+  [CAN_SPAWN_COMP]: CanSpawn;
+  [UI_COMP]: UIComponent;
+
   constructor(entity: any) {
     super(entity);
   }
 
   removeComponent: (compName: string) => any; // TODO find all ANY and deal with them
-  addComponent: (comp: object) => any;
+  addComponent: (comp: object) => any; // TODO this should not be any
 
-  addAnimation(animation) {
+  addAnimation(animation: IAnimationVariantArguments) {
     this[ANIMATION_COMP].addAnimationVariant(animation);
   }
 
@@ -44,24 +67,23 @@ class BaseEntity extends Entity {
     this[ANIMATION_COMP].animations = {};
   }
 
-  calcOrientation(destX, destY) {
+  calcOrientation(destX: number, destY: number): DIRECTIONS_OPTIONS {
     let {x, y} = this.getPos();
 
     if (destX > x) {
-      return DIRECTIONS.RIGHT;
+      return DIRECTIONS_OPTIONS.RIGHT;
     } else if (destX < x) {
-      return DIRECTIONS.LEFT;
+      return DIRECTIONS_OPTIONS.LEFT;
     } else if (destY > y) {
-      return DIRECTIONS.DOWN;
+      return DIRECTIONS_OPTIONS.DOWN;
     } else if (destY < y) {
-      return DIRECTIONS.UP;
+      return DIRECTIONS_OPTIONS.UP;
     } else {
       return this.getOrientation(); // by default, get current one
     }
   }
 
-
-  getAnimations() {
+  getAnimations(): IAnimationMap {
     return (this[ANIMATION_COMP] && this[ANIMATION_COMP].animations) || {};
   }
 
@@ -69,7 +91,7 @@ class BaseEntity extends Entity {
     return this[ANIMATION_COMP] && this[ANIMATION_COMP].animationTypes;
   }
 
-  hasSpecificAnimation(name) {
+  hasSpecificAnimation(name: string) {
     return !!this.getAnimations()[name];
   }
 
@@ -77,7 +99,7 @@ class BaseEntity extends Entity {
     return this[MOVEMENT_COMP] && this[MOVEMENT_COMP].speed;
   }
 
-  removeAnimation(animationName) {
+  removeAnimation(animationName: string) {
     if (!this[ANIMATION_COMP]) {
       return;
     }
@@ -96,14 +118,14 @@ class BaseEntity extends Entity {
     return !!this[HEALTH_COMP];
   }
 
-  setDest({x, y}) {
+  setDest({x, y}: ICoordinates) {
     if (this[POSITION_COMP]) {
       this[POSITION_COMP].destX = x;
       this[POSITION_COMP].destY = y;
     }
   }
 
-  setMoveDirection(dir) {
+  setMoveDirection(dir: DIRECTIONS_OPTIONS | 'space') { // TODO remove this space...
     if (!this[IS_MOVING_COMP]) {
       this.addComponent(new IsMoving());
     }
@@ -138,7 +160,7 @@ class BaseEntity extends Entity {
     return this[IS_MOVING_COMP] && this[IS_MOVING_COMP].direction;
   }
 
-  setOrientation(direction) {
+  setOrientation(direction: DIRECTIONS_OPTIONS) {
     this[POSITION_COMP].orientation = direction;
   }
 
@@ -146,11 +168,11 @@ class BaseEntity extends Entity {
     return this[POSITION_COMP].orientation;
   }
 
-  isMoving() {
-    return this[IS_MOVING_COMP];
+  isMoving(): boolean {
+    return !!this[IS_MOVING_COMP];
   }
 
-  setPos({x, y}) {
+  setPos({x, y}: ICoordinates) {
     this[POSITION_COMP].x = x;
     this[POSITION_COMP].y = y;
   }
@@ -164,31 +186,33 @@ class BaseEntity extends Entity {
     }
   }
 
-  getDestFromDirection(dir) {
+
+  // TODO ensure this works QA
+  getDestFromDirection(dir: DIRECTIONS_OPTIONS) {
     let {x, y} = this.getPos();
 
-    if (dir === DIRECTIONS.UP) {
+    if (dir === DIRECTIONS_OPTIONS.UP) {
       return {
         x,
         y: y - bit
       };
     }
 
-    if (dir === DIRECTIONS.DOWN) {
+    if (dir === DIRECTIONS_OPTIONS.DOWN) {
       return {
         x,
         y: y + bit
       };
     }
 
-    if (dir === DIRECTIONS.LEFT) {
+    if (dir === DIRECTIONS_OPTIONS.LEFT) {
       return {
         x: x - bit,
         y
       };
     }
 
-    if (dir === DIRECTIONS.RIGHT) {
+    if (dir === DIRECTIONS_OPTIONS.RIGHT) {
       return {
         x: x + bit,
         y
@@ -196,34 +220,33 @@ class BaseEntity extends Entity {
     }
   }
 
-  setDestTo(dir) {
+  setDestTo(dir: DIRECTIONS_OPTIONS) {
     let {x, y} = this.getPos();
     this[POSITION_COMP].originX = x;
     this[POSITION_COMP].originY = y;
 
-
-    if (dir === DIRECTIONS.UP) {
+    if (dir === DIRECTIONS_OPTIONS.UP) {
       this.setDest({
         x,
         y: y - bit
       });
     }
 
-    if (dir === DIRECTIONS.DOWN) {
+    if (dir === DIRECTIONS_OPTIONS.DOWN) {
       this.setDest({
         x,
         y: y + bit
       });
     }
 
-    if (dir === DIRECTIONS.LEFT) {
+    if (dir === DIRECTIONS_OPTIONS.LEFT) {
       this.setDest({
         x: x - bit,
         y
       });
     }
 
-    if (dir === DIRECTIONS.RIGHT) {
+    if (dir === DIRECTIONS_OPTIONS.RIGHT) {
       this.setDest({
         x: x + bit,
         y

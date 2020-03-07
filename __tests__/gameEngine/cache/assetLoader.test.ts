@@ -1,7 +1,7 @@
 import { Entity } from 'gameEngine/BaseEntity';
 import { assetLoader } from 'cache/assetLoader';
 
-let global2 = global as any;
+let global2 = global as any; // TODO Should this be any?
 
 
 describe('Tests the placeLevelEntities util', () => {
@@ -42,7 +42,7 @@ describe('Tests the placeLevelEntities util', () => {
 
   it ('Do not load invalid asset types', () => {
     let requests = assetLoader.load([{
-      type:'zzzz',
+      type:'imazz' as any, // force incorrect type for the test
       name: 'asset_name',
       url: 'http://test.com/foobar'
     }], () => {});

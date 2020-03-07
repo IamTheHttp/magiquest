@@ -2,6 +2,7 @@ import oneMap from 'levels/data/0-0_home.json';
 import twoMap from 'levels/data/0-1_adventure.json';
 import {CHARACTERS} from 'gameEngine/gameConstants';
 import {bit} from 'gameEngine/config';
+import {ILevelArea} from "../interfaces/levels.i";
 // TODO - Ensure all tests pass!
 
 /**
@@ -24,9 +25,25 @@ import {bit} from 'gameEngine/config';
  */
 
 
+// TODO move to some util
+function hasValue(x: any) {
+  return typeof x !== 'undefined' && typeof x !== null;
+}
 
 // take all files
-let levelConfig = {};
+// TODO this should be some interface
+let levelConfig = {} as {
+  [numLevel: number]: {
+    areas: {
+      [numArea: number]: ILevelArea;
+    }
+  };
+};
+
+// levelConfig[numLevel] = levelConfig[numLevel] || { areas: {}};
+// levelConfig[numArea].areas[numArea] = ctx(path).default;
+
+// TOOD create a live object based on these levels
 function requireAllMapLevels() {
   let ctx = require.context('levels', true, /\.ts$/);
 
@@ -34,9 +51,11 @@ function requireAllMapLevels() {
     let name = path.replace('./', '').replace('.ts', '');
     let [level, area] = name.split('-');
 
-    if (level && area) {
-      levelConfig[level] = levelConfig[level] || { areas: {}};
-      levelConfig[level].areas[area] = ctx(path).default;
+    if (hasValue(level) && hasValue(area)) {
+      let numLevel = +level;
+      let numArea = +area;
+      levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
+      levelConfig[numLevel].areas[numArea] = ctx(path).default;
     }
   });
 }

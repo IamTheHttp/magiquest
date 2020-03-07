@@ -1,10 +1,11 @@
 import Tile from 'gameEngine/entities/Tile';
 import IndexedTile from 'gameEngine/classes/IndexedTile';
-import {ITileIndexMap} from '../../interfaces';
+import {ISpawnableEnemies, ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
+import {ITileMap} from "../../interfaces/levels.i";
 
 
 
-function createTileIndexMap(tileMap, viewSize, spawnableEnemies): ITileIndexMap {
+function createTileIndexMap(tileMap: ITileMap, viewSize: IViewSize, spawnableEnemies: ISpawnableEnemies): ITileIndexMap {
   let {mapHeight, mapWidth} = viewSize;
 
   /**

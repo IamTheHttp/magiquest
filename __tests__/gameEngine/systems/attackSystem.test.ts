@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import Player from 'gameEngine/entities/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
@@ -8,17 +8,15 @@ import Sentry from 'gameEngine/entities/Sentry';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let {Entity} = GAME_PLATFORM;
 
 describe('attack system tests', () => {
-  let systemArguments, spyPan;
-  
-  /**
-   * @type {Player}
-   * @extends Entity
-   */
-  let player;
+  let systemArguments: ISystemArguments, spyPan;
+  let player: BaseEntity;
+
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();

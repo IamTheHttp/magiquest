@@ -1,5 +1,5 @@
 /* eslint no-console: "off" */
-function assertType(expectedType, name, type) {
+function assertType(expectedType: any, name: string, type: any) {
   if (typeof expectedType === 'boolean') {
     console.assert(
       expectedType === type,

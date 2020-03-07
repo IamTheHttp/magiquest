@@ -7,9 +7,15 @@ import AnimationComp from 'gameEngine/components/AnimationComp';
 import sentryAnimations from 'gameEngine/entities/animations/sentryAnimations';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 
-class Chest extends BaseEntity {
+interface IChestConstructor {
+  col: number,
+  row: number,
+  radius?: number,
+  health?: number
+}
 
-  constructor({col, row, radius = 16, health = 1}) {
+class Chest extends BaseEntity {
+  constructor({col, row, radius = 16, health = 1}: IChestConstructor) {
     super(Chest);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
@@ -19,7 +25,8 @@ class Chest extends BaseEntity {
     this.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: CHEST_SHAPE
+        shape: CHEST_SHAPE,
+        data: {}
       }]
     ));
 
@@ -28,3 +35,13 @@ class Chest extends BaseEntity {
 }
 
 export default Chest;
+
+/**
+ *TS2345: Argument of type '{ [x: string]:
+ * { frames: { cropStartX: number; cropStartY: number; cropSizeX: number; cropSizeY: number; spriteURL: any; }[]; animationName: string; loops: boolean; }; }'
+ * is not assignable to parameter of type
+ * 'IAnimationMap'.   Index signatures are incompatible.     
+ * Type '
+ * { frames: { cropStartX: number; cropStartY: number; cropSizeX: number; cropSizeY: number; spriteURL: any; }[]; animationName: string; loops: boolean; }' is missing the following properties from type 'IAnimation': currentFrame, size, speed, realFrameCount, animationDuration
+ */
+

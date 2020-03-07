@@ -1,4 +1,4 @@
-import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
+import getSpriteCrop, {ISprite} from 'gameEngine/utils/getSpriteCrop';
 
 let bit = 32;
 let grassTile = getSpriteCrop(0, 0);
@@ -15,6 +15,12 @@ let treeGrassTilePine = getSpriteCrop(9, 19);
 let sand = getSpriteCrop(9, 10);
 let sea = getSpriteCrop(6, 10);
 
+
+
+interface ITileTypes {
+  [key:number]: ISprite
+}
+
 let tileTypes = {
   0: mountainTile,
   1: grassTile,
@@ -29,14 +35,23 @@ let tileTypes = {
   10: treeGrassTilePine,
   100: sand,
   1000: sea
-};
+} as ITileTypes;
+
+
+export enum ATTACK_SPEEDS_OPTIONS {
+  SLOW,
+  FAST,
+  FASTER,
+  FASTEST,
+}
 
 let attackSpeeds = {
-  SLOW: 90,
-  FAST: 70,
-  FASTER: 60,
-  FASTEST: 45
-};
+  [ATTACK_SPEEDS_OPTIONS.SLOW]: 90,
+  [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
+  [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
+  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 45
+}
+
 
 let resolution = {
   width: 400 * 2,

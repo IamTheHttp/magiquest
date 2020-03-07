@@ -1,6 +1,9 @@
-import oneMap from 'levels/data/0-0_home.json';
 import {CHARACTERS} from 'gameEngine/gameConstants';
 import twoMap from 'levels/data/0-1_adventure.json';
+import {ILevelArea} from "../interfaces/levels.i";
+
+
+
 
 export default {
   entitiesToPlace: [
@@ -43,12 +46,12 @@ export default {
       ]
     },
     move: {
-      '14-6': {
+      '14-6': [{
         oneOff: true,
         type: 'portal',
         level: 0,
         area: 2
-      }
+      }]
     }
   },
   tileMap: twoMap,
@@ -57,4 +60,4 @@ export default {
     col: 0,
     row: 0
   }
-};
+} as ILevelArea;

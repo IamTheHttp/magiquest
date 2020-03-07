@@ -1,6 +1,9 @@
 import {bit} from 'gameEngine/config';
+import BaseEntity from "BaseEntity";
+import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
+import GameLoop from "Game";
 
-function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight, force = false) {
+function centerCameraOnEntity(entity: BaseEntity, mapAPI: CanvasAPI, game:GameLoop, viewWidth:number, viewHeight:number, mapWidth:number, mapHeight:number, force = false) {
   let {x, y} = entity.getPos();
   let {panX, panY} = mapAPI.getPan();
   

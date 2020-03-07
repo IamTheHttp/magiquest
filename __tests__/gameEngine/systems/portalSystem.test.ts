@@ -1,14 +1,16 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import Player from 'entities/Player';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
-  let systemArguments, spyHandleAreaChange, player;
+  let systemArguments: ISystemArguments, spyHandleAreaChange: fn, player: BaseEntity;
   
   beforeEach(() => {
     Entity.reset();
@@ -28,11 +30,12 @@ describe('Tests for the AI system', () => {
 
   it('triggers the handleAreaChange if player is on a tile with a correct trigger on it', () => {
     let idx = getTileIdxByEnt(player);
-    systemArguments.levelArea.triggers.move[idx] = {
+    systemArguments.levelArea.triggers.move[idx] = [{
       level: 99,
       area: 66,
-      type: 'portal'
-    };
+      type: 'portal',
+      oneOff: true,
+    }];
 
     portalSystem(systemArguments);
 

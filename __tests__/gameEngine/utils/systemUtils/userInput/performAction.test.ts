@@ -3,24 +3,20 @@
 /* global expect */
 /* global beforeEach */
 import React from 'react';
-import {Entity} from 'BaseEntity';
+import BaseEntity, {Entity} from 'BaseEntity';
 import performAction from 'utils/systemUtils/userInput/performAction';
 import Player from 'entities/Player';
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
 import Sentry from 'entities/Sentry';
-import {DIRECTIONS} from 'gameConstants';
+import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../../../src/interfaces/gameloop.i";
 
 describe('Tests the placeLevelEntities util', () => {
-  let systemArguments = null;
-
-  /**
-   *
-   * @type {BaseEntity}
-   */
-  let player = null;
+  let systemArguments: ISystemArguments = null;
+  let player: BaseEntity = null;
   beforeEach(() => {
     // setup the test
     Entity.reset();
@@ -38,7 +34,7 @@ describe('Tests the placeLevelEntities util', () => {
     updateMapTileIdx({entity: sentry, tileIdxMap: systemArguments.tileIdxMap, newX: sentry.getPos().x, newY: sentry.getPos().y });
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    player.setOrientation(DIRECTIONS.DOWN);
+    player.setOrientation(DIRECTIONS_OPTIONS.DOWN);
 
     performAction(systemArguments);
 

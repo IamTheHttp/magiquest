@@ -13,23 +13,31 @@ import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'gameEngine/utils/isNum';
 import assertType from 'gameEngine/utils/assertType';
-import { getGridIdxFromPos } from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import { getTileIdxByPos } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import { Trigger, pushTrigger } from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from "../../interfaces";
-let { Entity, entityLoop } = GAME_PLATFORM;
+import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {Trigger, pushTrigger} from 'gameEngine/systems/triggerSystem';
+import {ISystemArguments} from "../../interfaces/gameloop.i";
+import Dialog from "components/Dialog";
+import {IDialogTrigger} from "../../interfaces/triggers.i";
+import BaseEntity from "BaseEntity";
+import {isNonEmptyArray} from "systems/portalSystem";
+
+let {Entity, entityLoop} = GAME_PLATFORM;
+
+
+// TODO - Sort this mess :) -- ORIENTATION vs DIRECTION vs animation.direction
 
 /**
  *
  * @param systemArguments
  * @param {BaseEntity} entity
  */
-function moveEntity(systemArguments: ISystemArguments, entity) {
-  let { mapAPI, game, tileIdxMap, viewSize, levelArea } = systemArguments;
-  let { mapHeight, mapWidth, viewHeight, viewWidth } = viewSize;
-  let { x: currX, y: currY } = entity.getPos();
-  let { x: desiredDestX, y: desiredDestY } = entity.getDest();
-  let dir = entity.getMoveDirection();
+function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
+  let {mapAPI, game, tileIdxMap, viewSize, levelArea} = systemArguments;
+  let {mapHeight, mapWidth, viewHeight, viewWidth} = viewSize;
+  let {x: currX, y: currY} = entity.getPos();
+  let {x: desiredDestX, y: desiredDestY} = entity.getDest();
+  let direction = entity.getMoveDirection();
 
   // the user has a desired place he wants to go..
   let modDestX = desiredDestX;
@@ -38,12 +46,13 @@ function moveEntity(systemArguments: ISystemArguments, entity) {
   // Set the modified, safe destination for the user
   if (isNum(desiredDestX) && isNum(desiredDestY)) {
     // make sure the that the desired destination is valid, and doesn't leave the map
-    let { x, y } = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
+    let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
-  } else if (dir) {
+  } else if (typeof direction !== 'undefined' && direction !== null) { // TODO replace with a util? // OR change the ENUM to start from 1?
     // create destination from the direction we want to go
-    let { x, y } = entity.getDestFromDirection(dir);
+
+    let {x, y} = entity.getDestFromDirection(direction);
     modDestY = y;
     modDestX = x;
   } else {
@@ -87,26 +96,33 @@ function moveEntity(systemArguments: ISystemArguments, entity) {
     // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
     entity.stop();
 
-    let { x, y } = entity.getPos();
+    let {x, y} = entity.getPos();
     assertType((x + 16) % 32 === 0, `Entities should be on the grid ${x} ${y}`, true);
     assertType((y + 16) % 32 === 0, 'gameEngine/entities should be on the grid', true);
-    if (dir) {
-      entity.setMoveDirection(dir);
+    if (typeof direction !== 'undefined' && direction !== null) {
+      entity.setMoveDirection(direction);
     }
 
     /**
      * Execute possible triggers when movement is done
      */
-    let { col, row } = getGridIdxFromPos(x, y);
+    let {col, row} = getGridIdxFromPos(x, y);
     let tileIdx = getTileIdxByPos(x, y);
 
-    if (levelArea.triggers.move[tileIdx]) {
-      let trigger = levelArea.triggers.move[tileIdx];
-      pushTrigger(new Trigger({
-        type: 'dialog',
-        lines: trigger.lines
-      }));
-    };
+
+    let triggers = levelArea.triggers.move[tileIdx];
+
+    if (isNonEmptyArray(triggers)) {
+      triggers.forEach((trigger) => {
+        if (trigger.type === 'dialog') {
+          pushTrigger(new Trigger({
+            type: 'dialog',
+            lines: trigger.lines,
+            actedOnEntity: null
+          }));
+        }
+      });
+    }
 
     return;
   }
@@ -122,12 +138,12 @@ function moveEntity(systemArguments: ISystemArguments, entity) {
   /**
    * Prep before we move, occupy the target tile
    */
-  updateMapTileIdx({ entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y });
+  updateMapTileIdx({entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y});
 
   /**
    * Calc the new X,Y to move to
    */
-  let { x: newX, y: newY } = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
+  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
 
   /**
    * Update, at the end of the tick, the indexMap
@@ -142,15 +158,13 @@ function moveEntity(systemArguments: ISystemArguments, entity) {
    */
 
   Promise.resolve().then(() => {
-    updateMapTileIdx({ entity, tileIdxMap, oldX: currX, oldY: currY });
+    updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
   });
 
   entity.setPos({
     x: newX,
     y: newY
   });
-
-
 
 
   /**
@@ -162,10 +176,10 @@ function moveEntity(systemArguments: ISystemArguments, entity) {
   }
 }
 
-function moveSystem(systemArguments) {
+function moveSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
   if (entities.length) {
-    entityLoop(entities, (entity) => {
+    entityLoop(entities, (entity: BaseEntity) => {
       moveEntity(systemArguments, entity);
     });
   }

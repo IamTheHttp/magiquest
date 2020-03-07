@@ -2,11 +2,13 @@ import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNames
 import {tileTypes} from 'gameEngine/config';
 import filterOutFarEntities from '../filterOutFarEntities';
 import {MAP_TILE_SHAPE} from 'gameEngine/gameConstants';
+import {ISystemArguments} from "../../../../interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 
-function renderBackgroundLayer(systemArguments) {
+function renderBackgroundLayer(systemArguments: ISystemArguments) {
   let {mapAPI, tileSetSprite, Entity} = systemArguments;
-  let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]); // O1 fetching
+  let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]) as BaseEntity[]; // TODO can we extend Entity to return BaseEntity?
   let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
 
   for (let i = 0; i < closeBackgroundEnts.length; i++) {

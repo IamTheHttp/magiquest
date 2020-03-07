@@ -1,7 +1,7 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
 import {bit} from 'gameEngine/config';
-import {ISystemArguments} from "../../interfaces";
 import BaseEntity from "BaseEntity";
+import {ISystemArguments} from "../../interfaces/gameloop.i";
 
 function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;

@@ -1,8 +1,11 @@
 import oneMap from 'levels/data/0-0_home.json';
 import { CHARACTERS } from 'gameEngine/gameConstants';
+import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
+import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
 
 export default {
   tileMap: oneMap,
+  spawnableEnemies:[],
   triggers: {
     levelStart: [{
       oneOff: true,
@@ -13,16 +16,16 @@ export default {
           speaker: 0
         }
       ]
-    }],
+    }] as PossibleTriggersArray,
     actOnEntity: {},
     move: {
-      '14-13': {
+      '14-13': [{
         oneOff: true,
         type: 'portal',
         level: 0,
         area: 1
-      },
-      '2-5': {
+      }] as PossibleTriggersArray,
+      '2-5': [{
         oneOff: true,
         type: 'dialog',
         lines: [
@@ -31,7 +34,7 @@ export default {
             speaker: 0
           }
         ]
-      }
+      }] as PossibleTriggersArray
     }
   },
   entitiesToPlace: [
@@ -42,9 +45,9 @@ export default {
       },
       type: CHARACTERS.CHEST
     }
-  ],
+  ] as IEntitiesToPlace,
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
     col: 1,
     row: 2
   }
-};
+} as ILevelArea;

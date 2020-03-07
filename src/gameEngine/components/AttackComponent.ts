@@ -8,21 +8,9 @@ class AttackComponent {
    *
    * @param {number} damage
    */
-  constructor(damage, cooldownFrames) {
-    /**
-     * @type {string}
-     */
+  constructor(damage: number, cooldownFrames: number) {
     this.name = ATTACK_COMP;
-  
-    /**
-     * @type {number}
-     */
     this.damage = damage;
-
-    /**
-     * @type {number}
-     * @desc dictates the cooldown of the atack
-     */
     this.cooldownFrames = cooldownFrames;
   }
 }

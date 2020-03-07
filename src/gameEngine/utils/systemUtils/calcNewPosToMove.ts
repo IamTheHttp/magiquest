@@ -1,7 +1,8 @@
 import {MOVEMENT_COMP} from '../../components/ComponentNamesConfig';
 import assertType from '../assertType';
+import BaseEntity from "BaseEntity";
 
-function calcNewPosToMove(entity, originX, originY, destX, destY) {
+function calcNewPosToMove(entity: BaseEntity, originX: number, originY:number, destX:number, destY:number) {
   assertType(originX, 'originX', 'number');
   assertType(originY, 'originY', 'number');
   assertType(destY, 'destY', 'number');

@@ -1,13 +1,22 @@
-import IndexedTile from '../../src/gameEngine/classes/IndexedTile';
-import Tile from '../../src/gameEngine/entities/Tile';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import { CHARACTERS } from 'gameEngine/gameConstants';
+import {ISystemArguments} from "../../src/interfaces/gameloop.i";
+import {fn} from "./SpyFns";
+import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
+import GameLoop from "Game";
 
 let {Entity} = GAME_PLATFORM;
 
+interface ICreateSystemArgsArguments {
+  spyPan: fn;
+  spyClear: fn;
+  spyAddImage: fn;
+  spyDraw: fn;
+  spyHandleAreaChange:fn;
+}
 
-function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleAreaChange}) {
+function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleAreaChange}: ICreateSystemArgsArguments): ISystemArguments {
   let tileMap = [
     [1, 1, 1],
     [1, 1, 1],
@@ -15,14 +24,29 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
   ];
   let viewSize = {
     mapWidth: 32 * 3,
-    mapHeight: 32 * 3
+    mapHeight: 32 * 3,
+    viewWidth: 32 * 3,
+    viewHeight: 32 * 3
   };
 
   return {
+    characterSprite: undefined,
+    minimapAPI: undefined,
+    tileSetSprite: undefined,
     Entity,
     shouldRenderBackground: true,
     levelArea: {
+      spawnableEnemies: [],
+      tileMap: [[]],
+      entitiesToPlace: [],
+      startPos: {
+        col:1,
+        row:1
+      },
+
       triggers: {
+        levelStart: [],
+        actOnEntity:{},
         move: {}
       }
     },
@@ -37,24 +61,19 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
         };
       },
       pan: spyPan
-    },
+    } as unknown as CanvasAPI,
     game: {
       requestBackgroundRender: () => {
       },
       notifyBackgroundWasRendered: () => {
       },
       handleAreaChange :spyHandleAreaChange
-    },
+    } as unknown as GameLoop,
     tileIdxMap: createTileIndexMap(tileMap, viewSize, [{
       chance: 1,
       enemy: CHARACTERS.SENTRY
     }]),
-    viewSize: {
-      mapWidth: 100,
-      mapHeight: 100,
-      viewWidth: 100,
-      viewHeight: 100
-    }
+    viewSize
   };
 }
 

@@ -1,4 +1,4 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import triggerSystem, {pushTrigger} from 'systems/triggerSystem';
 import Player from 'entities/Player';
@@ -6,12 +6,14 @@ import {DIALOG_COMP} from 'components/ComponentNamesConfig';
 import Sentry from 'entities/Sentry';
 import FamNPC from 'entities/FamNPC';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
-  let systemArguments, spyPan, player, NPC;
-  
+  let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
+
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
@@ -20,6 +22,7 @@ describe('Tests for the AI system', () => {
       row: 0,
       radius: 16
     });
+
     NPC = new FamNPC({
       x: 48,
       y: 48,
@@ -35,6 +38,7 @@ describe('Tests for the AI system', () => {
 
   it('When a dialog is pushed to the trigger system, the trigger system picks it up', (done) => {
     pushTrigger({
+      oneOff: false,
       type: 'dialog',
       lines: [{
         text: 'foo',
@@ -59,18 +63,18 @@ describe('Tests for the AI system', () => {
 
   it('Cannot trigger unsupported types, does nothing but does not crash', () => {
     pushTrigger({
-      type: 'OMG_WHAT'
+      oneOff: false,
+      actedOnEntity: undefined,
+      lines: undefined,
+      type: 'OMG_WHAT' as any // force test to accept wrong type
     });
 
     triggerSystem(systemArguments);
   });
 
-  it('Default line given to entity whos acted upon but has no lines', () => {
+  it('Default line given to entity who\'s acted upon but has no lines', () => {
     pushTrigger({
-      type: 'OMG_WHAT'
-    });
-
-    pushTrigger({
+      oneOff: false,
       type: 'dialog',
       lines: [],
       actedOnEntity: NPC

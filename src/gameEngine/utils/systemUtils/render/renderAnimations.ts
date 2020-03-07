@@ -2,8 +2,10 @@ import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesC
 import {ANIMATIONS, ARC_SHAPE} from '../../../gameConstants';
 import {assetLoader} from 'cache/assetLoader';
 import {ATTACK_CONFIG, bit} from 'gameEngine/config';
+import {ISystemArguments} from "../../../../interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
-function renderAnimations(systemArguments, entity) {
+function renderAnimations(systemArguments: ISystemArguments, entity:  BaseEntity) {
   let {mapAPI} = systemArguments;
 
   for (let anim in entity.getAnimations()) {

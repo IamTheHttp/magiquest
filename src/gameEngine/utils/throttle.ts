@@ -1,7 +1,7 @@
-function throttle(fn, msDelay) {
+function throttle(fn: () => {}, msDelay: number) {
   let lastRun = Date.now();
   
-  return function(...args) {
+  return function(...args: any[]) {
     let now = Date.now();
     
     if (now > lastRun + msDelay) {

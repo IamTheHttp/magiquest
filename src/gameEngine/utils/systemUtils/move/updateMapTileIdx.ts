@@ -1,6 +1,17 @@
 import {getTileIdxByPos} from '../../componentUtils/tileUtils/getTileIdx';
+import BaseEntity from "BaseEntity";
+import {ITileIndexMap} from "../../../../interfaces/interfaces";
 
-function updateMapTileIdx({entity, tileIdxMap,  oldX = null, oldY = null, newX = null, newY = null}) {
+interface updateMapTileIdxArguments {
+  entity: BaseEntity,
+  tileIdxMap: ITileIndexMap,
+  oldX?:number,
+  oldY?:number,
+  newX?:number,
+  newY?:number
+}
+
+function updateMapTileIdx({entity, tileIdxMap,  oldX = null, oldY = null, newX = null, newY = null}: updateMapTileIdxArguments) {
   /**
    * @type IndexedTile
    */

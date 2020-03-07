@@ -1,10 +1,11 @@
 import {BACKGROUND_COMP} from './ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
+import {IUISection} from "../../interfaces/interfaces";
 
 class BackgroundComponent {
   name:string;
-  sections: Array<any>;
-  constructor(sections) {
+  sections: IUISection[];
+  constructor(sections: IUISection[]) {
     this.name = BACKGROUND_COMP;
   
     let sectionsArray = Array.isArray(sections) ? sections : [sections];
@@ -17,6 +18,7 @@ class BackgroundComponent {
       } else {
         return {
           name: section,
+          shape: null,
           data: {}
         };
       }

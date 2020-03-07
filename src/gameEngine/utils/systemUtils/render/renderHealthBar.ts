@@ -2,9 +2,10 @@ import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConf
 import {HEALTH_BAR_SHAPE} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
 import BaseEntity from "BaseEntity";
+import {ISystemArguments} from "../../../../interfaces/gameloop.i";
 
 
-function renderHealthBar(systemArguments, entity: BaseEntity) {
+function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) {
   assertType(entity[HEALTH_COMP], 'Health Component', 'object');
   let {mapAPI} = systemArguments;
 

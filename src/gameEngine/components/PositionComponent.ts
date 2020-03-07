@@ -1,5 +1,14 @@
-import {DIRECTIONS} from 'gameEngine/gameConstants';
 import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {DIRECTIONS_OPTIONS} from "gameConstants";
+
+// TODO maybe POSITION needs to be split into SHAPE and POSITION?
+interface IPositionComponentConstructor {
+  x:number;
+  y: number;
+  radius?: number;
+  height?:number;
+  width?:number;
+}
 
 class PositionComponent {
   name:string;
@@ -12,8 +21,9 @@ class PositionComponent {
   destX:number;
   originX:number;
   originY:number;
+  orientation: DIRECTIONS_OPTIONS;
 
-  constructor({x, y, radius = -1, height = -1, width = -1}) {
+  constructor({x, y, radius = -1, height = -1, width = -1}: IPositionComponentConstructor) {
     this.name = POSITION_COMP;
     this.x = x;
     this.y = y;

@@ -10,9 +10,9 @@ import {bit} from 'gameEngine/config';
 import {ARC_SHAPE} from 'gameEngine/gameConstants';
 
 
-function getCenterPosOfTile(tileIdx) {
-  let col = tileIdx.split('-')[0]; // TODO this is used elsewhere, we might want to put it as a function
-  let row = tileIdx.split('-')[1];
+function getCenterPosOfTile(tileIdx: string) {
+  let col = +tileIdx.split('-')[0]; // TODO this is used elsewhere, we might want to put it as a function
+  let row = +tileIdx.split('-')[1];
 
   return {
     x: col * bit + bit / 2,
@@ -20,9 +20,18 @@ function getCenterPosOfTile(tileIdx) {
   };
 }
 
+interface IShockWaveConstructor {
+  x: number,
+  y: number,
+  radius?: number,
+  fromTileIdx: string,
+  toTileIdx: string,
+  color?:string
+}
+
 
 class ShockWave {
-  constructor({x, y, radius = 16, fromTileIdx, toTileIdx, color = 'red'}) {
+  constructor({x, y, radius = 16, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
     let entity = new BaseEntity(ShockWave);
 
     entity.addComponent(new PositionComponent({x, y, radius}));

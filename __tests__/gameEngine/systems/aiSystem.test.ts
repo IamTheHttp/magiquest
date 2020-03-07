@@ -1,7 +1,7 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 
 import aiSystem from 'systems/aiSystem';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import moveSystem from 'systems/moveSystem';
 import Sentry from 'entities/Sentry';
 import IsMoving from 'components/IsMoving';
@@ -11,12 +11,14 @@ import {bit} from 'config';
 import attackSystem from 'systems/attackSystem';
 import {HEALTH_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import userInputSystem from "systems/userInputSystem";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 
 
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
-  let systemArguments, spyPan;
+  let systemArguments: ISystemArguments, spyPan;
   
   beforeEach(() => {
     Entity.reset();
@@ -36,7 +38,7 @@ describe('Tests for the AI system', () => {
     moveSystem(systemArguments);
 
     let {x, y} = ent.getPos();
-    
+
     let xOrYDiff = x !== 48 || y !== 48;
     expect(xOrYDiff).toBe(true);
   });

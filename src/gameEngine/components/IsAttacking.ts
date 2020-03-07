@@ -1,18 +1,14 @@
 import {IS_ATTACKING_COMP} from './ComponentNamesConfig';
+import IndexedTile from "classes/IndexedTile";
 
 class IsAttackingComp {
   name:string;
-  targetTile:any;
-  currentFrame:any;
-  /**
-   * @param {IndexedTile} targetTile
-   */
-  constructor(targetTile) {
+  targetTile:IndexedTile;
+  currentFrame:any; // TODO this should not be any
+
+
+  constructor(targetTile: IndexedTile) {
     this.name = IS_ATTACKING_COMP;
-  
-    /**
-     * @type {IndexedTile}
-     */
     this.targetTile = targetTile;
 
     /**

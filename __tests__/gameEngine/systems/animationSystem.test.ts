@@ -1,14 +1,16 @@
 import animationSystem from '../../../src/gameEngine/systems/animationSystem';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import Player from 'entities/Player';
 import getSpriteCrop from 'utils/getSpriteCrop';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 
 let {Entity} = GAME_PLATFORM;
 
+// TODO animations are broken :(
 describe('Tests for the Animation system', () => {
-  let systemArguments, spyPan;
+  let systemArguments: ISystemArguments, spyPan;
   
   beforeEach(() => {
     Entity.reset();

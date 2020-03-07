@@ -4,10 +4,23 @@ import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import BaseEntity from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
+import {ISpawnableEnemies} from "../../interfaces/interfaces";
+
+
+interface ITileConstructor {
+  x:number;
+  y:number;
+  tileIdx: string;
+  height:number;
+  width:number;
+  tileType:number;
+  spawnableEnemies:ISpawnableEnemies;
+}
+
 
 class Tile extends BaseEntity{
-  tileIdx: any;
-  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}) {
+  tileIdx: any; // TODO this should not be any
+  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}: ITileConstructor) {
     super(Tile);
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));

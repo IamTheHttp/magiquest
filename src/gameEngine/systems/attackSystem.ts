@@ -4,14 +4,15 @@ import {
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import {ISystemArguments} from "../../interfaces";
+import {ISystemArguments} from "../../interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
 function attackSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps([IS_ATTACKING_COMP, ATTACK_COMP]);
   if (entities.length) {
-    entityLoop(entities, (entity) => {
+    entityLoop(entities, (entity: BaseEntity) => {
       let dmg = entity[ATTACK_COMP].damage;
       let coolDownFrames = entity[ATTACK_COMP].cooldownFrames;
       let targetTile = entity[IS_ATTACKING_COMP].targetTile;
@@ -36,10 +37,8 @@ function attackSystem(systemArguments: ISystemArguments) {
         if (entity === targetTile.entities[entID]) {
           continue; // cannot attack self.
         }
-        /**
-         * @type {BaseEntity}
-         */
-        let entTarget = targetTile.entities[entID];
+
+        let entTarget = targetTile.entities[entID] as BaseEntity;
 
         // do the attack
         entTarget[HEALTH_COMP].current -= dmg;

@@ -1,4 +1,5 @@
 import tileMap from 'levels/data/0-3_town.json';
+import {PossibleTriggersArray} from "../interfaces/levels.i";
 
 export default {
   tileMap,
@@ -6,12 +7,12 @@ export default {
     levelStart: [],
     actOnEntity: {},
     move: {
-      '29-4': {
+      '29-4': [{
         oneOff: true,
         type: 'portal',
         level: 0,
         area: 4
-      }
+      }] as PossibleTriggersArray
     }
   },
   entitiesToPlace: [],

@@ -7,21 +7,22 @@ import {
 } from '../components/ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
-import { DIRECTIONS } from '../gameConstants';
+import {DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import { bit } from 'gameEngine/config';
-import {ISystemArguments} from "../../interfaces";
+import BaseEntity from "BaseEntity";
+import {ISystemArguments} from "../../interfaces/gameloop.i";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
 // TODO do this for all systems
 function aiSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
 
 
-  entityLoop(entities, (entity) => {
+  entityLoop(entities, (entity: BaseEntity) => {
     if (entity.isMoving()) {
       return;
     }
@@ -39,19 +40,19 @@ function aiSystem(systemArguments: ISystemArguments) {
       if (visionRange > dist) {
         // go towards the player!
         if (x < playerX) {
-          chaseDirections.push(DIRECTIONS.RIGHT);
+          chaseDirections.push(DIRECTIONS_OPTIONS.RIGHT);
         }
 
         if (x > playerX) {
-          chaseDirections.push(DIRECTIONS.LEFT);
+          chaseDirections.push(DIRECTIONS_OPTIONS.LEFT);
         }
 
         if (y < playerY) {
-          chaseDirections.push(DIRECTIONS.DOWN);
+          chaseDirections.push(DIRECTIONS_OPTIONS.DOWN);
         }
 
         if (y > playerY) {
-          chaseDirections.push(DIRECTIONS.UP);
+          chaseDirections.push(DIRECTIONS_OPTIONS.UP);
         }
       }
 
@@ -75,8 +76,15 @@ function aiSystem(systemArguments: ISystemArguments) {
     }
 
     if (chaseDirections.length === 0) {
-      chaseDirections = Object.keys(DIRECTIONS);
+      // TODO - Could we implement break this list dynamically instead of listing it all?
+      chaseDirections = [
+        DIRECTIONS_OPTIONS.UP,
+        DIRECTIONS_OPTIONS.DOWN,
+        DIRECTIONS_OPTIONS.LEFT,
+        DIRECTIONS_OPTIONS.RIGHT
+      ]
     }
+
 
     let dir = oneOf(chaseDirections);
 

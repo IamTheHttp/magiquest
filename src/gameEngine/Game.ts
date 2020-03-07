@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import renderSystem from './systems/renderSystem';
-import userInputSystem, {pushAction} from './systems/userInputSystem';
+import userInputSystem, {IAction, pushAction} from './systems/userInputSystem';
 import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
 import moveSystem from './systems/moveSystem';
 import throttle from './utils/throttle';
@@ -9,7 +9,7 @@ import attackSystem from './systems/attackSystem';
 import tileSetImageURL from '../assets/tileSet.png';
 import animationSystem from './systems/animationSystem';
 import charSpriteURL from 'assets/characters.png';
-import portalSystem from 'gameEngine/systems/portalSystem';
+import portalSystem, {isNonEmptyArray} from 'gameEngine/systems/portalSystem';
 
 import IEngine from "game-platform/types/lib/Engine/Engine";
 import IEntity from "game-platform/types/lib/ECS/Entity";
@@ -24,7 +24,9 @@ import destroyAllButPlayer from 'gameEngine/utils/destroyAllButPlayer';
 import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import {ILevelArea, ITileIndexMap, IViewSize} from "../interfaces";
+import {ILevelArea} from "../interfaces/levels.i";
+import {ITileIndexMap, IViewSize} from "../interfaces/interfaces";
+import {ISystemArguments} from "../interfaces/gameloop.i";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -32,20 +34,31 @@ let {Entity, Engine} = GAME_PLATFORM;
 
 
 
+declare type getCanvasAPICallback = () => ICanvasAPI;
+declare type onAreaChangeCallback = (level: number, area: number) => void;
+
+interface IGameConstructor {
+  getMapAPI: getCanvasAPICallback;
+  getMinimapAPI: getCanvasAPICallback;
+  levelArea: ILevelArea;
+  viewSize: IViewSize;
+  onAreaChange: onAreaChangeCallback;
+}
+
 
 // TODO this shouldn't be any
 class GameLoop {
   engine:IEngine;
-  getMapAPI: () => ICanvasAPI;
-  getMinimapAPI: () => ICanvasAPI;
-  onAreaChange: (...args) => void;
+  getMapAPI: getCanvasAPICallback;
+  getMinimapAPI: getCanvasAPICallback;
+  onAreaChange: onAreaChangeCallback;
   tileIdxMap: ITileIndexMap;
   viewSize: IViewSize;
   levelArea:ILevelArea;
   renderBackground:boolean;
   isRunning: boolean;
 
-  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}) {
+  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}: IGameConstructor) {
     Entity.reset();
 
     let engine = new Engine();
@@ -72,7 +85,7 @@ class GameLoop {
     this.resume();
   }
 
-  getSystemArguments(getMapAPI, getMinimapAPI) {
+  getSystemArguments(getMapAPI: getCanvasAPICallback, getMinimapAPI: getCanvasAPICallback): ISystemArguments {
     return {
       tileIdxMap: this.tileIdxMap,
       levelArea: this.levelArea,
@@ -92,7 +105,7 @@ class GameLoop {
    * @param {levelArea} levelArea
    * @param viewSize
    */
-  setLevelArea(levelArea, viewSize) {
+  setLevelArea(levelArea: ILevelArea, viewSize: IViewSize) {
     let {viewWidth, viewHeight, mapWidth, mapHeight} = viewSize;
     let mapAPI = this.getMapAPI();
     this.renderBackground = true; // for the first time
@@ -107,24 +120,25 @@ class GameLoop {
     placeLevelEntities(levelArea, this.tileIdxMap);
 
     // set triggers
-    let hasStartTriggers = levelArea.triggers.levelStart.length;
-    hasStartTriggers && levelArea.triggers.levelStart.forEach((configuredTrigger) => {
-      // activateTrigger ...
-      if (configuredTrigger.type === 'dialog') {
-        pushTrigger(new Trigger({
-          type: 'dialog',
-          lines: configuredTrigger.lines,
-          actedOnEntity: player
-        }));
-      }
-    });
+    if (isNonEmptyArray(levelArea.triggers.levelStart)) {
+      levelArea.triggers.levelStart.forEach((configuredTrigger) => {
+        // activateTrigger ...
+        if (configuredTrigger.type === 'dialog') {
+          pushTrigger(new Trigger({
+            type: 'dialog',
+            lines: configuredTrigger.lines,
+            actedOnEntity: player
+          }));
+        }
+      });
+    }
 
     centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
     this.renderBackground = true; // for the first time
   }
 
   // For editor mode only
-  changeTileType(tile, newType) {
+  changeTileType(tile: Tile, newType: number|string) {
     assertType(tile, 'Tile', 'object');
     let [col, row] = tile.tileIdx.split('-');
     let idx = tile.tileIdx;
@@ -136,7 +150,7 @@ class GameLoop {
     this.renderBackground = true; // for the first time
   }
 
-  handleAreaChange(level, area) {
+  handleAreaChange(level: number, area: number) {
     this.onAreaChange(level, area);
   }
 
@@ -162,14 +176,11 @@ class GameLoop {
     this.engine.stop();
   }
 
-  activateTrigger(trigger) {
+  activateTrigger(trigger: Trigger) {
     pushTrigger(trigger);
   }
 
-  /**
-   * @param action {Object} - contains, {entityID}
-   */
-  dispatchAction(action) {
+  dispatchAction(action: IAction) {
     pushAction(action);
   }
 }

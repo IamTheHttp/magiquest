@@ -1,19 +1,17 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import triggerSystem, {pushTrigger} from 'systems/triggerSystem';
 import Player from 'gameEngine/entities/Player';
-import {DIALOG_COMP} from 'components/ComponentNamesConfig';
-import Sentry from 'entities/Sentry';
-import FamNPC from 'entities/FamNPC';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
-import { MOVE_ACTION, DIRECTIONS } from 'gameEngine/gameConstants';
+import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
-  let systemArguments, spyPan, player, NPC;
-  
+  let systemArguments: ISystemArguments, spyPan, player: BaseEntity;
+
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
@@ -24,14 +22,14 @@ describe('Tests for the AI system', () => {
     });
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
-  
+
   it('Runs without actions', () => {
     userInputSystem(systemArguments);
   });
 
   it('Adds an non-existent action type', () => {
     pushAction({
-      name:'foo'
+      name: 'foo' as any // force test to accept wrong type
     });
     userInputSystem(systemArguments);
   });
@@ -41,11 +39,11 @@ describe('Tests for the AI system', () => {
     expect(player.getMoveDirection()).toBeUndefined();
 
     pushAction({
-      name:MOVE_ACTION,
-      direction: DIRECTIONS.DOWN
+      name: AllowedActions.MOVE_ACTION,
+      direction: DIRECTIONS_OPTIONS.DOWN
     });
     userInputSystem(systemArguments);
 
-    expect(player.getMoveDirection()).toBe(DIRECTIONS.DOWN)
+    expect(player.getMoveDirection()).toBe(DIRECTIONS_OPTIONS.DOWN)
   });
 });

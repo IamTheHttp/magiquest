@@ -2,7 +2,7 @@ import {IS_MOVING_COMP} from './ComponentNamesConfig';
 
 class IsMoving {
   name:string;
-  direction:any;
+  direction:any; // TODO this should not be any
   constructor() {
     this.name = IS_MOVING_COMP;
     this.direction = null;

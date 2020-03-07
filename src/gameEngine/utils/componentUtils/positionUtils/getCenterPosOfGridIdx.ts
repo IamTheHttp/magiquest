@@ -1,13 +1,13 @@
 import {bit} from 'gameEngine/config';
 
-function getCenterPosOfGridIdx(col, row) {
+function getCenterPosOfGridIdx(col:number, row:number) {
   return {
     x: col * bit + (bit / 2),
     y: row * bit + (bit / 2)
   };
 }
 
-function getGridIdxFromPos(x, y) {
+function getGridIdxFromPos(x:number, y:number) {
   let col = Math.floor(x / bit);
   let row = Math.floor(y / bit);
 

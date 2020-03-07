@@ -1,5 +1,13 @@
 import {ANIMATION_COMP, DIALOG_COMP, POSITION_COMP, UI_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {CIRCLE_SHAPE, DIRECTIONS, HEALTH_BAR_SHAPE, MAP_TILE_SHAPE, PLAYER_CHAR, CHEST_SHAPE} from '../../../gameConstants';
+import {
+  CIRCLE_SHAPE,
+  DIRECTIONS,
+  HEALTH_BAR_SHAPE,
+  MAP_TILE_SHAPE,
+  PLAYER_CHAR,
+  CHEST_SHAPE,
+  DIRECTIONS_OPTIONS
+} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import {bit} from '../../../config';
@@ -9,9 +17,10 @@ import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
 import {assetLoader} from 'cache/assetLoader';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
-import {Entity} from 'gameEngine/BaseEntity';
+import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
+import {ISystemArguments} from "../../../../interfaces/gameloop.i";
 
-function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
+function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntity[], closeEntsWithAnimation:BaseEntity[]) {
   let {mapAPI} = systemArguments;
 
   // render entities
@@ -45,17 +54,17 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
             ...crops,
             cropSizeX: bit,
             cropSizeY: bit,
-            rotation: section.rotation || 0 // in radians
+            rotation: 0 // in radians
           }
         );
       }
 
       if (section.shape === PLAYER_CHAR) {
         let spriteCrop = {
-          [DIRECTIONS.LEFT]: getSpriteCrop(1, 1),
-          [DIRECTIONS.RIGHT]: getSpriteCrop(1, 0),
-          [DIRECTIONS.UP]: getSpriteCrop(1, 3),
-          [DIRECTIONS.DOWN]: getSpriteCrop(1, 2)
+          [DIRECTIONS_OPTIONS.LEFT]: getSpriteCrop(1, 1),
+          [DIRECTIONS_OPTIONS.RIGHT]: getSpriteCrop(1, 0),
+          [DIRECTIONS_OPTIONS.UP]: getSpriteCrop(1, 3),
+          [DIRECTIONS_OPTIONS.DOWN]: getSpriteCrop(1, 2)
         };
   
         let crops = spriteCrop[entity.getOrientation()] || {
@@ -75,7 +84,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
             ...crops,
             cropSizeX: bit,
             cropSizeY: bit,
-            rotation: section.rotation || 0 // in radians
+            rotation: 0 // in radians
           }
         );
       }
@@ -90,7 +99,7 @@ function renderMainLayer(systemArguments, closeEnts, closeEntsWithAnimation) {
   }
   // one dialog at a time!
 
-  let entity = Entity.getByComp(DIALOG_COMP)[0];
+  let entity = Entity.getByComp(DIALOG_COMP)[0] as BaseEntity;
   if (entity) {
     renderDialog(systemArguments, entity);
     systemArguments.game.stop();

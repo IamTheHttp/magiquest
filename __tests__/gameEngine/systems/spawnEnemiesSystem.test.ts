@@ -1,15 +1,17 @@
-import GAME_PLATFORM from 'game-platform/dist';
+import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import Player from 'entities/Player';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import { AI_CONTROLLED_COMP, CAN_SPAWN_COMP } from 'gameEngine/components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
-  let systemArguments, spyHandleAreaChange, player;
+  let systemArguments: ISystemArguments, spyHandleAreaChange, player: BaseEntity;
   
   beforeEach(() => {
     Entity.reset();

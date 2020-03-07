@@ -1,9 +1,12 @@
 import {TRAVERSABLE_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {bit} from 'gameEngine/config';
 import {getTileIdxByPos} from '../tileUtils/getTileIdx';
+import IndexedTile from "classes/IndexedTile";
+import {ITileIndexMap} from "../../../../interfaces/interfaces";
+import BaseEntity from "BaseEntity";
 
 // is an x, y traversable for an entity
-function isTraversable(tileIdxMap, x, y, entity) {
+function isTraversable(tileIdxMap: ITileIndexMap, x:number , y: number, entity: BaseEntity) {
   let tileIdx = getTileIdxByPos(x, y);
   if (!tileIdxMap[tileIdx]) {
     return;

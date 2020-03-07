@@ -6,8 +6,10 @@ import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import { CHARACTERS } from 'gameEngine/gameConstants';
 import Chest from 'gameEngine/entities/Chest';
+import {ILevelArea} from "../../interfaces/levels.i";
+import {ITileIndexMap} from "../../interfaces/interfaces";
 
-function placeLevelEntities(levelArea, tileIdxMap) {
+function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
     let entityToPlace = levelArea.entitiesToPlace[i];
 

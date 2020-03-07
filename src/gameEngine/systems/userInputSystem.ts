@@ -1,21 +1,22 @@
 import moveAction from '../utils/systemUtils/userInput/moveAction';
 import performAction from '../utils/systemUtils/userInput/performAction';
 
-import {
-  PERFORM_ACTION,
-  MOVE_ACTION
-} from 'gameEngine/gameConstants';
-import {ISystemArguments} from "../../interfaces";
+import {ISystemArguments} from "../../interfaces/gameloop.i";
+import {AllowedActions, DIRECTIONS_OPTIONS} from "gameConstants";
+
+export interface IAction {
+  name: AllowedActions,
+  direction?: DIRECTIONS_OPTIONS | 'space'; // TODO this is NOT okay, maybe the enum is not direciton options...
+}
 
 let actionMap = {
-  [MOVE_ACTION]: moveAction,
-  [PERFORM_ACTION]: performAction
+  [AllowedActions.MOVE_ACTION]: moveAction,
+  [AllowedActions.PERFORM_ACTION]: performAction
 };
 
 // store our actions, singleton
-let actions = [];
+let actions: IAction[] = [];
 
-// on key down, send action to start
 function userInputSystem(systemArguments: ISystemArguments) {
   // loop over all actions
   actions.forEach((action) => {
@@ -31,7 +32,7 @@ function userInputSystem(systemArguments: ISystemArguments) {
 
 export default userInputSystem;
 
-function pushAction(action) {
+function pushAction(action: IAction) {
   actions.push(action);
 }
 

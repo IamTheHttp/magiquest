@@ -1,8 +1,12 @@
 {
-  "plugins": [
-    "transform-es3-member-expression-literals",
-    "@babel/plugin-transform-reserved-words",
-    "transform-es3-property-literals"
-  ],
-  "presets": ["@babel/preset-env", "@babel/react"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs" : 3
+      }
+    ],
+    "@babel/react"
+  ]
 }

@@ -6,7 +6,7 @@ class Health {
   current:number;
   width: number;
   height:number;
-  constructor(maxHealth, width, height) {
+  constructor(maxHealth:number, width:number, height:number) {
     this.name = HEALTH_COMP;
     this.max = maxHealth;
     this.current = maxHealth;

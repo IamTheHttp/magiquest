@@ -5,9 +5,9 @@
   "description": "Magic Quest Game!",
   "scripts": {
     "init": "npm install && jarb init",
-    "start": "jarb devServer --env=develop",
+    "start": "jarb devServer --mode=development",
     "build": "jarb build",
-    "analyze": "jarb analyze --analyzeBundle=1",
+    "analyze": "jarb analyze --analyzeBundle",
     "test": "jarb test --coverage",
     "tdd": "jarb test",
     "release": "jarb release"
@@ -17,7 +17,7 @@
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/webpack-env": "^1.15.1",
-    "jarb": "3.0.8",
+    "jarb": "4.0.0-beta.3",
     "jest-canvas-mock": "2.1.1",
     "source-map-loader": "^0.2.4",
     "ts-jest": "^25.2.0",
@@ -25,8 +25,10 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
+    "@types/enzyme": "^3.10.5",
     "canvas": "2.6.0",
-    "game-platform": "^1.0.0",
+    "core-js": "3.6.4",
+    "game-platform": "1.0.1",
     "react": "16.8.2",
     "react-dom": "16.8.2"
   },

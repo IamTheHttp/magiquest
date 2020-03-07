@@ -7,7 +7,7 @@ import React from 'react';
 import BaseEntity from 'BaseEntity';
 
 describe('Tests the Base Entity', () => {
-  let entity;
+  let entity: BaseEntity;
   beforeEach(() => {
     // setup the test
     entity = new BaseEntity('foo');

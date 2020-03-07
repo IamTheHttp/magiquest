@@ -19,6 +19,17 @@ describe('Tests the placeLevelEntities util', () => {
   it('places some entities', () => {
     let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities({
+      startPos: {
+        col: 0,
+        row: 0,
+      },
+      spawnableEnemies: [],
+      tileMap: [[1]],
+      triggers: {
+        levelStart: [],
+        actOnEntity: {},
+        move: {}
+      },
       entitiesToPlace: [
         {
           type: CHARACTERS.FAM_NPC,
@@ -37,14 +48,14 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          type: 'UNKNOWN_TYPE_OMG',
+          type: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
           name: 'SENTRY_1',
           pos: {
             col: 2,
             row: 2
           }
         }
-      ],
+      ]
     }, tileIdxMap);
 
     let entsPlaced = Entity.getByComp(ANIMATION_COMP);

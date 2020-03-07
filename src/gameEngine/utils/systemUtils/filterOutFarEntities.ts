@@ -1,7 +1,9 @@
 import {POSITION_COMP} from '../../components/ComponentNamesConfig';
 import {bit} from '../../config';
+import {ISystemArguments} from "../../../interfaces/gameloop.i";
+import BaseEntity from "BaseEntity";
 
-function filterOutFarEntities(systemArguments, entsToDraw) {
+function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: BaseEntity[]) {
   let buffer = bit * 8;
   let {mapAPI} = systemArguments;
   let arr = [];

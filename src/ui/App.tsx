@@ -8,34 +8,36 @@ import tileSet from 'assets/tileSet.png';
 import {Entity} from 'gameEngine/BaseEntity';
 import Editor from './Editor';
 import IGameCanvas  from "game-platform/types/lib/GameCanvas/GameCanvas";
+import {ILevelArea, ITileMap} from "../interfaces/levels.i";
+import Tile from "entities/Tile";
 
 let {GameCanvas} = GAME_PLATFORM;
 
 type IState = {
-  mapCanvasEl: any;
-  minimapCanvasEl: any;
+  mapCanvasEl: any; // TODO this should not be any
+  minimapCanvasEl: any; // TODO this should not be any
   currentLevel: number;
   currentArea: number;
-  mapHeight: any;
-  mapWidth: any;
-  minimap: any;
-  map: any;
-  active: any;
-  isEditing: any;
-  gameStarted: any;
-  mapAPI: any;
-  clickedTileIdx: any;
-  editorTileType: any;
-  minimapAPI: any;
+  mapHeight: any; // TODO this should not be any
+  mapWidth: any; // TODO this should not be any
+  minimap: any; // TODO this should not be any
+  map: any; // TODO this should not be any
+  active: any; // TODO this should not be any
+  isEditing: any; // TODO this should not be any
+  gameStarted: any; // TODO this should not be any
+  mapAPI: any; // TODO this should not be any
+  clickedTileIdx: any; // TODO this should not be any
+  editorTileType: any; // TODO this should not be any
+  minimapAPI: any; // TODO this should not be any
 };
 
 
 
 
 class App extends React.Component<any, IState> {
-  game: any;
+  game: any; // TODO this should not be any
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -61,7 +63,7 @@ class App extends React.Component<any, IState> {
     }, 10);
   }
 
-  initGameCanvas(mapWidth, mapHeight): {map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
+  initGameCanvas(mapWidth:number, mapHeight:number): {map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
     return new GameCanvas({
       mapHeight,
       mapWidth,
@@ -70,8 +72,8 @@ class App extends React.Component<any, IState> {
       onViewMapClick: (mouseClickData) => {
         mouseClickData.hits.forEach((shape) => {
           if (shape.layerName === 'background') {
-            let entityID = shape.id.split('-')[0];
-            let tile = Entity.entities[entityID];
+            let entityID = +shape.id.split('-')[0];
+            let tile = Entity.entities[entityID] as Tile; // TODO can we change these?
             if (this.state.editorTileType) {
               this.game.changeTileType(tile, this.state.editorTileType);
             }
@@ -100,7 +102,7 @@ class App extends React.Component<any, IState> {
   }
 
 
-  initGameLoop(areaToLoad, mapWidth, mapHeight) {
+  initGameLoop(areaToLoad: ILevelArea, mapWidth:number, mapHeight:number) {
     return new GameLoop({
       levelArea: areaToLoad,
       onAreaChange: (level, area) => {
@@ -121,7 +123,7 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  setNewCanvas(currentAreaMap) {
+  setNewCanvas(currentAreaMap: ITileMap) {
     if (this.state.mapAPI) {
       this.state.mapAPI.removeLayer('background');
     }
@@ -142,7 +144,7 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  changeMap(levelNum, areaNum) {
+  changeMap(levelNum: number, areaNum:number) {
     this.setState({
       currentLevel: levelNum,
       currentArea: areaNum
@@ -167,7 +169,7 @@ class App extends React.Component<any, IState> {
     let levelNum = this.state.currentLevel; // this should probably be set every time it changes
     let areaNum = this.state.currentArea;
     // Use the level to get the current map for that level
-    let areaToLoad = levelConfig[levelNum].areas[areaNum];
+    let areaToLoad = levelConfig[levelNum].areas[areaNum] as ILevelArea;
     let areaTileMap = areaToLoad.tileMap;
     this.setNewCanvas(areaTileMap);
 

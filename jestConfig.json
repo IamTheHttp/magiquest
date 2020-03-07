@@ -3,20 +3,18 @@
     "<rootDir>/",
     "<rootDir>/src"
   ],
-  "testRegex": "test.ts$",
+  "testRegex": "test.js$|test.ts$",
   "transformIgnorePatterns": [
     "/node_modules/"
   ],
   "collectCoverageFrom": [
-    "src/**/*.{js,jsx}",
-    "!src/develop.js",
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/develop.{js, jsx, ts, tsx}",
     "!src/.dll/*",
-    "src/**/*.{ts,tsx}",
     "!src/polyfill/*.*",
-    "!src/liveExample.ts",
     "!src/index.ts",
     "!src/levels/*.*",
-    "!src/pageSetup.ts"
+    "!src/pageSetup.tsx"
   ],
   "coverageThreshold": {
     "global": {
@@ -35,11 +33,11 @@
     "<rootDir>/src/polyfill/rAF.ts",
     "jest-canvas-mock"
   ],
+  "preset": "ts-jest",
   "moduleDirectories": [
     "./src",
     "./src/gameEngine",
     "node_modules"
   ],
-  "bail": true,
-  "preset": "ts-jest"
+  "bail": true
 }
