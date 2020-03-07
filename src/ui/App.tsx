@@ -91,6 +91,8 @@ class App extends React.Component<any, IState> {
                   levelName: levelArea.levelName,
                   tileMap: levelArea.tileMap
                 }),
+              }).catch(() => {
+                alert('Could not save to server');
               });
             }
             this.setState({clickedTileIdx: tile.tileIdx});
