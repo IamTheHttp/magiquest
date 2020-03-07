@@ -5,5 +5,11 @@ module.exports = function (config) {
     // config.entry.sw = `${process.cwd()}/src/sw`;
   }
 
+  if (process.env.NODE_ENV === 'development') {
+    config.devServer.hot = false;
+    config.devServer.inline = false;
+    config.devServer.liveReload = false;
+  }
+
   return config;
 };
