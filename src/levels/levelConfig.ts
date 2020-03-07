@@ -1,4 +1,4 @@
-import oneMap from 'levels/data/0-0_home.json';
+import oneMap from '0-0.json';
 import twoMap from 'levels/data/0-1_adventure.json';
 import {CHARACTERS} from 'gameEngine/gameConstants';
 import {bit} from 'gameEngine/config';

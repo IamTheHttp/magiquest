@@ -36,6 +36,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     Entity,
     shouldRenderBackground: true,
     levelArea: {
+      levelName: 'TEST-LEVEL',
       spawnableEnemies: [],
       tileMap: [[]],
       entitiesToPlace: [],

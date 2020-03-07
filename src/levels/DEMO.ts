@@ -3,9 +3,22 @@ import { CHARACTERS } from 'gameEngine/gameConstants';
 import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
 import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
 
+
+function generateMap(width: number, height: number) {
+  let map = [];
+  let row = 0;
+
+  while (row < height) {
+    map.push(new Array(width).fill(1));
+    row++;
+  }
+
+  return map;
+}
+
 export default {
   levelName: '0-0',
-  tileMap: oneMap,
+  tileMap: generateMap(100, 100),
   spawnableEnemies:[],
   triggers: {
     levelStart: [{
@@ -20,13 +33,13 @@ export default {
     }] as PossibleTriggersArray,
     actOnEntity: {},
     move: {
-      '-1--1': [{
+      '14-13': [{
         oneOff: true,
         type: 'portal',
         level: 0,
         area: 1
       }] as PossibleTriggersArray,
-      '-1--2': [{
+      '2-5': [{
         oneOff: true,
         type: 'dialog',
         lines: [
@@ -39,16 +52,16 @@ export default {
     }
   },
   entitiesToPlace: [
-    // {
-    //   pos: {
-    //     col: 3,
-    //     row: 5
-    //   },
-    //   type: CHARACTERS.CHEST
-    // }
+    {
+      pos: {
+        col: 3,
+        row: 5
+      },
+      type: CHARACTERS.CHEST
+    }
   ] as IEntitiesToPlace,
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-    col: 4,
-    row: 5
+    col: 1,
+    row: 2
   }
 } as ILevelArea;

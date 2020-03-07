@@ -138,7 +138,7 @@ class GameLoop {
   }
 
   // TODO - EDITOR MODE ONLY
-  changeTileType(tile: Tile, newType: number) {
+  changeTileType(tile: Tile, newType: number): ILevelArea {
     assertType(tile, 'Tile', 'object');
 
     tile.setTileType(newType);
@@ -148,6 +148,7 @@ class GameLoop {
     this.levelArea.tileMap[row][col] = +newType;
 
     this.renderBackground = true; // for the first time
+    return this.levelArea;
   }
 
   handleAreaChange(level: number, area: number) {

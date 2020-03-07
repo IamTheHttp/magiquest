@@ -77,8 +77,21 @@ class App extends React.Component<any, IState> {
             // Ideally this should all be moved internally into game.changeTileType
             let entityID = +shape.id.split('-')[0];
             let tile = Entity.entities[entityID] as Tile; // TODO can we change these 'AS' things?
-            if (this.state.editorTileType) {
-              this.game.changeTileType(tile, this.state.editorTileType);
+            if (typeof this.state.editorTileType !== 'undefined') {
+              let levelArea = this.game.changeTileType(tile, this.state.editorTileType);
+
+              // TODO this whole function is EDITOR MODE ONLY
+              // TODO in the future we want to enable/disable editor more
+              fetch('http://localhost:3000', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  levelName: levelArea.levelName,
+                  tileMap: levelArea.tileMap
+                }),
+              });
             }
             this.setState({clickedTileIdx: tile.tileIdx});
           }
@@ -99,7 +112,6 @@ class App extends React.Component<any, IState> {
       }
     });
   }
-
 
   initGameLoop(areaToLoad: ILevelArea, mapWidth:number, mapHeight:number) {
     return new GameLoop({

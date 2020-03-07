@@ -16,6 +16,7 @@ describe('Full integration test for game.ts', () => {
   it('can initialize the game', () => {
     new GameLoop({
       levelArea: {
+        levelName: 'TEST',
         startPos: {
           col:0,
           row:0
