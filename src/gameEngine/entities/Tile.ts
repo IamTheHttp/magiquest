@@ -5,6 +5,7 @@ import TraversableComponent from '../components/TraversableComponent';
 import BaseEntity from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
 import {ISpawnableEnemies} from "../../interfaces/interfaces";
+import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "components/ComponentNamesConfig";
 
 
 interface ITileConstructor {
@@ -32,7 +33,26 @@ class Tile extends BaseEntity{
       this.addComponent(new CanSpawn(spawnableEnemies));
     }
 
+    this.addComponent(new BackgroundComponent(
+      [{
+        name: CANVAS_OUTPUT,
+        shape: MAP_TILE_SHAPE,
+        data: {
+          tileType
+        }
+      }]
+    ));
+  }
 
+  // TODO for Editor mode only, change the tile type
+  setTileType(tileType: number) {
+    if (tileType === 1 || tileType === 7 || tileType === 100) {
+      this.addComponent(new TraversableComponent());
+    } else {
+      this.removeComponent(TRAVERSABLE_COMP);
+    }
+
+    this.removeComponent(BACKGROUND_COMP);
     this.addComponent(new BackgroundComponent(
       [{
         name: CANVAS_OUTPUT,

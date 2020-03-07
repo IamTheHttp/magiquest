@@ -137,15 +137,15 @@ class GameLoop {
     this.renderBackground = true; // for the first time
   }
 
-  // For editor mode only
-  changeTileType(tile: Tile, newType: number|string) {
+  // TODO - EDITOR MODE ONLY
+  changeTileType(tile: Tile, newType: number) {
     assertType(tile, 'Tile', 'object');
-    let [col, row] = tile.tileIdx.split('-');
-    let idx = tile.tileIdx;
 
+    tile.setTileType(newType);
+
+    // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
+    let [col, row] = tile.tileIdx.split('-');
     this.levelArea.tileMap[row][col] = +newType;
-    destroyAllButPlayer();
-    this.tileIdxMap = createTileIndexMap(this.levelArea.tileMap, this.viewSize, this.levelArea.spawnableEnemies);
 
     this.renderBackground = true; // for the first time
   }

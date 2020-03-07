@@ -27,7 +27,7 @@ type IState = {
   gameStarted: any; // TODO this should not be any
   mapAPI: any; // TODO this should not be any
   clickedTileIdx: any; // TODO this should not be any
-  editorTileType: any; // TODO this should not be any
+  editorTileType: number; // TODO this should not be any
   minimapAPI: any; // TODO this should not be any
 };
 
@@ -70,18 +70,17 @@ class App extends React.Component<any, IState> {
       viewHeight: resolution.height,
       viewWidth: resolution.width,
       onViewMapClick: (mouseClickData) => {
+        // TODO - this should ONLY work in editor mode
         mouseClickData.hits.forEach((shape) => {
           if (shape.layerName === 'background') {
+            // We need to get the tile here so we can set the state for clickedTileIdx
+            // Ideally this should all be moved internally into game.changeTileType
             let entityID = +shape.id.split('-')[0];
-            let tile = Entity.entities[entityID] as Tile; // TODO can we change these?
+            let tile = Entity.entities[entityID] as Tile; // TODO can we change these 'AS' things?
             if (this.state.editorTileType) {
               this.game.changeTileType(tile, this.state.editorTileType);
             }
             this.setState({clickedTileIdx: tile.tileIdx});
-
-            // this is what was clicked.
-            // what we want to do is set THIS col/row to be the tileType that's currently selected.
-            // TODO - this should ONLY work in editor mode
           }
         });
       }

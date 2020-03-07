@@ -3,7 +3,7 @@ import {tileTypes} from "config";
 import tileSet from "assets/tileSet.png";
 
 type IProps = {
-  onTileSelect: (key: string) => void,
+  onTileSelect: (key: number) => void,
   clickedTileIdx: null // TODO isn't it state?
 }
 
@@ -38,7 +38,7 @@ class Editor extends React.Component<IProps, any> {
                 className={cls}
                 style={style}
                 onClick={() => {
-                  this.props.onTileSelect(key);
+                  this.props.onTileSelect(+key);
                   this.setState({
                     active: key
                   });
