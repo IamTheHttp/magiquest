@@ -15,8 +15,6 @@ app.options('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  console.log(req.body.levelName);
-
   fs.writeFileSync(`../src/levels/data/${req.body.levelName}.json`, JSON.stringify(req.body.tileMap));
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.send('OK');
