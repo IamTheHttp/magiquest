@@ -8,10 +8,7 @@ function centerCameraOnEntity(entity: BaseEntity, mapAPI: CanvasAPI, game:GameLo
   let {panX, panY} = mapAPI.getPan();
 
   let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
-  // y = 3056
-  // viewHeight = 1200
   let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
-
 
   // if we don't need to pan, stop
   if (panX === panToX && panY === panToY && !force) {
