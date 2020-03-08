@@ -6,27 +6,30 @@ import GameLoop from "Game";
 function centerCameraOnEntity(entity: BaseEntity, mapAPI: CanvasAPI, game:GameLoop, viewWidth:number, viewHeight:number, mapWidth:number, mapHeight:number, force = false) {
   let {x, y} = entity.getPos();
   let {panX, panY} = mapAPI.getPan();
-  
+
   let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
+  // y = 3056
+  // viewHeight = 1200
   let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
-  
+
+
   // if we don't need to pan, stop
   if (panX === panToX && panY === panToY && !force) {
     return;
   }
-  
-  if (x + viewWidth / 2 > mapWidth) {
-    panToX = panX;
-  }
-  
-  if (y + viewHeight / 2 > mapHeight) {
-    panToY = panY;
-  }
-  
+
   game.requestBackgroundRender();
-  
+
+  // If we reached the edge
+  if (mapHeight + panToY <  viewHeight) {
+    panToY = viewHeight - mapHeight;
+  }
+
+  if (mapWidth + panToX <  viewWidth) {
+    panToX = viewWidth - mapWidth;
+  }
+
   mapAPI.pan(panToX, panToY);
 }
-
 
 export default centerCameraOnEntity;
