@@ -40,12 +40,6 @@ export default {
     }
   ],
   tileMap: oneMap,
-  spawnableEnemies: [
-    {
-      chance: 0.05,
-      enemy: CHARACTERS.SENTRY
-    }
-  ] as ISpawnableEnemies,
   triggers: {
     levelStart: [{
       oneOff: true,
@@ -59,8 +53,8 @@ export default {
     }] as PossibleTriggersArray,
     actOnEntity: {},
     move: {
-      '-1--1': [{
-        oneOff: true,
+      '8-7': [{
+        oneOff: false,
         type: 'portal',
         level: 0,
         area: 1
@@ -103,6 +97,13 @@ export default {
       pos: {
         col: 5,
         row: 9
+      },
+      type: CHARACTERS.FAM_NPC
+    },
+    {
+      pos: {
+        col: 62,
+        row: 42
       },
       type: CHARACTERS.FAM_NPC
     }
