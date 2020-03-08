@@ -112,7 +112,7 @@ class GameLoop {
     this.levelArea = levelArea;
     this.viewSize = viewSize;
 
-    destroyAllButPlayer();
+    destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
 
     this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
 
