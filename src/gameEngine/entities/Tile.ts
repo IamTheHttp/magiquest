@@ -19,7 +19,7 @@ interface ITileConstructor {
 }
 
 
-class Tile extends BaseEntity{
+class Tile extends BaseEntity {
   tileIdx: any; // TODO this should not be any
   constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}: ITileConstructor) {
     super(Tile);
@@ -28,7 +28,8 @@ class Tile extends BaseEntity{
 
     // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)
-    if (tileType === 1 || tileType === 7 || tileType === 100) {
+    // TODO reuse in setTileType
+    if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
       this.addComponent(new TraversableComponent());
       this.addComponent(new CanSpawn(spawnableEnemies));
     }
@@ -46,7 +47,7 @@ class Tile extends BaseEntity{
 
   // TODO for Editor mode only, change the tile type
   setTileType(tileType: number) {
-    if (tileType === 1 || tileType === 7 || tileType === 100) {
+    if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
       this.addComponent(new TraversableComponent());
     } else {
       this.removeComponent(TRAVERSABLE_COMP);
