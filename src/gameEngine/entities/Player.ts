@@ -27,7 +27,7 @@ class Player extends BaseEntity {
     this.addComponent(new MoveComponent(4));   // we move 32px, so it has to be divisible
     this.addComponent(new PlayerControlledComponent());
 
-    this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS_OPTIONS.FAST]));
+    this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS_OPTIONS.FASTEST]));
     this.addComponent(new PositionComponent({x, y, radius}));
     this.addComponent(new Health(100, radius * 2, radius));
     this.addComponent(new UIComponent([
