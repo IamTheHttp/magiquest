@@ -35,9 +35,9 @@ type IState = {
 
 
 class App extends React.Component<any, IState> {
-  game: any; // TODO this should not be any
+  game: GameLoop;
 
-  constructor(props: any) {
+  constructor(props: object) {
     super(props);
 
     this.state = {
@@ -238,6 +238,16 @@ class App extends React.Component<any, IState> {
               this.setState({
                 editorTileType: tileType
               });
+            }}
+            onLevelAreaNav={(level, area) => {
+              this.changeMap(level, area);
+              // we're re-writing the canvas, so we need to delay to next tick
+              setTimeout(() => {
+                this.game.centerOnPlayer();
+              }, 0);
+            }}
+            onPosNav={(col, row) => {
+              this.game.setPlayerPosition(col, row);
             }}
           />
           <div
