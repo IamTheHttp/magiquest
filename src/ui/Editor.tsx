@@ -53,8 +53,8 @@ class Editor extends React.Component<IProps, any> {
         </div>
         <div>
           <div>
-            <input id='level' placeholder='Level'/>
-            <input id='area' placeholder='Area'/>
+            <input id='level' placeholder='Level' type='number' min="0"/>
+            <input id='area' placeholder='Area' type='number' min="0"/>
             <button onClick={(e) => {
               let levelEl = document.getElementById('level') as HTMLInputElement;
               let areaEl = document.getElementById('area') as HTMLInputElement;
@@ -63,8 +63,8 @@ class Editor extends React.Component<IProps, any> {
             </button>
           </div>
           <div>
-            <input id='col' placeholder='Col'/>
-            <input id='row' placeholder='Row'/>
+            <input id='col' placeholder='Col' type='number' min="0"/>
+            <input id='row' placeholder='Row' type='number' min="0"/>
             <button onClick={(e) => {
               let colEl = document.getElementById('col') as HTMLInputElement;
               let rowEl = document.getElementById('row') as HTMLInputElement;
