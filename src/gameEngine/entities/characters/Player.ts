@@ -29,7 +29,7 @@ class Player extends BaseEntity {
 
     this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS_OPTIONS.FASTEST]));
     this.addComponent(new PositionComponent({x, y, radius}));
-    this.addComponent(new Health(100, radius * 2, radius));
+    this.addComponent(new Health(2000, radius * 2, radius));
     this.addComponent(new UIComponent([
       {
         name: CANVAS_OUTPUT,
