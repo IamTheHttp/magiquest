@@ -7,7 +7,7 @@ import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
 import {bit} from 'gameEngine/config';
-import {ARC_SHAPE} from 'gameEngine/gameConstants';
+import {AllowedUIShapes} from 'gameEngine/gameConstants';
 
 
 function getCenterPosOfTile(tileIdx: string) {
@@ -61,7 +61,7 @@ class ShockWave {
 
     while (i < frameCount) {
       frames.push({
-        shape: ARC_SHAPE,
+        shape: AllowedUIShapes.ARC_SHAPE,
         direction,
         size: 0.2 + i * sizeToGrow / frameCount,
         radius: 16 + i * radiusToGrow / frameCount,

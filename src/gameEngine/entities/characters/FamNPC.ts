@@ -1,6 +1,6 @@
 import UIComponent from '../../components/UIComponent';
 import PositionComponent from '../../components/PositionComponent';
-import {CANVAS_OUTPUT, PLAYER_CHAR} from 'gameEngine//gameConstants';
+import {AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine//gameConstants';
 import BaseEntity from '../../BaseEntity';
 import AnimationComp from 'components/AnimationComp';
 import sentryAnimations from 'entities/animations/sentryAnimations';
@@ -22,7 +22,7 @@ class FamNPC extends BaseEntity {
     this.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: PLAYER_CHAR,
+        shape: AllowedUIShapes.PLAYER_CHAR,
         data: {}
       }]
     ));

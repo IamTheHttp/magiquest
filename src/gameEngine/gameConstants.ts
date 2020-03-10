@@ -1,11 +1,15 @@
-export const CIRCLE_SHAPE = 'CIRCLE_SHAPE';
-export const ARC_SHAPE = 'ARC_SHAPE';
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
-export const MAP_TILE_SHAPE = 'MAP_TILE_SHAPE';
-export const RECT_SHAPE = 'RECT_SHAPE';
-export const HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE';
-export const CHEST_SHAPE = 'CHEST_SHAPE';
-export const PLAYER_CHAR = 'PLAYER_CHAR';
+
+
+export enum AllowedUIShapes {
+  CIRCLE_SHAPE = 'CIRCLE_SHAPE',
+  ARC_SHAPE = 'ARC_SHAPE',
+  MAP_TILE_SHAPE = 'MAP_TILE_SHAPE',
+  RECT_SHAPE = 'RECT_SHAPE',
+  HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
+  CHEST_SHAPE = 'CHEST_SHAPE',
+  PLAYER_CHAR = 'PLAYER_CHAR'
+}
 
 export enum AllowedActions {
   PERFORM_ACTION = "PERFORM_ACTION",
@@ -34,9 +38,6 @@ export let DIRECTIONS = {
   [DIRECTIONS_OPTIONS.LEFT]: 'LEFT',
   [DIRECTIONS_OPTIONS.RIGHT]: 'RIGHT'
 };
-
-
-
 
 
 export const ANIMATIONS = {

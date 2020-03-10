@@ -1,5 +1,5 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {ANIMATIONS, ARC_SHAPE} from '../../../gameConstants';
+import {AllowedUIShapes, ANIMATIONS} from '../../../gameConstants';
 import {assetLoader} from 'cache/assetLoader';
 import {ATTACK_CONFIG, bit} from 'gameEngine/config';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
@@ -31,7 +31,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity:  BaseEntity
       );
     }
 
-    if (frame.shape === ARC_SHAPE) {
+    if (frame.shape === AllowedUIShapes.ARC_SHAPE) {
       // we either render the X of the entity, or the animation X provided...
       let frameX = frame.x;
       let frameY = frame.y;

@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, CHARACTERS, MAP_TILE_SHAPE} from '../gameConstants';
+import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
@@ -37,7 +37,7 @@ class Tile extends BaseEntity {
     this.addComponent(new BackgroundComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: MAP_TILE_SHAPE,
+        shape: AllowedUIShapes.MAP_TILE_SHAPE,
         data: {
           tileType
         }
@@ -57,7 +57,7 @@ class Tile extends BaseEntity {
     this.addComponent(new BackgroundComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: MAP_TILE_SHAPE,
+        shape: AllowedUIShapes.MAP_TILE_SHAPE,
         data: {
           tileType
         }

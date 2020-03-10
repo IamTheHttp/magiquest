@@ -2,7 +2,7 @@ import UIComponent from '../../components/UIComponent';
 import PositionComponent from '../../components/PositionComponent';
 import PlayerControlledComponent from '../../components/PlayerControlledComponent';
 import MoveComponent from '../../components/MoveComponent';
-import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE, PLAYER_CHAR} from 'gameConstants';
+import {ANIMATIONS, CANVAS_OUTPUT, AllowedUIShapes} from 'gameConstants';
 import AttackComponent from '../../components/AttackComponent';
 import BaseEntity, {Entity} from 'BaseEntity';
 import AnimationComp from 'components/AnimationComp';
@@ -33,12 +33,12 @@ class Player extends BaseEntity {
     this.addComponent(new UIComponent([
       {
         name: CANVAS_OUTPUT,
-        shape: PLAYER_CHAR,
+        shape: AllowedUIShapes.PLAYER_CHAR,
         data: {}
       },
       {
         name: CANVAS_OUTPUT,
-        shape: HEALTH_BAR_SHAPE,
+        shape: AllowedUIShapes.HEALTH_BAR_SHAPE,
         data: {}
       }]
     ));

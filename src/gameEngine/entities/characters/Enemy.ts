@@ -1,7 +1,7 @@
 import UIComponent from '../../components/UIComponent';
 import PositionComponent from '../../components/PositionComponent';
 import MoveComponent from '../../components/MoveComponent';
-import {CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE, PLAYER_CHAR} from 'gameConstants';
+import {CANVAS_OUTPUT, AllowedUIShapes} from 'gameConstants';
 import Health from '../../components/Health';
 import AIControlledComp from '../../components/AIControlledComp';
 import BaseEntity from '../../BaseEntity';
@@ -37,7 +37,7 @@ class Enemy extends BaseEntity {
     this.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: HEALTH_BAR_SHAPE,
+        shape: AllowedUIShapes.HEALTH_BAR_SHAPE,
         data: {}
       }]
     ));

@@ -1,6 +1,6 @@
 import UIComponent from '../components/UIComponent';
 import PositionComponent from '../components/PositionComponent';
-import {CHEST_SHAPE, CANVAS_OUTPUT} from 'gameEngine/gameConstants';
+import {AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine/gameConstants';
 import Health from '../components/Health';
 import BaseEntity from '../BaseEntity';
 import AnimationComp from 'gameEngine/components/AnimationComp';
@@ -25,7 +25,7 @@ class Chest extends BaseEntity {
     this.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,
-        shape: CHEST_SHAPE,
+        shape: AllowedUIShapes.CHEST_SHAPE,
         data: {}
       }]
     ));

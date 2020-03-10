@@ -1,5 +1,5 @@
 import IndexedTile from "classes/IndexedTile";
-import {CHARACTERS} from "gameConstants";
+import {AllowedUIShapes, CHARACTERS} from "gameConstants";
 
 /**
  * Represents the resolution properties of the game
@@ -50,7 +50,7 @@ export interface IAnimationFrame{
   cropStartY?: number;
   cropSizeX?:number
   cropSizeY?:number;
-  shape?: string;
+  shape?: AllowedUIShapes;
   direction?:number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
   size?: number;
   radius?:number;
@@ -75,7 +75,7 @@ export interface IAnimation {
  */
 export interface IUISection {
   name: string;
-  shape: string;
+  shape: AllowedUIShapes;
   data: {
     [key: string] : any // TODO can we narrow it down?
   };
