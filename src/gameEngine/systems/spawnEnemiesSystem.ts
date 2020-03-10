@@ -6,7 +6,11 @@ import {CHARACTERS} from 'gameEngine/gameConstants';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
-import Enemy from "entities/characters/Enemy";
+import Enemy from "entities/characters/Enemies/Enemy";
+import Imp from "entities/characters/Enemies/Imp";
+import Demon from "entities/characters/Enemies/Demon";
+import Gargoyle from "entities/characters/Enemies/Gargoyle";
+import Vampire from "entities/characters/Enemies/Vampire";
 
 let {entityLoop} = GAME_PLATFORM;
 
@@ -23,6 +27,30 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
           new Enemy({col, row, characterLevel});
+        }
+
+        if (enemyToSpawn.characterType === CHARACTERS.IMP) {
+          let {col, row} = getGridIdxFromPos(x, y);
+          let characterLevel = enemyToSpawn.characterLevel;
+          new Imp({col, row, characterLevel});
+        }
+
+        if (enemyToSpawn.characterType === CHARACTERS.DEMON) {
+          let {col, row} = getGridIdxFromPos(x, y);
+          let characterLevel = enemyToSpawn.characterLevel;
+          new Demon({col, row, characterLevel});
+        }
+
+        if (enemyToSpawn.characterType === CHARACTERS.GARGOYLE) {
+          let {col, row} = getGridIdxFromPos(x, y);
+          let characterLevel = enemyToSpawn.characterLevel;
+          new Gargoyle({col, row, characterLevel});
+        }
+
+        if (enemyToSpawn.characterType === CHARACTERS.VAMPIRE) {
+          let {col, row} = getGridIdxFromPos(x, y);
+          let characterLevel = enemyToSpawn.characterLevel;
+          new Vampire({col, row, characterLevel});
         }
       }
     });

@@ -1,10 +1,10 @@
-import UIComponent from '../../components/UIComponent';
-import PositionComponent from '../../components/PositionComponent';
-import MoveComponent from '../../components/MoveComponent';
+import UIComponent from '../../../components/UIComponent';
+import PositionComponent from '../../../components/PositionComponent';
+import MoveComponent from '../../../components/MoveComponent';
 import {CANVAS_OUTPUT, AllowedUIShapes} from 'gameConstants';
-import Health from '../../components/Health';
-import AIControlledComp from '../../components/AIControlledComp';
-import BaseEntity from '../../BaseEntity';
+import Health from '../../../components/Health';
+import AIControlledComp from '../../../components/AIControlledComp';
+import BaseEntity from '../../../BaseEntity';
 import AnimationComp, {IAnimationTypes} from 'components/AnimationComp';
 import enemyAnimations from 'entities/animations/enemyAnimations';
 import AIVisionComponent from 'components/AIVisionComponent';

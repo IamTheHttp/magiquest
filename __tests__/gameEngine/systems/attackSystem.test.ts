@@ -4,7 +4,7 @@ import Player from 'entities/characters/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import { IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP } from 'gameEngine/components/ComponentNamesConfig';
-import Enemy from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'entities/characters/Enemies/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";

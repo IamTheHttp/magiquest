@@ -21,7 +21,10 @@ export enum CHARACTERS {
   ENEMY = 'ENEMY',
   FAM_NPC = 'FAM_NPC',
   CHEST = 'CHEST',
-  IMP = 'IMP'
+  IMP = 'IMP',
+  GARGOYLE = 'GARGOYLE',
+  DEMON = 'DEMON',
+  VAMPIRE = 'VAMPIRE'
 }
 
 

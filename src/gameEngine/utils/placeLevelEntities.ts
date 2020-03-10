@@ -1,5 +1,5 @@
 import {bit} from 'gameEngine/config';
-import Enemy from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'entities/characters/Enemies/Enemy';
 import FamNPC from 'entities/characters/FamNPC';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
