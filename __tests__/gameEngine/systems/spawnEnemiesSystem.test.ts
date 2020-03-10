@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import { AI_CONTROLLED_COMP, CAN_SPAWN_COMP } from 'gameEngine/components/ComponentNamesConfig';

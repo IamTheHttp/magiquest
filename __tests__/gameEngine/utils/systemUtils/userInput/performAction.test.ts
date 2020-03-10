@@ -5,9 +5,9 @@
 import React from 'react';
 import BaseEntity, {Entity} from 'BaseEntity';
 import performAction from 'utils/systemUtils/userInput/performAction';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
-import Sentry from 'entities/Sentry';
+import Sentry from 'gameEngine/entities/characters/Enemy';
 import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';

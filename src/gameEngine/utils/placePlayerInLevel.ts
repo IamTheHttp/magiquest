@@ -1,5 +1,5 @@
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import Player from 'gameEngine/entities/Player';
+import Player from 'entities/characters/Player';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
 import {bit} from 'gameEngine/config';

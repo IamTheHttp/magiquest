@@ -1,15 +1,15 @@
-import UIComponent from '../components/UIComponent';
-import PositionComponent from '../components/PositionComponent';
-import PlayerControlledComponent from '../components/PlayerControlledComponent';
-import MoveComponent from '../components/MoveComponent';
-import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE, PLAYER_CHAR} from 'gameEngine/gameConstants';
-import AttackComponent from '../components/AttackComponent';
-import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
-import AnimationComp from 'gameEngine/components/AnimationComp';
-import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
-import Health from 'gameEngine/components/Health';
-import {ATTACK_SPEEDS_OPTIONS, attackSpeeds, bit} from 'gameEngine/config';
-import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import UIComponent from '../../components/UIComponent';
+import PositionComponent from '../../components/PositionComponent';
+import PlayerControlledComponent from '../../components/PlayerControlledComponent';
+import MoveComponent from '../../components/MoveComponent';
+import {ANIMATIONS, CANVAS_OUTPUT, CIRCLE_SHAPE, HEALTH_BAR_SHAPE, PLAYER_CHAR} from 'gameConstants';
+import AttackComponent from '../../components/AttackComponent';
+import BaseEntity, {Entity} from 'BaseEntity';
+import AnimationComp from 'components/AnimationComp';
+import playerAnimations from 'entities/animations/playerAnimations';
+import Health from 'components/Health';
+import {ATTACK_SPEEDS_OPTIONS, attackSpeeds, bit} from 'config';
+import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 
 
 interface IPlayerConstructor {

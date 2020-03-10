@@ -1,9 +1,9 @@
-import UIComponent from '../components/UIComponent';
-import PositionComponent from '../components/PositionComponent';
+import UIComponent from '../../components/UIComponent';
+import PositionComponent from '../../components/PositionComponent';
 import {CANVAS_OUTPUT, PLAYER_CHAR} from 'gameEngine//gameConstants';
-import BaseEntity from '../BaseEntity';
-import AnimationComp from 'gameEngine/components/AnimationComp';
-import sentryAnimations from 'gameEngine/entities/animations/sentryAnimations';
+import BaseEntity from '../../BaseEntity';
+import AnimationComp from 'components/AnimationComp';
+import sentryAnimations from 'entities/animations/sentryAnimations';
 
 interface IFamNPCConstructor {
   x: number;

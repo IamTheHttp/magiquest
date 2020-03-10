@@ -1,7 +1,7 @@
 import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import IsMoving from 'components/IsMoving';
 import {POSITION_COMP} from 'components/ComponentNamesConfig';
 import moveSystem from 'systems/moveSystem';

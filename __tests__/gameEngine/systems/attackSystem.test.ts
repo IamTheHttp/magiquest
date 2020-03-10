@@ -1,10 +1,10 @@
 import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'gameEngine/entities/Player';
+import Player from 'entities/characters/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import { IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP } from 'gameEngine/components/ComponentNamesConfig';
-import Sentry from 'gameEngine/entities/Sentry';
+import Sentry from 'gameEngine/entities/characters/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";

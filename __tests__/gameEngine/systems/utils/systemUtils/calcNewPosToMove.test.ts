@@ -1,5 +1,5 @@
 import calcNewPosToMove from 'utils/systemUtils/calcNewPosToMove';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import {MOVEMENT_COMP, POSITION_COMP} from 'components/ComponentNamesConfig';
 
 describe ('calc new pos to movet tests', () => {
