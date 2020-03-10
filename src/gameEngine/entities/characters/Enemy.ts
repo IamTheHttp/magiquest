@@ -20,6 +20,7 @@ interface IEnemyConstructor {
   speed?: number;
   health?: number;
   dmg?:number;
+  characterLevel:number,
   attackSpeed?: ATTACK_SPEEDS_OPTIONS,
   animationTypes?: IAnimationTypes
 }

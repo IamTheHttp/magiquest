@@ -32,7 +32,7 @@ describe('Tests for the AI system', () => {
   
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = new Enemy({col:1, row:1});
+    let ent = new Enemy({col:1, row:1, characterLevel:1});
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
@@ -44,7 +44,7 @@ describe('Tests for the AI system', () => {
   });
   
   it('doesnt move an already moving AI', () => {
-    let ent = new Enemy({col:1, row:1});
+    let ent = new Enemy({col:1, row:1, characterLevel:1});
 
     
     ent.addComponent(new IsMoving());
@@ -63,7 +63,7 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let enemy = new Enemy({col:2, row:1, vision:200});
+    let enemy = new Enemy({col:2, row:1, vision:200, characterLevel:1});
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -100,7 +100,7 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let enemy = new Enemy({col:0, row:1, vision:200});
+    let enemy = new Enemy({col:0, row:1, vision:200, characterLevel:1});
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -125,7 +125,7 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let enemy = new Enemy({col:0, row:0, vision:200});
+    let enemy = new Enemy({col:0, row:0, vision:200, characterLevel:1});
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -159,7 +159,8 @@ describe('Tests for the AI system', () => {
     let enemy = new Enemy({
       col: 1,
       row: 1,
-      vision: 200
+      vision: 200,
+      characterLevel:1
     });
 
     // since both X and Y are different, no attack is possible

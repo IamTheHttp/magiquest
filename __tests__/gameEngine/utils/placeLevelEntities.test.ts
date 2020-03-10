@@ -33,7 +33,8 @@ describe('Tests the placeLevelEntities util', () => {
       },
       entitiesToPlace: [
         {
-          type: CHARACTERS.FAM_NPC,
+          characterType: CHARACTERS.FAM_NPC,
+          characterLevel: 1,
           name: 'NPC_1',
           pos: {
             col: 2,
@@ -41,7 +42,8 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          type: CHARACTERS.ENEMY,
+          characterType: CHARACTERS.ENEMY,
+          characterLevel: 1,
           name: 'ENEMY_1',
           pos: {
             col: 2,
@@ -49,7 +51,8 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          type: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
+          characterType: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
+          characterLevel: 1,
           name: 'ENEMY_1',
           pos: {
             col: 2,

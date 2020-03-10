@@ -10,7 +10,7 @@ class CanSpawn {
 
     enemies.forEach((enemyToSpawn) => {
       assertType(enemyToSpawn.chance, 'Chance to spawn', 'number');
-      assertType(enemyToSpawn.enemy, 'Type of enemy to spawn', 'string');
+      assertType(enemyToSpawn.characterType, 'Type of enemy to spawn', 'string');
     });
 
     this.enemies = enemies;

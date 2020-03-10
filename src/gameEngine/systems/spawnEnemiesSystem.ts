@@ -19,9 +19,10 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     let {x, y} = entity.getPos(); // for example a tile that can spawn
     entity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
       if (Math.random() < enemyToSpawn.chance) {
-        if (enemyToSpawn.enemy === CHARACTERS.ENEMY) {
+        if (enemyToSpawn.characterType === CHARACTERS.ENEMY) {
           let {col, row} = getGridIdxFromPos(x, y);
-          new Enemy({col, row});
+          let characterLevel = enemyToSpawn.characterLevel;
+          new Enemy({col, row, characterLevel});
         }
       }
     });

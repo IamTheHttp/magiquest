@@ -18,19 +18,19 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
 
     let {col, row} = entityToPlace.pos;
     let {x, y} = getCenterPosOfGridIdx(col, row);
+    let characterLevel =  entityToPlace.characterLevel;
 
     // create an entity
-    if (entityToPlace.type === CHARACTERS.ENEMY) {
-      entity = new Enemy({col, row});
+    if (entityToPlace.characterType === CHARACTERS.ENEMY) {
+      entity = new Enemy({col, row, characterLevel});
     }
 
-    if (entityToPlace.type === CHARACTERS.FAM_NPC) {
+    if (entityToPlace.characterType === CHARACTERS.FAM_NPC) {
       // TODO place with col/row instead of x,y
       entity = new FamNPC({x, y, name: entityToPlace.name});
     }
 
-    if (entityToPlace.type === CHARACTERS.CHEST) {
-      // TODO place with col/row instead of x,y
+    if (entityToPlace.characterType === CHARACTERS.CHEST) {
       entity = new Chest({col, row});
     }
 

@@ -57,7 +57,7 @@ export default {
         col: 3,
         row: 5
       },
-      type: CHARACTERS.CHEST
+      characterType: CHARACTERS.CHEST
     }
   ] as IEntitiesToPlace,
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)

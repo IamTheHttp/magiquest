@@ -5,12 +5,13 @@ import {CHARACTERS} from "gameConstants";
 export type ITileMap = Array<Array<number>>
 
 export type IEntitiesToPlace = {
-  type: CHARACTERS,
+  characterType: CHARACTERS,
+  characterLevel: number,
   pos: {
     col: number,
     row: number
   }
-  name: string
+  name: string,
 }[];
 
 export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];

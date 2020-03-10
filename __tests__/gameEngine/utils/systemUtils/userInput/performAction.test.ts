@@ -30,7 +30,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
-    let enemy = new Enemy({col: 0, row:1});
+    let enemy = new Enemy({col: 0, row:1, characterLevel:1});
     updateMapTileIdx({entity: enemy, tileIdxMap: systemArguments.tileIdxMap, newX: enemy.getPos().x, newY: enemy.getPos().y });
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 

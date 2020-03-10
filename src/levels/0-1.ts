@@ -4,12 +4,13 @@ import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
 import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
 import {ISpawnableEnemies} from "../interfaces/interfaces";
 
-export default {
+
+let level: ILevelArea = {
   levelName: '0-1',
   locations: [],
   tileMap: map,
   triggers: {
-    levelStart: [] as PossibleTriggersArray,
+    levelStart: [],
     actOnEntity: {},
     move: {
       '93-8': [{
@@ -17,7 +18,7 @@ export default {
         type: 'portal',
         level: 0,
         area: 0
-      }] as PossibleTriggersArray,
+      }],
       '-1--2': [{
         oneOff: true,
         type: 'dialog',
@@ -27,12 +28,14 @@ export default {
             speaker: 0
           }
         ]
-      }] as PossibleTriggersArray
+      }]
     }
   },
-  entitiesToPlace: [] as IEntitiesToPlace,
+  entitiesToPlace: [],
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
     col: 5,
     row: 95
   }
-} as ILevelArea;
+};
+
+export default level

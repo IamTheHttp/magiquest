@@ -20,7 +20,8 @@ describe('Full integration test for game.ts', () => {
           name: 'test area',
           spawnableEnemies: [{
             chance: 1,
-            enemy: CHARACTERS.ENEMY
+            characterType: CHARACTERS.ENEMY,
+            characterLevel: 1
           }],
           start: {
             col: 0,
