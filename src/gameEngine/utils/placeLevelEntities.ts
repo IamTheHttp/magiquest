@@ -1,5 +1,5 @@
 import {bit} from 'gameEngine/config';
-import Sentry from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'gameEngine/entities/characters/Enemy';
 import FamNPC from 'entities/characters/FamNPC';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
@@ -20,8 +20,8 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
     // create an entity
-    if (entityToPlace.type === CHARACTERS.SENTRY) {
-      entity = new Sentry({col, row});
+    if (entityToPlace.type === CHARACTERS.ENEMY) {
+      entity = new Enemy({col, row});
     }
 
     if (entityToPlace.type === CHARACTERS.FAM_NPC) {

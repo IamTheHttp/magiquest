@@ -2,11 +2,11 @@ import {
   CAN_SPAWN_COMP
 } from '../components/ComponentNamesConfig';
 import GAME_PLATFORM from 'game-platform';
-import Sentry from 'gameEngine/entities/characters/Enemy';
 import {CHARACTERS} from 'gameEngine/gameConstants';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import Enemy from "entities/characters/Enemy";
 
 let {entityLoop} = GAME_PLATFORM;
 
@@ -19,9 +19,9 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     let {x, y} = entity.getPos(); // for example a tile that can spawn
     entity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
       if (Math.random() < enemyToSpawn.chance) {
-        if (enemyToSpawn.enemy === CHARACTERS.SENTRY) {
+        if (enemyToSpawn.enemy === CHARACTERS.ENEMY) {
           let {col, row} = getGridIdxFromPos(x, y);
-          new Sentry({col, row});
+          new Enemy({col, row});
         }
       }
     });

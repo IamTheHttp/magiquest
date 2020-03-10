@@ -3,7 +3,7 @@ import PositionComponent from '../../components/PositionComponent';
 import {AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine//gameConstants';
 import BaseEntity from '../../BaseEntity';
 import AnimationComp from 'components/AnimationComp';
-import sentryAnimations from 'entities/animations/sentryAnimations';
+import enemyAnimations from 'entities/animations/enemyAnimations';
 
 interface IFamNPCConstructor {
   x: number;
@@ -27,7 +27,7 @@ class FamNPC extends BaseEntity {
       }]
     ));
   
-    this.addComponent(new AnimationComp(sentryAnimations));
+    this.addComponent(new AnimationComp(enemyAnimations));
     this.name = name;
   }
 }

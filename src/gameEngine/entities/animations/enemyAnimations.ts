@@ -2,7 +2,7 @@ import {ANIMATIONS} from 'gameEngine/gameConstants';
 import charImageURL from 'assets/sentry.png';
 import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
 
-const sentryAnimations = {
+const enemyAnimations = {
   [ANIMATIONS.MOVE_RIGHT]: {
     frames: [
       {
@@ -93,4 +93,4 @@ const sentryAnimations = {
   }
 };
 
-export default sentryAnimations;
+export default enemyAnimations;

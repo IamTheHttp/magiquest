@@ -12,7 +12,7 @@ export interface IAnimationVariantArguments {
   animationDuration?:number;
 }
 
-interface IAnimationTypes {
+export interface IAnimationTypes {
   [key: string]: {
     frames: IAnimationFrame[],
     animationName: string,

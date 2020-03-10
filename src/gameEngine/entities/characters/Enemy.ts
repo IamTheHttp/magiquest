@@ -5,8 +5,8 @@ import {CANVAS_OUTPUT, AllowedUIShapes} from 'gameConstants';
 import Health from '../../components/Health';
 import AIControlledComp from '../../components/AIControlledComp';
 import BaseEntity from '../../BaseEntity';
-import AnimationComp from 'components/AnimationComp';
-import sentryAnimations from 'entities/animations/sentryAnimations';
+import AnimationComp, {IAnimationTypes} from 'components/AnimationComp';
+import enemyAnimations from 'entities/animations/enemyAnimations';
 import AIVisionComponent from 'components/AIVisionComponent';
 import AttackComponent from 'components/AttackComponent';
 import {ATTACK_SPEEDS_OPTIONS, attackSpeeds} from 'config';
@@ -20,10 +20,22 @@ interface IEnemyConstructor {
   speed?: number;
   health?: number;
   dmg?:number;
+  attackSpeed?: ATTACK_SPEEDS_OPTIONS,
+  animationTypes?: IAnimationTypes
 }
 
 class Enemy extends BaseEntity {
-  constructor({col, row, radius = 16, vision = 200, speed = 0.5, health = 100, dmg = 1}: IEnemyConstructor) {
+  constructor({
+                col,
+                row,
+                radius = 16,
+                vision = 200,
+                speed = 0.5,
+                health = 100,
+                dmg = 1,
+                attackSpeed = ATTACK_SPEEDS_OPTIONS.SLOW,
+                animationTypes = enemyAnimations
+  }: IEnemyConstructor) {
     super(Enemy);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
@@ -31,7 +43,7 @@ class Enemy extends BaseEntity {
     this.addComponent(new PositionComponent({x, y, radius}));
     this.addComponent(new Health(health, radius * 2, radius));
     this.addComponent(new AIVisionComponent(vision));
-    this.addComponent(new AttackComponent(dmg, attackSpeeds[ATTACK_SPEEDS_OPTIONS.SLOW]));
+    this.addComponent(new AttackComponent(dmg, attackSpeeds[attackSpeed]));
     this.addComponent(new AIControlledComp());
 
     this.addComponent(new UIComponent(
@@ -42,7 +54,7 @@ class Enemy extends BaseEntity {
       }]
     ));
 
-    this.addComponent(new AnimationComp(sentryAnimations));
+    this.addComponent(new AnimationComp(animationTypes));
   }
 }
 

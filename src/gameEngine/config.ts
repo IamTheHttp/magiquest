@@ -43,12 +43,11 @@ let tileTypes = {
   1000: sea
 } as ITileTypes;
 
-// TODO can this be refactored?
 export enum ATTACK_SPEEDS_OPTIONS {
-  SLOW,
-  FAST,
-  FASTER,
-  FASTEST,
+  SLOW = 'SLOW',
+  FAST = 'FAST',
+  FASTER = 'FASTER',
+  FASTEST = 'FASTEST',
 }
 
 let attackSpeeds = {
@@ -56,7 +55,7 @@ let attackSpeeds = {
   [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
   [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
   [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
-}
+};
 
 
 let resolution = {

@@ -18,9 +18,10 @@ export enum AllowedActions {
 
 
 export enum CHARACTERS {
-  SENTRY = 'SENTRY',
+  ENEMY = 'ENEMY',
   FAM_NPC = 'FAM_NPC',
-  CHEST = 'CHEST'
+  CHEST = 'CHEST',
+  IMP = 'IMP'
 }
 
 

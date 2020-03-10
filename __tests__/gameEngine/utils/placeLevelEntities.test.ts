@@ -41,8 +41,8 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          type: CHARACTERS.SENTRY,
-          name: 'SENTRY_1',
+          type: CHARACTERS.ENEMY,
+          name: 'ENEMY_1',
           pos: {
             col: 2,
             row: 2
@@ -50,7 +50,7 @@ describe('Tests the placeLevelEntities util', () => {
         },
         {
           type: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
-          name: 'SENTRY_1',
+          name: 'ENEMY_1',
           pos: {
             col: 2,
             row: 2

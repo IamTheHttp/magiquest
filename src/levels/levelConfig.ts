@@ -111,7 +111,7 @@ requireAllMapLevels();
 //         spawnableEnemies: [
 //           {
 //             chance: 0.005,
-//             enemy: CHARACTERS.SENTRY
+//             enemy: CHARACTERS.ENEMY
 //           }
 //         ],
 //         triggers: {
@@ -149,7 +149,7 @@ requireAllMapLevels();
 //         spawnableEnemies: [
 //           {
 //             chance: 0.005,
-//             enemy: CHARACTERS.SENTRY
+//             enemy: CHARACTERS.ENEMY
 //           }
 //         ],
 //         triggers: {
@@ -187,7 +187,7 @@ requireAllMapLevels();
 //         spawnableEnemies: [
 //           {
 //             chance: 0.005,
-//             enemy: CHARACTERS.SENTRY
+//             enemy: CHARACTERS.ENEMY
 //           }
 //         ],
 //         triggers: {
@@ -225,7 +225,7 @@ requireAllMapLevels();
 //         spawnableEnemies: [
 //           {
 //             chance: 0.005,
-//             enemy: CHARACTERS.SENTRY
+//             enemy: CHARACTERS.ENEMY
 //           }
 //         ],
 //         triggers: {
@@ -263,7 +263,7 @@ requireAllMapLevels();
 //         spawnableEnemies: [
 //           {
 //             chance: 0.005,
-//             enemy: CHARACTERS.SENTRY
+//             enemy: CHARACTERS.ENEMY
 //           }
 //         ],
 //         triggers: {

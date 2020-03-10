@@ -4,7 +4,7 @@ import Player from 'entities/characters/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import { IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP } from 'gameEngine/components/ComponentNamesConfig';
-import Sentry from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'gameEngine/entities/characters/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
@@ -62,36 +62,36 @@ describe('attack system tests', () => {
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let sentry = new Sentry({col:1, row: 1});
-    let {x, y} = sentry.getPos();
-    updateMapTileIdx({ entity: sentry, tileIdxMap, newX: x, newY: y });
+    let enemy = new Enemy({col:1, row: 1});
+    let {x, y} = enemy.getPos();
+    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
     let playerDmg = player[ATTACK_COMP].damage;
-    let maxSentryHealth = sentry[HEALTH_COMP].max;
-    let currentSentryHealth = sentry[HEALTH_COMP].current;
+    let maxHealth = enemy[HEALTH_COMP].max;
+    let currentHealth = enemy[HEALTH_COMP].current;
 
     // Sanity, expect health to be defined and set correctly
-    expect(maxSentryHealth).toBe(currentSentryHealth);
-    expect(maxSentryHealth).toBeGreaterThan(0);
+    expect(maxHealth).toBe(currentHealth);
+    expect(maxHealth).toBeGreaterThan(0);
 
     // start the attack
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
     // expect damage equal to the playerDmg
-    expect(sentry[HEALTH_COMP].current).toBe(maxSentryHealth - playerDmg);
+    expect(enemy[HEALTH_COMP].current).toBe(maxHealth - playerDmg);
 
     // running the attack system again will not attack, as the cooldown is not done
     attackSystem(systemArguments);
-    expect(sentry[HEALTH_COMP].current).toBe(maxSentryHealth - playerDmg);
+    expect(enemy[HEALTH_COMP].current).toBe(maxHealth - playerDmg);
   });
 
   it('Can kill an enemy', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let sentry = new Sentry({col:1, row: 1});
-    let {x, y} = sentry.getPos();
-    updateMapTileIdx({ entity: sentry, tileIdxMap, newX: x, newY: y });
+    let enemy = new Enemy({col:1, row: 1});
+    let {x, y} = enemy.getPos();
+    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -105,16 +105,16 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    // expect the sentry to have no components (as it is destroyed)
-    expect(sentry.components).toEqual({});
+    // expect the enemy to have no components (as it is destroyed)
+    expect(enemy.components).toEqual({});
   });
 
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let sentry = new Sentry({col:1, row: 1});
-    let {x, y} = sentry.getPos();
-    updateMapTileIdx({ entity: sentry, tileIdxMap, newX: x, newY: y });
+    let enemy = new Enemy({col:1, row: 1});
+    let {x, y} = enemy.getPos();
+    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -126,7 +126,7 @@ describe('attack system tests', () => {
       i++;
     };
 
-    // expect the sentry to have no components (as it is destroyed)
+    // expect the enemy to have no components (as it is destroyed)
     expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false); 
   });
 });

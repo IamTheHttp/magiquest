@@ -24,8 +24,12 @@ export default {
       spawnableEnemies: [
         {
           chance: 0.02,
-          enemy: CHARACTERS.SENTRY
-        }
+          enemy: CHARACTERS.ENEMY
+        },
+        {
+          chance: 0.02,
+          enemy: CHARACTERS.IMP
+        },
       ],
       name: 'town',
       start: {

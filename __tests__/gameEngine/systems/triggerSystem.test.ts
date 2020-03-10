@@ -3,7 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import triggerSystem, {pushTrigger} from 'systems/triggerSystem';
 import Player from 'entities/characters/Player';
 import {DIALOG_COMP} from 'components/ComponentNamesConfig';
-import Sentry from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'gameEngine/entities/characters/Enemy';
 import FamNPC from 'entities/characters/FamNPC';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";

@@ -3,7 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import aiSystem from 'systems/aiSystem';
 import GAME_PLATFORM from 'game-platform';
 import moveSystem from 'systems/moveSystem';
-import Sentry from 'gameEngine/entities/characters/Enemy';
+import Enemy from 'gameEngine/entities/characters/Enemy';
 import IsMoving from 'components/IsMoving';
 import Player from 'entities/characters/Player';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
@@ -32,7 +32,7 @@ describe('Tests for the AI system', () => {
   
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = new Sentry({col:1, row:1});
+    let ent = new Enemy({col:1, row:1});
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
@@ -44,7 +44,7 @@ describe('Tests for the AI system', () => {
   });
   
   it('doesnt move an already moving AI', () => {
-    let ent = new Sentry({col:1, row:1});
+    let ent = new Enemy({col:1, row:1});
 
     
     ent.addComponent(new IsMoving());
@@ -63,21 +63,21 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let sentry = new Sentry({col:2, row:1, vision:200});
+    let enemy = new Enemy({col:2, row:1, vision:200});
 
-    // in two moves, sentry should be next to the player
+    // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = sentry.getPos();
+    let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(x - playerX + y - playerY).toBe(bit);
@@ -100,21 +100,21 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let sentry = new Sentry({col:0, row:1, vision:200});
+    let enemy = new Enemy({col:0, row:1, vision:200});
 
-    // in two moves, sentry should be next to the player
+    // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = sentry.getPos();
+    let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
@@ -125,21 +125,21 @@ describe('Tests for the AI system', () => {
 
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
-    let sentry = new Sentry({col:0, row:0, vision:200});
+    let enemy = new Enemy({col:0, row:0, vision:200});
 
-    // in two moves, sentry should be next to the player
+    // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     aiSystem(systemArguments);
-    while (sentry.isMoving()) {
+    while (enemy.isMoving()) {
       moveSystem(systemArguments);
     }
 
     let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = sentry.getPos();
+    let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
@@ -156,7 +156,7 @@ describe('Tests for the AI system', () => {
     /**
      * @type {BaseEntity}
      */
-    let sentry = new Sentry({
+    let enemy = new Enemy({
       col: 1,
       row: 1,
       vision: 200
