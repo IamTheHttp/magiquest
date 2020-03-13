@@ -1,17 +1,16 @@
-// Pull quest data from json?
-
 import {AllowedQuestIDs} from "gameConstants";
 import quests from "../../levels/quests";
 
-// In progress, available, notAvailable, Done
-
-// we might need different classes of quests..
-// KILL quest
-// FETCH quest
-// GAIN_EXP
+export enum AllowedQuestState {
+  HIDDEN = 'HIDDEN', // Not shown by the NPC, can't be offered
+  AVAILABLE = 'AVAILABLE', // Shown by the NPC
+  IN_PROGRESS = 'IN_PROGRESS', // Quest is underway by the player
+  DONE = 'DONE', // Quest is done by the player, did not return for reward yet
+  REWARDED = 'REWARDED' // quest is finished, rewarded and done for good.
+}
 
 class Quest {
-  state?: 'NOT_AVAILABLE' | 'AVAILABLE' | 'IN_PROGRESS' | 'DONE';
+  state?: AllowedQuestState;
   id: AllowedQuestIDs;
   requiredLevel: number;
   preCondition: any; // TODO what is precondition?
@@ -20,7 +19,7 @@ class Quest {
   constructor(id: AllowedQuestIDs, requiredLevel: number, preCondition: any, reward: any) {
     // initially, all quests are not available
     // TODO - later, the questSystem will update the state based on the player information
-    this.state = 'NOT_AVAILABLE';
+    this.state = AllowedQuestState.AVAILABLE;
     this.id = id;
     this.requiredLevel = requiredLevel;
     this.preCondition = preCondition;

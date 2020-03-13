@@ -5,6 +5,7 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import GAME_PLATFORM from 'game-platform';
+
 let {entityLoop} = GAME_PLATFORM;
 
 
@@ -13,8 +14,12 @@ import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {isNonEmptyArray} from "systems/portalSystem";
+import IndexedTile from "classes/IndexedTile";
+import {IEntityMap} from "game-platform/types/lib/interfaces";
+import {AllowedQuestState} from "classes/Quest";
 
-function performAction(systemArguments: ISystemArguments) {
+
+function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap } {
   let {tileIdxMap, Entity, levelArea} = systemArguments;
   let entity = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
 
@@ -47,40 +52,56 @@ function performAction(systemArguments: ISystemArguments) {
    */
   let targetTile = tileIdxMap[targetIdx];
 
-  // ensure we're not out of bounds (and we target a real tile)
-  if (targetTile) {
-    let targetEntities = targetTile.entities;
+  let entities = targetTile && targetTile.entities || [];
+  ;
 
-    // For each target entity...
-    entityLoop(targetEntities,
-      (targetEnt: BaseEntity) => {
-        // try to attack
-        if (targetEnt.isAttackable() && targetTile && !entity.isAttacking()) {
-          entity.addComponent(new IsAttackingComp(targetTile));
-        } else {
-          // try to activate a trigger
-          let triggers = levelArea.triggers.actOnEntity[targetEnt.name];
+  return {
+    targetTile,
+    targetEntities: entities
+  }
+}
 
-          if (isNonEmptyArray(triggers)) {
-            // activate all triggers related to acting on this entity
-            for (let i = 0; i < triggers.length; i++) {
-              let trigger = triggers[i];
 
-              if (trigger.type === 'dialog') {
-                pushTrigger(new Trigger({
-                  type: 'dialog',
-                  lines: trigger.lines,
-                  actedOnEntity: targetEnt
-                }));
-              }
+function performAction(systemArguments: ISystemArguments) {
+  let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
+  let {Entity, levelArea} = systemArguments;
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+
+  entityLoop(targetEntities, (targetEnt: BaseEntity) => {
+      // try to attack
+      if (targetEnt.isAttackable() && targetTile && !player.isAttacking()) {
+        player.addComponent(new IsAttackingComp(targetTile));
+      } else {
+        // try to activate a trigger
+        let triggers = levelArea.triggers.actOnEntity[targetEnt.name];
+
+        let quests = targetEnt.getQuestsByStatus(AllowedQuestState.AVAILABLE);
+
+        console.log(quests);
+
+        // we can't do everything at once...
+        // first tap, takes the quest, then we do the triggers (or the other actions)
+        if (isNonEmptyArray(quests)) {
+          let quest = quests[0];
+          quest.state = AllowedQuestState.IN_PROGRESS;
+          console.log(quest);
+        } else if (isNonEmptyArray(triggers)) {
+          // activate all triggers related to acting on this entity
+          for (let i = 0; i < triggers.length; i++) {
+            let trigger = triggers[i];
+
+            if (trigger.type === 'dialog') {
+              pushTrigger(new Trigger({
+                type: 'dialog',
+                lines: trigger.lines,
+                actedOnEntity: targetEnt
+              }));
             }
           }
         }
       }
-    );
-  } else {
-    return false;
-  }
+    }
+  );
 }
 
 

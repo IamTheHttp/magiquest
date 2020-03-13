@@ -7,6 +7,7 @@ import {
   CAN_ASSIGN_QUESTS_COMP,
   CAN_SPAWN_COMP,
   DIALOG_COMP,
+  HAS_ACTION_SIGN_COMP,
   HEALTH_COMP,
   IS_ATTACKING_COMP,
   IS_MOVING_COMP,
@@ -33,6 +34,8 @@ import BackgroundComponent from "components/BackgroundComponent";
 import CanSpawn from "components/CanSpawn";
 import UIComponent from "components/UIComponent";
 import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
+import {AllowedQuestState} from "classes/Quest";
+import HasActionSignComponent from "components/HasActionSignComponent";
 
 
 
@@ -52,14 +55,12 @@ class BaseEntity extends Entity {
   [BACKGROUND_COMP]: BackgroundComponent;
   [CAN_SPAWN_COMP]: CanSpawn;
   [UI_COMP]: UIComponent;
-  [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent
+  [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent;
+  [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
 
   constructor(entity: any) {
     super(entity);
   }
-
-  removeComponent: (compName: string) => any; // TODO find all ANY and deal with them
-  addComponent: (comp: object) => any; // TODO this should not be any
 
   addAnimation(animation: IAnimationVariantArguments) {
     this[ANIMATION_COMP].addAnimationVariant(animation);
@@ -185,6 +186,12 @@ class BaseEntity extends Entity {
   setPos({x, y}: ICoordinates) {
     this[POSITION_COMP].x = x;
     this[POSITION_COMP].y = y;
+  }
+
+  getQuestsByStatus(questState: AllowedQuestState) {
+    return this.getQuests().filter((quest) => {
+      return quest.state === questState;
+    });
   }
 
   getQuests() {

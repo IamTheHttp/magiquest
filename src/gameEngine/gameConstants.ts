@@ -8,8 +8,7 @@ export enum AllowedUIShapes {
   RECT_SHAPE = 'RECT_SHAPE',
   HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
   CHEST_SHAPE = 'CHEST_SHAPE',
-  PLAYER_CHAR = 'PLAYER_CHAR',
-  HAS_QUEST_SIGN = 'HAS_QUEST_SIGN'
+  PLAYER_CHAR = 'PLAYER_CHAR'
 }
 
 export enum AllowedActions {
