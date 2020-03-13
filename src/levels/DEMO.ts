@@ -1,4 +1,3 @@
-import oneMap from './data/0-0.json';
 import { CHARACTERS } from 'gameEngine/gameConstants';
 import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
 import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
