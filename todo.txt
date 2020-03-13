@@ -1,0 +1,23 @@
+In progress, available, notAvailable, Done
+
+
+General:
+QuestState: one of few options
+
+Quest types:
+KILL quest
+FETCH quest
+GAIN_EXP
+
+
+
+---    MVP    ---
+-----------------
+[V] Add quests to FamNPC
+[V] See question mark over character that has a quest.
+[ ] Allow user to activate a quest, the NPC should not be able to give it again (This is handled PER NPC, and not
+    per some global state
+    [V] Performing an action will take the first quest in the array that is available (status AVAILABLE)
+    [ ] Performing an action on an NPC should activate the quest, and let the user complete it
+[ ] Quests are game-long and not broken down into chapters
+
