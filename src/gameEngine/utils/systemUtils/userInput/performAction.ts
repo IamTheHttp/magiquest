@@ -16,7 +16,8 @@ import BaseEntity from "BaseEntity";
 import {isNonEmptyArray} from "systems/portalSystem";
 import IndexedTile from "classes/IndexedTile";
 import {IEntityMap} from "game-platform/types/lib/interfaces";
-import {AllowedQuestState} from "classes/Quest";
+import Quest from "entities/Quest";
+import {AllowedQuestState} from "components/QuestDataComponent";
 
 
 function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap } {
@@ -75,16 +76,13 @@ function performAction(systemArguments: ISystemArguments) {
         // try to activate a trigger
         let triggers = levelArea.triggers.actOnEntity[targetEnt.name];
 
-        let quests = targetEnt.getQuestsByStatus(AllowedQuestState.AVAILABLE);
-
-        console.log(quests);
+        let quests = targetEnt.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
 
         // we can't do everything at once...
         // first tap, takes the quest, then we do the triggers (or the other actions)
         if (isNonEmptyArray(quests)) {
           let quest = quests[0];
-          quest.state = AllowedQuestState.IN_PROGRESS;
-          console.log(quest);
+          quest.setState(AllowedQuestState.IN_PROGRESS);
         } else if (isNonEmptyArray(triggers)) {
           // activate all triggers related to acting on this entity
           for (let i = 0; i < triggers.length; i++) {

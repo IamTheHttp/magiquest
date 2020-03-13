@@ -34,8 +34,10 @@ import BackgroundComponent from "components/BackgroundComponent";
 import CanSpawn from "components/CanSpawn";
 import UIComponent from "components/UIComponent";
 import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
-import {AllowedQuestState} from "classes/Quest";
+
 import HasActionSignComponent from "components/HasActionSignComponent";
+import {AllowedQuestState} from "components/QuestDataComponent";
+import Quest from "entities/Quest";
 
 
 
@@ -189,8 +191,8 @@ class BaseEntity extends Entity {
   }
 
   getQuestsByStatus(questState: AllowedQuestState) {
-    return this.getQuests().filter((quest) => {
-      return quest.state === questState;
+    return this.getQuests().filter((quest: Quest) => {
+      return quest.getState() === questState;
     });
   }
 

@@ -1,7 +1,7 @@
-import Quest from "classes/Quest";
 import {AllowedQuestIDs} from "gameConstants";
+import {IQuestData} from "components/QuestDataComponent";
 
-let quests: { [key: string]: Quest } = {
+let questsDataConfig: { [key: string]: IQuestData } = {
   [AllowedQuestIDs.CLEAR_CAMP]: {
     id: AllowedQuestIDs.CLEAR_CAMP,
     requiredLevel: 1,
@@ -11,4 +11,4 @@ let quests: { [key: string]: Quest } = {
 };
 
 
-export default quests;
+export default questsDataConfig;
