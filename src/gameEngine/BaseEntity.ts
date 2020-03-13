@@ -1,11 +1,19 @@
 import GAME_PLATFORM, {Entity} from 'game-platform';
 import {
   AI_VISION_COMP,
-  ANIMATION_COMP, ATTACK_COMP, BACKGROUND_COMP, CAN_SPAWN_COMP, DIALOG_COMP, HEALTH_COMP, IS_ATTACKING_COMP,
+  ANIMATION_COMP,
+  ATTACK_COMP,
+  BACKGROUND_COMP,
+  CAN_ASSIGN_QUESTS_COMP,
+  CAN_SPAWN_COMP,
+  DIALOG_COMP,
+  HEALTH_COMP,
+  IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP, UI_COMP
+  POSITION_COMP,
+  UI_COMP
 } from './components/ComponentNamesConfig';
 import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
@@ -23,7 +31,8 @@ import AttackComponent from "components/AttackComponent";
 import Dialog from "components/Dialog";
 import BackgroundComponent from "components/BackgroundComponent";
 import CanSpawn from "components/CanSpawn";
-import UIComponent from "components/UIComponent"; // TODO Rename to DialogComp?
+import UIComponent from "components/UIComponent";
+import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
 
 
 
@@ -43,6 +52,7 @@ class BaseEntity extends Entity {
   [BACKGROUND_COMP]: BackgroundComponent;
   [CAN_SPAWN_COMP]: CanSpawn;
   [UI_COMP]: UIComponent;
+  [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent
 
   constructor(entity: any) {
     super(entity);
@@ -175,6 +185,14 @@ class BaseEntity extends Entity {
   setPos({x, y}: ICoordinates) {
     this[POSITION_COMP].x = x;
     this[POSITION_COMP].y = y;
+  }
+
+  getQuests() {
+    if (this[CAN_ASSIGN_QUESTS_COMP]) {
+      return this[CAN_ASSIGN_QUESTS_COMP].quests;
+    } else {
+      return [];
+    }
   }
 
   getPos() {

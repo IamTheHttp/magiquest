@@ -1,9 +1,8 @@
-import map from './data/0-1.json';
-import {CHARACTERS} from 'gameEngine/gameConstants';
-import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
-import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
-import {ISpawnableEnemies} from "../interfaces/interfaces";
-
+import map from './0-1.map.json';
+import {CHARACTERS} from 'gameConstants';
+import {IDialogTrigger, IPortalTrigger} from "../../interfaces/triggers.i";
+import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
+import {ISpawnableEnemies} from "../../interfaces/interfaces";
 
 let level: ILevelArea = {
   levelName: '0-1',

@@ -8,12 +8,17 @@ export enum AllowedUIShapes {
   RECT_SHAPE = 'RECT_SHAPE',
   HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
   CHEST_SHAPE = 'CHEST_SHAPE',
-  PLAYER_CHAR = 'PLAYER_CHAR'
+  PLAYER_CHAR = 'PLAYER_CHAR',
+  HAS_QUEST_SIGN = 'HAS_QUEST_SIGN'
 }
 
 export enum AllowedActions {
   PERFORM_ACTION = "PERFORM_ACTION",
   MOVE_ACTION = "MOVE_ACTION"
+}
+
+export enum AllowedQuestIDs {
+  CLEAR_CAMP = 'CLEAR_CAMP'
 }
 
 

@@ -1,9 +1,11 @@
 import UIComponent from '../../components/UIComponent';
 import PositionComponent from '../../components/PositionComponent';
-import {AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine//gameConstants';
+import {AllowedQuestIDs, AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine//gameConstants';
 import BaseEntity from '../../BaseEntity';
 import AnimationComp from 'components/AnimationComp';
 import enemyAnimations from 'entities/animations/enemyAnimations';
+import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
+import Quest from "classes/Quest";
 
 interface IFamNPCConstructor {
   x: number;
@@ -19,6 +21,11 @@ class FamNPC extends BaseEntity {
     super(FamNPC);
     // TODO change to ROW/COL
     this.addComponent(new PositionComponent({x, y, radius}));
+
+    this.addComponent(new CanAssignQuestsComponent([
+      Quest.initialize(AllowedQuestIDs.CLEAR_CAMP)
+    ]));
+
     this.addComponent(new UIComponent(
       [{
         name: CANVAS_OUTPUT,

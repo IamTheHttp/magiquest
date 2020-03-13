@@ -32,6 +32,20 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
         renderHealthBar(systemArguments, entity);
       }
 
+      if (section.shape === AllowedUIShapes.HAS_QUEST_SIGN) {
+        let {x, y, radius} = entity[POSITION_COMP];
+        mapAPI.write({
+          id: `${entity.id}-assign-quest`,
+          text: "?",
+          textBaseline: 'middle',
+          fillStyle: "yellow",
+          strokeStyle: 'black',
+          font:`${radius*2}px Arial`,
+          x: x + radius/2,
+          y: y - radius,
+        });
+      }
+
       if (section.shape === AllowedUIShapes.CHEST_SHAPE) {
         let crops = {
           cropStartX: 32,

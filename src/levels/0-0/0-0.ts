@@ -1,8 +1,8 @@
-import oneMap from './data/0-0.json';
-import {CHARACTERS} from 'gameEngine/gameConstants';
-import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
-import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
-import {ISpawnableEnemies} from "../interfaces/interfaces";
+import oneMap from './0-0.map.json';
+import {CHARACTERS} from 'gameConstants';
+import {IDialogTrigger, IPortalTrigger} from "../../interfaces/triggers.i";
+import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
+import {ISpawnableEnemies} from "../../interfaces/interfaces";
 
 
 let level:ILevelArea = {
