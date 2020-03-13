@@ -1,4 +1,10 @@
-import {ANIMATION_COMP, DIALOG_COMP, POSITION_COMP, UI_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {
+  ANIMATION_COMP,
+  DIALOG_COMP,
+  HAS_ACTION_SIGN_COMP,
+  POSITION_COMP,
+  UI_COMP
+} from 'gameEngine/components/ComponentNamesConfig';
 import {
   AllowedUIShapes,
   DIRECTIONS,
@@ -22,7 +28,21 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
   // render entities
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
-    
+
+    if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
+      let {x, y, radius} = entity[POSITION_COMP];
+      mapAPI.write({
+        id: `${entity.id}-assign-quest`,
+        text: "?",
+        textBaseline: 'middle',
+        fillStyle: "yellow",
+        strokeStyle: 'black',
+        font:`${radius*2}px Arial`,
+        x: x + radius/2,
+        y: y - radius,
+      });
+    }
+
     entity[UI_COMP].sections.forEach((section) => {
       if (section.shape === AllowedUIShapes.CIRCLE_SHAPE) {
         renderCircle(systemArguments, entity);
@@ -30,20 +50,6 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
       
       if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {
         renderHealthBar(systemArguments, entity);
-      }
-
-      if (section.shape === AllowedUIShapes.HAS_QUEST_SIGN) {
-        let {x, y, radius} = entity[POSITION_COMP];
-        mapAPI.write({
-          id: `${entity.id}-assign-quest`,
-          text: "?",
-          textBaseline: 'middle',
-          fillStyle: "yellow",
-          strokeStyle: 'black',
-          font:`${radius*2}px Arial`,
-          x: x + radius/2,
-          y: y - radius,
-        });
       }
 
       if (section.shape === AllowedUIShapes.CHEST_SHAPE) {
