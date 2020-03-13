@@ -110,7 +110,7 @@ let level:ILevelArea = {
       },
       characterType: CHARACTERS.FAM_NPC,
       characterLevel: 1,
-      name: 'NPC_1'
+      name: 'NPC_2'
     },
     {
       pos: {
@@ -119,7 +119,7 @@ let level:ILevelArea = {
       },
       characterType: CHARACTERS.FAM_NPC,
       characterLevel: 1,
-      name: 'NPC_1'
+      name: 'NPC_3'
     },
     {
       pos: {
@@ -128,7 +128,7 @@ let level:ILevelArea = {
       },
       characterType: CHARACTERS.FAM_NPC,
       characterLevel: 1,
-      name: 'NPC_1'
+      name: 'NPC_4'
     },
     {
       pos: {
@@ -137,7 +137,7 @@ let level:ILevelArea = {
       },
       characterType: CHARACTERS.FAM_NPC,
       characterLevel: 1,
-      name: 'NPC_1'
+      name: 'NPC_5'
     }
   ],
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
