@@ -196,6 +196,14 @@ class BaseEntity extends Entity {
     });
   }
 
+  setQuestActionSymbol(newSymbol: '!' | '?') {
+    if (!this.hasSpecificAnimation(HAS_ACTION_SIGN_COMP)) {
+      this.addComponent(new HasActionSignComponent(newSymbol));
+    } else {
+      this[HAS_ACTION_SIGN_COMP].symbol = newSymbol;
+    }
+  }
+
   getQuests() {
     if (this[CAN_ASSIGN_QUESTS_COMP]) {
       return this[CAN_ASSIGN_QUESTS_COMP].quests;
