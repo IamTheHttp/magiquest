@@ -31,9 +31,10 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
     if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
       let {x, y, radius} = entity[POSITION_COMP];
+      let {symbol} = entity[HAS_ACTION_SIGN_COMP];;
       mapAPI.write({
         id: `${entity.id}-assign-quest`,
-        text: "?",
+        text: symbol,
         textBaseline: 'middle',
         fillStyle: "yellow",
         strokeStyle: 'black',

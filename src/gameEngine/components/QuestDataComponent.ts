@@ -14,7 +14,8 @@ export interface IQuestData {
   state?: AllowedQuestState;
   id: AllowedQuestIDs;
   requiredLevel: number;
-  description?: string;
+  description: string;
+  finishedText:string;
   preCondition: any; // TODO what is precondition?
   reward: any; // TODO what is reward?
 }
@@ -24,13 +25,15 @@ class QuestDataComponent {
   data: IQuestData;
   constructor(questID: AllowedQuestIDs) {
     this.name = QUEST_DATA_COMP; // component name
-    let {id, requiredLevel, preCondition, reward} = questsDataConfig[questID];
+    let {id, requiredLevel, preCondition, reward, description, finishedText} = questsDataConfig[questID];
     this.data = {
       state : AllowedQuestState.AVAILABLE,
+      description,
       id,
       requiredLevel,
       preCondition,
-      reward
+      reward,
+      finishedText
     };
   }
 }

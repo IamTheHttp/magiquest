@@ -10,7 +10,6 @@ FETCH quest
 GAIN_EXP
 
 
-
 ---    MVP    ---
 -----------------
 [V] Add questsDataConfig to FamNPC
@@ -18,10 +17,15 @@ GAIN_EXP
 [ ] Allow user to activate a quest, the NPC should not be able to give it again (This is handled PER NPC, and not
     per some global state
     [V] Performing an action will take the first quest in the array that is available (status AVAILABLE)
-    [ ] Performing an action on an NPC should activate the quest, and let the user complete it
-    [ ] Activating a quest should show the quest description in a text bubble.
+    [V] Performing an action on an NPC should set the quest to "in progress"
+    [ ] If quest is in progress, but it passed all the conditions, set it to DONE (but not rewarded)
+    [ ] If quest is DONE (but not rewarded), make the NPC show a green ! instead of a yellow ?
+    [ ] Performing an action on an NPC with a DONE quest should fulfil it and show completion text if any
+
+    [V] Activating a quest should show the quest description in a text bubble.
+      [ ] Text seems to overflow a bit
     [ ] If quest is DONE (but not rewarded), make the NPC show a green ! instead of a yellow ?
     [ ] Performing an action on a green ! should mark the quest as rewarded, and reward the player with stuff(reward TBD)
     [ ] Get all quests with state HIDDEN and check if preconditions are met (questSystem)
-[ ] Quests are game-long and not broken down into chapters
+[ ] Get a notification when a quest is complete
 

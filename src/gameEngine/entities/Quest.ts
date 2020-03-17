@@ -10,6 +10,13 @@ class Quest extends BaseEntity {
     this.addComponent(new QuestDataComponent(questID));
   }
 
+  getFinishedText() {
+    return this[QUEST_DATA_COMP].data.finishedText;
+  }
+  getDescription() {
+    return this[QUEST_DATA_COMP].data.description;
+  }
+
   getState() {
     return this[QUEST_DATA_COMP].data.state;
   }

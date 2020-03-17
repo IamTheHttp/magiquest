@@ -6,7 +6,9 @@ let questsDataConfig: { [key: string]: IQuestData } = {
     id: AllowedQuestIDs.CLEAR_CAMP,
     requiredLevel: 1,
     preCondition: '',
-    reward: ''
+    reward: '',
+    description: "Help us stranger!\nThe camp outside is filled with ugly monsters!\nKill them all, and I'll get you a reward",
+    finishedText: "Thank you so much, here is your reward"
   }
 };
 
