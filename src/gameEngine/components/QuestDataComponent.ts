@@ -15,19 +15,29 @@ export interface IQuestData {
   id: AllowedQuestIDs;
   requiredLevel: number;
   description: string;
-  finishedText:string;
+  finishedText: string;
   preCondition: any; // TODO what is precondition?
   reward: any; // TODO what is reward?
 }
 
+export interface IKillQuestData extends IQuestData {
+  kill: {
+    killed: number,
+    killGoal: number;
+    location: any; // what should this be?
+  }
+}
+
+
 class QuestDataComponent {
-  name:string;
+  name: string;
   data: IQuestData;
-  constructor(questID: AllowedQuestIDs) {
+
+  constructor(questID: AllowedQuestIDs, data: IQuestData) {
     this.name = QUEST_DATA_COMP; // component name
-    let {id, requiredLevel, preCondition, reward, description, finishedText} = questsDataConfig[questID];
+    let {id, requiredLevel, preCondition, reward, description, finishedText} = data;
     this.data = {
-      state : AllowedQuestState.AVAILABLE,
+      state: AllowedQuestState.AVAILABLE,
       description,
       id,
       requiredLevel,
@@ -37,5 +47,17 @@ class QuestDataComponent {
     };
   }
 }
+
+export class KillQuestDataComponent extends QuestDataComponent{
+  data: IKillQuestData;
+  constructor(questID: AllowedQuestIDs, data: IKillQuestData) {
+    super(questID, data);
+    let {killGoal, killed, location} = data.kill;
+    this.data.kill = {
+      killGoal, killed, location
+    }
+  }
+}
+
 
 export default QuestDataComponent;

@@ -1,5 +1,5 @@
 import oneMap from './0-0.map.json';
-import {CHARACTERS} from 'gameConstants';
+import {AllowedLevelLocationIDs, CHARACTERS} from 'gameConstants';
 import {IDialogTrigger, IPortalTrigger} from "../../interfaces/triggers.i";
 import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
 import {ISpawnableEnemies} from "../../interfaces/interfaces";
@@ -9,6 +9,7 @@ let level:ILevelArea = {
   levelName: '0-0',
   locations: [
     {
+      id: AllowedLevelLocationIDs.LOCATION_1_CAMP,
       spawnableEnemies: [],
       name: 'town',
       start: {
@@ -22,6 +23,7 @@ let level:ILevelArea = {
 
     },
     {
+      id: AllowedLevelLocationIDs.LOCATION_2_CAMP,
       spawnableEnemies: [
         {
           chance: 0.01,

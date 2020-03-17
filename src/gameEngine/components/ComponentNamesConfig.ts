@@ -8,6 +8,7 @@ export const UI_COMP = 'UI_COMP';
 export const AI_VISION_COMP = 'AI_VISION_COMP';
 export const DIALOG_COMP = 'DIALOG_COMP';
 export const CAN_SPAWN_COMP = 'CAN_SPAWN_COMP';
+export const SPAWNED_COMP = 'SPAWNED_COMP';
 export const HEALTH_COMP = 'HEALTH_COMP';
 export const AI_CONTROLLED_COMP = 'AI_CONTROLLED_COMP';
 export const ATTACK_COMP = 'ATTACK_COMP';

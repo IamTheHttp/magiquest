@@ -23,34 +23,36 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     let {x, y} = entity.getPos(); // for example a tile that can spawn
     entity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
       if (Math.random() < enemyToSpawn.chance) {
+        let spawningTileLocationID = entity[CAN_SPAWN_COMP].tileLocationID;
+
         if (enemyToSpawn.characterType === CHARACTERS.ENEMY) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
-          new Enemy({col, row, characterLevel});
+          new Enemy({col, row, characterLevel, spawningTileLocationID});
         }
 
         if (enemyToSpawn.characterType === CHARACTERS.IMP) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
-          new Imp({col, row, characterLevel});
+          new Imp({col, row, characterLevel, spawningTileLocationID});
         }
 
         if (enemyToSpawn.characterType === CHARACTERS.DEMON) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
-          new Demon({col, row, characterLevel});
+          new Demon({col, row, characterLevel, spawningTileLocationID});
         }
 
         if (enemyToSpawn.characterType === CHARACTERS.GARGOYLE) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
-          new Gargoyle({col, row, characterLevel});
+          new Gargoyle({col, row, characterLevel, spawningTileLocationID});
         }
 
         if (enemyToSpawn.characterType === CHARACTERS.VAMPIRE) {
           let {col, row} = getGridIdxFromPos(x, y);
           let characterLevel = enemyToSpawn.characterLevel;
-          new Vampire({col, row, characterLevel});
+          new Vampire({col, row, characterLevel, spawningTileLocationID});
         }
       }
     });

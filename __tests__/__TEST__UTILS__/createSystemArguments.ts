@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import { CHARACTERS } from 'gameEngine/gameConstants';
+import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ISystemArguments} from "../../src/interfaces/gameloop.i";
 import {fn} from "./SpyFns";
 import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
@@ -77,6 +77,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       triggers: {actOnEntity: {}, levelStart: [], move: {}},
       locations: [
         {
+          id: AllowedLevelLocationIDs.LOCATION_1_CAMP,
           name: 'test',
           spawnableEnemies: [{
             chance: 1,

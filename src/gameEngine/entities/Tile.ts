@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes} from '../gameConstants';
+import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes, AllowedLevelLocationIDs} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
@@ -16,12 +16,13 @@ interface ITileConstructor {
   width:number;
   tileType:number;
   spawnableEnemies:ISpawnableEnemies;
+  tileLocationID: AllowedLevelLocationIDs;
 }
 
 
 class Tile extends BaseEntity {
   tileIdx: any; // TODO this should not be any
-  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = []}: ITileConstructor) {
+  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = [], tileLocationID}: ITileConstructor) {
     super(Tile);
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));
@@ -31,7 +32,7 @@ class Tile extends BaseEntity {
     // TODO reuse in setTileType
     if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
       this.addComponent(new TraversableComponent());
-      this.addComponent(new CanSpawn(spawnableEnemies));
+      this.addComponent(new CanSpawn(spawnableEnemies, tileLocationID));
     }
 
     this.addComponent(new BackgroundComponent(

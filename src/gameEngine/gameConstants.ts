@@ -1,5 +1,9 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
 
+export enum AllowedLevelLocationIDs {
+  LOCATION_1_CAMP = 'LOCATION_1_CAMP',
+  LOCATION_2_CAMP = 'LOCATION_2_CAMP'
+}
 
 export enum AllowedUIShapes {
   CIRCLE_SHAPE = 'CIRCLE_SHAPE',

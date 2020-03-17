@@ -1,6 +1,6 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from "./triggers.i";
 import {ISpawnableEnemies} from "./interfaces";
-import {CHARACTERS} from "gameConstants";
+import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 
 export type ITileMap = Array<Array<number>>
 
@@ -18,6 +18,7 @@ export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];
 
 export interface ILevelLocation {
   name: string,
+  id: AllowedLevelLocationIDs,
   spawnableEnemies: ISpawnableEnemies,
   start: {
     col: number;

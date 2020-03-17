@@ -1,9 +1,7 @@
 import GameLoop from "../../src/gameEngine/Game";
 import {resolution} from "../../src/gameEngine/config";
-import {CHARACTERS} from "../../src/gameEngine/gameConstants";
+import {AllowedLevelLocationIDs, CHARACTERS} from "../../src/gameEngine/gameConstants";
 import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import {ActOnEntityTriggers, MoveTriggers} from "../../src/interfaces/triggers.i";
-import {PossibleTriggersArray} from "../../src/interfaces/levels.i";
 
 
 describe('Full integration test for game.ts', () => {
@@ -17,6 +15,7 @@ describe('Full integration test for game.ts', () => {
     new GameLoop({
       levelArea: {
         locations: [{
+          id: AllowedLevelLocationIDs.LOCATION_1_CAMP,
           name: 'test area',
           spawnableEnemies: [{
             chance: 1,

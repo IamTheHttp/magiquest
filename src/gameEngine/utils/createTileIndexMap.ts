@@ -2,6 +2,7 @@ import Tile from 'gameEngine/entities/Tile';
 import IndexedTile from 'gameEngine/classes/IndexedTile';
 import {ISpawnableEnemies, ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
 import {ILevelArea, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
+import {AllowedLevelLocationIDs} from "gameConstants";
 
 
 function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIndexMap {
@@ -30,7 +31,8 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
 
 
       let spawnableEnemies: ISpawnableEnemies = [];
-
+      let tileLocationID: AllowedLevelLocationIDs = null;
+      let locationsFoundForTile = 0;
       locations.forEach((levelLocation: ILevelLocation) => {
         let colStart = levelLocation.start.col;
         let rowStart = levelLocation.start.row;
@@ -41,9 +43,19 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         let inRowRange = rowIdx >= rowStart && rowIdx <= rowEnd;
 
         if (inColRange && inRowRange) {
-          spawnableEnemies = levelLocation.spawnableEnemies || []
+          spawnableEnemies = levelLocation.spawnableEnemies || [];
+          tileLocationID = levelLocation.id
+          // if spawnable, it MUST have a levelLocationID
+          if (tileLocationID === null) {
+            locationsFoundForTile++;
+            throw 'Invalid tileLocationID provided in location'
+          }
         }
       });
+
+      if (locationsFoundForTile > 1) {
+        throw 'A LevelLocation cannot overlap over a tile';
+      }
 
       let tile = new Tile({
         x: colIdx * tileWidth,
@@ -52,7 +64,8 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         width: tileWidth,
         height: tileHeight,
         tileType: tileMap[rowIdx][colIdx],
-        spawnableEnemies
+        spawnableEnemies,
+        tileLocationID
       });
 
 

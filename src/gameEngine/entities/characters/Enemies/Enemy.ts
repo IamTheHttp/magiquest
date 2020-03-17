@@ -1,7 +1,7 @@
 import UIComponent from '../../../components/UIComponent';
 import PositionComponent from '../../../components/PositionComponent';
 import MoveComponent from '../../../components/MoveComponent';
-import {CANVAS_OUTPUT, AllowedUIShapes} from 'gameConstants';
+import {CANVAS_OUTPUT, AllowedUIShapes, AllowedLevelLocationIDs} from 'gameConstants';
 import Health from '../../../components/Health';
 import AIControlledComp from '../../../components/AIControlledComp';
 import BaseEntity from '../../../BaseEntity';
@@ -11,6 +11,8 @@ import AIVisionComponent from 'components/AIVisionComponent';
 import AttackComponent from 'components/AttackComponent';
 import {ATTACK_SPEEDS_OPTIONS, attackSpeeds} from 'config';
 import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import SpawnedComponent from "components/SpawnedComponent";
+import {SPAWNED_COMP} from "components/ComponentNamesConfig";
 
 interface IEnemyConstructor {
   col: number;
@@ -22,10 +24,12 @@ interface IEnemyConstructor {
   dmg?:number;
   characterLevel:number,
   attackSpeed?: ATTACK_SPEEDS_OPTIONS,
-  animationTypes?: IAnimationTypes
+  animationTypes?: IAnimationTypes,
+  spawningTileLocationID: AllowedLevelLocationIDs
 }
 
 class Enemy extends BaseEntity {
+  [SPAWNED_COMP]: SpawnedComponent;
   constructor({
                 col,
                 row,
@@ -35,11 +39,13 @@ class Enemy extends BaseEntity {
                 health = 100,
                 dmg = 1,
                 attackSpeed = ATTACK_SPEEDS_OPTIONS.SLOW,
-                animationTypes = enemyAnimations
+                animationTypes = enemyAnimations,
+                spawningTileLocationID
   }: IEnemyConstructor) {
     super(Enemy);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
+    this.addComponent(new SpawnedComponent(spawningTileLocationID));
     this.addComponent(new MoveComponent(speed));
     this.addComponent(new PositionComponent({x, y, radius}));
     this.addComponent(new Health(health, radius * 2, radius));

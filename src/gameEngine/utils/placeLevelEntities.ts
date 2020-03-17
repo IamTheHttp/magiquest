@@ -4,7 +4,7 @@ import FamNPC from 'entities/characters/FamNPC';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import { CHARACTERS } from 'gameEngine/gameConstants';
+import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import Chest from 'gameEngine/entities/Chest';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
@@ -13,7 +13,6 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
     let entityToPlace = levelArea.entitiesToPlace[i];
 
-    /** @type {BaseEntity} */
     let entity = null;
 
     let {col, row} = entityToPlace.pos;
@@ -22,7 +21,7 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
 
     // create an entity
     if (entityToPlace.characterType === CHARACTERS.ENEMY) {
-      entity = new Enemy({col, row, characterLevel});
+      entity = new Enemy({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP});
     }
 
     if (entityToPlace.characterType === CHARACTERS.FAM_NPC) {
