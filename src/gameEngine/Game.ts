@@ -31,6 +31,7 @@ import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
+import deathProcessSystem from "systems/deathProcessSystem";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -81,11 +82,13 @@ class GameLoop {
     engine.addSystem(moveSystem);
     engine.addSystem(aiSystem);
     engine.addSystem(attackSystem);
+    engine.addSystem(deathProcessSystem);
     engine.addSystem(renderSystem);
     engine.addSystem(animationSystem);
     engine.addSystem(portalSystem);
     engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(questSystem);
+
 
     this.resume();
   }

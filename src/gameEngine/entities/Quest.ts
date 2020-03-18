@@ -1,7 +1,7 @@
 import BaseEntity from '../BaseEntity';
 import {AllowedQuestIDs} from "gameConstants";
 import QuestDataComponent, {AllowedQuestState, KillQuestDataComponent} from "components/QuestDataComponent";
-import {QUEST_DATA_COMP} from "components/ComponentNamesConfig";
+import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from "components/ComponentNamesConfig";
 import questsDataConfig from "../../levels/questsDataConfig";
 
 class Quest extends BaseEntity {
@@ -25,11 +25,15 @@ class Quest extends BaseEntity {
   setState(newState: AllowedQuestState) {
     this[QUEST_DATA_COMP].data.state = newState;
   }
+
+  isPostReqComplete() {
+    return true;
+  }
 }
 
 
-class KillQuest extends Quest {
-  [QUEST_DATA_COMP]: KillQuestDataComponent;
+export class KillQuest extends Quest {
+  [KILL_QUEST_DATA_COMP]: KillQuestDataComponent;
   constructor(questID: AllowedQuestIDs) {
     super(questID);
     // This 'Any' is allowed, as technically all this DataConfig will be coming from a JSON in the future
@@ -37,8 +41,8 @@ class KillQuest extends Quest {
     this.addComponent(new KillQuestDataComponent(questID, questsDataConfig[questID] as any));
   }
 
-  addKill() {
-
+  isPostReqComplete() {
+    return this[KILL_QUEST_DATA_COMP].data.kill.killed >= this[KILL_QUEST_DATA_COMP].data.kill.killGoal;
   }
 }
 

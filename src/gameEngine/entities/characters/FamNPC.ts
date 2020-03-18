@@ -5,7 +5,7 @@ import BaseEntity from '../../BaseEntity';
 import AnimationComp from 'components/AnimationComp';
 import enemyAnimations from 'entities/animations/enemyAnimations';
 import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
-import Quest from "entities/Quest";
+import Quest, {KillQuest} from "entities/Quest";
 
 interface IFamNPCConstructor {
   x: number;
@@ -23,7 +23,7 @@ class FamNPC extends BaseEntity {
     this.addComponent(new PositionComponent({x, y, radius}));
 
     this.addComponent(new CanAssignQuestsComponent([
-      new Quest(AllowedQuestIDs.CLEAR_CAMP)
+      new KillQuest(AllowedQuestIDs.CLEAR_CAMP)
     ]));
 
     this.addComponent(new UIComponent(

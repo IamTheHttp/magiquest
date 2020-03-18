@@ -3,7 +3,12 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import Player from 'entities/characters/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import { IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP } from 'gameEngine/components/ComponentNamesConfig';
+import {
+  IS_ATTACKING_COMP,
+  HEALTH_COMP,
+  ATTACK_COMP,
+  DEATH_PROCESS_COMP
+} from 'gameEngine/components/ComponentNamesConfig';
 import Enemy from 'entities/characters/Enemies/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
@@ -63,7 +68,7 @@ describe('attack system tests', () => {
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP});
+    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
@@ -90,9 +95,11 @@ describe('attack system tests', () => {
   it('Can kill an enemy', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP});
+    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
+
+    expect(enemy.hasComponents(DEATH_PROCESS_COMP)).toBeFalsy();
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -107,13 +114,13 @@ describe('attack system tests', () => {
     attackSystem(systemArguments);
 
     // expect the enemy to have no components (as it is destroyed)
-    expect(enemy.components).toEqual({});
+    expect(enemy.hasComponents(DEATH_PROCESS_COMP)).toBeTruthy();
   });
 
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel:1, spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP});
+    let enemy = new Enemy({col:1, row: 1, characterLevel:1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 

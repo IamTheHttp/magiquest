@@ -9,7 +9,7 @@ let level:ILevelArea = {
   levelName: '0-0',
   locations: [
     {
-      id: AllowedLevelLocationIDs.LOCATION_1_CAMP,
+      id: AllowedLevelLocationIDs.TOWN,
       spawnableEnemies: [],
       name: 'town',
       start: {
@@ -23,7 +23,7 @@ let level:ILevelArea = {
 
     },
     {
-      id: AllowedLevelLocationIDs.LOCATION_2_CAMP,
+      id: AllowedLevelLocationIDs.SPAWNABLE_1,
       spawnableEnemies: [
         {
           chance: 0.01,

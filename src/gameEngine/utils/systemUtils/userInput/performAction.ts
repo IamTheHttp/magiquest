@@ -86,7 +86,6 @@ function performAction(systemArguments: ISystemArguments) {
         // If we have DONE quests
 
         if (isNonEmptyArray(doneQuests)) {
-          console.log('Done');
           let quest = doneQuests[0];
           quest.setState(AllowedQuestState.REWARDED);
 

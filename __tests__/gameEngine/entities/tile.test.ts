@@ -21,12 +21,12 @@ describe('Tile tests', () => {
 
   it('Should populate tileLocationID correctly in CAN_SPAWN_COMp', () => {
     let spawnableEnemies:ISpawnableEnemies = [];
-    let tileLocationID = AllowedLevelLocationIDs.LOCATION_1_CAMP;
+    let tileLocationID = AllowedLevelLocationIDs.TOWN;
 
     let tileArgs = {x: 0, y: 0, tileIdx: '0-0', height: 16, width: 16, tileType: 1, spawnableEnemies, tileLocationID};
     let tile = new Tile(tileArgs);
 
     let comp = tile[CAN_SPAWN_COMP];
-    expect(comp.tileLocationID).toBe(AllowedLevelLocationIDs.LOCATION_1_CAMP);
+    expect(comp.tileLocationID).toBe(AllowedLevelLocationIDs.TOWN);
   });
 });

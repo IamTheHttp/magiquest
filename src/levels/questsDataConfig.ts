@@ -1,4 +1,4 @@
-import {AllowedQuestIDs} from "gameConstants";
+import {AllowedLevelLocationIDs, AllowedQuestIDs} from "gameConstants";
 import {IKillQuestData, IQuestData} from "components/QuestDataComponent";
 
 let questsDataConfig: {
@@ -13,8 +13,8 @@ let questsDataConfig: {
     finishedText: "Thank you so much, here is your reward",
     kill: { // kill specifies a TYPE of quest..
       killed: 0,
-      killGoal: 10,
-      location: 'foo', // TODO what should this be?
+      killGoal: 2,
+      location: AllowedLevelLocationIDs.SPAWNABLE_1
     }
   } as IKillQuestData
 };

@@ -36,7 +36,7 @@ describe('Tests for the AI system', () => {
       col: 1,
       row: 1,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
     aiSystem(systemArguments);
@@ -53,7 +53,7 @@ describe('Tests for the AI system', () => {
       col: 1,
       row: 1,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
 
@@ -83,7 +83,7 @@ describe('Tests for the AI system', () => {
       row: 1,
       vision: 200,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
     // in two moves, enemy should be next to the player
@@ -131,7 +131,7 @@ describe('Tests for the AI system', () => {
       row: 1,
       vision: 200,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
     // in two moves, enemy should be next to the player
@@ -167,7 +167,7 @@ describe('Tests for the AI system', () => {
       row: 0,
       vision: 200,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
     // in two moves, enemy should be next to the player
@@ -209,7 +209,7 @@ describe('Tests for the AI system', () => {
       row: 1,
       vision: 200,
       characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP
+      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
     });
 
     // since both X and Y are different, no attack is possible

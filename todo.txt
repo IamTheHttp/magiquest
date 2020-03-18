@@ -35,14 +35,23 @@ GAIN_EXP
     [V] Enemy will contain a SpawningComp that will contain the spawningTileLocationID
     [V] Throw if tile is on two locations
     [V] Throw if tile is spawnable, but without locationID
-  [ ] Create a KillQuest class
-  [ ] Quest should have a kill count in the quest
-  [ ] Quest should have a LocationID
-  [ ] Create a kill system, when an entity is killed, we need to add a component on it "DEAD" so we can process it by the kill system
-  [ ] The kill system should check the locationID of the entity killed, and find it on the active quests
+  [V] Create a deathProcessSystem, when an entity is killed, we need to add a component on it "DEAD" so we can process it by the kill system
+  [V] The deathProcessSystem should check the locationID of the entity killed, and find it on the active quests
+  [V] Create a KillQuest class
+    [V] Quest should have a kill count in the quest
+    [V] Quest should have a LocationID
+    [V] When entity is killed, check if the location matches any of the active kill quests
+    [V] If matched, increment kill by one.
+    [V] If quest complete in the deathProcessSystem,
+    [V] When talking to NPC who has DONE, change state to REWARDED
+    [ ] TBD later, Provide Reward
 
-  [ ] When entity is killed, check if the location matches any of the active kill quests
-  [ ] If matched, increment by one.
-  [ ] When complete, mark Quest as fulfilled
-[ ] Get a notification when a quest is complete
+  [ ] Consider...
+    [ ] A lot of systems are touching Quests (Death, Quest, PerformAction) can we consolidate those?
+    [ ] The usual flow is user accepts a quest, does actions in game, quest is complete -> Talk to NPC.
+        - This order can be different, user can fulfil the condition of the quest beforeHand, then what?
+  [ ] Get UI notification when a quest is complete (in the UI?)
+
+
+
 

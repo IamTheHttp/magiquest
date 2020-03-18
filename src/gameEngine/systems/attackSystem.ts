@@ -1,11 +1,12 @@
 import GAME_PLATFORM from 'game-platform';
 import {
-  ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
+  ATTACK_COMP, DEATH_PROCESS_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import DeathProcessComp from "components/DeathProcessComp";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
@@ -54,7 +55,8 @@ function attackSystem(systemArguments: ISystemArguments) {
         if (entTarget[HEALTH_COMP].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
-          entTarget.destroy();
+          entTarget.addComponent(new DeathProcessComp());
+          // entTarget.destroy();
         }
       }
 

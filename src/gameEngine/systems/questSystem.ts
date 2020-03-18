@@ -43,13 +43,11 @@ function questSystem(systemArguments: ISystemArguments) {
     // In progress should be done, if quest fulfil-conditions are met
     if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
       // if precondition is right
-      if (true) {
+      if (quest.isPostReqComplete()) {
         quest.setState(AllowedQuestState.DONE);
       }
     }
   });
-
-
 
   // 2. Assign UI elements to NPCs based on Quest state
   entityLoop(entitiesThatGiveQuests, (entityThatGivesQuest: BaseEntity) => {

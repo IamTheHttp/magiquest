@@ -1,8 +1,8 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
 
 export enum AllowedLevelLocationIDs {
-  LOCATION_1_CAMP = 'LOCATION_1_CAMP',
-  LOCATION_2_CAMP = 'LOCATION_2_CAMP'
+  TOWN = 'TOWN',
+  SPAWNABLE_1 = 'SPAWNABLE_1'
 }
 
 export enum AllowedUIShapes {

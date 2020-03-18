@@ -77,7 +77,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       triggers: {actOnEntity: {}, levelStart: [], move: {}},
       locations: [
         {
-          id: AllowedLevelLocationIDs.LOCATION_1_CAMP,
+          id: AllowedLevelLocationIDs.TOWN,
           name: 'test',
           spawnableEnemies: [{
             chance: 1,

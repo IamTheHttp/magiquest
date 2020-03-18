@@ -21,7 +21,7 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
 
     // create an entity
     if (entityToPlace.characterType === CHARACTERS.ENEMY) {
-      entity = new Enemy({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.LOCATION_1_CAMP});
+      entity = new Enemy({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
     }
 
     if (entityToPlace.characterType === CHARACTERS.FAM_NPC) {

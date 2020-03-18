@@ -5,7 +5,7 @@ import {
   ATTACK_COMP,
   BACKGROUND_COMP,
   CAN_ASSIGN_QUESTS_COMP,
-  CAN_SPAWN_COMP,
+  CAN_SPAWN_COMP, DEATH_PROCESS_COMP,
   DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
   HEALTH_COMP,
@@ -13,7 +13,7 @@ import {
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP,
+  POSITION_COMP, SPAWNED_COMP,
   UI_COMP
 } from './components/ComponentNamesConfig';
 import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
@@ -38,6 +38,8 @@ import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
 import HasActionSignComponent from "components/HasActionSignComponent";
 import {AllowedQuestState} from "components/QuestDataComponent";
 import Quest from "entities/Quest";
+import SpawnedComponent from "components/SpawnedComponent";
+import DeathProcessComp from "components/DeathProcessComp";
 
 
 
@@ -59,6 +61,8 @@ class BaseEntity extends Entity {
   [UI_COMP]: UIComponent;
   [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent;
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
+  [SPAWNED_COMP]:SpawnedComponent;
+  [DEATH_PROCESS_COMP]: DeathProcessComp
 
   constructor(entity: any) {
     super(entity);

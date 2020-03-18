@@ -1,6 +1,6 @@
 import {AllowedQuestIDs} from "gameConstants";
 import questsDataConfig from "../../levels/questsDataConfig";
-import {QUEST_DATA_COMP} from "components/ComponentNamesConfig";
+import {QUEST_DATA_COMP, KILL_QUEST_DATA_COMP} from "components/ComponentNamesConfig";
 
 export enum AllowedQuestState {
   HIDDEN = 'HIDDEN', // Not shown by the NPC, can't be offered
@@ -55,7 +55,8 @@ export class KillQuestDataComponent extends QuestDataComponent{
     let {killGoal, killed, location} = data.kill;
     this.data.kill = {
       killGoal, killed, location
-    }
+    };
+    this.name = KILL_QUEST_DATA_COMP;
   }
 }
 
