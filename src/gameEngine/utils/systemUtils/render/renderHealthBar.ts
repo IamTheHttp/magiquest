@@ -1,5 +1,5 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {HEALTH_BAR_SHAPE} from 'gameEngine/gameConstants';
+import {AllowedUIShapes} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
 import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
@@ -16,7 +16,7 @@ function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) 
 
   mapAPI.addRect(
     {
-      id: `${entity.id}-full-${HEALTH_BAR_SHAPE}-`,
+      id: `${entity.id}-full-${AllowedUIShapes.HEALTH_BAR_SHAPE}-`,
       x: entity[POSITION_COMP].x - healthWidth / 2,
       y: entity[POSITION_COMP].y + healthMargin,
       width: healthWidth,
@@ -28,7 +28,7 @@ function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) 
   
   mapAPI.addRect(
     {
-      id: `${entity.id}-damage-${HEALTH_BAR_SHAPE}`,
+      id: `${entity.id}-damage-${AllowedUIShapes.HEALTH_BAR_SHAPE}`,
       x: entity[POSITION_COMP].x - healthWidth / 2,
       y: entity[POSITION_COMP].y + healthMargin,
       width: healthWidth * healthPercent,

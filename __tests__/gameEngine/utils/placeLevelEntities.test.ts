@@ -19,11 +19,12 @@ describe('Tests the placeLevelEntities util', () => {
   it('places some entities', () => {
     let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities({
+      locations: [],
+      levelName: 'TEST',
       startPos: {
         col: 0,
         row: 0,
       },
-      spawnableEnemies: [],
       tileMap: [[1]],
       triggers: {
         levelStart: [],
@@ -32,7 +33,8 @@ describe('Tests the placeLevelEntities util', () => {
       },
       entitiesToPlace: [
         {
-          type: CHARACTERS.FAM_NPC,
+          characterType: CHARACTERS.FAM_NPC,
+          characterLevel: 1,
           name: 'NPC_1',
           pos: {
             col: 2,
@@ -40,16 +42,18 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          type: CHARACTERS.SENTRY,
-          name: 'SENTRY_1',
+          characterType: CHARACTERS.ENEMY,
+          characterLevel: 1,
+          name: 'ENEMY_1',
           pos: {
             col: 2,
             row: 2
           }
         },
         {
-          type: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
-          name: 'SENTRY_1',
+          characterType: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
+          characterLevel: 1,
+          name: 'ENEMY_1',
           pos: {
             col: 2,
             row: 2

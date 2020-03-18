@@ -1,20 +1,38 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from "./triggers.i";
 import {ISpawnableEnemies} from "./interfaces";
-import {CHARACTERS} from "gameConstants";
+import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 
 export type ITileMap = Array<Array<number>>
 
 export type IEntitiesToPlace = {
-  type:CHARACTERS,
-  pos : {
-    col:number,
-    row:number
+  characterType: CHARACTERS,
+  characterLevel: number,
+  pos: {
+    col: number,
+    row: number
   }
-  name:string
+  name: string,
 }[];
 
-export type PossibleTriggersArray = (IDialogTrigger|IPortalTrigger)[];
+export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];
+
+export interface ILevelLocation {
+  name: string,
+  id: AllowedLevelLocationIDs,
+  spawnableEnemies: ISpawnableEnemies,
+  start: {
+    col: number;
+    row: number;
+  },
+  end: {
+    col: number;
+    row: number;
+  }
+}
+
 export interface ILevelArea {
+  locations: ILevelLocation[],
+  levelName: string,
   startPos: {
     col: number,
     row: number
@@ -25,6 +43,5 @@ export interface ILevelArea {
     move: MoveTriggers
   },
   entitiesToPlace: IEntitiesToPlace,
-  tileMap: ITileMap,
-  spawnableEnemies: ISpawnableEnemies
+  tileMap: ITileMap
 }

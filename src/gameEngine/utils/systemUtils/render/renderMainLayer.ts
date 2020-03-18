@@ -1,11 +1,13 @@
-import {ANIMATION_COMP, DIALOG_COMP, POSITION_COMP, UI_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {
-  CIRCLE_SHAPE,
+  ANIMATION_COMP,
+  DIALOG_COMP,
+  HAS_ACTION_SIGN_COMP,
+  POSITION_COMP,
+  UI_COMP
+} from 'gameEngine/components/ComponentNamesConfig';
+import {
+  AllowedUIShapes,
   DIRECTIONS,
-  HEALTH_BAR_SHAPE,
-  MAP_TILE_SHAPE,
-  PLAYER_CHAR,
-  CHEST_SHAPE,
   DIRECTIONS_OPTIONS
 } from '../../../gameConstants';
 import renderCircle from './renderCircle';
@@ -26,17 +28,32 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
   // render entities
   for (let i = 0; i < closeEnts.length; i++) {
     let entity = closeEnts[i];
-    
+
+    if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
+      let {x, y, radius} = entity[POSITION_COMP];
+      let {symbol} = entity[HAS_ACTION_SIGN_COMP];;
+      mapAPI.write({
+        id: `${entity.id}-assign-quest`,
+        text: symbol,
+        textBaseline: 'middle',
+        fillStyle: "yellow",
+        strokeStyle: 'black',
+        font:`${radius*2}px Arial`,
+        x: x + radius/2,
+        y: y - radius,
+      });
+    }
+
     entity[UI_COMP].sections.forEach((section) => {
-      if (section.shape === CIRCLE_SHAPE) {
+      if (section.shape === AllowedUIShapes.CIRCLE_SHAPE) {
         renderCircle(systemArguments, entity);
       }
       
-      if (section.shape === HEALTH_BAR_SHAPE) {
+      if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {
         renderHealthBar(systemArguments, entity);
       }
 
-      if (section.shape === CHEST_SHAPE) {
+      if (section.shape === AllowedUIShapes.CHEST_SHAPE) {
         let crops = {
           cropStartX: 32,
           cropStartY: 0
@@ -59,7 +76,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
         );
       }
 
-      if (section.shape === PLAYER_CHAR) {
+      if (section.shape === AllowedUIShapes.PLAYER_CHAR) {
         let spriteCrop = {
           [DIRECTIONS_OPTIONS.LEFT]: getSpriteCrop(1, 1),
           [DIRECTIONS_OPTIONS.RIGHT]: getSpriteCrop(1, 0),

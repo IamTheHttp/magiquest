@@ -5,10 +5,10 @@
 import React from 'react';
 import BaseEntity, {Entity} from 'BaseEntity';
 import performAction from 'utils/systemUtils/userInput/performAction';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
-import Sentry from 'entities/Sentry';
-import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
+import Enemy from 'entities/characters/Enemies/Enemy';
+import {AllowedLevelLocationIDs, DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
@@ -30,8 +30,8 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
-    let sentry = new Sentry({col: 0, row:1});
-    updateMapTileIdx({entity: sentry, tileIdxMap: systemArguments.tileIdxMap, newX: sentry.getPos().x, newY: sentry.getPos().y });
+    let enemy = new Enemy({col: 0, row:1, characterLevel:1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
+    updateMapTileIdx({entity: enemy, tileIdxMap: systemArguments.tileIdxMap, newX: enemy.getPos().x, newY: enemy.getPos().y });
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 
     player.setOrientation(DIRECTIONS_OPTIONS.DOWN);

@@ -14,8 +14,10 @@ let treeGrassTileGreen = getSpriteCrop(5, 19);
 let treeGrassTilePine = getSpriteCrop(9, 19);
 let sand = getSpriteCrop(9, 10);
 let sea = getSpriteCrop(6, 10);
-
-
+let rockGate = getSpriteCrop(0, 19);
+let sandMountain = getSpriteCrop(12, 11);
+let caveFloor = getSpriteCrop(22, 1);
+let caveWall = getSpriteCrop(19, 1);
 
 interface ITileTypes {
   [key:number]: ISprite
@@ -33,24 +35,27 @@ let tileTypes = {
   8: treeGrassTile,
   9: treeGrassTileGreen,
   10: treeGrassTilePine,
+  11: rockGate,
+  12: sandMountain,
+  13: caveFloor,
+  14: caveWall,
   100: sand,
   1000: sea
 } as ITileTypes;
 
-
 export enum ATTACK_SPEEDS_OPTIONS {
-  SLOW,
-  FAST,
-  FASTER,
-  FASTEST,
+  SLOW = 'SLOW',
+  FAST = 'FAST',
+  FASTER = 'FASTER',
+  FASTEST = 'FASTEST',
 }
 
 let attackSpeeds = {
   [ATTACK_SPEEDS_OPTIONS.SLOW]: 90,
   [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
   [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
-  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 45
-}
+  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
+};
 
 
 let resolution = {

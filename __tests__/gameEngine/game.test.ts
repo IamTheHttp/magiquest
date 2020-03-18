@@ -1,9 +1,7 @@
 import GameLoop from "../../src/gameEngine/Game";
 import {resolution} from "../../src/gameEngine/config";
-import {CHARACTERS} from "../../src/gameEngine/gameConstants";
+import {AllowedLevelLocationIDs, CHARACTERS} from "../../src/gameEngine/gameConstants";
 import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import {ActOnEntityTriggers, MoveTriggers} from "../../src/interfaces/triggers.i";
-import {PossibleTriggersArray} from "../../src/interfaces/levels.i";
 
 
 describe('Full integration test for game.ts', () => {
@@ -16,6 +14,24 @@ describe('Full integration test for game.ts', () => {
   it('can initialize the game', () => {
     new GameLoop({
       levelArea: {
+        locations: [{
+          id: AllowedLevelLocationIDs.TOWN,
+          name: 'test area',
+          spawnableEnemies: [{
+            chance: 1,
+            characterType: CHARACTERS.ENEMY,
+            characterLevel: 1
+          }],
+          start: {
+            col: 0,
+            row: 0,
+          },
+          end: {
+            col: 2,
+            row: 2
+          }
+        }],
+        levelName: 'TEST',
         startPos: {
           col:0,
           row:0
@@ -26,11 +42,7 @@ describe('Full integration test for game.ts', () => {
           move: {}
         },
         entitiesToPlace: [],
-        tileMap: [[1, 1, 1],[1, 1, 1],[1, 1, 1]],
-        spawnableEnemies: [{
-          chance: 1,
-          enemy: CHARACTERS.SENTRY
-        }]
+        tileMap: [[1, 1, 1],[1, 1, 1],[1, 1, 1]]
       },
       onAreaChange: function (level, area) {
         this.changeMap(level, area);

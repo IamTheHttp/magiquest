@@ -1,10 +1,10 @@
 import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import triggerSystem, {pushTrigger} from 'systems/triggerSystem';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import {DIALOG_COMP} from 'components/ComponentNamesConfig';
-import Sentry from 'entities/Sentry';
-import FamNPC from 'entities/FamNPC';
+import Enemy from 'entities/characters/Enemies/Enemy';
+import FamNPC from 'entities/characters/FamNPC';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";

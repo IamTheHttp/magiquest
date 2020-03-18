@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'gameEngine/entities/Player';
+import Player from 'entities/characters/Player';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";

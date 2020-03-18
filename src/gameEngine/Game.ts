@@ -27,6 +27,11 @@ import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea} from "../interfaces/levels.i";
 import {ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
+import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
+import BaseEntity from "BaseEntity";
+import {bit} from "config";
+import questSystem from "systems/questSystem";
+import deathProcessSystem from "systems/deathProcessSystem";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -77,10 +82,13 @@ class GameLoop {
     engine.addSystem(moveSystem);
     engine.addSystem(aiSystem);
     engine.addSystem(attackSystem);
+    engine.addSystem(deathProcessSystem);
     engine.addSystem(renderSystem);
     engine.addSystem(animationSystem);
     engine.addSystem(portalSystem);
     engine.addSystem(spawnEnemiesSystem);
+    engine.addSystem(questSystem);
+
 
     this.resume();
   }
@@ -100,11 +108,30 @@ class GameLoop {
     };
   }
 
-  /**
-   *
-   * @param {levelArea} levelArea
-   * @param viewSize
-   */
+
+  // TODO this is for development/ EDITOR mode only!
+  setPlayerPosition(col: number, row: number) {
+    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+    player.setPos({
+      x: bit/2 + col * bit,
+      y: bit/2 + row * bit
+    });
+
+    this.centerOnPlayer();
+  }
+
+  // TODO this is for development/ EDITOR mode only!
+  centerOnPlayer() {
+    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+
+    this.renderBackground = true; // for the first time
+
+    let mapAPI = this.getMapAPI();
+    let {viewWidth, viewHeight, mapWidth, mapHeight} = this.viewSize;
+
+    centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
+  }
+
   setLevelArea(levelArea: ILevelArea, viewSize: IViewSize) {
     let {viewWidth, viewHeight, mapWidth, mapHeight} = viewSize;
     let mapAPI = this.getMapAPI();
@@ -112,9 +139,9 @@ class GameLoop {
     this.levelArea = levelArea;
     this.viewSize = viewSize;
 
-    destroyAllButPlayer();
+    destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
 
-    this.tileIdxMap = createTileIndexMap(levelArea.tileMap, viewSize, levelArea.spawnableEnemies);
+    this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
 
     let player = placePlayerInLevel(levelArea, this.tileIdxMap);
     placeLevelEntities(levelArea, this.tileIdxMap);
@@ -137,17 +164,18 @@ class GameLoop {
     this.renderBackground = true; // for the first time
   }
 
-  // For editor mode only
-  changeTileType(tile: Tile, newType: number|string) {
+  // TODO - EDITOR MODE ONLY
+  changeTileType(tile: Tile, newType: number): ILevelArea {
     assertType(tile, 'Tile', 'object');
-    let [col, row] = tile.tileIdx.split('-');
-    let idx = tile.tileIdx;
 
+    tile.setTileType(newType);
+
+    // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
+    let [col, row] = tile.tileIdx.split('-');
     this.levelArea.tileMap[row][col] = +newType;
-    destroyAllButPlayer();
-    this.tileIdxMap = createTileIndexMap(this.levelArea.tileMap, this.viewSize, this.levelArea.spawnableEnemies);
 
     this.renderBackground = true; // for the first time
+    return this.levelArea;
   }
 
   handleAreaChange(level: number, area: number) {

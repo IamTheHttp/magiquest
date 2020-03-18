@@ -1,22 +1,38 @@
-export const CIRCLE_SHAPE = 'CIRCLE_SHAPE';
-export const ARC_SHAPE = 'ARC_SHAPE';
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
-export const MAP_TILE_SHAPE = 'MAP_TILE_SHAPE';
-export const RECT_SHAPE = 'RECT_SHAPE';
-export const HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE';
-export const CHEST_SHAPE = 'CHEST_SHAPE';
-export const PLAYER_CHAR = 'PLAYER_CHAR';
+
+export enum AllowedLevelLocationIDs {
+  TOWN = 'TOWN',
+  SPAWNABLE_1 = 'SPAWNABLE_1'
+}
+
+export enum AllowedUIShapes {
+  CIRCLE_SHAPE = 'CIRCLE_SHAPE',
+  ARC_SHAPE = 'ARC_SHAPE',
+  MAP_TILE_SHAPE = 'MAP_TILE_SHAPE',
+  RECT_SHAPE = 'RECT_SHAPE',
+  HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
+  CHEST_SHAPE = 'CHEST_SHAPE',
+  PLAYER_CHAR = 'PLAYER_CHAR'
+}
 
 export enum AllowedActions {
   PERFORM_ACTION = "PERFORM_ACTION",
   MOVE_ACTION = "MOVE_ACTION"
 }
 
+export enum AllowedQuestIDs {
+  CLEAR_CAMP = 'CLEAR_CAMP'
+}
+
 
 export enum CHARACTERS {
-  SENTRY = 'SENTRY',
+  ENEMY = 'ENEMY',
   FAM_NPC = 'FAM_NPC',
-  CHEST = 'CHEST'
+  CHEST = 'CHEST',
+  IMP = 'IMP',
+  GARGOYLE = 'GARGOYLE',
+  DEMON = 'DEMON',
+  VAMPIRE = 'VAMPIRE'
 }
 
 
@@ -34,9 +50,6 @@ export let DIRECTIONS = {
   [DIRECTIONS_OPTIONS.LEFT]: 'LEFT',
   [DIRECTIONS_OPTIONS.RIGHT]: 'RIGHT'
 };
-
-
-
 
 
 export const ANIMATIONS = {

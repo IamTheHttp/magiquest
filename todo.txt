@@ -1,0 +1,57 @@
+In progress, available, notAvailable, Done
+
+
+General:
+QuestState: one of few options
+
+Quest types:
+KILL quest
+FETCH quest
+GAIN_EXP
+
+---    MVP    ---
+-----------------
+[V] Add questsDataConfig to FamNPC
+[V] See question mark over character that has a quest.
+[V] Allow user to activate a quest, the NPC should not be able to give it again (This is handled PER NPC, and not
+    per some global state
+    [V] Performing an action will take the first quest in the array that is available (status AVAILABLE)
+    [V] Performing an action on an NPC should set the quest to "in progress"
+    [V] If quest is in progress, but it passed all the conditions, set it to DONE (but not rewarded)
+    [V] If quest is DONE (but not rewarded), make the NPC show a green ! instead of a yellow ?
+    [V] Performing an action on an NPC with a DONE quest should fulfil it and show completion text if any
+
+    [V] Activating a quest should show the quest description in a text bubble.
+      [ ] Text seems to overflow a bit
+
+[ ] Quest Type - Kill enemies in location
+  [V] Entities should have a location assigned to them when they're created
+    [V] locationID is a property in ILevelLocation
+    [V] locationID is an ENUM of possible values
+    [V] createTileIdxMap chooses the spawnable for the tile, based on location
+    [V] Tile is given tileLocationID by createTileIndexMap
+    [V] CAN_SPAWN component is given tileLocationID by Tile
+    [V] SpawnEnemiesSystem - when spawning (using the CAN_SPAWN component), we need to add the locationID to the Enemy Created
+    [V] Enemy will contain a SpawningComp that will contain the spawningTileLocationID
+    [V] Throw if tile is on two locations
+    [V] Throw if tile is spawnable, but without locationID
+  [V] Create a deathProcessSystem, when an entity is killed, we need to add a component on it "DEAD" so we can process it by the kill system
+  [V] The deathProcessSystem should check the locationID of the entity killed, and find it on the active quests
+  [V] Create a KillQuest class
+    [V] Quest should have a kill count in the quest
+    [V] Quest should have a LocationID
+    [V] When entity is killed, check if the location matches any of the active kill quests
+    [V] If matched, increment kill by one.
+    [V] If quest complete in the deathProcessSystem,
+    [V] When talking to NPC who has DONE, change state to REWARDED
+    [ ] TBD later, Provide Reward
+
+  [ ] Consider...
+    [ ] A lot of systems are touching Quests (Death, Quest, PerformAction) can we consolidate those?
+    [ ] The usual flow is user accepts a quest, does actions in game, quest is complete -> Talk to NPC.
+        - This order can be different, user can fulfil the condition of the quest beforeHand, then what?
+  [ ] Get UI notification when a quest is complete (in the UI?)
+
+
+
+

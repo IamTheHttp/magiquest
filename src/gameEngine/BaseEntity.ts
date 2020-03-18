@@ -1,11 +1,20 @@
 import GAME_PLATFORM, {Entity} from 'game-platform';
 import {
   AI_VISION_COMP,
-  ANIMATION_COMP, ATTACK_COMP, BACKGROUND_COMP, CAN_SPAWN_COMP, DIALOG_COMP, HEALTH_COMP, IS_ATTACKING_COMP,
+  ANIMATION_COMP,
+  ATTACK_COMP,
+  BACKGROUND_COMP,
+  CAN_ASSIGN_QUESTS_COMP,
+  CAN_SPAWN_COMP, DEATH_PROCESS_COMP,
+  DIALOG_COMP,
+  HAS_ACTION_SIGN_COMP,
+  HEALTH_COMP,
+  IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP, UI_COMP
+  POSITION_COMP, SPAWNED_COMP,
+  UI_COMP
 } from './components/ComponentNamesConfig';
 import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
 import IsMoving from './components/IsMoving';
@@ -23,7 +32,14 @@ import AttackComponent from "components/AttackComponent";
 import Dialog from "components/Dialog";
 import BackgroundComponent from "components/BackgroundComponent";
 import CanSpawn from "components/CanSpawn";
-import UIComponent from "components/UIComponent"; // TODO Rename to DialogComp?
+import UIComponent from "components/UIComponent";
+import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
+
+import HasActionSignComponent from "components/HasActionSignComponent";
+import {AllowedQuestState} from "components/QuestDataComponent";
+import Quest from "entities/Quest";
+import SpawnedComponent from "components/SpawnedComponent";
+import DeathProcessComp from "components/DeathProcessComp";
 
 
 
@@ -43,13 +59,14 @@ class BaseEntity extends Entity {
   [BACKGROUND_COMP]: BackgroundComponent;
   [CAN_SPAWN_COMP]: CanSpawn;
   [UI_COMP]: UIComponent;
+  [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent;
+  [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
+  [SPAWNED_COMP]:SpawnedComponent;
+  [DEATH_PROCESS_COMP]: DeathProcessComp
 
   constructor(entity: any) {
     super(entity);
   }
-
-  removeComponent: (compName: string) => any; // TODO find all ANY and deal with them
-  addComponent: (comp: object) => any; // TODO this should not be any
 
   addAnimation(animation: IAnimationVariantArguments) {
     this[ANIMATION_COMP].addAnimationVariant(animation);
@@ -175,6 +192,28 @@ class BaseEntity extends Entity {
   setPos({x, y}: ICoordinates) {
     this[POSITION_COMP].x = x;
     this[POSITION_COMP].y = y;
+  }
+
+  getQuestsByStatus(questState: AllowedQuestState) {
+    return this.getQuests().filter((quest: Quest) => {
+      return quest.getState() === questState;
+    });
+  }
+
+  setQuestActionSymbol(newSymbol: '!' | '?') {
+    if (!this.hasSpecificAnimation(HAS_ACTION_SIGN_COMP)) {
+      this.addComponent(new HasActionSignComponent(newSymbol));
+    } else {
+      this[HAS_ACTION_SIGN_COMP].symbol = newSymbol;
+    }
+  }
+
+  getQuests() {
+    if (this[CAN_ASSIGN_QUESTS_COMP]) {
+      return this[CAN_ASSIGN_QUESTS_COMP].quests;
+    } else {
+      return [];
+    }
   }
 
   getPos() {

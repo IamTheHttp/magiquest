@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import { CHARACTERS } from 'gameEngine/gameConstants';
+import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ISystemArguments} from "../../src/interfaces/gameloop.i";
 import {fn} from "./SpyFns";
 import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
@@ -36,7 +36,8 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     Entity,
     shouldRenderBackground: true,
     levelArea: {
-      spawnableEnemies: [],
+      levelName: 'TEST LEVEL',
+      locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
       startPos: {
@@ -69,10 +70,32 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       },
       handleAreaChange :spyHandleAreaChange
     } as unknown as GameLoop,
-    tileIdxMap: createTileIndexMap(tileMap, viewSize, [{
-      chance: 1,
-      enemy: CHARACTERS.SENTRY
-    }]),
+    tileIdxMap: createTileIndexMap({
+      entitiesToPlace: [],
+      levelName: "Test Level",
+      startPos: {col: 0, row: 0},
+      triggers: {actOnEntity: {}, levelStart: [], move: {}},
+      locations: [
+        {
+          id: AllowedLevelLocationIDs.TOWN,
+          name: 'test',
+          spawnableEnemies: [{
+            chance: 1,
+            characterType: CHARACTERS.ENEMY,
+            characterLevel: 1
+          }],
+          start: {
+            col:0,
+            row:0
+          },
+          end: {
+            col:50,
+            row:50
+          }
+        }
+      ],
+      tileMap
+    }, viewSize, ),
     viewSize
   };
 }

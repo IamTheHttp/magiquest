@@ -1,11 +1,24 @@
-import oneMap from 'levels/data/0-0_home.json';
 import { CHARACTERS } from 'gameEngine/gameConstants';
 import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
 import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
 
+
+function generateMap(width: number, height: number) {
+  let map = [];
+  let row = 0;
+
+  while (row < height) {
+    map.push(new Array(width).fill(1));
+    row++;
+  }
+
+  return map;
+}
+
 export default {
-  tileMap: oneMap,
-  spawnableEnemies:[],
+  locations: [],
+  levelName: '0-0',
+  tileMap: generateMap(100, 100),
   triggers: {
     levelStart: [{
       oneOff: true,
@@ -43,7 +56,7 @@ export default {
         col: 3,
         row: 5
       },
-      type: CHARACTERS.CHEST
+      characterType: CHARACTERS.CHEST
     }
   ] as IEntitiesToPlace,
   startPos: { // if not specified otherwise, this is where we start (useful for for new levels)

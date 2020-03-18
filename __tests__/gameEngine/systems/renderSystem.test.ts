@@ -1,7 +1,7 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import GAME_PLATFORM from 'game-platform';
 import renderSystem from 'systems/renderSystem';
-import Player from 'entities/Player';
+import Player from 'entities/characters/Player';
 import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 let {Entity} = GAME_PLATFORM;

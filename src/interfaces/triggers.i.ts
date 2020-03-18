@@ -1,5 +1,8 @@
 import BaseEntity from "BaseEntity";
-export type ITriggerLinesOfText = {text:string, speaker: number }[];
+export type ITriggerLinesOfText = {
+  text:string,
+  speaker: number
+}[];
 
 
 

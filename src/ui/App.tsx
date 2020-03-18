@@ -27,7 +27,7 @@ type IState = {
   gameStarted: any; // TODO this should not be any
   mapAPI: any; // TODO this should not be any
   clickedTileIdx: any; // TODO this should not be any
-  editorTileType: any; // TODO this should not be any
+  editorTileType: number; // TODO this should not be any
   minimapAPI: any; // TODO this should not be any
 };
 
@@ -35,9 +35,9 @@ type IState = {
 
 
 class App extends React.Component<any, IState> {
-  game: any; // TODO this should not be any
+  game: GameLoop;
 
-  constructor(props: any) {
+  constructor(props: object) {
     super(props);
 
     this.state = {
@@ -70,18 +70,32 @@ class App extends React.Component<any, IState> {
       viewHeight: resolution.height,
       viewWidth: resolution.width,
       onViewMapClick: (mouseClickData) => {
+        // TODO - this should ONLY work in editor mode
         mouseClickData.hits.forEach((shape) => {
           if (shape.layerName === 'background') {
+            // We need to get the tile here so we can set the state for clickedTileIdx
+            // Ideally this should all be moved internally into game.changeTileType
             let entityID = +shape.id.split('-')[0];
-            let tile = Entity.entities[entityID] as Tile; // TODO can we change these?
-            if (this.state.editorTileType) {
-              this.game.changeTileType(tile, this.state.editorTileType);
+            let tile = Entity.entities[entityID] as Tile; // TODO can we change these 'AS' things?
+            if (this.state.editorTileType !== null) {
+              let levelArea = this.game.changeTileType(tile, this.state.editorTileType);
+
+              // TODO this whole function is EDITOR MODE ONLY
+              // TODO in the future we want to enable/disable editor more
+              fetch('http://localhost:3000', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  levelName: levelArea.levelName,
+                  tileMap: levelArea.tileMap
+                }),
+              }).catch(() => {
+                alert('Could not save to server');
+              });
             }
             this.setState({clickedTileIdx: tile.tileIdx});
-
-            // this is what was clicked.
-            // what we want to do is set THIS col/row to be the tileType that's currently selected.
-            // TODO - this should ONLY work in editor mode
           }
         });
       }
@@ -100,7 +114,6 @@ class App extends React.Component<any, IState> {
       }
     });
   }
-
 
   initGameLoop(areaToLoad: ILevelArea, mapWidth:number, mapHeight:number) {
     return new GameLoop({
@@ -225,6 +238,16 @@ class App extends React.Component<any, IState> {
               this.setState({
                 editorTileType: tileType
               });
+            }}
+            onLevelAreaNav={(level, area) => {
+              this.changeMap(level, area);
+              // we're re-writing the canvas, so we need to delay to next tick
+              setTimeout(() => {
+                this.game.centerOnPlayer();
+              }, 0);
+            }}
+            onPosNav={(col, row) => {
+              this.game.setPlayerPosition(col, row);
             }}
           />
           <div
