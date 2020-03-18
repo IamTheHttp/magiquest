@@ -1,12 +1,15 @@
 import * as React from "react";
 import {tileTypes} from "config";
 import tileSet from "assets/tileSet.png";
+import {CSSProperties} from "react";
 
 type IProps = {
   onTileSelect: (key: number) => void,
   clickedTileIdx: null, // TODO isn't it state?
   onLevelAreaNav: (level: number, area: number) => void,
-  onPosNav: (col: number, row: number) => void
+  onPosNav: (col: number, row: number) => void,
+  currentLevel: number;
+  currentArea: number;
 }
 
 class Editor extends React.Component<IProps, any> {
@@ -18,17 +21,20 @@ class Editor extends React.Component<IProps, any> {
   render() {
     return (
       <div id={'editor-panel'}>
-
+        <h3>
+          Current Level: {this.props.currentLevel}-{this.props.currentArea}
+        </h3>
         <div id='tiles'>
           {Object.keys(tileTypes).map((key) => {
             let {cropStartX, cropStartY, cropSizeX, cropSizeY} = tileTypes[+key];
 
-            let style = {
+            let style: CSSProperties = {
               backgroundImage: `url("${tileSet}")`,
               color: 'black',
               backgroundPosition: `-${cropStartX}px -${cropStartY}px`,
               width: `${cropSizeX}px`,
-              height: `${cropSizeY}px`
+              height: `${cropSizeY}px`,
+              boxSizing: 'border-box'
             };
 
             let active = this.state.active === key ? 'active' : '';
@@ -46,7 +52,6 @@ class Editor extends React.Component<IProps, any> {
                   });
                 }}
               >
-
               </div>
             );
           })}
@@ -75,10 +80,7 @@ class Editor extends React.Component<IProps, any> {
 
         </div>
         <div>
-          <h1>Clicked Tile</h1>
-          <h2>
-            {this.props.clickedTileIdx}
-          </h2>
+          <h3>Clicked Tile - {this.props.clickedTileIdx || 'N/A'}</h3>
         </div>
       </div>
     );

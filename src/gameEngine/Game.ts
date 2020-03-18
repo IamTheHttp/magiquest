@@ -70,13 +70,13 @@ class GameLoop {
     this.engine = engine;
     this.getMapAPI = getMapAPI;
     this.getMinimapAPI = getMinimapAPI;
+    // TODO this probably needs to be related to player movement speed
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
     this.dispatchAction = this.dispatchAction.bind(this);
     this.onAreaChange = onAreaChange;
 
     this.setLevelArea(levelArea, viewSize);
 
-    // TODO create interface for SystemArguments
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
     engine.addSystem(moveSystem);
@@ -88,7 +88,6 @@ class GameLoop {
     engine.addSystem(portalSystem);
     engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(questSystem);
-
 
     this.resume();
   }

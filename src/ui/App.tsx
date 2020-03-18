@@ -58,9 +58,15 @@ class App extends React.Component<any, IState> {
       minimapAPI: null
     };
 
+    // This is the 'Player licked play' button
     setTimeout(() => {
       this.clickToStartGame();
+      this.resize();
     }, 10);
+
+
+    window.addEventListener('resize', () => {this.resize()});
+    window.addEventListener('orientationchange', () => {this.resize()});
   }
 
   initGameCanvas(mapWidth:number, mapHeight:number): {map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
@@ -204,6 +210,29 @@ class App extends React.Component<any, IState> {
     });
   }
 
+
+  resize() {
+    let widthToHeight = 1.6666; // TODO is this magical ?
+    let editorHeight = this.state.isEditing ? 170 : 0;
+    let newWidth = window.innerWidth;
+    let newHeight = window.innerHeight - editorHeight;
+    let newWidthToHeight = newWidth / newHeight;
+
+    let gameArea = document.querySelector('.wrapper') as HTMLElement;
+
+    if (gameArea) {
+      if (newWidthToHeight > widthToHeight) {
+        newWidth = newHeight * widthToHeight;
+        gameArea.style.height = `${newHeight}px`;
+        gameArea.style.width = `${newWidth}px`;
+      } else {
+        newHeight = newWidth / widthToHeight;
+        gameArea.style.height = `${newHeight}px`;
+        gameArea.style.width = `${newWidth}px`;
+      }
+    }
+  }
+
   render() {
     if (!this.state.gameStarted) {
       return (
@@ -221,19 +250,19 @@ class App extends React.Component<any, IState> {
       return (
         <div>
           <button
+            id="toggle-editor"
             onClick={() => {
               this.setState({
-                isEditing: true
+                isEditing: !this.state.isEditing
               });
             }}
           >
             Editor
           </button>
-          <h1>
-            {this.state.currentLevel}-{this.state.currentArea}
-          </h1>
-          <Editor
+          {this.state.isEditing && <Editor
             clickedTileIdx={this.state.clickedTileIdx}
+            currentLevel={this.state.currentLevel}
+            currentArea={this.state.currentArea}
             onTileSelect={(tileType) => {
               this.setState({
                 editorTileType: tileType
@@ -249,9 +278,10 @@ class App extends React.Component<any, IState> {
             onPosNav={(col, row) => {
               this.game.setPlayerPosition(col, row);
             }}
-          />
+          />}
           <div
-            className='wrapper'>
+            className='wrapper'
+          >
             <div
               className='canvas-main-container'>
               {this.state.map}
