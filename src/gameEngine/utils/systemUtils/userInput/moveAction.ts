@@ -1,8 +1,7 @@
-import {IS_MOVING_COMP, PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
-import {DIRECTIONS} from '../../../gameConstants';
+import {PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
 import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {IAction} from "systems/userInputSystem";
+import {IAction} from "../../../../interfaces/interfaces";
 
 function moveAction(systemArguments: ISystemArguments, action: IAction) {
   let {Entity} = systemArguments;
@@ -15,6 +14,5 @@ function moveAction(systemArguments: ISystemArguments, action: IAction) {
     ent.removeDirection();
   }
 }
-
 
 export default moveAction;

@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import renderSystem from './systems/renderSystem';
-import userInputSystem, {IAction, pushAction} from './systems/userInputSystem';
+import userInputSystem, {pushAction} from './systems/userInputSystem';
 import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
 import moveSystem from './systems/moveSystem';
 import throttle from './utils/throttle';
@@ -25,7 +25,7 @@ import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea} from "../interfaces/levels.i";
-import {ITileIndexMap, IViewSize} from "../interfaces/interfaces";
+import {IAction, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
 import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
