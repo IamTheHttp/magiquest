@@ -18,6 +18,8 @@ import IndexedTile from "classes/IndexedTile";
 import {IEntityMap} from "game-platform/types/lib/interfaces";
 import Quest from "entities/Quest";
 import {AllowedQuestState} from "components/QuestDataComponent";
+import {InteractWithNPC} from "classes/GameEvents";
+import FamNPC from "entities/characters/FamNPC";
 
 
 function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap } {
@@ -65,7 +67,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
 
 function performAction(systemArguments: ISystemArguments) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
-  let {Entity, levelArea} = systemArguments;
+  let {Entity, levelArea, gameEvents} = systemArguments;
   let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
 
   entityLoop(targetEntities, (targetEnt: BaseEntity) => {
@@ -76,45 +78,11 @@ function performAction(systemArguments: ISystemArguments) {
         // try to activate a trigger
         let triggers = levelArea.triggers.actOnEntity[targetEnt.name];
 
-        let availableQuests = targetEnt.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
-        let doneQuests = targetEnt.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
-
-        // we can't do everything at once...
-        // first tap, takes the quest, then we do the triggers (or the other actions)
-
-        // Switch of a few things
-        // If we have DONE quests
-
-        if (isNonEmptyArray(doneQuests)) {
-          let quest = doneQuests[0];
-          quest.setState(AllowedQuestState.REWARDED);
-
-          pushTrigger(new Trigger({
-            type: 'dialog',
-            lines: [{
-              text: quest.getFinishedText(),
-              speaker: 1
-            }],
-            actedOnEntity: targetEnt
-          }));
-          return;
+        if (targetEnt instanceof FamNPC) {
+          gameEvents.pushEvent(new InteractWithNPC(targetEnt));
         }
 
-        if (isNonEmptyArray(availableQuests)) {
-          let quest = availableQuests[0];
-          quest.setState(AllowedQuestState.IN_PROGRESS);
-
-          pushTrigger(new Trigger({
-            type: 'dialog',
-            lines: [{
-              text: quest.getDescription(),
-              speaker: 1
-            }],
-            actedOnEntity: targetEnt
-          }));
-          return;
-        }
-
+        // TODO should the trigger system listen to Game Events?
         if (isNonEmptyArray(triggers)) {
           // activate all triggers related to acting on this entity
           for (let i = 0; i < triggers.length; i++) {

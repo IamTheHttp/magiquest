@@ -23,6 +23,17 @@ export class EnemyKillEvent extends GameEvent {
   }
 }
 
+export class InteractWithNPC extends GameEvent {
+  constructor(public entity:BaseEntity) {
+    super();
+  }
+  readEvent() {
+    return {
+      entity:this.entity
+    }
+  }
+}
+
 export class LevelUpEvent extends GameEvent {
   // I care about, Entity of the player, maybe not even that...
   readEvent() {
@@ -76,6 +87,7 @@ class GameEvents {
   }
 
   pushEvent(event:GameEvent) {
+    console.log('Pushed event', event);
     this.nextEvents.push(event);
   }
 

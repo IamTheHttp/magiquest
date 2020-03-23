@@ -14,7 +14,8 @@ import HasActionSignComponent from "components/HasActionSignComponent";
 import {AllowedQuestState} from "components/QuestDataComponent";
 import Quest, {KillQuest} from "entities/Quest";
 import {isNonEmptyArray} from "systems/portalSystem";
-import {EnemyKillEvent, IGameEvent} from "classes/GameEvents";
+import {EnemyKillEvent, IGameEvent, InteractWithNPC} from "classes/GameEvents";
+import {pushTrigger, Trigger} from "systems/triggerSystem";
 
 let {Entity, entityLoop} = GAME_PLATFORM;
 
@@ -36,8 +37,9 @@ function questSystem(systemArguments: ISystemArguments) {
   let killQuests = Entity.getByComps([KILL_QUEST_DATA_COMP]) as KillQuest[];
   let eventsToProcess:IGameEvent[] = gameEvents.getEvents();
 
-  // 1. process events related to Killing enemies
+  // 1. process events
   eventsToProcess.forEach((gameEvent:IGameEvent) => {
+    // killing enemies affects some quests
     if (gameEvent instanceof EnemyKillEvent) {
       let {entity} = gameEvent.readEvent();
 
@@ -54,6 +56,43 @@ function questSystem(systemArguments: ISystemArguments) {
           }
         }
       });
+    }
+
+    if (gameEvent instanceof InteractWithNPC) {
+      let NPCEntity = gameEvent.readEvent().entity;
+
+      let availableQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
+      let doneQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
+
+      if (isNonEmptyArray(doneQuests)) {
+        let quest = doneQuests[0];
+        quest.setState(AllowedQuestState.REWARDED);
+
+        pushTrigger(new Trigger({
+          type: 'dialog',
+          lines: [{
+            text: quest.getFinishedText(),
+            speaker: 1
+          }],
+          actedOnEntity: NPCEntity
+        }));
+        return;
+      }
+
+      if (isNonEmptyArray(availableQuests)) {
+        let quest = availableQuests[0];
+        quest.setState(AllowedQuestState.IN_PROGRESS);
+
+        pushTrigger(new Trigger({
+          type: 'dialog',
+          lines: [{
+            text: quest.getDescription(),
+            speaker: 1
+          }],
+          actedOnEntity: NPCEntity
+        }));
+        return;
+      }
     }
   });
 
