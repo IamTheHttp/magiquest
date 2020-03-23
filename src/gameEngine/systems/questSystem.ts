@@ -10,7 +10,6 @@ import {
 
 import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import HasActionSignComponent from "components/HasActionSignComponent";
 import {AllowedQuestState} from "components/QuestDataComponent";
 import Quest, {KillQuest} from "entities/Quest";
 import {isNonEmptyArray} from "systems/portalSystem";
