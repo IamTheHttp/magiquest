@@ -31,7 +31,7 @@ import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
-import deathProcessSystem from "systems/deathProcessSystem";
+import GameEvents, {EnemyKillEvent} from "classes/GameEvents";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -62,6 +62,7 @@ class GameLoop {
   levelArea:ILevelArea;
   renderBackground:boolean;
   isRunning: boolean;
+  gameEvents: GameEvents;
 
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}: IGameConstructor) {
     Entity.reset();
@@ -76,18 +77,32 @@ class GameLoop {
     this.onAreaChange = onAreaChange;
 
     this.setLevelArea(levelArea, viewSize);
+    this.gameEvents = new GameEvents();
 
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
     engine.addSystem(moveSystem);
     engine.addSystem(aiSystem);
     engine.addSystem(attackSystem);
-    engine.addSystem(deathProcessSystem);
     engine.addSystem(renderSystem);
     engine.addSystem(animationSystem);
     engine.addSystem(portalSystem);
     engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(questSystem);
+
+
+    engine.addSystem((systemArguments: ISystemArguments) => {
+      let {gameEvents} = systemArguments;
+      gameEvents.getEvents().forEach((event) => {
+        if (event instanceof EnemyKillEvent) {
+          event.readEvent().entity.destroy();
+        }
+      });
+    });
+
+    engine.addSystem(() => {
+      this.gameEvents.endTick();
+    });
 
     this.resume();
   }
@@ -103,7 +118,8 @@ class GameLoop {
       shouldRenderBackground: this.renderBackground,
       game: this,
       mapAPI: getMapAPI(),
-      minimapAPI: getMinimapAPI()
+      minimapAPI: getMinimapAPI(),
+      gameEvents: this.gameEvents
     };
   }
 

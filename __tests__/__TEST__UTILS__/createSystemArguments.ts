@@ -5,6 +5,7 @@ import {ISystemArguments} from "../../src/interfaces/gameloop.i";
 import {fn} from "./SpyFns";
 import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import GameLoop from "Game";
+import GameEvents from "classes/GameEvents";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -30,6 +31,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
   };
 
   return {
+    gameEvents: new GameEvents(),
     characterSprite: undefined,
     minimapAPI: undefined,
     tileSetSprite: undefined,

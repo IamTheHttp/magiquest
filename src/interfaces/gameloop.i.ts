@@ -4,6 +4,7 @@ import Entity from "game-platform/types/lib/ECS/Entity";
 import {ILevelArea} from "./levels.i";
 import {ITileIndexMap, IViewSize} from "./interfaces";
 import {ISprite} from "utils/getSpriteCrop";
+import GameEvents from "classes/GameEvents";
 
 export interface ISystemArguments {
   tileIdxMap: ITileIndexMap,
@@ -15,5 +16,6 @@ export interface ISystemArguments {
   levelArea: ILevelArea,
   shouldRenderBackground: boolean,
   tileSetSprite: HTMLImageElement,
-  characterSprite: HTMLImageElement
+  characterSprite: HTMLImageElement,
+  gameEvents: GameEvents
 }

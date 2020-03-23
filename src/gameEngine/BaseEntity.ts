@@ -5,7 +5,7 @@ import {
   ATTACK_COMP,
   BACKGROUND_COMP,
   CAN_ASSIGN_QUESTS_COMP,
-  CAN_SPAWN_COMP, DEATH_PROCESS_COMP,
+  CAN_SPAWN_COMP,
   DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
   HEALTH_COMP,
@@ -39,7 +39,6 @@ import HasActionSignComponent from "components/HasActionSignComponent";
 import {AllowedQuestState} from "components/QuestDataComponent";
 import Quest from "entities/Quest";
 import SpawnedComponent from "components/SpawnedComponent";
-import DeathProcessComp from "components/DeathProcessComp";
 
 
 
@@ -62,7 +61,6 @@ class BaseEntity extends Entity {
   [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent;
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]:SpawnedComponent;
-  [DEATH_PROCESS_COMP]: DeathProcessComp
 
   constructor(entity: any) {
     super(entity);
