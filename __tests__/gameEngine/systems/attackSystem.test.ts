@@ -6,8 +6,7 @@ import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {
   IS_ATTACKING_COMP,
   HEALTH_COMP,
-  ATTACK_COMP,
-  DEATH_PROCESS_COMP
+  ATTACK_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
 import Enemy from 'entities/characters/Enemies/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
@@ -16,6 +15,7 @@ import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {AllowedLevelLocationIDs} from "gameConstants";
+import GameEvents, {EnemyKillEvent, IGameEvent} from "classes/GameEvents";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -93,13 +93,14 @@ describe('attack system tests', () => {
   });
 
   it('Can kill an enemy', () => {
-    let {tileIdxMap} = systemArguments;
+    let {tileIdxMap, gameEvents} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
     let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
-    expect(enemy.hasComponents(DEATH_PROCESS_COMP)).toBeFalsy();
+    // expect(enemy.hasComponents()).toBeFalsy();
+    console.log(gameEvents);
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -113,8 +114,16 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    // expect the enemy to have no components (as it is destroyed)
-    expect(enemy.hasComponents(DEATH_PROCESS_COMP)).toBeTruthy();
+
+    let eventsForNextTick:IGameEvent[] = gameEvents.nextEvents;
+
+    let firstEvent = eventsForNextTick[0];
+
+    expect(firstEvent instanceof EnemyKillEvent).toBe(true);
+
+    if (firstEvent instanceof EnemyKillEvent) {
+      expect(firstEvent.readEvent().entity).toBe(enemy);
+    }
   });
 
   it('No longer attacks once the attack frames are done', () => {

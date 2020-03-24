@@ -1,13 +1,8 @@
 import moveAction from '../utils/systemUtils/userInput/moveAction';
 import performAction from '../utils/systemUtils/userInput/performAction';
-
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import {AllowedActions, DIRECTIONS_OPTIONS} from "gameConstants";
-
-export interface IAction {
-  name: AllowedActions,
-  direction?: DIRECTIONS_OPTIONS | 'space'; // TODO this is NOT okay, maybe the enum is not direciton options...
-}
+import {IAction} from "../../interfaces/interfaces";
 
 let actionMap = {
   [AllowedActions.MOVE_ACTION]: moveAction,

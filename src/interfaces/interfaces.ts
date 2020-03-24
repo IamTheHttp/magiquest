@@ -1,5 +1,5 @@
 import IndexedTile from "classes/IndexedTile";
-import {AllowedUIShapes, CHARACTERS} from "gameConstants";
+import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
 
 /**
  * Represents the resolution properties of the game
@@ -24,8 +24,13 @@ export type ISpawnableEnemies = Array<{
 }>;
 
 
-
-
+/**
+ * Incoming user actions
+ */
+export interface IAction {
+  name: AllowedActions,
+  direction?: DIRECTIONS_OPTIONS | 'space'; // TODO this is NOT okay(using 'space', maybe the enum is not direction options...
+}
 
 
 /**

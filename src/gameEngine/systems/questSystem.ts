@@ -1,23 +1,25 @@
 import GAME_PLATFORM from 'game-platform';
 import {
   CAN_ASSIGN_QUESTS_COMP,
-  HAS_ACTION_SIGN_COMP,
+  HAS_ACTION_SIGN_COMP, KILL_QUEST_DATA_COMP,
   PLAYER_CONTROLLED_COMP,
   POSITION_COMP,
-  QUEST_DATA_COMP,
+  QUEST_DATA_COMP, SPAWNED_COMP,
   UI_COMP
 } from 'components/ComponentNamesConfig';
 
 import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import HasActionSignComponent from "components/HasActionSignComponent";
 import {AllowedQuestState} from "components/QuestDataComponent";
-import Quest from "entities/Quest";
+import Quest, {KillQuest} from "entities/Quest";
 import {isNonEmptyArray} from "systems/portalSystem";
+import {EnemyKillEvent, IGameEvent, InteractWithNPC} from "classes/GameEvents";
+import {pushTrigger, Trigger} from "systems/triggerSystem";
 
 let {Entity, entityLoop} = GAME_PLATFORM;
 
 function questSystem(systemArguments: ISystemArguments) {
+  let {gameEvents} = systemArguments;
   let entitiesThatGiveQuests = Entity.getByComps([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP]);
   let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
 
@@ -26,11 +28,75 @@ function questSystem(systemArguments: ISystemArguments) {
 
   /**
    * System does a few things...
-   * 1. Move the Quests state around based on conditions and checks, this is done on -- Entity.getByComps([QUEST_DATA_COMP])
-   * 2. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComps([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
+   * 1.
+   * 2. Move the Quests state around based on conditions and checks, this is done on -- Entity.getByComps([QUEST_DATA_COMP])
+   * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComps([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
    */
 
-  // 1. Adjust Quest state
+  let killQuests = Entity.getByComps([KILL_QUEST_DATA_COMP]) as KillQuest[];
+  let eventsToProcess:IGameEvent[] = gameEvents.getEvents();
+
+  // 1. process events
+  eventsToProcess.forEach((gameEvent:IGameEvent) => {
+    // killing enemies affects some quests
+    if (gameEvent instanceof EnemyKillEvent) {
+      let {entity} = gameEvent.readEvent();
+
+      killQuests.forEach((quest) => {
+        let locationID = entity[SPAWNED_COMP].spawningTileLocationID;
+
+        if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
+          if (locationID === quest[KILL_QUEST_DATA_COMP].data.kill.location) {
+            quest[KILL_QUEST_DATA_COMP].data.kill.killed++;
+
+            if (quest.isPostReqComplete()) {
+              quest.setState(AllowedQuestState.DONE);
+            }
+          }
+        }
+      });
+    }
+
+    if (gameEvent instanceof InteractWithNPC) {
+      let NPCEntity = gameEvent.readEvent().entity;
+
+      let availableQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
+      let doneQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
+
+      if (isNonEmptyArray(doneQuests)) {
+        let quest = doneQuests[0];
+        quest.setState(AllowedQuestState.REWARDED);
+
+        pushTrigger(new Trigger({
+          type: 'dialog',
+          lines: [{
+            text: quest.getFinishedText(),
+            speaker: 1
+          }],
+          actedOnEntity: NPCEntity
+        }));
+        return;
+      }
+
+      if (isNonEmptyArray(availableQuests)) {
+        let quest = availableQuests[0];
+        quest.setState(AllowedQuestState.IN_PROGRESS);
+
+        pushTrigger(new Trigger({
+          type: 'dialog',
+          lines: [{
+            text: quest.getDescription(),
+            speaker: 1
+          }],
+          actedOnEntity: NPCEntity
+        }));
+        return;
+      }
+    }
+  });
+
+
+  // 2. Adjust Quest state
   quests.forEach((quest) => {
     // Hidden should turn to Available, if quest see-conditions are met.
     if (quest.getState() === AllowedQuestState.HIDDEN) {
@@ -49,7 +115,7 @@ function questSystem(systemArguments: ISystemArguments) {
     }
   });
 
-  // 2. Assign UI elements to NPCs based on Quest state
+  // 3. Assign UI elements to NPCs based on Quest state
   entityLoop(entitiesThatGiveQuests, (entityThatGivesQuest: BaseEntity) => {
     // Switch of the following:
     // if AVAILABLE, show yellow "?"

@@ -1,16 +1,17 @@
 import GAME_PLATFORM from 'game-platform';
 import {
-  ATTACK_COMP, DEATH_PROCESS_COMP, HEALTH_COMP, IS_ATTACKING_COMP
+  ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
-import DeathProcessComp from "components/DeathProcessComp";
+import {EnemyKillEvent} from "classes/GameEvents";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
 function attackSystem(systemArguments: ISystemArguments) {
+  let {gameEvents} = systemArguments;
   let entities = Entity.getByComps([IS_ATTACKING_COMP, ATTACK_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity: BaseEntity) => {
@@ -55,8 +56,7 @@ function attackSystem(systemArguments: ISystemArguments) {
         if (entTarget[HEALTH_COMP].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
-          entTarget.addComponent(new DeathProcessComp());
-          // entTarget.destroy();
+          gameEvents.pushEvent(new EnemyKillEvent(entTarget));
         }
       }
 
