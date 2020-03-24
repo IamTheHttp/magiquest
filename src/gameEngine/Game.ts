@@ -32,6 +32,7 @@ import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
 import GameEvents, {EnemyKillEvent} from "classes/GameEvents";
+import experienceSystem from "systems/experienceSystem";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -89,7 +90,7 @@ class GameLoop {
     engine.addSystem(portalSystem);
     engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(questSystem);
-
+    engine.addSystem(experienceSystem);
 
     engine.addSystem((systemArguments: ISystemArguments) => {
       let {gameEvents} = systemArguments;
