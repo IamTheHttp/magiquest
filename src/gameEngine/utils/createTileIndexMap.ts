@@ -44,11 +44,12 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
 
         if (inColRange && inRowRange) {
           spawnableEnemies = levelLocation.spawnableEnemies || [];
-          tileLocationID = levelLocation.id
+          tileLocationID = levelLocation.id;
           // if spawnable, it MUST have a levelLocationID
           if (tileLocationID === null) {
-            locationsFoundForTile++;
             throw 'Invalid tileLocationID provided in location'
+          } else {
+            locationsFoundForTile++;
           }
         }
       });
