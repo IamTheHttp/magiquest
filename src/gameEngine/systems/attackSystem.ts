@@ -7,6 +7,7 @@ import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTi
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {EnemyKillEvent} from "classes/GameEvents";
+import Enemy from "entities/characters/Enemies/Enemy";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
@@ -40,7 +41,7 @@ function attackSystem(systemArguments: ISystemArguments) {
           continue; // cannot attack self.
         }
 
-        let entTarget = targetTile.entities[entID] as BaseEntity;
+        let entTarget = targetTile.entities[entID] as Enemy;
 
         // do the attack
         entTarget[HEALTH_COMP].current -= dmg;

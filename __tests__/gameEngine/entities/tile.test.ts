@@ -19,11 +19,12 @@ describe('Tile tests', () => {
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
 
-  it('Should populate tileLocationID correctly in CAN_SPAWN_COMp', () => {
+  it('Should populate tileLocationID correctly in CAN_SPAWN_COMP', () => {
     let spawnableEnemies:ISpawnableEnemies = [];
     let tileLocationID = AllowedLevelLocationIDs.TOWN;
+    let tileCharacterLevel = 1;
 
-    let tileArgs = {x: 0, y: 0, tileIdx: '0-0', height: 16, width: 16, tileType: 1, spawnableEnemies, tileLocationID};
+    let tileArgs = {x: 0, y: 0, tileIdx: '0-0', height: 16, width: 16, tileType: 1, spawnableEnemies, tileLocationID, tileCharacterLevel};
     let tile = new Tile(tileArgs);
 
     let comp = tile[CAN_SPAWN_COMP];

@@ -27,7 +27,8 @@ export interface ILevelLocation {
   end: {
     col: number;
     row: number;
-  }
+  },
+  locationCharacterLevel:number;
 }
 
 export interface ILevelArea {

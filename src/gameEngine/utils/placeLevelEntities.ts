@@ -9,6 +9,14 @@ import Chest from 'gameEngine/entities/Chest';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
 
+
+/**
+ * @description Place entities in a given levelArea.
+ *              Used to place Enemies as well as Friendly NPCs
+ *              enemies placed here are configured in levelArea.entitiesToPlace, including their characterLevel
+ * @param {ILevelArea} levelArea
+ * @param {ITileIndexMap} tileIdxMap
+ */
 function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
     let entityToPlace = levelArea.entitiesToPlace[i];

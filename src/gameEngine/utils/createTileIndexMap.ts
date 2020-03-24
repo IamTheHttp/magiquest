@@ -32,6 +32,7 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
 
       let spawnableEnemies: ISpawnableEnemies = [];
       let tileLocationID: AllowedLevelLocationIDs = null;
+      let tileCharacterLevel:number = 1;
       let locationsFoundForTile = 0;
       locations.forEach((levelLocation: ILevelLocation) => {
         let colStart = levelLocation.start.col;
@@ -44,11 +45,13 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
 
         if (inColRange && inRowRange) {
           spawnableEnemies = levelLocation.spawnableEnemies || [];
-          tileLocationID = levelLocation.id
+          tileLocationID = levelLocation.id;
+          tileCharacterLevel = levelLocation.locationCharacterLevel;
           // if spawnable, it MUST have a levelLocationID
-          if (tileLocationID === null) {
+          if (tileLocationID === null || tileCharacterLevel <= 0) {
+            throw `Invalid tileLocationID or tileCharacterLevel provided in location ${{tileLocationID, tileCharacterLevel}}`
+          } else {
             locationsFoundForTile++;
-            throw 'Invalid tileLocationID provided in location'
           }
         }
       });
@@ -65,7 +68,8 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         height: tileHeight,
         tileType: tileMap[rowIdx][colIdx],
         spawnableEnemies,
-        tileLocationID
+        tileLocationID,
+        tileCharacterLevel
       });
 
 

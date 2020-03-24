@@ -15,12 +15,12 @@ describe('Full integration test for game.ts', () => {
     new GameLoop({
       levelArea: {
         locations: [{
+          locationCharacterLevel: 1,
           id: AllowedLevelLocationIDs.TOWN,
           name: 'test area',
           spawnableEnemies: [{
             chance: 1,
-            characterType: CHARACTERS.ENEMY,
-            characterLevel: 1
+            characterType: CHARACTERS.ENEMY
           }],
           start: {
             col: 0,
