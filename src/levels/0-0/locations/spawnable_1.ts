@@ -8,28 +8,23 @@ spawnableOneLocation = {
   spawnableEnemies: [
     {
       chance: 0.01,
-      characterType: CHARACTERS.ENEMY,
-      characterLevel: 1
+      characterType: CHARACTERS.ENEMY
     },
     {
       chance: 0.01,
-      characterType: CHARACTERS.IMP,
-      characterLevel: 1
+      characterType: CHARACTERS.IMP
     },
     {
       chance: 0.01,
-      characterType: CHARACTERS.GARGOYLE,
-      characterLevel: 1
+      characterType: CHARACTERS.GARGOYLE
     },
     {
       chance: 0.01,
-      characterType: CHARACTERS.DEMON,
-      characterLevel: 1
+      characterType: CHARACTERS.DEMON
     },
     {
       chance: 0.01,
-      characterType: CHARACTERS.DEMON,
-      characterLevel: 1
+      characterType: CHARACTERS.VAMPIRE
     },
   ],
   name: 'JUST_LOCATION_NAME',

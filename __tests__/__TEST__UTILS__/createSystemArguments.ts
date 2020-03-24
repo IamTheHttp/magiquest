@@ -84,8 +84,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
           name: 'test',
           spawnableEnemies: [{
             chance: 1,
-            characterType: CHARACTERS.ENEMY,
-            characterLevel: 1
+            characterType: CHARACTERS.ENEMY
           }],
           start: {
             col:0,

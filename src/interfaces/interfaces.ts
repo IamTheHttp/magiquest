@@ -19,8 +19,7 @@ export interface ITileIndexMap {
 
 export type ISpawnableEnemies = Array<{
   chance: number,
-  characterType: CHARACTERS,
-  characterLevel: number
+  characterType: CHARACTERS
 }>;
 
 
