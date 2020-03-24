@@ -28,7 +28,7 @@ export type ISpawnableEnemies = Array<{
  */
 export interface IAction {
   name: AllowedActions,
-  direction?: DIRECTIONS_OPTIONS | 'space'; // TODO this is NOT okay(using 'space', maybe the enum is not direction options...
+  direction?: DIRECTIONS_OPTIONS
 }
 
 
@@ -41,7 +41,7 @@ export interface IAnimationMap {
 }
 
 /**
- * TODO -- Two different functionalities are encapsulated here
+ * TODO -- Two different functionalities are encapsulated here - which?
  * TODO cropStart X/y should extend from {ISprite}
  * TODO this is ALL optional, which means we did something wrong!
  * The animation frame can work on two different levels

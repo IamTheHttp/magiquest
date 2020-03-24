@@ -34,10 +34,9 @@ function registerUserInputEvents(game: GameLoop) {
       65: DIRECTIONS_OPTIONS.LEFT,
       87: DIRECTIONS_OPTIONS.UP,
       68: DIRECTIONS_OPTIONS.RIGHT,
-      83: DIRECTIONS_OPTIONS.DOWN,
-      32: 'space'
+      83: DIRECTIONS_OPTIONS.DOWN
     } as {
-      [key:number]: DIRECTIONS_OPTIONS | 'space'
+      [key:number]: DIRECTIONS_OPTIONS
     };
     
     if (code === 32) {

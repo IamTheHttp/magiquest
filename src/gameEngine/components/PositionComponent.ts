@@ -1,7 +1,6 @@
 import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {DIRECTIONS_OPTIONS} from "gameConstants";
 
-// TODO maybe POSITION needs to be split into SHAPE and POSITION?
 interface IPositionComponentConstructor {
   x:number;
   y: number;

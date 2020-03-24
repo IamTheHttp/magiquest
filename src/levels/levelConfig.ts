@@ -1,9 +1,5 @@
 import {ILevelArea} from "../interfaces/levels.i";
-
-// TODO move to some util
-function hasValue(x: any) {
-  return typeof x !== 'undefined' && typeof x !== null;
-}
+import hasValue from "utils/hasValue";
 
 // TODO this should be some interface
 let levelConfig = {} as {

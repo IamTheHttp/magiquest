@@ -33,6 +33,7 @@ import {bit} from "config";
 import questSystem from "systems/questSystem";
 import GameEvents, {EnemyKillEvent} from "classes/GameEvents";
 import experienceSystem from "systems/experienceSystem";
+import getColRowByTileIdx from "utils/getColRowByTileIdx";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -52,7 +53,6 @@ interface IGameConstructor {
 }
 
 
-// TODO this shouldn't be any
 class GameLoop {
   engine:IEngine;
   getMapAPI: getCanvasAPICallback;
@@ -187,7 +187,7 @@ class GameLoop {
     tile.setTileType(newType);
 
     // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
-    let [col, row] = tile.tileIdx.split('-');
+    let {col, row} = getColRowByTileIdx(tile.tileIdx);
     this.levelArea.tileMap[row][col] = +newType;
 
     this.renderBackground = true; // for the first time

@@ -8,11 +8,11 @@ import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
 import {bit} from 'gameEngine/config';
 import {AllowedUIShapes} from 'gameEngine/gameConstants';
+import getColRowByTileIdx from "utils/getColRowByTileIdx";
 
 
 function getCenterPosOfTile(tileIdx: string) {
-  let col = +tileIdx.split('-')[0]; // TODO this is used elsewhere, we might want to put it as a function
-  let row = +tileIdx.split('-')[1];
+  let {col, row} = getColRowByTileIdx(tileIdx);
 
   return {
     x: col * bit + bit / 2,

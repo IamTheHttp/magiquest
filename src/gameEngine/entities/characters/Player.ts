@@ -29,8 +29,6 @@ class Player extends BaseEntity {
     super(Player);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
-    // TODO Adjust speeds before release
-
     this.addComponent(new MoveComponent(4));   // we move 32px, so it has to be divisible
     this.addComponent(new PlayerControlledComponent());
     this.addComponent(new LevelComp(characterLevel));

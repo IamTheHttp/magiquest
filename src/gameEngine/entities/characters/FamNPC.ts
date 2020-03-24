@@ -19,7 +19,6 @@ class FamNPC extends BaseEntity {
 
   constructor({x, y, radius = 16, name}: IFamNPCConstructor) {
     super(FamNPC);
-    // TODO change to ROW/COL
     this.addComponent(new PositionComponent({x, y, radius}));
 
     this.addComponent(new CanAssignQuestsComponent([

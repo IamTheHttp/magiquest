@@ -44,6 +44,7 @@ export enum DIRECTIONS_OPTIONS {
   RIGHT = 'RIGHT',
 }
 
+// TODO can these two be combined?
 export let DIRECTIONS = {
   [DIRECTIONS_OPTIONS.UP]: 'UP',
   [DIRECTIONS_OPTIONS.DOWN]: 'DOWN',

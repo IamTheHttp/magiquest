@@ -3,7 +3,6 @@ import {ATTACK_SPEEDS_OPTIONS} from 'config';
 import Enemy from "entities/characters/Enemies/Enemy";
 import {AllowedLevelLocationIDs} from "gameConstants";
 
-// TODO can this be refactored to ONE for all enemy types?
 interface IVampireConstructor {
   col: number;
   row: number;

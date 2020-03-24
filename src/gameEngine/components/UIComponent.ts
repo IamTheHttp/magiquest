@@ -4,7 +4,7 @@ import {IUISection} from "../../interfaces/interfaces";
 
 class UIComponent {
   name:string;
-  sections: IUISection[];// TODO should not be any
+  sections: IUISection[];
 
   constructor(sections: IUISection[] = []) {
     this.name = UI_COMP;

@@ -22,7 +22,7 @@ interface ITileConstructor {
 
 
 class Tile extends BaseEntity {
-  tileIdx: any; // TODO this should not be any
+  tileIdx: string;
   constructor({
                 x,
                 y,

@@ -140,7 +140,7 @@ class BaseEntity extends Entity {
     }
   }
 
-  setMoveDirection(dir: DIRECTIONS_OPTIONS | 'space') { // TODO remove this space...
+  setMoveDirection(dir: DIRECTIONS_OPTIONS) {
     if (!this[IS_MOVING_COMP]) {
       this.addComponent(new IsMoving());
     }

@@ -11,7 +11,7 @@
 // of the page
 // but in reality, you're just getting the delta between now() calls, so it's not terribly
 // important where it's placed
-let windowCopy = window as any; // TODO this should not be any
+let windowCopy = window as any;
 
 (function() {
   if ('performance' in windowCopy === false) {

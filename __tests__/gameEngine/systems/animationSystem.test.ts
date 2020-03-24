@@ -8,7 +8,6 @@ import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 
 let {Entity} = GAME_PLATFORM;
 
-// TODO animations are broken :(
 describe('Tests for the Animation system', () => {
   let systemArguments: ISystemArguments, spyPan;
   

@@ -8,7 +8,7 @@ import BaseEntity from "BaseEntity";
 
 function renderBackgroundLayer(systemArguments: ISystemArguments) {
   let {mapAPI, tileSetSprite, Entity} = systemArguments;
-  let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]) as BaseEntity[]; // TODO can we extend Entity to return BaseEntity?
+  let allBackgroundEnts = Entity.getByComps([BACKGROUND_COMP]) as BaseEntity[];
   let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
 
   for (let i = 0; i < closeBackgroundEnts.length; i++) {

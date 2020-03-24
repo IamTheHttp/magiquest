@@ -16,8 +16,8 @@ export interface IQuestData {
   requiredLevel: number;
   description: string;
   finishedText: string;
-  preCondition: any; // TODO what is precondition?
-  reward: any; // TODO what is reward?
+  preCondition: any; // TODO what is precondition?(needs to be defined)
+  reward: any; // TODO what is reward?(needs to be defined)
 }
 
 export interface IKillQuestData extends IQuestData {

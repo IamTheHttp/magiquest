@@ -4,7 +4,7 @@ import IndexedTile from "classes/IndexedTile";
 class IsAttackingComp {
   name:string;
   targetTile:IndexedTile;
-  currentFrame:any; // TODO this should not be any
+  currentFrame:number;
 
 
   constructor(targetTile: IndexedTile) {

@@ -2,20 +2,22 @@ import BaseEntity from "BaseEntity";
 import Enemy from "entities/characters/Enemies/Enemy";
 
 export interface IGameEvent {
-  readEvent():any; // TODO is it any really?
+  readEvent():{
+    entity:BaseEntity
+  };
 }
 
 class GameEvent implements IGameEvent {
-  readEvent() {
-    // TODO needs to be implemented
+  readEvent(): {entity:BaseEntity} {
+    return {
+      entity:null
+    }
   }
 }
 
 export class EnemyKillEvent extends GameEvent {
   constructor(public entity:Enemy) {
     super();
-    // I care about...
-    // Entity that was killed.
   }
   readEvent(): {entity: Enemy} {
     return {
@@ -36,18 +38,18 @@ export class InteractWithNPC extends GameEvent {
 }
 
 export class LevelUpEvent extends GameEvent {
-  // I care about, Entity of the player, maybe not even that...
-  readEvent() {
+  readEvent(): {entity:BaseEntity} {
     return {
-      // TODO to be implemented
+      entity:null
     }
   }
 }
 
 export class QuestCompleteEvent extends GameEvent {
-  // I care about.. Nothing probably, maybe the quest ID that was completed
-  readEvent() {
-    // TODO to be implemented
+  readEvent(): {entity:BaseEntity} {
+    return {
+      entity:null
+    }
   }
 }
 

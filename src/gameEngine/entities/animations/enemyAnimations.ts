@@ -2,7 +2,6 @@ import {ANIMATIONS} from 'gameEngine/gameConstants';
 import charImageURL from 'assets/sentry.png';
 import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
 
-// TODO if the sprites look exactly the same, we can probably refactor this to generic util to include player + enemy + other animations
 const enemyAnimations = {
   [ANIMATIONS.MOVE_RIGHT]: {
     frames: [

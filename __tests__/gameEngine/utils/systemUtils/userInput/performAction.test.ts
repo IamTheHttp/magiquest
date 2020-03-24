@@ -43,20 +43,11 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('Acts on triggers in a tile', () => {
-    // TODO set up a trigger on the systemArguments
-    // TODO set orientation for the player
-    // TODO perform action
   });
 
   it('if no triggers or entities in target tile', () => {
-    // TODO set up a trigger on the systemArguments
-    // TODO set orientation for the player
-    // TODO perform action
   });
 
   it('tests invalid target tiles', () => {
-    // TODO set up a trigger on the systemArguments
-    // TODO set orientation for the player
-    // TODO perform action
   });
 });

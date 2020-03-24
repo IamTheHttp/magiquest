@@ -3,9 +3,9 @@ import BaseEntity from "BaseEntity";
 import {IEntityMap} from "game-platform/types/lib/interfaces";
 
 class IndexedTile {
-  idx: any; // TODO this should not be any
+  idx: string;
   entities: IEntityMap;
-  tile: any; // TODO this should not be any
+  tile: Tile;
   entityCount:number;
 
   constructor(tile: Tile, idx: string) {
