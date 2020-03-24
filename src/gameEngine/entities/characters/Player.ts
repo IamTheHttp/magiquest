@@ -10,6 +10,8 @@ import playerAnimations from 'entities/animations/playerAnimations';
 import Health from 'components/Health';
 import {ATTACK_SPEEDS_OPTIONS, attackSpeeds, bit} from 'config';
 import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {EXPERIENCE_COMP} from "components/ComponentNamesConfig";
+import ExperienceComp from "components/ExperienceComp";
 
 
 interface IPlayerConstructor {
@@ -19,6 +21,7 @@ interface IPlayerConstructor {
 }
 
 class Player extends BaseEntity {
+  [EXPERIENCE_COMP]: ExperienceComp;
   constructor({radius = 16, col, row}: IPlayerConstructor) {
     super(Player);
     let {x, y} = getCenterPosOfGridIdx(col, row);
@@ -26,7 +29,7 @@ class Player extends BaseEntity {
     // TODO Adjust speeds before release
     this.addComponent(new MoveComponent(4));   // we move 32px, so it has to be divisible
     this.addComponent(new PlayerControlledComponent());
-
+    this.addComponent(new ExperienceComp());
     this.addComponent(new AttackComponent(35, attackSpeeds[ATTACK_SPEEDS_OPTIONS.FASTEST]));
     this.addComponent(new PositionComponent({x, y, radius}));
     this.addComponent(new Health(2000, radius * 2, radius));
