@@ -80,6 +80,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       locations: [
         {
           id: AllowedLevelLocationIDs.TOWN,
+          locationCharacterLevel: 1,
           name: 'test',
           spawnableEnemies: [{
             chance: 1,

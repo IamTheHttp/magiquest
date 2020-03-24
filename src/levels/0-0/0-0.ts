@@ -1,67 +1,14 @@
 import oneMap from './0-0.map.json';
-import {AllowedLevelLocationIDs, CHARACTERS} from 'gameConstants';
-import {IDialogTrigger, IPortalTrigger} from "../../interfaces/triggers.i";
-import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
-import {ISpawnableEnemies} from "../../interfaces/interfaces";
-
+import {CHARACTERS} from 'gameConstants';
+import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
+import townLocation from "./locations/town";
+import spawnableOneLocation from "./locations/spawnable_1";
 
 let level:ILevelArea = {
   levelName: '0-0',
   locations: [
-    {
-      id: AllowedLevelLocationIDs.TOWN,
-      spawnableEnemies: [],
-      name: 'town',
-      start: {
-        col: 0,
-        row: 0,
-      },
-      end: {
-        col: 32,
-        row: 18,
-      }
-
-    },
-    {
-      id: AllowedLevelLocationIDs.SPAWNABLE_1,
-      spawnableEnemies: [
-        {
-          chance: 0.01,
-          characterType: CHARACTERS.ENEMY,
-          characterLevel: 1
-        },
-        {
-          chance: 0.01,
-          characterType: CHARACTERS.IMP,
-          characterLevel: 1
-        },
-        {
-          chance: 0.01,
-          characterType: CHARACTERS.GARGOYLE,
-          characterLevel: 1
-        },
-        {
-          chance: 0.01,
-          characterType: CHARACTERS.DEMON,
-          characterLevel: 1
-        },
-        {
-          chance: 0.01,
-          characterType: CHARACTERS.DEMON,
-          characterLevel: 1
-        },
-      ],
-      name: 'town',
-      start: {
-        col: 32,
-        row: 0,
-      },
-      end: {
-        col: 100,
-        row: 18,
-      }
-
-    }
+    townLocation,
+    spawnableOneLocation
   ],
   tileMap: oneMap,
   triggers: {
