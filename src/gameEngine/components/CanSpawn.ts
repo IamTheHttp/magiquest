@@ -7,9 +7,11 @@ class CanSpawn {
   name:string;
   enemies:ISpawnableEnemies;
   tileLocationID: AllowedLevelLocationIDs;
-  constructor(enemies: ISpawnableEnemies = [], tileLocation: AllowedLevelLocationIDs) {
+  tileCharacterLevel: number;
+  constructor(enemies: ISpawnableEnemies = [], tileLocation: AllowedLevelLocationIDs, tileCharacterLevel:number) {
     this.name = CAN_SPAWN_COMP;
     this.tileLocationID = tileLocation;
+    this.tileCharacterLevel = tileCharacterLevel;
     enemies.forEach((enemyToSpawn) => {
       assertType(enemyToSpawn.chance, 'Chance to spawn', 'number');
       assertType(enemyToSpawn.characterType, 'Type of enemy to spawn', 'string');

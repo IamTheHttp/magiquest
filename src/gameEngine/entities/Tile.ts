@@ -9,20 +9,30 @@ import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "components/ComponentNamesConfig
 
 
 interface ITileConstructor {
-  x:number;
-  y:number;
+  x: number;
+  y: number;
   tileIdx: string;
-  height:number;
-  width:number;
-  tileType:number;
-  spawnableEnemies:ISpawnableEnemies;
+  height: number;
+  width: number;
+  tileType: number;
+  spawnableEnemies: ISpawnableEnemies;
   tileLocationID: AllowedLevelLocationIDs;
+  tileCharacterLevel: number;
 }
 
 
 class Tile extends BaseEntity {
   tileIdx: any; // TODO this should not be any
-  constructor({x, y, tileIdx, height, width, tileType, spawnableEnemies = [], tileLocationID}: ITileConstructor) {
+  constructor({
+                x,
+                y,
+                tileIdx,
+                height,
+                width, tileType,
+                spawnableEnemies = [],
+                tileLocationID,
+                tileCharacterLevel
+              }: ITileConstructor) {
     super(Tile);
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));
@@ -32,7 +42,7 @@ class Tile extends BaseEntity {
     // TODO reuse in setTileType
     if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
       this.addComponent(new TraversableComponent());
-      this.addComponent(new CanSpawn(spawnableEnemies, tileLocationID));
+      this.addComponent(new CanSpawn(spawnableEnemies, tileLocationID, tileCharacterLevel));
     }
 
     this.addComponent(new BackgroundComponent(

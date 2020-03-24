@@ -34,14 +34,14 @@ spawnableOneLocation = {
   ],
   name: 'JUST_LOCATION_NAME',
   start: {
-    col: 32,
+    col: 33,
     row: 0,
   },
   end: {
     col: 100,
     row: 18,
   },
-  locationCharacterLevel: 1
+  locationCharacterLevel: 50
 };
 
 

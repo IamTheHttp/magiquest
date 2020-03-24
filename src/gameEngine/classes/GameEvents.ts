@@ -1,4 +1,5 @@
 import BaseEntity from "BaseEntity";
+import Enemy from "entities/characters/Enemies/Enemy";
 
 export interface IGameEvent {
   readEvent():any; // TODO is it any really?
@@ -11,12 +12,12 @@ class GameEvent implements IGameEvent {
 }
 
 export class EnemyKillEvent extends GameEvent {
-  constructor(public entity:BaseEntity) {
+  constructor(public entity:Enemy) {
     super();
     // I care about...
     // Entity that was killed.
   }
-  readEvent(): {entity: BaseEntity} {
+  readEvent(): {entity: Enemy} {
     return {
       entity: this.entity
     }

@@ -1,6 +1,6 @@
 import GAME_PLATFORM from 'game-platform';
 import {
-  EXPERIENCE_COMP,
+  EXPERIENCE_COMP, LEVEL_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'components/ComponentNamesConfig';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
@@ -18,7 +18,17 @@ function experienceSystem(systemArguments: ISystemArguments) {
 
   gameEvents.getEvents().forEach((event) => {
     if (event instanceof EnemyKillEvent) {
-      player[EXPERIENCE_COMP].exp++;
+      event.readEvent();
+
+      let baseXP = 10;
+
+      // enemy[LE]
+      let currentXP = player[EXPERIENCE_COMP].exp;
+      let newXP = event.entity[LEVEL_COMP].characterLevel * baseXP;
+
+
+      player[EXPERIENCE_COMP].exp = currentXP + newXP;
+      console.log(player[EXPERIENCE_COMP].exp);
     }
   });
 }

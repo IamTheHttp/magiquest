@@ -12,7 +12,8 @@ import AttackComponent from 'components/AttackComponent';
 import {ATTACK_SPEEDS_OPTIONS, attackSpeeds} from 'config';
 import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import SpawnedComponent from "components/SpawnedComponent";
-import {SPAWNED_COMP} from "components/ComponentNamesConfig";
+import {LEVEL_COMP, SPAWNED_COMP} from "components/ComponentNamesConfig";
+import LevelComp from "components/LevelComp";
 
 interface IEnemyConstructor {
   col: number;
@@ -30,6 +31,7 @@ interface IEnemyConstructor {
 
 class Enemy extends BaseEntity {
   [SPAWNED_COMP]: SpawnedComponent;
+  [LEVEL_COMP]: LevelComp;
   constructor({
                 col,
                 row,
@@ -40,11 +42,13 @@ class Enemy extends BaseEntity {
                 dmg = 1,
                 attackSpeed = ATTACK_SPEEDS_OPTIONS.SLOW,
                 animationTypes = enemyAnimations,
+                characterLevel,
                 spawningTileLocationID
   }: IEnemyConstructor) {
     super(Enemy);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
+    this.addComponent(new LevelComp(characterLevel));
     this.addComponent(new SpawnedComponent(spawningTileLocationID));
     this.addComponent(new MoveComponent(speed));
     this.addComponent(new PositionComponent({x, y, radius}));
