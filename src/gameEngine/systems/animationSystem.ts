@@ -6,8 +6,7 @@ import {ISystemArguments} from "../../interfaces/gameloop.i";
 function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   // Animation system
-  // TODO whats the right way to handle this situation?
-  let ents = Entity.getByComps([ANIMATION_COMP]) as unknown as BaseEntity[];
+  let ents = Entity.getByComps([ANIMATION_COMP]) as BaseEntity[];
 
   for (let i = 0; i < ents.length; i++) {
     let entity = ents[i];

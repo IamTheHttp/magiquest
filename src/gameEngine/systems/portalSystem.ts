@@ -3,6 +3,7 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import Player from "entities/characters/Player";
 
 export function isNonEmptyArray(x: any) {
   return x && x.length;
@@ -10,7 +11,7 @@ export function isNonEmptyArray(x: any) {
 
 function portalSystem(systemArguments: ISystemArguments) {
   let {levelArea, game, Entity} = systemArguments;
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity; // TODO can we remove all these 'AS BaseEntity?'
+  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
   let index = getTileIdxByEnt(player);
   
   assertType(index, 'level index', 'string');
