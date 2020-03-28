@@ -14,6 +14,7 @@ import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../../../src/interfaces/gameloop.i";
 import createNewEnemy from "../../../../__TEST__UTILS__/createEnemy";
+import createTestPlayer from "../../../../__TEST__UTILS__/createTestPlayer";
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;
@@ -22,7 +23,7 @@ describe('Tests the placeLevelEntities util', () => {
     // setup the test
     Entity.reset();
 
-    player = new Player({col: 0, row:0});
+    player = createTestPlayer(0, 0);
     systemArguments = createSystemArgs(new SpyFns());
   });
 

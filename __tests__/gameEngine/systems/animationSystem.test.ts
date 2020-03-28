@@ -5,6 +5,7 @@ import Player from 'entities/characters/Player';
 import getSpriteCrop from 'utils/getSpriteCrop';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -22,7 +23,7 @@ describe('Tests for the Animation system', () => {
   });
 
   it ('Adds a and runs a simple animation', () => {
-    let player = new Player({col:0, row:0});
+    let player = createTestPlayer(0, 0);
     player.addAnimation({
       frames: [
         {
@@ -49,7 +50,7 @@ describe('Tests for the Animation system', () => {
     // Add a player...
     // Set Direction
 
-    let player = new Player({col:0, row:0});
+    let player = createTestPlayer(0, 0);
 
     player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
     expect(player.getAnimations()['MOVE_RIGHT'].realFrameCount).toBe(0);
@@ -59,7 +60,7 @@ describe('Tests for the Animation system', () => {
   });
 
   it('Animation will run its course successfully', () => {
-    let player = new Player({col:0, row:0});
+    let player = createTestPlayer(0, 0);
     player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
 
     // animation duration (in frames) is related to the frame count it takes to move 32 pixels
@@ -75,7 +76,7 @@ describe('Tests for the Animation system', () => {
   });
 
   it('Animation will loop when over if so configured', () => {
-    let player = new Player({col:0, row:0});
+    let player = createTestPlayer(0, 0);
 
     player.addAnimation({
       loops: true,

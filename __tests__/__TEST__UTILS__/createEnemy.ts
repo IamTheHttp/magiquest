@@ -2,10 +2,11 @@ import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 import Character from "gameEngine/entities/characters/Character";
 import {ATTACK_SPEEDS_OPTIONS} from "config";
 import enemyAnimations from 'entities/animations/enemyAnimations';
+import Enemy from "entities/characters/Enemy";
 
 
 function createNewEnemy(col: number, row: number, characterLevel: number, spawningTileLocationID: AllowedLevelLocationIDs) {
-  return new Character({
+  return new Enemy({
     col,
     row,
     characterLevel,

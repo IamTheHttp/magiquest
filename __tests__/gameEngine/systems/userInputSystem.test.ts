@@ -6,6 +6,7 @@ import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -15,11 +16,7 @@ describe('Tests for the AI system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    player = new Player({
-      col: 0,
-      row: 0,
-      radius: 16
-    });
+    player = createTestPlayer(0, 0);
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
 

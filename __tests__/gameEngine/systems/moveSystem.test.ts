@@ -8,6 +8,7 @@ import moveSystem from 'systems/moveSystem';
 import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 let {Entity} = GAME_PLATFORM;
 
 describe('move system tests', () => {
@@ -18,11 +19,7 @@ describe('move system tests', () => {
     spyPan = jest.fn();
     systemArguments = createSystemArgs(new SpyFns(spyPan));
 
-    player = new Player({
-      col:0,
-      row:0,
-      radius: 16
-    });
+    player = createTestPlayer(0, 0);
   });
   
   it ('doesnt break without entities', () => {

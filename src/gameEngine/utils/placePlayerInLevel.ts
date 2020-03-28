@@ -6,16 +6,19 @@ import {bit} from 'gameEngine/config';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
+import charactersDataConfig from "../../levels/charactersDataConfig";
+import {CHARACTERS} from "gameConstants";
 
 function placePlayerInLevel(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
-  /** @type {BaseEntity} */
   let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
   let {col, row} = levelArea.startPos;
 
   let {x, y} = getCenterPosOfGridIdx(col, row);
 
   if (!player) {
-    player = new Player({col, row});
+    let playetConfig = charactersDataConfig[CHARACTERS.PLAYER];
+    // TODO - when Saving progress, this has to be taken into consideration (characterLevel 1)
+    player = new Player({col, row, characterLevel: 1, spawningTileLocationID: null}, playetConfig);
   } else {
     player.setPos({x, y});
     player.stop();

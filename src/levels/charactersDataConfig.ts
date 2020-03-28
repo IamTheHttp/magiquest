@@ -1,14 +1,25 @@
-import {AllowedLevelLocationIDs, AllowedQuestIDs, CHARACTERS} from "gameConstants";
+import {CHARACTERS} from "gameConstants";
 import {ATTACK_SPEEDS_OPTIONS} from "../gameEngine/config";
 import enemyAnimations from "entities/animations/enemyAnimations";
 import {ICharacterConfig} from "entities/characters/ICharacterConfig";
+import playerAnimations from "entities/animations/playerAnimations";
 
 type ICharsConfig = {
   [CHARACTER in CHARACTERS]: ICharacterConfig
 }
 
 let charactersDataConfig: ICharsConfig = {
-  [CHARACTERS.PLAYER]: null,
+  [CHARACTERS.PLAYER]: {
+    id: CHARACTERS.PLAYER,
+    displayName: 'The Amazing Player',
+    dmg: 250,
+    health: 500,
+    speed: 4,
+    vision:0,
+    attackSpeed: ATTACK_SPEEDS_OPTIONS.FASTEST,
+    radius:16,
+    animationTypes: playerAnimations
+  },
   [CHARACTERS.CHEST]: {
     id: CHARACTERS.CHEST,
     displayName: 'The Amazing Chest',

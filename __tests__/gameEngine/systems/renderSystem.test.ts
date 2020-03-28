@@ -4,6 +4,7 @@ import renderSystem from 'systems/renderSystem';
 import Player from 'entities/characters/Player';
 import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the Render system', () => {
@@ -47,7 +48,7 @@ describe('Tests for the Render system', () => {
   
   it('Does not render a very far away Entity', () => {
     Entity.reset(); // remove all others
-    new Player({col: 5000, row: 5000}); // add one player
+    createTestPlayer(5000, 5000);
     renderSystem(systemArguments);
     
     // nothing to render, as it's too far

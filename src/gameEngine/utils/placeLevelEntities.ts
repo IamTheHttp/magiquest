@@ -9,6 +9,7 @@ import {ITileIndexMap} from "../../interfaces/interfaces";
 import charactersDataConfig from "../../levels/charactersDataConfig";
 import Chest from "entities/characters/Chest";
 import createFamNPC from "../../../__tests__/__TEST__UTILS__/createFamNPC";
+import Enemy from "entities/characters/Enemy";
 
 /**
  * @description Place entities in a given levelArea.
@@ -40,7 +41,7 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
           break;
         }
         default: {
-          entity = new Character({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          entity = new Enemy({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
         }
       }
     }

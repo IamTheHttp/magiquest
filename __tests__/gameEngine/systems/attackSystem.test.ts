@@ -15,6 +15,7 @@ import BaseEntity from "BaseEntity";
 import {AllowedLevelLocationIDs} from "gameConstants";
 import {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
 import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -27,11 +28,7 @@ describe('attack system tests', () => {
     spyPan = jest.fn();
 
     systemArguments = createSystemArgs(new SpyFns(spyPan));
-    player = new Player({
-      col:0,
-      row:0,
-      radius: 16
-    });
+    player = createTestPlayer(0, 0);
 
     let {x, y} = player.getPos();
     updateMapTileIdx({ entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: x, newY: y });
@@ -100,7 +97,6 @@ describe('attack system tests', () => {
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
     // expect(enemy.hasComponents()).toBeFalsy();
-    console.log(gameEvents);
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));

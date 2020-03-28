@@ -13,6 +13,7 @@ import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
+import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -59,7 +60,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('Chases the player if within vision', () => {
-    let player = new Player({col: 0, row: 0});
+    let player = createTestPlayer(0, 0);
 
     updateMapTileIdx({
       entity: player,
@@ -101,7 +102,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('Chase player right', () => {
-    let player = new Player({col: 2, row: 1});
+    let player = createTestPlayer(2, 1);
 
     updateMapTileIdx({
       entity: player,
@@ -111,7 +112,6 @@ describe('Tests for the AI system', () => {
     });
 
     let enemy = createNewEnemy(0, 1, 1, AllowedLevelLocationIDs.TOWN);
-
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -132,7 +132,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('Chase player down', () => {
-    let player = new Player({col: 0, row: 2});
+    let player = createTestPlayer(0, 2);
 
     updateMapTileIdx({
       entity: player,
@@ -165,7 +165,7 @@ describe('Tests for the AI system', () => {
     /**
      * @type {BaseEntity}
      */
-    let player = new Player({col: 0, row: 0});
+    let player = createTestPlayer(0, 0);
 
     updateMapTileIdx({
       entity: player,

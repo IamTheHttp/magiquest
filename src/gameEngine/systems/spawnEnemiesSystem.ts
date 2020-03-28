@@ -8,6 +8,7 @@ import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import Character from "gameEngine/entities/characters/Character";
 import charactersDataConfig from "../../levels/charactersDataConfig";
+import Enemy from "entities/characters/Enemy";
 
 let {entityLoop} = GAME_PLATFORM;
 
@@ -27,7 +28,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
 
         if (characterConfig) {
           let {col, row} = getGridIdxFromPos(x, y);
-          new Character({col, row, characterLevel, spawningTileLocationID}, characterConfig);
+          new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
           return;
         }
       }
