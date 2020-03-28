@@ -5,7 +5,7 @@ import {
 } from 'components/ComponentNamesConfig';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import Player from "entities/characters/Player";
-import {EnemyKillEvent} from "classes/GameEvents";
+import {EnemyKilledEvent} from "classes/GameEvents";
 
 let { Entity} = GAME_PLATFORM;
 
@@ -14,7 +14,7 @@ function experienceSystem(systemArguments: ISystemArguments) {
   let player = Entity.getByComps([PLAYER_CONTROLLED_COMP])[0] as Player;
 
   gameEvents.getEvents().forEach((event) => {
-    if (event instanceof EnemyKillEvent) {
+    if (event instanceof EnemyKilledEvent) {
       let baseXP = 10;
 
       // enemy[LE]

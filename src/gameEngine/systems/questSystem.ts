@@ -13,7 +13,7 @@ import {ISystemArguments} from "../../interfaces/gameloop.i";
 import {AllowedQuestState} from "components/QuestDataComponent";
 import Quest, {KillQuest} from "entities/Quest";
 import {isNonEmptyArray} from "systems/portalSystem";
-import {EnemyKillEvent, IGameEvent, InteractWithNPC} from "classes/GameEvents";
+import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from "classes/GameEvents";
 import {pushTrigger, Trigger} from "systems/triggerSystem";
 
 let {Entity, entityLoop} = GAME_PLATFORM;
@@ -39,7 +39,7 @@ function questSystem(systemArguments: ISystemArguments) {
   // 1. process events
   eventsToProcess.forEach((gameEvent:IGameEvent) => {
     // killing enemies affects some quests
-    if (gameEvent instanceof EnemyKillEvent) {
+    if (gameEvent instanceof EnemyKilledEvent) {
       let {entity} = gameEvent.readEvent();
 
       killQuests.forEach((quest) => {

@@ -15,7 +15,7 @@ class GameEvent implements IGameEvent {
   }
 }
 
-export class EnemyKillEvent extends GameEvent {
+export class EnemyKilledEvent extends GameEvent {
   constructor(public entity:Enemy) {
     super();
   }

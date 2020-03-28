@@ -31,7 +31,7 @@ import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
-import GameEvents, {EnemyKillEvent} from "classes/GameEvents";
+import GameEvents, {EnemyKilledEvent} from "classes/GameEvents";
 import experienceSystem from "systems/experienceSystem";
 import getColRowByTileIdx from "utils/getColRowByTileIdx";
 
@@ -95,7 +95,7 @@ class GameLoop {
     engine.addSystem((systemArguments: ISystemArguments) => {
       let {gameEvents} = systemArguments;
       gameEvents.getEvents().forEach((event) => {
-        if (event instanceof EnemyKillEvent) {
+        if (event instanceof EnemyKilledEvent) {
           event.readEvent().entity.destroy();
         }
       });

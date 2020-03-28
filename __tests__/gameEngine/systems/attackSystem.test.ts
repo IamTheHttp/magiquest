@@ -15,7 +15,7 @@ import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {AllowedLevelLocationIDs} from "gameConstants";
-import GameEvents, {EnemyKillEvent, IGameEvent} from "classes/GameEvents";
+import GameEvents, {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -119,9 +119,9 @@ describe('attack system tests', () => {
 
     let firstEvent = eventsForNextTick[0];
 
-    expect(firstEvent instanceof EnemyKillEvent).toBe(true);
+    expect(firstEvent instanceof EnemyKilledEvent).toBe(true);
 
-    if (firstEvent instanceof EnemyKillEvent) {
+    if (firstEvent instanceof EnemyKilledEvent) {
       expect(firstEvent.readEvent().entity).toBe(enemy);
     }
   });

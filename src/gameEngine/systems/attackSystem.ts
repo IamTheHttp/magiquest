@@ -6,7 +6,7 @@ import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
-import {EnemyKillEvent} from "classes/GameEvents";
+import {EnemyKilledEvent} from "classes/GameEvents";
 import Enemy from "entities/characters/Enemies/Enemy";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
@@ -57,7 +57,7 @@ function attackSystem(systemArguments: ISystemArguments) {
         if (entTarget[HEALTH_COMP].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
-          gameEvents.pushEvent(new EnemyKillEvent(entTarget));
+          gameEvents.pushEvent(new EnemyKilledEvent(entTarget));
         }
       }
 
