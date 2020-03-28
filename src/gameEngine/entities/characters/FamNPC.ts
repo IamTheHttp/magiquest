@@ -1,25 +1,13 @@
 import UIComponent from '../../components/UIComponent';
-import PositionComponent from '../../components/PositionComponent';
 import {AllowedQuestIDs, AllowedUIShapes, CANVAS_OUTPUT} from 'gameEngine//gameConstants';
-import BaseEntity from '../../BaseEntity';
-import AnimationComp from 'components/AnimationComp';
-import enemyAnimations from 'entities/animations/enemyAnimations';
 import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
-import Quest, {KillQuest} from "entities/Quest";
+import {KillQuest} from "entities/Quest";
+import Character from "entities/characters/Character";
+import {ICharacterConfig, ICharacterInstanceAttr} from "entities/characters/ICharacterConfig";
 
-interface IFamNPCConstructor {
-  x: number;
-  y: number;
-  radius?: number;
-  name: string;
-}
-
-class FamNPC extends BaseEntity {
-  name:string;
-
-  constructor({x, y, radius = 16, name}: IFamNPCConstructor) {
-    super(FamNPC);
-    this.addComponent(new PositionComponent({x, y, radius}));
+class FamNPC extends Character {
+  constructor(instanceAttributes: ICharacterInstanceAttr, charConfig:ICharacterConfig) {
+    super(instanceAttributes, charConfig);
 
     this.addComponent(new CanAssignQuestsComponent([
       new KillQuest(AllowedQuestIDs.CLEAR_CAMP)
@@ -32,9 +20,6 @@ class FamNPC extends BaseEntity {
         data: {}
       }]
     ));
-  
-    this.addComponent(new AnimationComp(enemyAnimations));
-    this.name = name;
   }
 }
 

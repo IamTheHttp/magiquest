@@ -7,7 +7,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import placeLevelEntities from 'utils/placeLevelEntities';
 import {CHARACTERS} from 'gameConstants';
 import {Entity} from 'BaseEntity';
-import {ANIMATION_COMP} from 'components/ComponentNamesConfig';
+import {ANIMATION_COMP, LEVEL_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 
 describe('Tests the placeLevelEntities util', () => {
@@ -62,7 +62,8 @@ describe('Tests the placeLevelEntities util', () => {
       ]
     }, tileIdxMap);
 
-    let entsPlaced = Entity.getByComp(ANIMATION_COMP);
+    // Expected an assertion error in this test, as we have an UNKNOWN_TYPE
+    let entsPlaced = Entity.getByComp(LEVEL_COMP);
     expect(entsPlaced.length).toBe(2); // and not 3
   });
 });

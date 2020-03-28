@@ -20,7 +20,17 @@ let charactersDataConfig: ICharsConfig = {
     radius:16,
     animationTypes: null
   },
-  [CHARACTERS.FAM_NPC]: null,
+  [CHARACTERS.FAM_NPC]: {
+    id: CHARACTERS.FAM_NPC,
+    displayName: 'The Amazing FamNPC',
+    dmg: 0,
+    health: 0,
+    speed: 0,
+    vision:0,
+    attackSpeed: null,
+    radius:16,
+    animationTypes: null
+  },
   [CHARACTERS.DEMON]: {
     id: CHARACTERS.DEMON,
     displayName: 'The Amazing GENERIC DEMON',

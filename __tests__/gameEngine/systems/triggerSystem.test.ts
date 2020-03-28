@@ -7,6 +7,7 @@ import FamNPC from 'entities/characters/FamNPC';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
+import createFamNPC from "../../__TEST__UTILS__/createFamNPC";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -22,11 +23,7 @@ describe('Tests for the AI system', () => {
       radius: 16
     });
 
-    NPC = new FamNPC({
-      x: 48,
-      y: 48,
-      name: 'Forest'
-    });
+    NPC = createFamNPC(1, 1);
 
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });

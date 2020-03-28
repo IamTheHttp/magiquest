@@ -11,7 +11,6 @@ import charactersDataConfig from "../../levels/charactersDataConfig";
 
 let {entityLoop} = GAME_PLATFORM;
 
-
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   let entities = Entity.getByComps([CAN_SPAWN_COMP]);

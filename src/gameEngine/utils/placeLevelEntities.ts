@@ -8,6 +8,7 @@ import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
 import charactersDataConfig from "../../levels/charactersDataConfig";
 import Chest from "entities/characters/Chest";
+import createFamNPC from "../../../__tests__/__TEST__UTILS__/createFamNPC";
 
 /**
  * @description Place entities in a given levelArea.
@@ -29,16 +30,19 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
     let characterConfig = charactersDataConfig[entityToPlace.characterType];
 
     if (characterConfig) {
-      if (entityToPlace.characterType === CHARACTERS.CHEST) {
-        entity = new Chest({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN}, characterConfig);
-      } else {
-        entity = new Character({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN}, characterConfig);
+      switch (entityToPlace.characterType) {
+        case CHARACTERS.CHEST: {
+          entity = new Chest({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          break;
+        }
+        case CHARACTERS.FAM_NPC: {
+          entity = new FamNPC({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          break;
+        }
+        default: {
+          entity = new Character({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+        }
       }
-    }
-
-    if (entityToPlace.characterType === CHARACTERS.FAM_NPC) {
-      // TODO place with col/row instead of x,y
-      entity = new FamNPC({x, y, name: entityToPlace.name});
     }
 
     if (!entity) {
