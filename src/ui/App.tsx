@@ -10,6 +10,7 @@ import Editor from './Editor';
 import IGameCanvas  from "game-platform/types/lib/GameCanvas/GameCanvas";
 import {ILevelArea, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
+import saveToServer from "./utils/saveToServer";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -85,21 +86,7 @@ class App extends React.Component<any, IState> {
             let tile = Entity.entities[entityID] as Tile; // TODO can we change these 'AS' things?
             if (this.state.editorTileType !== null) {
               let levelArea = this.game.changeTileType(tile, this.state.editorTileType);
-
-              // TODO this whole function is EDITOR MODE ONLY
-              // TODO in the future we want to enable/disable editor more
-              fetch('http://localhost:3000', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  levelName: levelArea.levelName,
-                  tileMap: levelArea.tileMap
-                }),
-              }).catch(() => {
-                alert('Could not save to server');
-              });
+              saveToServer(levelArea);
             }
             this.setState({clickedTileIdx: tile.tileIdx});
           }
