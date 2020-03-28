@@ -45,6 +45,15 @@ let level:ILevelArea = {
   entitiesToPlace: [
     {
       pos: {
+        col: 6,
+        row: 6
+      },
+      characterType: CHARACTERS.CHEST,
+      characterLevel: 1,
+      name: 'Chest 1'
+    },
+    {
+      pos: {
         col: 8,
         row: 4
       },

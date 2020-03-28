@@ -8,14 +8,12 @@ import {
   HEALTH_COMP,
   ATTACK_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import Enemy from 'entities/characters/Enemies/Enemy';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
-import playerAnimations from 'gameEngine/entities/animations/playerAnimations';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {AllowedLevelLocationIDs} from "gameConstants";
-import GameEvents, {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
+import {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
 import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
 
 let {Entity} = GAME_PLATFORM;

@@ -8,7 +8,7 @@ import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import SpawnedComponent from "components/SpawnedComponent";
-import Enemy from "entities/characters/Enemies/Enemy";
+import Character from "gameEngine/entities/characters/Character";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -51,7 +51,7 @@ describe('Tests for the AI system', () => {
 
     spawnEnemiesSystem(systemArguments);
 
-    let ents = Entity.getByComp(SPAWNED_COMP) as Enemy[];
+    let ents = Entity.getByComp(SPAWNED_COMP) as Character[];
     ents.forEach((ent) => {
       expect(typeof ent[SPAWNED_COMP].spawningTileLocationID).toBe('string');
     });

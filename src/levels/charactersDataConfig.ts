@@ -1,19 +1,7 @@
 import {AllowedLevelLocationIDs, AllowedQuestIDs, CHARACTERS} from "gameConstants";
 import {ATTACK_SPEEDS_OPTIONS} from "../gameEngine/config";
 import enemyAnimations from "entities/animations/enemyAnimations";
-import {IAnimationTypes} from "components/AnimationComp";
-
-export type ICharacterConfig = {
-  dmg: number;
-  health: number;
-  speed: number;
-  vision:number;
-  attackSpeed: ATTACK_SPEEDS_OPTIONS;
-  id: CHARACTERS;
-  displayName: string;
-  radius: 16;
-  animationTypes: IAnimationTypes;
-}
+import {ICharacterConfig} from "entities/characters/ICharacterConfig";
 
 type ICharsConfig = {
   [CHARACTER in CHARACTERS]: ICharacterConfig
@@ -21,7 +9,17 @@ type ICharsConfig = {
 
 let charactersDataConfig: ICharsConfig = {
   [CHARACTERS.PLAYER]: null,
-  [CHARACTERS.CHEST]: null,
+  [CHARACTERS.CHEST]: {
+    id: CHARACTERS.CHEST,
+    displayName: 'The Amazing Chest',
+    dmg: 0,
+    health: 20,
+    speed: 0,
+    vision:0,
+    attackSpeed: null,
+    radius:16,
+    animationTypes: null
+  },
   [CHARACTERS.FAM_NPC]: null,
   [CHARACTERS.DEMON]: {
     id: CHARACTERS.DEMON,

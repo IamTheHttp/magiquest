@@ -7,7 +7,7 @@ import BaseEntity, {Entity} from 'BaseEntity';
 import performAction from 'utils/systemUtils/userInput/performAction';
 import Player from 'entities/characters/Player';
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
-import Enemy from 'entities/characters/Enemies/Enemy';
+import Character from 'gameEngine/entities/characters/Character';
 import {AllowedLevelLocationIDs, DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';

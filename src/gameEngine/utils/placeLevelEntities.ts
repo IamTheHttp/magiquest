@@ -1,17 +1,13 @@
-import {bit} from 'gameEngine/config';
-import Enemy from 'entities/characters/Enemies/Enemy';
+import Character from 'gameEngine/entities/characters/Character';
 import FamNPC from 'entities/characters/FamNPC';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
-import {
-  getCenterPosOfGridIdx,
-  getGridIdxFromPos
-} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
-import Chest from 'gameEngine/entities/Chest';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
 import charactersDataConfig from "../../levels/charactersDataConfig";
+import Chest from "entities/characters/Chest";
 
 /**
  * @description Place entities in a given levelArea.
@@ -23,7 +19,7 @@ import charactersDataConfig from "../../levels/charactersDataConfig";
 function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
   for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
     let entityToPlace = levelArea.entitiesToPlace[i];
-    let entity = null;
+    let entity = undefined;
 
     let {col, row} = entityToPlace.pos;
     let {x, y} = getCenterPosOfGridIdx(col, row);
@@ -33,16 +29,16 @@ function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
     let characterConfig = charactersDataConfig[entityToPlace.characterType];
 
     if (characterConfig) {
-      entity = new Enemy({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN}, characterConfig);
+      if (entityToPlace.characterType === CHARACTERS.CHEST) {
+        entity = new Chest({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN}, characterConfig);
+      } else {
+        entity = new Character({col, row, characterLevel, spawningTileLocationID: AllowedLevelLocationIDs.TOWN}, characterConfig);
+      }
     }
 
     if (entityToPlace.characterType === CHARACTERS.FAM_NPC) {
       // TODO place with col/row instead of x,y
       entity = new FamNPC({x, y, name: entityToPlace.name});
-    }
-
-    if (entityToPlace.characterType === CHARACTERS.CHEST) {
-      entity = new Chest({col, row});
     }
 
     if (!entity) {
