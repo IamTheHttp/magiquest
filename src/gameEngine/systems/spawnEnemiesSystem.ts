@@ -7,10 +7,7 @@ import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/g
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import Enemy from "entities/characters/Enemies/Enemy";
-import Imp from "entities/characters/Enemies/Imp";
-import Demon from "entities/characters/Enemies/Demon";
-import Gargoyle from "entities/characters/Enemies/Gargoyle";
-import Vampire from "entities/characters/Enemies/Vampire";
+import charactersDataConfig from "../../levels/charactersDataConfig";
 
 let {entityLoop} = GAME_PLATFORM;
 
@@ -26,29 +23,13 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
         let spawningTileLocationID = entity[CAN_SPAWN_COMP].tileLocationID;
         let characterLevel = entity[CAN_SPAWN_COMP].tileCharacterLevel;
 
-        if (enemyToSpawn.characterType === CHARACTERS.ENEMY) {
-          let {col, row} = getGridIdxFromPos(x, y);
-          new Enemy({col, row, characterLevel, spawningTileLocationID});
-        }
+        // Fetch what to spawn from config!
+        let characterConfig = charactersDataConfig[enemyToSpawn.characterType];
 
-        if (enemyToSpawn.characterType === CHARACTERS.IMP) {
+        if (characterConfig) {
           let {col, row} = getGridIdxFromPos(x, y);
-          new Imp({col, row, characterLevel, spawningTileLocationID});
-        }
-
-        if (enemyToSpawn.characterType === CHARACTERS.DEMON) {
-          let {col, row} = getGridIdxFromPos(x, y);
-          new Demon({col, row, characterLevel, spawningTileLocationID});
-        }
-
-        if (enemyToSpawn.characterType === CHARACTERS.GARGOYLE) {
-          let {col, row} = getGridIdxFromPos(x, y);
-          new Gargoyle({col, row, characterLevel, spawningTileLocationID});
-        }
-
-        if (enemyToSpawn.characterType === CHARACTERS.VAMPIRE) {
-          let {col, row} = getGridIdxFromPos(x, y);
-          new Vampire({col, row, characterLevel, spawningTileLocationID});
+          new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
+          return;
         }
       }
     });

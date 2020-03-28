@@ -42,7 +42,7 @@ describe('Tests the placeLevelEntities util', () => {
           }
         },
         {
-          characterType: CHARACTERS.ENEMY,
+          characterType: CHARACTERS.IMP,
           characterLevel: 1,
           name: 'ENEMY_1',
           pos: {

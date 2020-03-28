@@ -13,6 +13,7 @@ import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
 import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../../../src/interfaces/gameloop.i";
+import createNewEnemy from "../../../../__TEST__UTILS__/createEnemy";
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;
@@ -30,7 +31,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
-    let enemy = new Enemy({col: 0, row:1, characterLevel:1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
+    let enemy = createNewEnemy(0, 1, 1,  AllowedLevelLocationIDs.TOWN);
     updateMapTileIdx({entity: enemy, tileIdxMap: systemArguments.tileIdxMap, newX: enemy.getPos().x, newY: enemy.getPos().y });
     updateMapTileIdx({entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: player.getPos().x, newY: player.getPos().y });
 

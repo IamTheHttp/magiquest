@@ -14,37 +14,23 @@ import {getCenterPosOfGridIdx} from 'utils/componentUtils/positionUtils/getCente
 import SpawnedComponent from "components/SpawnedComponent";
 import {LEVEL_COMP, SPAWNED_COMP} from "components/ComponentNamesConfig";
 import LevelComp from "components/LevelComp";
+import {ICharacterConfig} from "../../../../levels/charactersDataConfig";
 
-interface IEnemyConstructor {
+interface IEnemyInstanceAttr {
   col: number;
   row: number;
-  radius?: number;
-  vision?: number;
-  speed?: number;
-  health?: number;
-  dmg?:number;
   characterLevel:number,
-  attackSpeed?: ATTACK_SPEEDS_OPTIONS,
-  animationTypes?: IAnimationTypes,
   spawningTileLocationID: AllowedLevelLocationIDs
 }
+
 
 class Enemy extends BaseEntity {
   [SPAWNED_COMP]: SpawnedComponent;
   [LEVEL_COMP]: LevelComp;
-  constructor({
-                col,
-                row,
-                radius = 16,
-                vision = 200,
-                speed = 0.5,
-                health = 100,
-                dmg = 1,
-                attackSpeed = ATTACK_SPEEDS_OPTIONS.SLOW,
-                animationTypes = enemyAnimations,
-                characterLevel,
-                spawningTileLocationID
-  }: IEnemyConstructor) {
+  constructor(instanceAttributes: IEnemyInstanceAttr, charConfig:ICharacterConfig) {
+    let {col, row, characterLevel, spawningTileLocationID} = instanceAttributes;
+    let {speed, health, radius, dmg, attackSpeed, vision, animationTypes} = charConfig;
+
     super(Enemy);
     let {x, y} = getCenterPosOfGridIdx(col, row);
 

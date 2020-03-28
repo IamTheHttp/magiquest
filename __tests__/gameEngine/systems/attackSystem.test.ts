@@ -16,6 +16,7 @@ import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import {AllowedLevelLocationIDs} from "gameConstants";
 import GameEvents, {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
+import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
 
 let {Entity} = GAME_PLATFORM;
 
@@ -68,7 +69,8 @@ describe('attack system tests', () => {
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
+
+    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
@@ -95,7 +97,7 @@ describe('attack system tests', () => {
   it('Can kill an enemy', () => {
     let {tileIdxMap, gameEvents} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel: 1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
+    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 
@@ -129,7 +131,7 @@ describe('attack system tests', () => {
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1-1'];
-    let enemy = new Enemy({col:1, row: 1, characterLevel:1, spawningTileLocationID: AllowedLevelLocationIDs.TOWN});
+    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
 

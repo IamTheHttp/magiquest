@@ -7,15 +7,16 @@ import Enemy from 'entities/characters/Enemies/Enemy';
 import IsMoving from 'components/IsMoving';
 import Player from 'entities/characters/Player';
 import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
-import {bit} from 'config';
+import {ATTACK_SPEEDS_OPTIONS, bit} from 'config';
 import attackSystem from 'systems/attackSystem';
 import {HEALTH_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import {AllowedLevelLocationIDs} from "gameConstants";
-
+import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
+import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
 
 let {Entity} = GAME_PLATFORM;
+
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -32,12 +33,7 @@ describe('Tests for the AI system', () => {
 
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = new Enemy({
-      col: 1,
-      row: 1,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
@@ -49,12 +45,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('doesnt move an already moving AI', () => {
-    let ent = new Enemy({
-      col: 1,
-      row: 1,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
 
 
     ent.addComponent(new IsMoving());
@@ -78,13 +69,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = new Enemy({
-      col: 2,
-      row: 1,
-      vision: 200,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let enemy = createNewEnemy(2, 1, 1, AllowedLevelLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -126,13 +111,8 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = new Enemy({
-      col: 0,
-      row: 1,
-      vision: 200,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let enemy = createNewEnemy(0, 1, 1, AllowedLevelLocationIDs.TOWN);
+
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -162,13 +142,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = new Enemy({
-      col: 0,
-      row: 0,
-      vision: 200,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let enemy = createNewEnemy(0, 0, 1, AllowedLevelLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -201,16 +175,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    /**
-     * @type {BaseEntity}
-     */
-    let enemy = new Enemy({
-      col: 1,
-      row: 1,
-      vision: 200,
-      characterLevel: 1,
-      spawningTileLocationID: AllowedLevelLocationIDs.TOWN
-    });
+    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
 
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);

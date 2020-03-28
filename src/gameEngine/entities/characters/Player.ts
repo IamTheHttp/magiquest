@@ -22,6 +22,7 @@ interface IPlayerConstructor {
   characterLevel?: number;
 }
 
+// TODO-FEATURE ALl characters should behave like Enemy
 class Player extends BaseEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
   [LEVEL_COMP]: LevelComp;

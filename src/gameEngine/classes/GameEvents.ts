@@ -90,7 +90,6 @@ class GameEvents {
   }
 
   pushEvent(event:GameEvent) {
-    console.log('Pushed event', event);
     this.nextEvents.push(event);
   }
 

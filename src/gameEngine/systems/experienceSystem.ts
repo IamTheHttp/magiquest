@@ -23,7 +23,6 @@ function experienceSystem(systemArguments: ISystemArguments) {
 
 
       player[EXPERIENCE_COMP].XP = currentXP + newXP;
-      console.log(player[EXPERIENCE_COMP].XP);
     }
   });
 }

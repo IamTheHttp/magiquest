@@ -24,7 +24,6 @@ export enum AllowedQuestIDs {
   CLEAR_CAMP = 'CLEAR_CAMP'
 }
 
-
 export enum CHARACTERS {
   ENEMY = 'ENEMY',
   FAM_NPC = 'FAM_NPC',
@@ -32,7 +31,8 @@ export enum CHARACTERS {
   IMP = 'IMP',
   GARGOYLE = 'GARGOYLE',
   DEMON = 'DEMON',
-  VAMPIRE = 'VAMPIRE'
+  VAMPIRE = 'VAMPIRE',
+  PLAYER = 'PLAYER'
 }
 
 
