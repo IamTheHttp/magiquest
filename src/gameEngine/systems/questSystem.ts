@@ -43,14 +43,16 @@ function questSystem(systemArguments: ISystemArguments) {
       let {entity} = gameEvent.readEvent();
 
       killQuests.forEach((quest) => {
-        let locationID = entity[SPAWNED_COMP].spawningTileLocationID;
+        if (entity.hasComponents(SPAWNED_COMP)) {
+          let locationID = entity[SPAWNED_COMP].spawningTileLocationID;
 
-        if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
-          if (locationID === quest[KILL_QUEST_DATA_COMP].data.kill.location) {
-            quest[KILL_QUEST_DATA_COMP].data.kill.killed++;
+          if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
+            if (locationID === quest[KILL_QUEST_DATA_COMP].data.kill.location) {
+              quest[KILL_QUEST_DATA_COMP].data.kill.killed++;
 
-            if (quest.isPostReqComplete()) {
-              quest.setState(AllowedQuestState.DONE);
+              if (quest.isPostReqComplete()) {
+                quest.setState(AllowedQuestState.DONE);
+              }
             }
           }
         }
