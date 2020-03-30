@@ -43,8 +43,9 @@ function attackSystem(systemArguments: ISystemArguments) {
 
         let entTarget = targetTile.entities[entID] as Character;
 
-        // do the attack
+        // do the attack, ensure health is >= 0
         entTarget[HEALTH_COMP].current -= dmg;
+        entTarget[HEALTH_COMP].current = Math.max(entTarget[HEALTH_COMP].current, 0);
 
         new ShockWave({
           x: entity.getPos().x,
