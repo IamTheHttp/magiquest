@@ -30,9 +30,6 @@ $ratio: 1.66666;
 }
 
 .wrapper {
-  background-color:$border-dark;
-  border:5px solid $border-light;
-  padding:$border-width;
   width:100%;
   margin-left:auto;
   margin-right:auto;
@@ -82,3 +79,8 @@ $ratio: 1.66666;
 }
 
 
+
+.game-ui {
+  height:100px;
+  background-color:green;
+}

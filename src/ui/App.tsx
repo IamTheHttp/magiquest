@@ -201,8 +201,9 @@ class App extends React.Component<any, IState> {
   resize() {
     let widthToHeight = 1.6666; // TODO is this magical ?
     let editorHeight = this.state.isEditing ? 170 : 0;
+    let UIHeight = 100;
     let newWidth = window.innerWidth;
-    let newHeight = window.innerHeight - editorHeight;
+    let newHeight = window.innerHeight - UIHeight - editorHeight;
     let newWidthToHeight = newWidth / newHeight;
 
     let gameArea = document.querySelector('.wrapper') as HTMLElement;
@@ -266,6 +267,9 @@ class App extends React.Component<any, IState> {
               this.game.setPlayerPosition(col, row);
             }}
           />}
+
+          <div className='game-ui'>
+          </div>
           <div
             className='wrapper'
           >
