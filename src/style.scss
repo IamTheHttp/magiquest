@@ -79,8 +79,21 @@ $ratio: 1.66666;
 }
 
 
-
 .game-ui {
   height:100px;
   background-color:green;
+
+  .life-bar {
+    height:20px;
+    width:200px;
+    border:1px solid white;
+    background-color:black;
+
+    &__filled {
+      background-color:red;
+      height:100%;
+      width:100px;
+    }
+  }
 }
+
