@@ -11,6 +11,7 @@ import IGameCanvas  from "game-platform/types/lib/GameCanvas/GameCanvas";
 import {ILevelArea, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
+import resizeGameElements from "./utils/resizeGameElements";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -199,30 +200,7 @@ class App extends React.Component<any, IState> {
 
 
   resize() {
-    let widthToHeight = 1.6666; // TODO is this magical ?
-    let editorHeight = this.state.isEditing ? 170 : 0;
-    let UIHeight = 100;
-    let newWidth = window.innerWidth;
-    let newHeight = window.innerHeight - UIHeight - editorHeight;
-    let newWidthToHeight = newWidth / newHeight;
-
-    let gameArea = document.querySelector('.wrapper') as HTMLElement;
-    let gameUI = document.querySelector('.game-ui') as HTMLElement;
-
-    if (gameArea) {
-      if (newWidthToHeight > widthToHeight) {
-        newWidth = newHeight * widthToHeight;
-        gameUI.style.width = `${newWidth}px`;
-        gameUI.style.marginLeft = 'auto';
-        gameUI.style.marginRight = 'auto';
-        gameArea.style.height = `${newHeight}px`;
-        gameArea.style.width = `${newWidth}px`;
-      } else {
-        newHeight = newWidth / widthToHeight;
-        gameArea.style.height = `${newHeight}px`;
-        gameArea.style.width = `${newWidth}px`;
-      }
-    }
+    resizeGameElements(this.state.isEditing);
   }
 
   render() {
@@ -273,6 +251,9 @@ class App extends React.Component<any, IState> {
           />}
 
           <div className='game-ui'>
+            <div className='life-bar'>
+              <div className='life-bar__filled'/>
+            </div>
           </div>
           <div
             className='wrapper'
