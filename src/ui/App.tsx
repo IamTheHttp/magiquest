@@ -207,10 +207,14 @@ class App extends React.Component<any, IState> {
     let newWidthToHeight = newWidth / newHeight;
 
     let gameArea = document.querySelector('.wrapper') as HTMLElement;
+    let gameUI = document.querySelector('.game-ui') as HTMLElement;
 
     if (gameArea) {
       if (newWidthToHeight > widthToHeight) {
         newWidth = newHeight * widthToHeight;
+        gameUI.style.width = `${newWidth}px`;
+        gameUI.style.marginLeft = 'auto';
+        gameUI.style.marginRight = 'auto';
         gameArea.style.height = `${newHeight}px`;
         gameArea.style.width = `${newWidth}px`;
       } else {
