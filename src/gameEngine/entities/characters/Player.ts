@@ -22,11 +22,6 @@ class Player extends Character {
         name: CANVAS_OUTPUT,
         shape: AllowedUIShapes.PLAYER_CHAR,
         data: {}
-      },
-      {
-        name: CANVAS_OUTPUT,
-        shape: AllowedUIShapes.HEALTH_BAR_SHAPE,
-        data: {}
       }]
     ));
 

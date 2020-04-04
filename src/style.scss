@@ -80,20 +80,47 @@ $ratio: 1.66666;
 
 
 .game-ui {
+  box-sizing: border-box;
   height:100px;
   background-color:green;
+  display:flex;
+  border:1px solid white;
+  padding:25px;
 
-  .life-bar {
+  .col {
+    width:200px;
+    margin-right:50px;
+  }
+
+  .stats {
+    position:absolute;
+    top:1px;
+    margin-left:auto;
+    margin-right:auto;
+    left:3%;
+    color:white;
+  }
+  .bar {
+    position:relative;
     height:20px;
     width:200px;
     border:1px solid white;
     background-color:black;
+    margin-bottom:10px;
 
     &__filled {
-      background-color:red;
       height:100%;
       width:100px;
+      &.xp {
+        background-color:white;
+      }
+      &.health {
+        background-color:#c30000;
+      }
     }
   }
 }
 
+.col {
+
+}

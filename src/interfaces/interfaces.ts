@@ -1,5 +1,6 @@
 import IndexedTile from "classes/IndexedTile";
 import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
+import {HEALTH_COMP} from "components/ComponentNamesConfig";
 
 /**
  * Represents the resolution properties of the game
@@ -86,3 +87,27 @@ export interface IUISection {
   };
 }
 
+export interface IUIEvent {
+  type:string;
+  name:string;
+}
+
+export interface IPlayerHealthChange extends IUIEvent{
+  type: 'UI_EVENT',
+  name: 'PLAYER_HEALTH_CHANGE',
+  maxHealth: number,
+  currentHealth: number,
+  percentHealth: number
+}
+
+
+export interface IPlayerUIState {
+  maxHealth: number,
+  currentHealth: number,
+  percentHealth: number
+}
+
+/**
+ * FUNCTION TYPES
+ */
+export type IListenToUIEvents = (event: IPlayerHealthChange) => void;

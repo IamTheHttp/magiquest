@@ -7,11 +7,13 @@ import levelConfig from 'levels/levelConfig';
 import tileSet from 'assets/tileSet.png';
 import {Entity} from 'gameEngine/BaseEntity';
 import Editor from './Editor';
-import IGameCanvas  from "game-platform/types/lib/GameCanvas/GameCanvas";
+import IGameCanvas from "game-platform/types/lib/GameCanvas/GameCanvas";
 import {ILevelArea, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
+import {IListenToUIEvents, IPlayerHealthChange, IPlayerUIState} from "../interfaces/interfaces";
+import GameUI from "./GameUI";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -31,9 +33,8 @@ type IState = {
   clickedTileIdx: any; // TODO this should not be any
   editorTileType: number; // TODO this should not be any
   minimapAPI: any; // TODO this should not be any
+  playerState: IPlayerUIState
 };
-
-
 
 
 class App extends React.Component<any, IState> {
@@ -57,7 +58,12 @@ class App extends React.Component<any, IState> {
       mapAPI: null,
       clickedTileIdx: null,
       editorTileType: null,
-      minimapAPI: null
+      minimapAPI: null,
+      playerState: {
+        maxHealth: 0,
+        currentHealth: 0,
+        percentHealth: 0
+      }
     };
 
     // This is the 'Player licked play' button
@@ -67,11 +73,15 @@ class App extends React.Component<any, IState> {
     }, 10);
 
 
-    window.addEventListener('resize', () => {this.resize()});
-    window.addEventListener('orientationchange', () => {this.resize()});
+    window.addEventListener('resize', () => {
+      this.resize()
+    });
+    window.addEventListener('orientationchange', () => {
+      this.resize()
+    });
   }
 
-  initGameCanvas(mapWidth:number, mapHeight:number): {map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
+  initGameCanvas(mapWidth: number, mapHeight: number): { map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
     return new GameCanvas({
       mapHeight,
       mapWidth,
@@ -109,7 +119,7 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  initGameLoop(areaToLoad: ILevelArea, mapWidth:number, mapHeight:number) {
+  initGameLoop(areaToLoad: ILevelArea, mapWidth: number, mapHeight: number, listenToEvents: IListenToUIEvents) {
     return new GameLoop({
       levelArea: areaToLoad,
       onAreaChange: (level, area) => {
@@ -126,7 +136,8 @@ class App extends React.Component<any, IState> {
         viewWidth: resolution.width,
         mapHeight,
         mapWidth
-      }
+      },
+      listenToEvents
     });
   }
 
@@ -151,7 +162,7 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  changeMap(levelNum: number, areaNum:number) {
+  changeMap(levelNum: number, areaNum: number) {
     this.setState({
       currentLevel: levelNum,
       currentArea: areaNum
@@ -184,7 +195,16 @@ class App extends React.Component<any, IState> {
     let mapHeight = areaTileMap.length * bit;
     // Start the game loop
     setTimeout(() => {
-      this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight);
+      this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight, (event) => {
+        this.setState({
+          playerState: {
+            maxHealth: event.maxHealth,
+            currentHealth: event.currentHealth,
+            percentHealth: event.percentHealth
+          }
+        })
+      });
+
       window.game = this.game;
       registerUserInputEvents(this.game);
     }, 0);
@@ -249,12 +269,9 @@ class App extends React.Component<any, IState> {
               this.game.setPlayerPosition(col, row);
             }}
           />}
-
-          <div className='game-ui'>
-            <div className='life-bar'>
-              <div className='life-bar__filled'/>
-            </div>
-          </div>
+          <GameUI
+            {...this.state.playerState}
+          />
           <div
             className='wrapper'
           >

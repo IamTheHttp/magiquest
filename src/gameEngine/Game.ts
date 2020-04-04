@@ -25,16 +25,22 @@ import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea} from "../interfaces/levels.i";
-import {IAction, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
+import {
+  IAction,
+  IListenToUIEvents,
+  IPlayerHealthChange,
+  ITileIndexMap,
+  IViewSize
+} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
-import {PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
+import {HEALTH_COMP, PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
-import GameEvents, {EnemyKilledEvent} from "classes/GameEvents";
+import GameEvents, {EnemyKilledEvent, IGameEvent, PlayerIsAttacked} from "classes/GameEvents";
 import experienceSystem from "systems/experienceSystem";
 import getColRowByTileIdx from "utils/getColRowByTileIdx";
-
+import Player from "entities/characters/Player";
 let {Entity, Engine} = GAME_PLATFORM;
 
 
@@ -50,6 +56,7 @@ interface IGameConstructor {
   levelArea: ILevelArea;
   viewSize: IViewSize;
   onAreaChange: onAreaChangeCallback;
+  listenToEvents: IListenToUIEvents
 }
 
 
@@ -64,9 +71,11 @@ class GameLoop {
   renderBackground:boolean;
   isRunning: boolean;
   gameEvents: GameEvents;
+  eventListener: IListenToUIEvents;
 
-  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange}: IGameConstructor) {
+  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange, listenToEvents}: IGameConstructor) {
     Entity.reset();
+    this.eventListener = listenToEvents;
 
     let engine = new Engine();
     this.engine = engine;
@@ -92,6 +101,8 @@ class GameLoop {
     engine.addSystem(questSystem);
     engine.addSystem(experienceSystem);
 
+    // DestroyEntity system
+    // TODO export to a system file
     engine.addSystem((systemArguments: ISystemArguments) => {
       let {gameEvents} = systemArguments;
       gameEvents.getEvents().forEach((event) => {
@@ -101,10 +112,41 @@ class GameLoop {
       });
     });
 
-    engine.addSystem(() => {
+    // End Tick system
+    // TODO export to a system file
+    engine.addSystem((systemArguments: ISystemArguments) => {
+      let {gameEvents} = systemArguments;
+      //notify UI (App.tsx) of certain events
+
+      gameEvents.getEvents().forEach((event) => {
+        // we currently only notify PlayerIsAttacked
+        // TODO, do we want a more general 'NotifyUISystem' event?
+        // TODO this feels too specific :)
+        if (event instanceof PlayerIsAttacked) {
+          this.eventListener({
+            type: 'UI_EVENT',
+            name: 'PLAYER_HEALTH_CHANGE',
+            maxHealth: event.entity[HEALTH_COMP].max,
+            currentHealth: event.entity[HEALTH_COMP].current,
+            percentHealth: event.entity[HEALTH_COMP].current / event.entity[HEALTH_COMP].max
+          });
+        }
+      });
+
+      // throw away old events, create a new empty list
       this.gameEvents.endTick();
     });
 
+    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
+
+    this.eventListener({
+      type: 'UI_EVENT',
+      name: 'PLAYER_HEALTH_CHANGE',
+      maxHealth: player[HEALTH_COMP].max,
+      currentHealth: player[HEALTH_COMP].current,
+      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max
+    });
+    // TODO resume? maybe start()?
     this.resume();
   }
 

@@ -1,5 +1,6 @@
 import BaseEntity from "BaseEntity";
 import Character from "gameEngine/entities/characters/Character";
+import Player from "entities/characters/Player";
 
 export interface IGameEvent {
   readEvent():{
@@ -28,6 +29,17 @@ export class EnemyKilledEvent extends GameEvent {
 
 export class InteractWithNPC extends GameEvent {
   constructor(public entity:BaseEntity) {
+    super();
+  }
+  readEvent() {
+    return {
+      entity:this.entity
+    }
+  }
+}
+
+export class PlayerIsAttacked extends GameEvent {
+  constructor(public entity:Player) {
     super();
   }
   readEvent() {

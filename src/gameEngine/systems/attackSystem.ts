@@ -1,13 +1,14 @@
 import GAME_PLATFORM from 'game-platform';
 import {
-  ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP
+  ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
-import {EnemyKilledEvent} from "classes/GameEvents";
+import {EnemyKilledEvent, PlayerIsAttacked} from "classes/GameEvents";
 import Character from "gameEngine/entities/characters/Character";
+import Player from "entities/characters/Player";
 
 let { Entity, entityLoop } = GAME_PLATFORM;
 
@@ -46,6 +47,10 @@ function attackSystem(systemArguments: ISystemArguments) {
         // do the attack, ensure health is >= 0
         entTarget[HEALTH_COMP].current -= dmg;
         entTarget[HEALTH_COMP].current = Math.max(entTarget[HEALTH_COMP].current, 0);
+
+        if (entTarget[PLAYER_CONTROLLED_COMP]) {
+          gameEvents.pushEvent(new PlayerIsAttacked(entTarget as Player))
+        }
 
         new ShockWave({
           x: entity.getPos().x,

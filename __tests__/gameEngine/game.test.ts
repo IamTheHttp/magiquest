@@ -13,6 +13,7 @@ describe('Full integration test for game.ts', () => {
 
   it('can initialize the game', () => {
     new GameLoop({
+      listenToEvents: () => {},
       levelArea: {
         locations: [{
           locationCharacterLevel: 1,
