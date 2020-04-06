@@ -1,4 +1,4 @@
-/**Generated at Mon Apr 06 2020 20:03:24 GMT+0300 (Israel Daylight Time)}**/(function webpackUniversalModuleDefinition(root, factory) {
+/**Generated at Mon Apr 06 2020 20:11:35 GMT+0300 (Israel Daylight Time)}**/(function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
@@ -6116,6 +6116,7 @@ if (!document.getElementById('progress')) {
     div.id = 'progress';
     document.body.appendChild(div);
 }
+document.title = 'MAGIQUEST!';
 var appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';

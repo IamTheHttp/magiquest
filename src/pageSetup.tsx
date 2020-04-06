@@ -22,6 +22,7 @@ if (!document.getElementById('progress')) {
   document.body.appendChild(div);
 }
 
+document.title = 'MAGIQUEST!';
 
 let appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading game assets...';
