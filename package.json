@@ -6,6 +6,7 @@
   "scripts": {
     "init": "npm install && jarb init",
     "start": "jarb devServer --mode=development",
+    "build:dev": "jarb build --mode=development",
     "build": "jarb build",
     "analyze": "jarb analyze --analyzeBundle",
     "test": "jarb test --coverage",
