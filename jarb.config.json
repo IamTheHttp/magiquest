@@ -2,15 +2,15 @@
   "lang" : "ts",
 	"env": {
 		"production": {
-			"assetsPath": "/",
+			"assetsPath": "./",
 			"minified": true
 		},
 		"staging": {
-			"assetsPath": "/",
+			"assetsPath": "./",
 			"minified": true
 		},
 		"development": {
-			"assetsPath": "/",
+			"assetsPath": "./",
 			"minified": false
 		}
 	}
