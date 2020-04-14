@@ -4,20 +4,19 @@ function resizeGameElements(isEditing = false) {
   let widthToHeight = 1.6666; // TODO is this magical ?
   let editorHeight = isEditing ? 170 : 0;
 
-  let styles = window.getComputedStyle(gameUI);
-  let heightStyle = styles.getPropertyValue('height');
+  let gameUIStyles = window.getComputedStyle(gameUI);
+  let gameUIWidthStyle = gameUIStyles.getPropertyValue('width');
 
-  let gameUIHeight = +heightStyle.replace('px', '');
-  let newWidth = window.innerWidth;
-  let newHeight = window.innerHeight - gameUIHeight - editorHeight;
+  let gameUIWidth = +gameUIWidthStyle.replace('px', '');
+  let newWidth = window.innerWidth - gameUIWidth;
+  let newHeight = window.innerHeight - editorHeight;
   let newWidthToHeight = newWidth / newHeight;
+
+  gameArea.style.marginRight = `${gameUIWidth}px`;
 
   if (gameArea) {
     if (newWidthToHeight > widthToHeight) {
       newWidth = newHeight * widthToHeight;
-      gameUI.style.width = `${newWidth}px`;
-      gameUI.style.marginLeft = 'auto';
-      gameUI.style.marginRight = 'auto';
       gameArea.style.height = `${newHeight}px`;
       gameArea.style.width = `${newWidth}px`;
     } else {
