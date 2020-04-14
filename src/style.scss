@@ -80,11 +80,15 @@ $ratio: 1.66666;
 
 .game-ui {
   box-sizing: border-box;
-  height:100px;
-  background-color:green;
-  display:flex;
-  border:1px solid white;
-  padding:5px;
+  background-color: #333333;
+  border: 1px solid white;
+  padding: 5px;
+  width: 20%;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+  color:white;
 
   .col {
     width:120px;
@@ -102,11 +106,10 @@ $ratio: 1.66666;
   }
   .bar {
     position:relative;
-    height:18%;
+    height:20px;
     width:100%;
     border:1px solid white;
     background-color:black;
-    margin-bottom:5%;
 
     &__filled {
       height:100%;
