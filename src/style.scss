@@ -9,6 +9,7 @@ canvas {
 body {
   margin:0;
   background-color:black;
+  color:white;
 }
 
 
@@ -78,51 +79,7 @@ $ratio: 1.66666;
   font-size:50px;
 }
 
-.game-ui {
-  box-sizing: border-box;
-  background-color: #333333;
-  border: 1px solid white;
-  padding: 5px;
-  width: 20%;
-  position: absolute;
-  right: 0;
-  z-index: 1;
-  height: 100%;
-  color:white;
-
-  .col {
-    width:120px;
-    margin-right:50px;
-  }
-
-  .stats {
-    position:absolute;
-    top:0px;
-    margin-left:auto;
-    margin-right:auto;
-    left:3%;
-    color:white;
-    font-size:1rem;
-  }
-  .bar {
-    position:relative;
-    height:20px;
-    width:100%;
-    border:1px solid white;
-    background-color:black;
-
-    &__filled {
-      height:100%;
-      &.xp {
-        background-color:white;
-      }
-      &.health {
-        background-color:#c30000;
-      }
-    }
-  }
+.row {
+  display:flex;
 }
 
-.col {
-
-}

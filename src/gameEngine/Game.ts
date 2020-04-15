@@ -82,7 +82,7 @@ class GameLoop {
     this.getMapAPI = getMapAPI;
     this.getMinimapAPI = getMinimapAPI;
     // TODO this probably needs to be related to player movement speed
-    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 2000);
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
     this.dispatchAction = this.dispatchAction.bind(this);
     this.onAreaChange = onAreaChange;
 

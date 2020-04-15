@@ -104,7 +104,8 @@ export interface IPlayerHealthChange extends IUIEvent{
 export interface IPlayerUIState {
   maxHealth: number,
   currentHealth: number,
-  percentHealth: number
+  percentHealth: number,
+  showSkillTree: boolean
 }
 
 /**

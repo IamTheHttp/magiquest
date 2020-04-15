@@ -14,6 +14,7 @@ import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
 import {IListenToUIEvents, IPlayerHealthChange, IPlayerUIState} from "../interfaces/interfaces";
 import GameUI from "./GameUI";
+import SkillTree from "./SkillTree";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -62,7 +63,8 @@ class App extends React.Component<any, IState> {
       playerState: {
         maxHealth: 0,
         currentHealth: 0,
-        percentHealth: 0
+        percentHealth: 0,
+        showSkillTree: false
       }
     };
 
@@ -196,12 +198,14 @@ class App extends React.Component<any, IState> {
     // Start the game loop
     setTimeout(() => {
       this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight, (event) => {
+        let newPlayerState = Object.assign({}, this.state.playerState, {
+          maxHealth: event.maxHealth,
+          currentHealth: event.currentHealth,
+          percentHealth: event.percentHealth
+        });
+
         this.setState({
-          playerState: {
-            maxHealth: event.maxHealth,
-            currentHealth: event.currentHealth,
-            percentHealth: event.percentHealth
-          }
+          playerState: newPlayerState
         })
       });
 
@@ -221,6 +225,18 @@ class App extends React.Component<any, IState> {
 
   resize() {
     resizeGameElements(this.state.isEditing);
+  }
+
+  toggleShowSkillTree() {
+    let playerState = {
+      ...this.state.playerState
+    };
+
+    playerState.showSkillTree = !playerState.showSkillTree;
+
+    this.setState({
+      playerState
+    });
   }
 
   render() {
@@ -271,7 +287,11 @@ class App extends React.Component<any, IState> {
           />}
           <GameUI
             {...this.state.playerState}
+            onShowSkillsClicked={() => { this.toggleShowSkillTree() }}
           />
+          {this.state.playerState.showSkillTree && <SkillTree
+            onCloseSkillTree={() => {this.toggleShowSkillTree()}}
+          />}
           <div
             className='wrapper'
           >
