@@ -20,6 +20,11 @@
     bordeR: 0;
   }
 
+  .skill {
+    &.owned {
+      color:green;
+    }
+  }
   .skill-tabs {
     .skill-tab {
       flex: 1 1 0px;

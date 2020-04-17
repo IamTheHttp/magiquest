@@ -4,17 +4,16 @@ import GameLoop from 'gameEngine/Game';
 import {bit, resolution, tileTypes} from 'gameEngine/config';
 import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 import levelConfig from 'levels/levelConfig';
-import tileSet from 'assets/tileSet.png';
 import {Entity} from 'gameEngine/BaseEntity';
 import Editor from './Editor';
-import IGameCanvas from "game-platform/types/lib/GameCanvas/GameCanvas";
 import {ILevelArea, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
-import {IListenToUIEvents, IPlayerHealthChange, IPlayerUIState} from "../interfaces/interfaces";
+import {IListenToUIEvents, IPlayerStateChange, IPlayerUIState} from "../interfaces/interfaces";
 import GameUI from "./GameUI";
 import SkillTree from "./SkillTree";
+import {AllowedActions} from "gameConstants";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -34,7 +33,7 @@ type IState = {
   clickedTileIdx: any; // TODO this should not be any
   editorTileType: number; // TODO this should not be any
   minimapAPI: any; // TODO this should not be any
-  playerState: IPlayerUIState
+  playerState: IPlayerUIState,
 };
 
 
@@ -64,7 +63,8 @@ class App extends React.Component<any, IState> {
         maxHealth: 0,
         currentHealth: 0,
         percentHealth: 0,
-        showSkillTree: false
+        showSkillTree: false,
+        skills: []
       }
     };
 
@@ -201,7 +201,8 @@ class App extends React.Component<any, IState> {
         let newPlayerState = Object.assign({}, this.state.playerState, {
           maxHealth: event.maxHealth,
           currentHealth: event.currentHealth,
-          percentHealth: event.percentHealth
+          percentHealth: event.percentHealth,
+          skills: event.skills
         });
 
         this.setState({
@@ -290,7 +291,16 @@ class App extends React.Component<any, IState> {
             onShowSkillsClicked={() => { this.toggleShowSkillTree() }}
           />
           {this.state.playerState.showSkillTree && <SkillTree
+            currentPlayerState={{...this.state.playerState}}
             onCloseSkillTree={() => {this.toggleShowSkillTree()}}
+            onSkillClick={(skillID) => {
+              this.game.dispatchAction({
+                name: AllowedActions.BUY_SKILL,
+                data: {
+                  skillID
+                }
+              });
+            }}
           />}
           <div
             className='wrapper'

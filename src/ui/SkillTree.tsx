@@ -1,70 +1,20 @@
 import * as React from "react";
 import './SkillTree.scss';
 import {useState} from "react";
+import skillTreesConfig, {
+  AllowedSkills,
+  AllowedTrees,
+  ISkill,
+  ISkillTree,
+  ISkillTreeConfig,
+} from "../data/skillConfig";
+import {IPlayerUIState} from "../interfaces/interfaces";
 
-interface ISkillTreeProps {
+export interface ISkillTreeProps {
   onCloseSkillTree: () => void;
+  onSkillClick: (skillID: AllowedSkills) => void,
+  currentPlayerState: IPlayerUIState
 }
-
-
-export enum AllowedTrees {
-  MAGIC = 'MAGIC',
-  TECH = 'TECH',
-  ZEN = 'ZEN',
-  FORCE = 'FORCE'
-}
-
-export enum AllowedSkills {
-  FIRE_BULLET = 'FIRE_BULLET',
-}
-
-
-
-export interface ISkill {
-  id:AllowedSkills,
-  name: string,
-  cost: number
-}
-
-export interface ISkillTree {
-  id: AllowedTrees,
-  name: string,
-  skills: ISkill[]
-}
-export type ISkillTreeConfig = {
-  [key in AllowedTrees]: ISkillTree
-}
-
-let skillTreesConfig: ISkillTreeConfig = {
-  [AllowedTrees.MAGIC]: {
-    id: AllowedTrees.MAGIC,
-    name: 'Magic',
-    skills: [
-      {
-        id: AllowedSkills.FIRE_BULLET,
-        name: 'Fire Bullet',
-        cost: 100
-      }
-    ]
-  },
-  [AllowedTrees.FORCE]: {
-    id: AllowedTrees.FORCE,
-    name: 'Force',
-    skills: []
-  },
-  [AllowedTrees.ZEN]: {
-    id: AllowedTrees.ZEN,
-    name: 'Zen',
-    skills: []
-  },
-  [AllowedTrees.TECH]: {
-    id: AllowedTrees.TECH,
-    name: 'Tech',
-    skills: []
-  }
-};
-
-
 
 
 function skillConfigToArray(skillTreesConfig: ISkillTreeConfig) {
@@ -100,6 +50,7 @@ function SkillTree(props: ISkillTreeProps) {
   const arrSkillTrees = skillConfigToArray(skillTreesConfig);
   const skillsToRender = getSkillsToRender(skillTreesConfig[activeTreeID]);
 
+  console.log(props.currentPlayerState);
   return (
     <div className='skill-tree'>
 
@@ -125,7 +76,13 @@ function SkillTree(props: ISkillTreeProps) {
 
       {skillsToRender.length > 0 && <div>
         {skillsToRender.map((skill) => {
-          return <div key={skill.id}>
+          return <div
+            key={skill.id}
+            className={`skill ${props.currentPlayerState.skills.includes(skill.id) ? 'owned' : ''} `}
+            onClick={() => {
+              props.onSkillClick(skill.id);
+            }}
+          >
             <span> {skill.name} </span> <span> {skill.cost} </span>
           </div>
         })}

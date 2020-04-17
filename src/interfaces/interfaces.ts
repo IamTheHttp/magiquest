@@ -1,6 +1,6 @@
 import IndexedTile from "classes/IndexedTile";
 import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
-import {HEALTH_COMP} from "components/ComponentNamesConfig";
+import {AllowedSkills} from "../data/skillConfig";
 
 /**
  * Represents the resolution properties of the game
@@ -29,9 +29,11 @@ export type ISpawnableEnemies = Array<{
  */
 export interface IAction {
   name: AllowedActions,
+  data?: { // todo move direction into data
+    [key: string]: any
+  },
   direction?: DIRECTIONS_OPTIONS
 }
-
 
 /**
  * ANIMATION INTERFACES
@@ -92,12 +94,13 @@ export interface IUIEvent {
   name:string;
 }
 
-export interface IPlayerHealthChange extends IUIEvent{
+export interface IPlayerStateChange extends IUIEvent{
   type: 'UI_EVENT',
-  name: 'PLAYER_HEALTH_CHANGE',
+  name: 'PLAYER_STATE_CHANGE',
   maxHealth: number,
   currentHealth: number,
-  percentHealth: number
+  percentHealth: number,
+  skills: AllowedSkills[]
 }
 
 
@@ -105,10 +108,11 @@ export interface IPlayerUIState {
   maxHealth: number,
   currentHealth: number,
   percentHealth: number,
-  showSkillTree: boolean
+  showSkillTree: boolean,
+  skills: AllowedSkills[]
 }
 
 /**
  * FUNCTION TYPES
  */
-export type IListenToUIEvents = (event: IPlayerHealthChange) => void;
+export type IListenToUIEvents = (event: IPlayerStateChange) => void;

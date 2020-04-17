@@ -5,13 +5,15 @@ import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import {AllowedSkills} from "../../../src/data/skillConfig";
+import {CHARACTER_SKILLS_COMP} from "components/ComponentNamesConfig";
+import {PlayerSkillsChangeEvent} from "classes/GameEvents";
 
 let {Entity} = GAME_PLATFORM;
 
-describe('Tests for the AI system', () => {
-  let systemArguments: ISystemArguments, spyPan, player: BaseEntity;
+describe('Tests for the User Input system', () => {
+  let systemArguments: ISystemArguments, spyPan, player: Player;
 
   beforeEach(() => {
     Entity.reset();
@@ -42,5 +44,19 @@ describe('Tests for the AI system', () => {
     userInputSystem(systemArguments);
 
     expect(player.getMoveDirection()).toBe(DIRECTIONS_OPTIONS.DOWN)
+  });
+
+  it('Buys a skill', () => {
+    //some sanity
+    pushAction({
+      name: AllowedActions.BUY_SKILL,
+      data: {
+        skillID: AllowedSkills.FIRE_BULLET
+      }
+    });
+    userInputSystem(systemArguments);
+
+    expect(player[CHARACTER_SKILLS_COMP].skills).toContain(AllowedSkills.FIRE_BULLET);
+    expect(systemArguments.gameEvents.nextEvents[0]).toBeInstanceOf(PlayerSkillsChangeEvent);
   });
 });

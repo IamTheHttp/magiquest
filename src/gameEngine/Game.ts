@@ -12,7 +12,6 @@ import charSpriteURL from 'assets/characters.png';
 import portalSystem, {isNonEmptyArray} from 'gameEngine/systems/portalSystem';
 
 import IEngine from "game-platform/types/lib/Engine/Engine";
-import IEntity from "game-platform/types/lib/ECS/Entity";
 
 import {assetLoader} from 'cache/assetLoader';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
@@ -25,22 +24,17 @@ import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea} from "../interfaces/levels.i";
-import {
-  IAction,
-  IListenToUIEvents,
-  IPlayerHealthChange,
-  ITileIndexMap,
-  IViewSize
-} from "../interfaces/interfaces";
+import {IAction, IListenToUIEvents, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
-import {HEALTH_COMP, PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
+import {CHARACTER_SKILLS_COMP, HEALTH_COMP, PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
-import GameEvents, {EnemyKilledEvent, IGameEvent, PlayerIsAttacked} from "classes/GameEvents";
+import GameEvents, {EnemyKilledEvent, PlayerIsAttacked, PlayerSkillsChangeEvent} from "classes/GameEvents";
 import experienceSystem from "systems/experienceSystem";
 import getColRowByTileIdx from "utils/getColRowByTileIdx";
 import Player from "entities/characters/Player";
+
 let {Entity, Engine} = GAME_PLATFORM;
 
 
@@ -119,16 +113,18 @@ class GameLoop {
       //notify UI (App.tsx) of certain events
 
       gameEvents.getEvents().forEach((event) => {
-        // we currently only notify PlayerIsAttacked
         // TODO, do we want a more general 'NotifyUISystem' event?
         // TODO this feels too specific :)
-        if (event instanceof PlayerIsAttacked) {
+        // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
+        if (event instanceof PlayerIsAttacked || event instanceof PlayerSkillsChangeEvent) {
+          // TODO this.eventListener is a terrible name...
           this.eventListener({
             type: 'UI_EVENT',
-            name: 'PLAYER_HEALTH_CHANGE',
+            name: 'PLAYER_STATE_CHANGE',
             maxHealth: event.entity[HEALTH_COMP].max,
             currentHealth: event.entity[HEALTH_COMP].current,
-            percentHealth: event.entity[HEALTH_COMP].current / event.entity[HEALTH_COMP].max
+            percentHealth: event.entity[HEALTH_COMP].current / event.entity[HEALTH_COMP].max,
+            skills: [...player[CHARACTER_SKILLS_COMP].skills]
           });
         }
       });
@@ -141,10 +137,11 @@ class GameLoop {
 
     this.eventListener({
       type: 'UI_EVENT',
-      name: 'PLAYER_HEALTH_CHANGE',
+      name: 'PLAYER_STATE_CHANGE',
       maxHealth: player[HEALTH_COMP].max,
       currentHealth: player[HEALTH_COMP].current,
-      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max
+      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
+      skills: [...player[CHARACTER_SKILLS_COMP].skills]
     });
     // TODO resume? maybe start()?
     this.resume();
