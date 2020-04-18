@@ -1,8 +1,9 @@
 .skill-tree {
   background-color: #333333;
+  border: 1px solid white;
   position: absolute;
   z-index: 2;
-  height: 200px;
+  height: 350px;
   width: 50%;
   left: 50%;
   margin-left: -25%;
@@ -11,26 +12,70 @@
 
   .close-container {
     display:flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+
+    h3 {
+      font-size: 1.5rem;
+    }
+    .remaining-xp {
+      font-size:1rem;
+      color:grey;
+    }
   }
+
   .close {
     font-size: 35px;
     color: indianred;
     background-color: black;
     bordeR: 0;
+    margin-bottom: 20px;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
   }
 
   .skill {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    border: 1px solid white;
+    margin-top: 5px;
+    margin-left:5px;
+    background-color: black;
+    color: white;
+    height: 80px;
+    padding: 3px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    box-sizing: border-box;
+    width:calc(25% - 5px);
+
     &.owned {
       color:green;
     }
+
+    &.clicked {
+      border:1px dashed red;
+    }
+  }
+
+  .skill-details {
+    border-top:1px dashed white;
+    margin-top:10px;
   }
   .skill-tabs {
     .skill-tab {
       flex: 1 1 0px;
+      text-align: center;
+      background-color: black;
+      border: 1px solid white;
 
       &.active {
         background-color:white;
+        border:1px solid black;
         color:black;
       }
     }

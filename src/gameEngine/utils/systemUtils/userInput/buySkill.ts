@@ -1,14 +1,16 @@
-import {CHARACTER_SKILLS_COMP, HEALTH_COMP, PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {
+  CHARACTER_SKILLS_COMP,
+  EXPERIENCE_COMP,
+  PLAYER_CONTROLLED_COMP
+} from 'gameEngine/components/ComponentNamesConfig';
 import GAME_PLATFORM from 'game-platform';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
 import Player from "entities/characters/Player";
 import {IAction} from "../../../../interfaces/interfaces";
-import {AllowedSkills} from "../../../../data/skillConfig";
-import { PlayerSkillsChangeEvent} from "classes/GameEvents";
+import {AllowedSkills, skillsConfig} from "../../../../data/skillConfig";
+import {PlayerSkillsChangeEvent} from "classes/GameEvents";
 
 let {entityLoop} = GAME_PLATFORM;
-
-
 
 
 function buySkill(systemArguments: ISystemArguments, action: IAction) {
@@ -21,10 +23,14 @@ function buySkill(systemArguments: ISystemArguments, action: IAction) {
 
     let hasSkill = player[CHARACTER_SKILLS_COMP].skills.includes(skillID);
     if (!hasSkill) {
-      player[CHARACTER_SKILLS_COMP].skills.push(skillID);
 
-      let skillsChangeEvent = new PlayerSkillsChangeEvent(player);
-      gameEvents.pushEvent(skillsChangeEvent);
+      let skill = skillsConfig[skillID];
+      if (player[EXPERIENCE_COMP].XP > skill.cost) {
+        player[CHARACTER_SKILLS_COMP].skills.push(skillID);
+        player[EXPERIENCE_COMP].XP -= skill.cost;
+
+        gameEvents.pushEvent(new PlayerSkillsChangeEvent(player));
+      }
     }
   }
 }

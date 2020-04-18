@@ -19,7 +19,9 @@ function GameUI(props: IGameUIProps) {
 
       <h3>Exp</h3>
       <div className='bar'>
-        <div className='bar__filled xp'/>
+        <div className='bar__filled xp'>
+          <div className='stats'>{props.spendableXP}</div>
+        </div>
       </div>
 
       <div className='game-options'>

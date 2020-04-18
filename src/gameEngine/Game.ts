@@ -24,9 +24,14 @@ import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea} from "../interfaces/levels.i";
-import {IAction, IListenToUIEvents, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
-import {CHARACTER_SKILLS_COMP, HEALTH_COMP, PLAYER_CONTROLLED_COMP} from "components/ComponentNamesConfig";
+import {
+  CHARACTER_SKILLS_COMP,
+  EXPERIENCE_COMP,
+  HEALTH_COMP,
+  PLAYER_CONTROLLED_COMP
+} from "components/ComponentNamesConfig";
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
@@ -34,6 +39,7 @@ import GameEvents, {EnemyKilledEvent, PlayerIsAttacked, PlayerSkillsChangeEvent}
 import experienceSystem from "systems/experienceSystem";
 import getColRowByTileIdx from "utils/getColRowByTileIdx";
 import Player from "entities/characters/Player";
+import {PlayerStateChangeEvent} from "classes/PlayerState";
 
 let {Entity, Engine} = GAME_PLATFORM;
 
@@ -50,7 +56,7 @@ interface IGameConstructor {
   levelArea: ILevelArea;
   viewSize: IViewSize;
   onAreaChange: onAreaChangeCallback;
-  listenToEvents: IListenToUIEvents
+  gameEventListener: IGameEventListener
 }
 
 
@@ -65,11 +71,11 @@ class GameLoop {
   renderBackground:boolean;
   isRunning: boolean;
   gameEvents: GameEvents;
-  eventListener: IListenToUIEvents;
+  gameEventListener: IGameEventListener;
 
-  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange, listenToEvents}: IGameConstructor) {
+  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange, gameEventListener}: IGameConstructor) {
     Entity.reset();
-    this.eventListener = listenToEvents;
+    this.gameEventListener = gameEventListener;
 
     let engine = new Engine();
     this.engine = engine;
@@ -99,11 +105,18 @@ class GameLoop {
     // TODO export to a system file
     engine.addSystem((systemArguments: ISystemArguments) => {
       let {gameEvents} = systemArguments;
+      let hasEvents = gameEvents.getEvents().length > 0;
       gameEvents.getEvents().forEach((event) => {
+        console.log('KILLING IN TEH NAME OF');
         if (event instanceof EnemyKilledEvent) {
           event.readEvent().entity.destroy();
         }
       });
+
+      if (hasEvents) {
+        console.log('Notifying UI that enemies killed');
+        this.dispatchGameEvent(this.getPlayerStateEvent());
+      }
     });
 
     // End Tick system
@@ -117,15 +130,7 @@ class GameLoop {
         // TODO this feels too specific :)
         // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
         if (event instanceof PlayerIsAttacked || event instanceof PlayerSkillsChangeEvent) {
-          // TODO this.eventListener is a terrible name...
-          this.eventListener({
-            type: 'UI_EVENT',
-            name: 'PLAYER_STATE_CHANGE',
-            maxHealth: event.entity[HEALTH_COMP].max,
-            currentHealth: event.entity[HEALTH_COMP].current,
-            percentHealth: event.entity[HEALTH_COMP].current / event.entity[HEALTH_COMP].max,
-            skills: [...player[CHARACTER_SKILLS_COMP].skills]
-          });
+          this.dispatchGameEvent(this.getPlayerStateEvent());
         }
       });
 
@@ -133,18 +138,13 @@ class GameLoop {
       this.gameEvents.endTick();
     });
 
-    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
-
-    this.eventListener({
-      type: 'UI_EVENT',
-      name: 'PLAYER_STATE_CHANGE',
-      maxHealth: player[HEALTH_COMP].max,
-      currentHealth: player[HEALTH_COMP].current,
-      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
-      skills: [...player[CHARACTER_SKILLS_COMP].skills]
-    });
+    this.dispatchGameEvent(this.getPlayerStateEvent());
     // TODO resume? maybe start()?
     this.resume();
+  }
+
+  dispatchGameEvent(event: PlayerStateChangeEvent) {
+    this.gameEventListener(event);
   }
 
   getSystemArguments(getMapAPI: getCanvasAPICallback, getMinimapAPI: getCanvasAPICallback): ISystemArguments {
@@ -162,7 +162,6 @@ class GameLoop {
       gameEvents: this.gameEvents
     };
   }
-
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
@@ -263,6 +262,23 @@ class GameLoop {
     pushTrigger(trigger);
   }
 
+  getPlayerStateEvent(): PlayerStateChangeEvent {
+    const player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
+    return new PlayerStateChangeEvent({
+      maxHealth: player[HEALTH_COMP].max,
+      currentHealth: player[HEALTH_COMP].current,
+      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
+      skills: [...player[CHARACTER_SKILLS_COMP].skills],
+      spendableXP: player[EXPERIENCE_COMP].XP
+    });
+  }
+
+
+  // TODO trigger vs Action vs GameEvent vs UIEvent - Oh My.
+  // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction
+  // GameEvent is relatively clear, an event originated from the game.
+  // UIEvent - An event dispatched from the game, to the UI
+  // trigger - Triggers game logic within the game (trigger system)
   dispatchAction(action: IAction) {
     pushAction(action);
   }

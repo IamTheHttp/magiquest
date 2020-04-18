@@ -1,6 +1,7 @@
 import IndexedTile from "classes/IndexedTile";
 import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
 import {AllowedSkills} from "../data/skillConfig";
+import {PlayerStateChangeEvent} from "classes/PlayerState";
 
 /**
  * Represents the resolution properties of the game
@@ -94,25 +95,20 @@ export interface IUIEvent {
   name:string;
 }
 
-export interface IPlayerStateChange extends IUIEvent{
-  type: 'UI_EVENT',
-  name: 'PLAYER_STATE_CHANGE',
+
+export interface IPlayerState {
   maxHealth: number,
   currentHealth: number,
   percentHealth: number,
-  skills: AllowedSkills[]
+  skills: AllowedSkills[],
+  spendableXP: number;
 }
 
-
-export interface IPlayerUIState {
-  maxHealth: number,
-  currentHealth: number,
-  percentHealth: number,
-  showSkillTree: boolean,
-  skills: AllowedSkills[]
+export interface IPlayerUIState  extends IPlayerState{
+  showSkillTree: boolean
 }
 
 /**
  * FUNCTION TYPES
  */
-export type IListenToUIEvents = (event: IPlayerStateChange) => void;
+export type IGameEventListener = (event: PlayerStateChangeEvent) => void;

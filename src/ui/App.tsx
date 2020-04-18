@@ -10,10 +10,11 @@ import {ILevelArea, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
-import {IListenToUIEvents, IPlayerStateChange, IPlayerUIState} from "../interfaces/interfaces";
+import {IGameEventListener, IPlayerUIState} from "../interfaces/interfaces";
 import GameUI from "./GameUI";
 import SkillTree from "./SkillTree";
 import {AllowedActions} from "gameConstants";
+import {PlayerState} from "classes/PlayerState";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -64,7 +65,8 @@ class App extends React.Component<any, IState> {
         currentHealth: 0,
         percentHealth: 0,
         showSkillTree: false,
-        skills: []
+        skills: [],
+        spendableXP: 0
       }
     };
 
@@ -118,28 +120,6 @@ class App extends React.Component<any, IState> {
           minimapAPI: API
         });
       }
-    });
-  }
-
-  initGameLoop(areaToLoad: ILevelArea, mapWidth: number, mapHeight: number, listenToEvents: IListenToUIEvents) {
-    return new GameLoop({
-      levelArea: areaToLoad,
-      onAreaChange: (level, area) => {
-        this.changeMap(level, area);
-      },
-      getMapAPI: () => {
-        return this.state.mapAPI;
-      },
-      getMinimapAPI: () => {
-        return this.state.minimapAPI;
-      },
-      viewSize: {
-        viewHeight: resolution.height,
-        viewWidth: resolution.width,
-        mapHeight,
-        mapWidth
-      },
-      listenToEvents
     });
   }
 
@@ -197,17 +177,37 @@ class App extends React.Component<any, IState> {
     let mapHeight = areaTileMap.length * bit;
     // Start the game loop
     setTimeout(() => {
-      this.game = this.initGameLoop(areaToLoad, mapWidth, mapHeight, (event) => {
-        let newPlayerState = Object.assign({}, this.state.playerState, {
-          maxHealth: event.maxHealth,
-          currentHealth: event.currentHealth,
-          percentHealth: event.percentHealth,
-          skills: event.skills
-        });
+      this.game = new GameLoop({
+        levelArea: areaToLoad,
+        onAreaChange: (level, area) => {
+          this.changeMap(level, area);
+        },
+        getMapAPI: () => {
+          return this.state.mapAPI;
+        },
+        getMinimapAPI: () => {
+          return this.state.minimapAPI;
+        },
+        viewSize: {
+          viewHeight: resolution.height,
+          viewWidth: resolution.width,
+          mapHeight,
+          mapWidth
+        },
+        gameEventListener: (event) => {
 
-        this.setState({
-          playerState: newPlayerState
-        })
+          let newPlayerState:PlayerState = {
+            maxHealth: event.maxHealth,
+            currentHealth: event.currentHealth,
+            percentHealth: event.percentHealth,
+            skills: event.skills,
+            spendableXP: event.spendableXP
+          };
+
+          this.setState({
+            playerState: Object.assign({}, this.state.playerState, newPlayerState)
+          })
+        }
       });
 
       window.game = this.game;
@@ -241,7 +241,11 @@ class App extends React.Component<any, IState> {
   }
 
   render() {
-    if (!this.state.gameStarted) {
+    const showSkillTree = this.state.playerState.showSkillTree;
+    const isGameStarted = this.state.gameStarted;
+    const isEditing = this.state.isEditing;
+
+    if (!isGameStarted) {
       return (
         <div>
           <button
@@ -266,7 +270,7 @@ class App extends React.Component<any, IState> {
           >
             Editor
           </button>
-          {this.state.isEditing && <Editor
+          {isEditing && <Editor
             clickedTileIdx={this.state.clickedTileIdx}
             currentLevel={this.state.currentLevel}
             currentArea={this.state.currentArea}
@@ -290,10 +294,10 @@ class App extends React.Component<any, IState> {
             {...this.state.playerState}
             onShowSkillsClicked={() => { this.toggleShowSkillTree() }}
           />
-          {this.state.playerState.showSkillTree && <SkillTree
+          {showSkillTree && <SkillTree
             currentPlayerState={{...this.state.playerState}}
             onCloseSkillTree={() => {this.toggleShowSkillTree()}}
-            onSkillClick={(skillID) => {
+            onBuySkillClick={(skillID) => {
               this.game.dispatchAction({
                 name: AllowedActions.BUY_SKILL,
                 data: {
