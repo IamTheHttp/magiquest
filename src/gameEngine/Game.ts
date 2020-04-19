@@ -269,13 +269,14 @@ class GameLoop {
       currentHealth: player[HEALTH_COMP].current,
       percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
       skills: [...player[CHARACTER_SKILLS_COMP].skills],
-      spendableXP: player[EXPERIENCE_COMP].XP
+      spendableXP: player[EXPERIENCE_COMP].XP,
+      levelProgress: player[EXPERIENCE_COMP].getLevelProgress()
     });
   }
 
 
   // TODO trigger vs Action vs GameEvent vs UIEvent - Oh My.
-  // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction
+  // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction or inputEvent
   // GameEvent is relatively clear, an event originated from the game.
   // UIEvent - An event dispatched from the game, to the UI
   // trigger - Triggers game logic within the game (trigger system)

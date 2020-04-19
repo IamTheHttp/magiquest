@@ -66,7 +66,8 @@ class App extends React.Component<any, IState> {
         percentHealth: 0,
         showSkillTree: false,
         skills: [],
-        spendableXP: 0
+        spendableXP: 0, // TODO this is just XP, refactor the name 'spendable'
+        levelProgress: 0
       }
     };
 
@@ -201,7 +202,8 @@ class App extends React.Component<any, IState> {
             currentHealth: event.currentHealth,
             percentHealth: event.percentHealth,
             skills: event.skills,
-            spendableXP: event.spendableXP
+            spendableXP: event.spendableXP,
+            levelProgress: event.levelProgress
           };
 
           this.setState({

@@ -61,3 +61,5 @@ export const ANIMATIONS = {
   MOVE_DOWN: 'MOVE_DOWN'
 };
 
+
+export const XP_TO_FIRST_LEVEL = 500;

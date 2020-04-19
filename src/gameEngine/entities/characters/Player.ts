@@ -19,7 +19,7 @@ class Player extends Character {
 
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new PlayerControlledComponent());
-    this.addComponent(new ExperienceComp());
+    this.addComponent(new ExperienceComp(1, 0));
     this.addComponent(new UIComponent([
       {
         name: CANVAS_OUTPUT,

@@ -102,6 +102,7 @@ export interface IPlayerState {
   percentHealth: number,
   skills: AllowedSkills[],
   spendableXP: number;
+  levelProgress: number;
 }
 
 export interface IPlayerUIState  extends IPlayerState{

@@ -7,6 +7,7 @@ class PlayerState {
   public percentHealth: number;
   public skills: AllowedSkills[];
   public spendableXP: number;
+  public levelProgress: number;
 
   constructor(playerStateProperties: IPlayerState) {
     Object.assign(this, playerStateProperties);
