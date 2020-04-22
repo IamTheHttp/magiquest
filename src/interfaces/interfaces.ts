@@ -2,6 +2,7 @@ import IndexedTile from "classes/IndexedTile";
 import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
 import {AllowedSkills} from "../data/skillConfig";
 import {PlayerStateChangeEvent} from "classes/PlayerState";
+import {IAssignedCharacterAttributes} from "components/CharacterAttributesComponent";
 
 /**
  * Represents the resolution properties of the game
@@ -103,6 +104,7 @@ export interface IPlayerState {
   skills: AllowedSkills[],
   spendableXP: number;
   levelProgress: number;
+  attributes: IAssignedCharacterAttributes;
 }
 
 export interface IPlayerUIState  extends IPlayerState{

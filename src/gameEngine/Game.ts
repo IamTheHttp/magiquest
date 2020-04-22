@@ -27,6 +27,7 @@ import {ILevelArea} from "../interfaces/levels.i";
 import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
 import {
+  CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
@@ -59,7 +60,6 @@ interface IGameConstructor {
   gameEventListener: IGameEventListener
 }
 
-
 class GameLoop {
   engine:IEngine;
   getMapAPI: getCanvasAPICallback;
@@ -75,19 +75,21 @@ class GameLoop {
 
   constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange, gameEventListener}: IGameConstructor) {
     Entity.reset();
-    this.gameEventListener = gameEventListener;
+    this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
     this.engine = engine;
     this.getMapAPI = getMapAPI;
     this.getMinimapAPI = getMinimapAPI;
-    // TODO this probably needs to be related to player movement speed
-    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
-    this.dispatchAction = this.dispatchAction.bind(this);
+    this.gameEventListener = gameEventListener;
     this.onAreaChange = onAreaChange;
-
-    this.setLevelArea(levelArea, viewSize);
     this.gameEvents = new GameEvents();
+
+    // TODO this probably needs to be related to player movement speed
+    // this should also probably be refactored out
+    this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
+    this.setLevelArea(levelArea, viewSize);
+
 
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
@@ -270,7 +272,8 @@ class GameLoop {
       percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
       skills: [...player[CHARACTER_SKILLS_COMP].skills],
       spendableXP: player[EXPERIENCE_COMP].XP,
-      levelProgress: player[EXPERIENCE_COMP].getLevelProgress()
+      levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
+      attributes : player[CHARACTER_ATTRIBUTES_COMP].attributes
     });
   }
 

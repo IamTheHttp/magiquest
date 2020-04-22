@@ -15,6 +15,7 @@ import GameUI from "./GameUI";
 import SkillTree from "./SkillTree";
 import {AllowedActions} from "gameConstants";
 import {PlayerState} from "classes/PlayerState";
+import {AllowedAttributes} from "components/CharacterAttributesComponent";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -67,8 +68,13 @@ class App extends React.Component<any, IState> {
         showSkillTree: false,
         skills: [],
         spendableXP: 0, // TODO this is just XP, refactor the name 'spendable'
-        levelProgress: 0
-      }
+        levelProgress: 0,
+        attributes: {
+          [AllowedAttributes.AGILITY]: 0, // assigned when game starts by game event
+          [AllowedAttributes.STRENGTH]: 0, // assigned when game starts by game event
+          [AllowedAttributes.WILL]: 0, // assigned when game starts by game event
+          [AllowedAttributes.ENDURANCE]: 0 // assigned when game starts by game event
+        }}
     };
 
     // This is the 'Player licked play' button
@@ -203,7 +209,8 @@ class App extends React.Component<any, IState> {
             percentHealth: event.percentHealth,
             skills: event.skills,
             spendableXP: event.spendableXP,
-            levelProgress: event.levelProgress
+            levelProgress: event.levelProgress,
+            attributes: event.attributes
           };
 
           this.setState({
