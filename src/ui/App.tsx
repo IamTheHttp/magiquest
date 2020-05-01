@@ -15,7 +15,8 @@ import GameUI from "./GameUI";
 import SkillTree from "./SkillTree";
 import {AllowedActions} from "gameConstants";
 import {PlayerState} from "classes/PlayerState";
-import {AllowedAttributes} from "components/CharacterAttributesComponent";
+import {AllowedAttributes} from "data/attributesConfig";
+import Attributes from "./Attributes";
 
 let {GameCanvas} = GAME_PLATFORM;
 
@@ -66,6 +67,7 @@ class App extends React.Component<any, IState> {
         currentHealth: 0,
         percentHealth: 0,
         showSkillTree: false,
+        showAttributes: false,
         skills: [],
         spendableXP: 0, // TODO this is just XP, refactor the name 'spendable'
         levelProgress: 0,
@@ -232,17 +234,16 @@ class App extends React.Component<any, IState> {
     });
   }
 
-
   resize() {
     resizeGameElements(this.state.isEditing);
   }
 
-  toggleShowSkillTree() {
+  toggleUIPlayerState(stateKey: 'showAttributes' | 'showSkillTree') {
     let playerState = {
       ...this.state.playerState
     };
 
-    playerState.showSkillTree = !playerState.showSkillTree;
+    playerState[stateKey] = !playerState[stateKey];
 
     this.setState({
       playerState
@@ -251,6 +252,7 @@ class App extends React.Component<any, IState> {
 
   render() {
     const showSkillTree = this.state.playerState.showSkillTree;
+    const showAttributes = this.state.playerState.showAttributes;
     const isGameStarted = this.state.gameStarted;
     const isEditing = this.state.isEditing;
 
@@ -301,11 +303,12 @@ class App extends React.Component<any, IState> {
           />}
           <GameUI
             {...this.state.playerState}
-            onShowSkillsClicked={() => { this.toggleShowSkillTree() }}
+            onShowSkillsClicked={() => { this.toggleUIPlayerState('showSkillTree') }}
+            onShowAttributes={() => { this.toggleUIPlayerState('showAttributes') }}
           />
           {showSkillTree && <SkillTree
             currentPlayerState={{...this.state.playerState}}
-            onCloseSkillTree={() => {this.toggleShowSkillTree()}}
+            onCloseSkillTree={() => {this.toggleUIPlayerState('showSkillTree')}}
             onBuySkillClick={(skillID) => {
               this.game.dispatchAction({
                 name: AllowedActions.BUY_SKILL,
@@ -313,6 +316,14 @@ class App extends React.Component<any, IState> {
                   skillID
                 }
               });
+            }}
+          />}
+
+          {showAttributes && <Attributes
+            currentPlayerState={{...this.state.playerState}}
+            onCloseAttributes={() => {this.toggleUIPlayerState('showAttributes')}}
+            onBuyAttributeClick={() => {
+
             }}
           />}
           <div

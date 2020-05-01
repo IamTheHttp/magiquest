@@ -1,0 +1,39 @@
+$margins:5px;
+
+// colors
+$ui-action-color: indianred;
+$background-color: black;
+
+
+.options-screen {
+  background-color: #333333;
+  border: 1px solid white;
+  position: absolute;
+  z-index: 2;
+  height: 350px;
+
+  width: 50%;
+  left: 50%;
+  top: 50%;
+
+  margin-left: -25%;
+  margin-top: -25%;
+
+  &__title, &__body, &__footer {
+    padding:10px;
+  }
+
+  &__header {
+    display:flex;
+    .close {
+      margin-left:auto;
+      color: $ui-action-color;
+      background-color: $background-color;
+      font-size: 35px;
+      line-height:30px;
+      width:35px;
+      height:32px;
+      text-align:center;
+    }
+  }
+}

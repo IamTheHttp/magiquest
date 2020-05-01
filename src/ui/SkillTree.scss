@@ -1,15 +1,5 @@
-.skill-tree {
-  background-color: #333333;
-  border: 1px solid white;
-  position: absolute;
-  z-index: 2;
-  height: 350px;
-  width: 50%;
-  left: 50%;
-  margin-left: -25%;
-  top: 50%;
-  margin-top: -25%;
 
+.skill-tree {
   .close-container {
     display:flex;
     justify-content: space-between;
@@ -21,14 +11,6 @@
       font-size:1rem;
       color:grey;
     }
-  }
-
-  .close {
-    font-size: 35px;
-    color: indianred;
-    background-color: black;
-    bordeR: 0;
-    margin-bottom: 20px;
   }
 
   .skills-grid {

@@ -144,7 +144,7 @@ function SkillTree(props: ISkillTreeProps) {
   const skill = skillsConfig[activeSkillID];
 
   return (
-    <div className='skill-tree'>
+    <div className='skill-tree ui-context-window'>
       {renderCloseButton({spendableXP: currentPlayerState.spendableXP, onCloseSkillTree: props.onCloseSkillTree})}
       {renderSkillTreeTabs({setActiveSkillTree: (treeID) => {
           setActiveSkillTree(treeID);

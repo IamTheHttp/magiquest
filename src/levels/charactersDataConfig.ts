@@ -47,7 +47,7 @@ let charactersDataConfig: ICharsConfig = {
     displayName: 'The Amazing GENERIC DEMON',
     dmg: 20,
     health: 100,
-    speed: 4,
+    speed: 1,
     vision:200,
     attackSpeed: ATTACK_SPEEDS_OPTIONS.FAST,
     radius:16,

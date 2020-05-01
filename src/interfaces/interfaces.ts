@@ -108,7 +108,8 @@ export interface IPlayerState {
 }
 
 export interface IPlayerUIState  extends IPlayerState{
-  showSkillTree: boolean
+  showSkillTree: boolean,
+  showAttributes: boolean
 }
 
 /**

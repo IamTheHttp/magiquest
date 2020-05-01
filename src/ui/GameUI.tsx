@@ -4,6 +4,7 @@ import './GameUI.scss';
 
 interface IGameUIProps extends IPlayerUIState {
   onShowSkillsClicked: () => void;
+  onShowAttributes: () => void;
 }
 
 
@@ -26,7 +27,7 @@ function GameUI(props: IGameUIProps) {
         <button className='game-option' onClick={props.onShowSkillsClicked}>Skills</button>
         <button className='game-option' onClick={props.onShowSkillsClicked}>Quests</button>
         <button className='game-option' onClick={props.onShowSkillsClicked}>Inventory</button>
-        <button className='game-option' onClick={props.onShowSkillsClicked}>Attributes</button>
+        <button className='game-option' onClick={props.onShowAttributes}>Attributes</button>
       </div>
     </div>
   );

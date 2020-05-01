@@ -1,48 +1,6 @@
 
 import {CHARACTER_ATTRIBUTES_COMP} from './ComponentNamesConfig';
-import {AllowedSkills, ISkillsConfig} from "../../data/skillConfig";
-
-export enum AllowedAttributes {
-  STRENGTH = 'STRENGTH',
-  AGILITY = 'AGILITY',
-  WILL = 'WILL',
-  ENDURANCE = 'ENDURANCE'
-}
-
-interface CharacterAttribute {
-  id: AllowedAttributes,
-  name: string,
-  description: string
-}
-
-
-
-export type ICharacterAttributesConfig = {
-  [key in AllowedAttributes] : CharacterAttribute
-}
-
-let characterAttributesConfig: ICharacterAttributesConfig = {
-  [AllowedAttributes.AGILITY]: {
-    id: AllowedAttributes.AGILITY,
-    name: 'Agility',
-    description: 'Agility'
-  },
-  [AllowedAttributes.STRENGTH]: {
-    id: AllowedAttributes.STRENGTH,
-    name: 'STRENGTH',
-    description: 'STRENGTH'
-  },
-  [AllowedAttributes.WILL]: {
-    id: AllowedAttributes.WILL,
-    name: 'WILL',
-    description: 'WILL'
-  },
-  [AllowedAttributes.ENDURANCE]: {
-    id: AllowedAttributes.ENDURANCE,
-    name: 'ENDURANCE',
-    description: 'ENDURANCE'
-  }
-};
+import {AllowedAttributes} from "../../data/attributesConfig";
 
 
 export interface IAssignedCharacterAttributes {
