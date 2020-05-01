@@ -4,10 +4,10 @@ import './Attributes.scss';
 import {
   AllowedAttributes,
   characterAttributesConfig
-} from "../data/attributesConfig";
+} from "data/attributesConfig";
 
-import {IPlayerUIState} from "../interfaces/interfaces";
-import OptionsScreen from "./Components/Shared/OptionsScreen/OptionsScreen";
+import {IPlayerUIState} from "interfaces/interfaces";
+import OptionsScreen from "ui/Components/__Shared/OptionsScreen/OptionsScreen";
 
 export interface IAttributesProps {
   onCloseAttributes: () => void;

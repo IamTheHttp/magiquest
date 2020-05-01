@@ -16,7 +16,7 @@ import SkillTree from "./SkillTree";
 import {AllowedActions} from "gameConstants";
 import {PlayerState} from "classes/PlayerState";
 import {AllowedAttributes} from "data/attributesConfig";
-import Attributes from "./Attributes";
+import Attributes from "./Components/Attributes/Attributes";
 
 let {GameCanvas} = GAME_PLATFORM;
 
