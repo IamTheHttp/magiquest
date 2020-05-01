@@ -1,5 +1,5 @@
 import * as React from "react";
-import {IPlayerUIState} from "../interfaces/interfaces";
+import {IPlayerUIState} from "../../../interfaces/interfaces";
 import './GameUI.scss';
 
 interface IGameUIProps extends IPlayerUIState {

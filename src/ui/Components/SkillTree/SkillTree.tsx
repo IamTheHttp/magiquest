@@ -8,8 +8,8 @@ import {
   ISkill,
   ISkillTree,
   ISkillTreeConfig, skillsConfig,
-} from "../data/skillConfig";
-import {IPlayerUIState} from "../interfaces/interfaces";
+} from "data/skillConfig";
+import {IPlayerUIState} from "interfaces/interfaces";
 
 export interface ISkillTreeProps {
   onCloseSkillTree: () => void;
