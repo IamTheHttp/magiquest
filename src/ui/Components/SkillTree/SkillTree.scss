@@ -1,19 +1,12 @@
 
-.skill-tree {
-  .close-container {
-    display:flex;
-    justify-content: space-between;
-
-    h3 {
-      font-size: 1.5rem;
-    }
-    .remaining-xp {
-      font-size:1rem;
-      color:grey;
-    }
+.skills-screen {
+  .remaining-xp {
+    font-size:1rem;
+    color:grey;
   }
 
   .skills-grid {
+    margin-top:20px;
     display: flex;
     flex-wrap: wrap;
   }
@@ -24,8 +17,8 @@
     justify-content: space-between;
     text-align: center;
     border: 1px solid white;
-    margin-top: 5px;
-    margin-left:5px;
+    margin-bottom: 5px;
+    margin-right:5px;
     background-color: black;
     color: white;
     height: 80px;
@@ -63,5 +56,9 @@
     }
   }
 }
+
+
+
+
 
 

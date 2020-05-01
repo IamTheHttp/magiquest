@@ -3,14 +3,15 @@ import './OptionsScreen.scss';
 
 
 interface IOptionsScreenOptions {
-  onClose:() => void
+  onClose:() => void,
+  className: string
 }
 
 class OptionsScreen extends React.Component<IOptionsScreenOptions> {
   render() {
     let children = React.Children.toArray(this.props.children);
     return (
-      <div className='options-screen'>
+      <div className={`options-screen ${this.props.className}`}>
         <div className='options-screen__header'>
           <div className='options-screen__title'>
             {children[0]}

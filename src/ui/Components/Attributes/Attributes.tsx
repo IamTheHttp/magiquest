@@ -21,8 +21,8 @@ function Attributes(props : IAttributesProps) {
   let playerAttributeMap = props.currentPlayerState.attributes;
 
   return (
-    <OptionsScreen onClose={props.onCloseAttributes} >
-      <h1>Attributes</h1>
+    <OptionsScreen className='attributes-screen' onClose={props.onCloseAttributes} >
+      <h3>Attributes</h3>
       <div>
         {attributeIDs.map((attrID) => {
           return (
