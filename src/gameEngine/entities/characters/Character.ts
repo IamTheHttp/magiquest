@@ -34,7 +34,8 @@ class Character extends BaseEntity {
     }
 
     if (health) {
-      this.addComponent(new Health(health, radius * 2, radius));
+      let adjustedHealth = this.getLevelAdjustedHealth(health, characterLevel);
+      this.addComponent(new Health(adjustedHealth, radius * 2, radius));
       // the UI component can be completely overwritten by the extending class (like Player)
       this.addComponent(new UIComponent(
         [{
@@ -50,12 +51,21 @@ class Character extends BaseEntity {
     }
 
     if (dmg) {
-      this.addComponent(new AttackComponent(dmg, attackSpeeds[attackSpeed]));
+      let adjustedDmg = this.getLevelAdjustedDamage(dmg, characterLevel);
+      this.addComponent(new AttackComponent(adjustedDmg, attackSpeeds[attackSpeed]));
     }
 
     if (animationTypes) {
       this.addComponent(new AnimationComp(animationTypes));
     }
+  }
+
+  getLevelAdjustedHealth(health: number, level:number) {
+    return health + health * level / 100 // base health + 1% per level
+  }
+
+  getLevelAdjustedDamage(dmg: number, level:number) {
+    return dmg + dmg * level / 200; // base damage + 0.5% per level
   }
 }
 

@@ -142,4 +142,13 @@ describe('attack system tests', () => {
     // expect the enemy to have no components (as it is destroyed)
     expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
   });
+
+  it('Higher level enemies have more damage', () => {
+    let {tileIdxMap} = systemArguments;
+    let targetTile = tileIdxMap['1-1'];
+    let weak = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
+    let strong = createNewEnemy(1, 1, 100,  AllowedLevelLocationIDs.TOWN);
+
+    expect(strong[ATTACK_COMP].damage).toBeGreaterThan(weak[ATTACK_COMP].damage);
+  });
 });
