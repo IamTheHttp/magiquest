@@ -12,10 +12,12 @@ export interface IAssignedCharacterAttributes {
 
 class CharacterAttributesComponent {
   name:string;
+  spendableAttributePoints: number;
   attributes: IAssignedCharacterAttributes;
 
   constructor() {
     this.name = CHARACTER_ATTRIBUTES_COMP;
+    this.spendableAttributePoints = 0;
     this.attributes = {
       [AllowedAttributes.AGILITY]: 5,
       [AllowedAttributes.STRENGTH]: 5,

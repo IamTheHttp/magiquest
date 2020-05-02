@@ -23,7 +23,6 @@ class ExperienceComp {
     this.name = EXPERIENCE_COMP;
     this.XP = XP;
     this.level = level;
-    // this.XPtoNextLevel = getXPToLevel(level + 1) - this.XP; // to level 2
   }
 
   getLevelProgress() {

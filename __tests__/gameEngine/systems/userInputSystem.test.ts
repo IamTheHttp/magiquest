@@ -7,7 +7,7 @@ import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 import {AllowedSkills} from "../../../src/data/skillConfig";
-import {CHARACTER_SKILLS_COMP} from "components/ComponentNamesConfig";
+import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from "components/ComponentNamesConfig";
 import {PlayerSkillsChangeEvent} from "classes/GameEvents";
 
 let {Entity} = GAME_PLATFORM;
@@ -47,13 +47,15 @@ describe('Tests for the User Input system', () => {
   });
 
   it('Buys a skill', () => {
-    //some sanity
     pushAction({
       name: AllowedActions.BUY_SKILL,
       data: {
         skillID: AllowedSkills.FIRE_BULLET
       }
     });
+
+    // ensure player has enough XP to buy skill
+    player[EXPERIENCE_COMP].XP = 10000000; // some very big number
     userInputSystem(systemArguments);
 
     expect(player[CHARACTER_SKILLS_COMP].skills).toContain(AllowedSkills.FIRE_BULLET);

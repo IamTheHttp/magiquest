@@ -12,8 +12,8 @@ let charactersDataConfig: ICharsConfig = {
   [CHARACTERS.PLAYER]: {
     id: CHARACTERS.PLAYER,
     displayName: 'The Amazing Player',
-    dmg: 250,
-    health: 500,
+    dmg: 2500,
+    health: 1500,
     speed: 4,
     vision:0,
     attackSpeed: ATTACK_SPEEDS_OPTIONS.FASTEST,

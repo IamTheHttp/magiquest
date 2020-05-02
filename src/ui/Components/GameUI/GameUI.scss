@@ -49,6 +49,7 @@
     height:200px;
     color: indianred;
     .game-option {
+      position:relative;
       font-size:1.2rem;
       color:inherit;
       border:0;
@@ -56,6 +57,20 @@
       width:calc(50% - 6px); // - 3px * x
       height:50%;
       background-color:black;
+      &.active {
+        &::before {
+          content: '!';
+          color:white;
+          font-size:0.5rem;
+          width:10px;
+          height:10px;
+          top:5px;
+          right:5px;
+          position:absolute;
+          border-radius:100%;
+          background-color: #ad0000;
+        }
+      }
     }
   }
 }

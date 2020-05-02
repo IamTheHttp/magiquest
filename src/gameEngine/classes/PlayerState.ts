@@ -2,7 +2,7 @@ import {AllowedSkills} from "../../data/skillConfig";
 import {IPlayerState, IUIEvent} from "../../interfaces/interfaces";
 import {IAssignedCharacterAttributes} from "components/CharacterAttributesComponent";
 
-class PlayerState {
+class PlayerState implements IPlayerState {
   public maxHealth: number;
   public currentHealth:number;
   public percentHealth: number;
@@ -10,6 +10,7 @@ class PlayerState {
   public spendableXP: number;
   public levelProgress: number;
   public attributes: IAssignedCharacterAttributes;
+  public spendableAttributePoints: number;
 
   constructor(playerStateProperties: IPlayerState) {
     Object.assign(this, playerStateProperties);

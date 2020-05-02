@@ -1,5 +1,10 @@
 import GAME_PLATFORM from 'game-platform';
-import {EXPERIENCE_COMP, LEVEL_COMP, PLAYER_CONTROLLED_COMP} from 'components/ComponentNamesConfig';
+import {
+  CHARACTER_ATTRIBUTES_COMP,
+  EXPERIENCE_COMP,
+  LEVEL_COMP,
+  PLAYER_CONTROLLED_COMP
+} from 'components/ComponentNamesConfig';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import Player from "entities/characters/Player";
 import {EnemyKilledEvent} from "classes/GameEvents";
@@ -23,6 +28,7 @@ function experienceSystem(systemArguments: ISystemArguments) {
   // just in case we advanced several levels during this iteration
   while (player[EXPERIENCE_COMP].getLevelProgress() >= 1) {
     player[EXPERIENCE_COMP].level++;
+    player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints++;
   }
 }
 

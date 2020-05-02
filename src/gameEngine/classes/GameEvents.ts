@@ -60,6 +60,17 @@ export class PlayerSkillsChangeEvent extends GameEvent {
   }
 }
 
+export class PlayerAttributesChangeEvent extends GameEvent {
+  constructor(public entity:Player) {
+    super();
+  }
+  readEvent() {
+    return {
+      entity:this.entity
+    }
+  }
+}
+
 export class LevelUpEvent extends GameEvent {
   readEvent(): {entity:BaseEntity} {
     return {

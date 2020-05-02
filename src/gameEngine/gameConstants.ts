@@ -18,7 +18,8 @@ export enum AllowedUIShapes {
 export enum AllowedActions {
   PERFORM_ACTION = "PERFORM_ACTION",
   MOVE_ACTION = "MOVE_ACTION",
-  BUY_SKILL = "BUY_SKILL"
+  BUY_SKILL = "BUY_SKILL",
+  BUY_ATTR = "BUY_ATTR"
 }
 
 export enum AllowedQuestIDs {

@@ -33,23 +33,23 @@ describe('attack system tests', () => {
     let {x, y} = player.getPos();
     updateMapTileIdx({ entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: x, newY: y });
   });
-  
+
   it ('doesnt break without entities', () => {
     attackSystem(systemArguments);
   });
 
   it ('attacks an empty tile without errors', () => {
     let targetTile = systemArguments.tileIdxMap['1-1'];
-    
+
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
     // expect the player not to be attacking anymore
-    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false); 
+    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
   });
 
   it ('Cannot attack self', () => {
     let targetTile = systemArguments.tileIdxMap['0-0']; // 0-0 player position
-    
+
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
@@ -82,11 +82,11 @@ describe('attack system tests', () => {
     attackSystem(systemArguments);
 
     // expect damage equal to the playerDmg
-    expect(enemy[HEALTH_COMP].current).toBe(maxHealth - playerDmg);
+    expect(enemy[HEALTH_COMP].current).toBe(Math.max(maxHealth - playerDmg, 0));
 
     // running the attack system again will not attack, as the cooldown is not done
     attackSystem(systemArguments);
-    expect(enemy[HEALTH_COMP].current).toBe(maxHealth - playerDmg);
+    expect(enemy[HEALTH_COMP].current).toBe(Math.max(maxHealth - playerDmg, 0));
   });
 
   it('Can kill an enemy', () => {
@@ -140,6 +140,6 @@ describe('attack system tests', () => {
     };
 
     // expect the enemy to have no components (as it is destroyed)
-    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false); 
+    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
   });
 });

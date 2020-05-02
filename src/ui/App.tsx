@@ -71,6 +71,7 @@ class App extends React.Component<any, IState> {
         skills: [],
         spendableXP: 0, // TODO this is just XP, refactor the name 'spendable'
         levelProgress: 0,
+        spendableAttributePoints: 0,
         attributes: {
           [AllowedAttributes.AGILITY]: 0, // assigned when game starts by game event
           [AllowedAttributes.STRENGTH]: 0, // assigned when game starts by game event
@@ -204,7 +205,6 @@ class App extends React.Component<any, IState> {
           mapWidth
         },
         gameEventListener: (event) => {
-
           let newPlayerState:PlayerState = {
             maxHealth: event.maxHealth,
             currentHealth: event.currentHealth,
@@ -212,7 +212,8 @@ class App extends React.Component<any, IState> {
             skills: event.skills,
             spendableXP: event.spendableXP,
             levelProgress: event.levelProgress,
-            attributes: event.attributes
+            attributes: event.attributes,
+            spendableAttributePoints: event.spendableAttributePoints
           };
 
           this.setState({
@@ -322,8 +323,13 @@ class App extends React.Component<any, IState> {
           {showAttributes && <Attributes
             currentPlayerState={{...this.state.playerState}}
             onCloseAttributes={() => {this.toggleUIPlayerState('showAttributes')}}
-            onBuyAttributeClick={() => {
-
+            onBuyAttributeClick={(attrID) => {
+              this.game.dispatchAction({
+                name: AllowedActions.BUY_ATTR,
+                data: {
+                  attrID
+                }
+              });
             }}
           />}
           <div

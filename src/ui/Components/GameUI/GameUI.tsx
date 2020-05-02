@@ -9,6 +9,10 @@ interface IGameUIProps extends IPlayerUIState {
 
 
 function GameUI(props: IGameUIProps) {
+
+  let canAssignAttrsClass = props.spendableAttributePoints > 0 ? 'active' : '';
+
+
   return (
     <div className='game-ui'>
       <h3>Health</h3>
@@ -27,7 +31,7 @@ function GameUI(props: IGameUIProps) {
         <button className='game-option' onClick={props.onShowSkillsClicked}>Skills</button>
         <button className='game-option' onClick={props.onShowSkillsClicked}>Quests</button>
         <button className='game-option' onClick={props.onShowSkillsClicked}>Inventory</button>
-        <button className='game-option' onClick={props.onShowAttributes}>Attributes</button>
+        <button className={`game-option ${canAssignAttrsClass}`} onClick={props.onShowAttributes}>Attributes</button>
       </div>
     </div>
   );

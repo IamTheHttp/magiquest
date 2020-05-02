@@ -105,9 +105,10 @@ export interface IPlayerState {
   spendableXP: number;
   levelProgress: number;
   attributes: IAssignedCharacterAttributes;
+  spendableAttributePoints: number;
 }
 
-export interface IPlayerUIState  extends IPlayerState{
+export interface IPlayerUIState  extends IPlayerState {
   showSkillTree: boolean,
   showAttributes: boolean
 }

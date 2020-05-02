@@ -1,6 +1,8 @@
 import moveAction from '../utils/systemUtils/userInput/moveAction';
 import performAction from '../utils/systemUtils/userInput/performAction';
 import buySkill from '../utils/systemUtils/userInput/buySkill';
+import buyAttr from '../utils/systemUtils/userInput/buyAttr';
+
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import {AllowedActions, DIRECTIONS_OPTIONS} from "gameConstants";
 import {IAction} from "../../interfaces/interfaces";
@@ -8,7 +10,8 @@ import {IAction} from "../../interfaces/interfaces";
 let actionMap = {
   [AllowedActions.MOVE_ACTION]: moveAction,
   [AllowedActions.PERFORM_ACTION]: performAction,
-  [AllowedActions.BUY_SKILL] : buySkill
+  [AllowedActions.BUY_SKILL] : buySkill,
+  [AllowedActions.BUY_ATTR] : buyAttr
 };
 
 // store our actions, singleton

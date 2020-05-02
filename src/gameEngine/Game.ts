@@ -1,3 +1,6 @@
+declare type getCanvasAPICallback = () => ICanvasAPI;
+declare type onAreaChangeCallback = (level: number, area: number) => void;
+
 import GAME_PLATFORM from 'game-platform';
 import renderSystem from './systems/renderSystem';
 import userInputSystem, {pushAction} from './systems/userInputSystem';
@@ -10,9 +13,7 @@ import tileSetImageURL from '../assets/tileSet.png';
 import animationSystem from './systems/animationSystem';
 import charSpriteURL from 'assets/characters.png';
 import portalSystem, {isNonEmptyArray} from 'gameEngine/systems/portalSystem';
-
 import IEngine from "game-platform/types/lib/Engine/Engine";
-
 import {assetLoader} from 'cache/assetLoader';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
@@ -36,20 +37,19 @@ import {
 import BaseEntity from "BaseEntity";
 import {bit} from "config";
 import questSystem from "systems/questSystem";
-import GameEvents, {EnemyKilledEvent, PlayerIsAttacked, PlayerSkillsChangeEvent} from "classes/GameEvents";
+import GameEvents, {
+  EnemyKilledEvent,
+  PlayerAttributesChangeEvent,
+  PlayerIsAttacked,
+  PlayerSkillsChangeEvent
+} from "classes/GameEvents";
 import experienceSystem from "systems/experienceSystem";
 import getColRowByTileIdx from "utils/getColRowByTileIdx";
 import Player from "entities/characters/Player";
 import {PlayerStateChangeEvent} from "classes/PlayerState";
 
+
 let {Entity, Engine} = GAME_PLATFORM;
-
-
-
-
-
-declare type getCanvasAPICallback = () => ICanvasAPI;
-declare type onAreaChangeCallback = (level: number, area: number) => void;
 
 interface IGameConstructor {
   getMapAPI: getCanvasAPICallback;
@@ -131,7 +131,11 @@ class GameLoop {
         // TODO, do we want a more general 'NotifyUISystem' event?
         // TODO this feels too specific :)
         // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
-        if (event instanceof PlayerIsAttacked || event instanceof PlayerSkillsChangeEvent) {
+        if (
+          event instanceof PlayerIsAttacked ||
+          event instanceof PlayerSkillsChangeEvent ||
+          event instanceof PlayerAttributesChangeEvent
+        ) {
           this.dispatchGameEvent(this.getPlayerStateEvent());
         }
       });
@@ -273,7 +277,8 @@ class GameLoop {
       skills: [...player[CHARACTER_SKILLS_COMP].skills],
       spendableXP: player[EXPERIENCE_COMP].XP,
       levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
-      attributes : player[CHARACTER_ATTRIBUTES_COMP].attributes
+      attributes : player[CHARACTER_ATTRIBUTES_COMP].attributes,
+      spendableAttributePoints : player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
     });
   }
 

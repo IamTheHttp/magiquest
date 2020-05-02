@@ -4,8 +4,6 @@
 
 ### Triggers and Events 
 
-  
-
 - The game engine has several communication channels
     - Triggers - Used by the TriggerSystem (Can be picked up by other systems, happen at the start of each tick, emptied at stat of tick)
         - When a user moves, we can show dialog(s), or move him to a new location(portal)
@@ -28,3 +26,5 @@
 - When enemy is killed, an EnemyKill event is dispatched
 - Experience system increases experience of player based on ${BaseXP} * ${enemyLevel}
 - Experience needed for next level is doubled every level.
+- A player is assigned one attribute point per level
+- Player attribuets are (WASE) - Will, Agility, Strength, Endurance
