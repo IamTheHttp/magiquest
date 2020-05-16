@@ -5,12 +5,12 @@
   "description": "Magic Quest Game!",
   "scripts": {
     "init": "npm install && jarb init",
-    "start": "jarb devServer --mode=development",
-    "build:dev": "jarb build --mode=development",
-    "build": "jarb build",
+    "start": "node ./buildData.js && jarb devServer --mode=development",
+    "build:dev": "node ./buildData.js && jarb build --mode=development",
+    "build": "node ./buildData.js && jarb build",
     "analyze": "jarb analyze --analyzeBundle",
-    "test": "jarb test --coverage",
-    "tdd": "jarb test",
+    "test": "node ./buildData.js && jarb test --coverage",
+    "tdd": "node ./buildData.js && jarb test",
     "release": "jarb release"
   },
   "devDependencies": {
@@ -29,6 +29,7 @@
     "@types/enzyme": "^3.10.5",
     "canvas": "2.6.0",
     "core-js": "3.6.4",
+    "csvtojson": "^2.0.10",
     "game-platform": "1.0.1",
     "react": "16.8.2",
     "react-dom": "16.8.2"
