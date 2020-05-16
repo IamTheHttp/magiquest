@@ -30,8 +30,8 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
 
   // tile to perform action on...
   let tileIdx = getTileIdxByEnt(entity);
-  let col = +tileIdx.split('-')[0];
-  let row = +tileIdx.split('-')[1];
+  let col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
+  let row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
 
   if (curOrientation === DIRECTIONS_OPTIONS.LEFT) {
     col -= 1;
@@ -49,7 +49,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
     row += 1;
   }
 
-  let targetIdx = `${col}-${row}`;
+  let targetIdx = `${col},${row}`; // TODO move to util to abstract the comma
   /**
    * @type {IndexedTile}
    */
