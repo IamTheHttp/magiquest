@@ -12,13 +12,13 @@ let level: ILevelArea = {
     levelStart: [],
     actOnEntity: {},
     move: {
-      '93-8': [{
+      '93,8': [{
         oneOff: true,
         type: 'portal',
         level: 0,
         area: 0
       }],
-      '-1--2': [{
+      '-1,-2': [{
         oneOff: true,
         type: 'dialog',
         lines: [

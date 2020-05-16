@@ -39,7 +39,7 @@ describe('attack system tests', () => {
   });
 
   it ('attacks an empty tile without errors', () => {
-    let targetTile = systemArguments.tileIdxMap['1-1'];
+    let targetTile = systemArguments.tileIdxMap['1,1']; // TODO abstract the command to some util (in case we change the sperator)
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
@@ -48,7 +48,7 @@ describe('attack system tests', () => {
   });
 
   it ('Cannot attack self', () => {
-    let targetTile = systemArguments.tileIdxMap['0-0']; // 0-0 player position
+    let targetTile = systemArguments.tileIdxMap['0,0']; // TODO abstract the command to some util (in case we change the sperator)
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
@@ -63,7 +63,7 @@ describe('attack system tests', () => {
 
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
     let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1-1'];
+    let targetTile = tileIdxMap['1,1']; // TODO abstract the command to some util (in case we change the sperator)
 
     let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
@@ -91,7 +91,7 @@ describe('attack system tests', () => {
 
   it('Can kill an enemy', () => {
     let {tileIdxMap, gameEvents} = systemArguments;
-    let targetTile = tileIdxMap['1-1'];
+    let targetTile = tileIdxMap['1,1']; // TODO abstract the command to some util (in case we change the sperator)
     let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
@@ -124,7 +124,7 @@ describe('attack system tests', () => {
 
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1-1'];
+    let targetTile = tileIdxMap['1,1']; // TODO abstract the command to some util (in case we change the sperator)
     let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
@@ -145,7 +145,7 @@ describe('attack system tests', () => {
 
   it('Higher level enemies have more damage', () => {
     let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1-1'];
+    let targetTile = tileIdxMap['1,1']; // TODO abstract the command to some util (in case we change the sperator)
     let weak = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
     let strong = createNewEnemy(1, 1, 100,  AllowedLevelLocationIDs.TOWN);
 

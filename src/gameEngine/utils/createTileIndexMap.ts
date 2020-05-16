@@ -24,7 +24,7 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
     for (let colIdx = 0; colIdx < row.length; colIdx++) {
       let numOfCols = row.length;
       let numOfRows = tileMap.length;
-      let tileIdx = `${colIdx}-${rowIdx}`;
+      let tileIdx = `${colIdx},${rowIdx}`; // TODO move to util to abstract the comma
 
       let tileWidth = mapWidth / numOfCols;
       let tileHeight = mapHeight / numOfRows; // num of cols

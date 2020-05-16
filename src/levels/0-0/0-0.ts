@@ -24,13 +24,13 @@ let level:ILevelArea = {
     }] as PossibleTriggersArray,
     actOnEntity: {},
     move: {
-      '8-7': [{
+      '8,7': [{
         oneOff: false,
         type: 'portal',
         level: 0,
         area: 1
       }] as PossibleTriggersArray,
-      '-1--2': [{
+      '-1,-2': [{
         oneOff: true,
         type: 'dialog',
         lines: [
