@@ -33,7 +33,7 @@ export interface ILevelLocation {
 
 export interface ILevelArea {
   locations: ILevelLocation[],
-  levelName: string,
+  levelAreaID: string,
   startPos: {
     col: number,
     row: number

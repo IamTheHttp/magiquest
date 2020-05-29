@@ -32,7 +32,7 @@ describe('Full integration test for game.ts', () => {
             row: 2
           }
         }],
-        levelName: 'TEST',
+        levelAreaID: 'TEST',
         startPos: {
           col:0,
           row:0

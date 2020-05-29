@@ -20,7 +20,7 @@ describe('Tests the placeLevelEntities util', () => {
     let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities({
       locations: [],
-      levelName: 'TEST',
+      levelAreaID: 'TEST',
       startPos: {
         col: 0,
         row: 0,

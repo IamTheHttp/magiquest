@@ -1,4 +1,4 @@
-id,area,level,description,player_start_pos,monster_spawns,exits,mon_per_tile
+id,level,area,description,player_start_pos,monster_spawns,exits,mon_per_tile
 0-0,0,0,Elvenar,"4,5",IMP,"5,3->0-1@0,0 __ 5,3->0-1@0,0",0.01
 0-1,0,1,Sewers,"5,95","VAMPIRE, IMP",,0.01
 0-2,0,2,NOT_CREATED,"0,0",IMP,,0.01

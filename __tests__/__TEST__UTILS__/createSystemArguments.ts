@@ -38,7 +38,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     Entity,
     shouldRenderBackground: true,
     levelArea: {
-      levelName: 'TEST LEVEL',
+      levelAreaID: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
@@ -74,7 +74,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     } as unknown as GameLoop,
     tileIdxMap: createTileIndexMap({
       entitiesToPlace: [],
-      levelName: "Test Level",
+      levelAreaID: "Test Level",
       startPos: {col: 0, row: 0},
       triggers: {actOnEntity: {}, levelStart: [], move: {}},
       locations: [

@@ -17,7 +17,7 @@ function generateMap(width: number, height: number) {
 
 export default {
   locations: [],
-  levelName: '0-0',
+  levelAreaID: '0-0',
   tileMap: generateMap(100, 100),
   triggers: {
     levelStart: [{

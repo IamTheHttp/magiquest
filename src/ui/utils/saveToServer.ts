@@ -7,7 +7,7 @@ function saveToServer(levelArea: ILevelArea) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      levelName: levelArea.levelName,
+      levelAreaID: levelArea.levelAreaID,
       tileMap: levelArea.tileMap
     }),
   }).catch(() => {

@@ -3,6 +3,9 @@ const fs = require('fs');
 
 const csvFilePath = __dirname + '/src/levels/levels.csv';
 
+
+
+
 /**
  * Validate:
  * - All monsters exist by name somewhere
@@ -11,15 +14,17 @@ const csvFilePath = __dirname + '/src/levels/levels.csv';
  */
 csv()
   .fromFile(csvFilePath)
-  .then((levels)=>{
-
-    levels.forEach((lvl) => {
+  .then((allLevels)=>{
+    allLevels.forEach((lvl) => {
+      // parse player start post
       let [x, y] = lvl.player_start_pos.split(',');
       lvl.player_start_pos = {x, y};
 
+      // parse monster_spawns by ID
       lvl.monster_spawns = lvl.monster_spawns.split(',');
-      let levelExits = lvl.exits.split('__');
 
+      // parse exists
+      let levelExits = lvl.exits.split('__');
       lvl.exits = {};
       levelExits.forEach((exit) => {
         let [sourcePosition, encodedTargetLevel] = exit.split('->');
@@ -27,16 +32,15 @@ csv()
           return;
         }
         let [targetLevelID, targetTilePosition] = encodedTargetLevel.split('@');
-        let [targetArea, targetLevel] = targetLevelID.split('-');
+        let [targetLevel, targetArea] = targetLevelID.split('-');
 
-        lvl.exits[sourcePosition] = {
+        lvl.exits[sourcePosition.trim()] = {
           area: targetArea,
           level: targetLevel
         }
       })
-
-
     });
 
-    fs.writeFileSync (__dirname + '/src/levels/levels.json', JSON.stringify(levels, '\t'));
+    // We mutate allLevels (mutate each row) and then save as JSON
+    fs.writeFileSync (__dirname + '/src/levels/levels.json', JSON.stringify(allLevels, null, '\t'));
   });

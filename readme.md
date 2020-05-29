@@ -31,3 +31,18 @@
 - Experience needed for next level is doubled every level.
 - A player is assigned one attribute point per level
 - Player attribuets are (WASE) - Will, Agility, Strength, Endurance
+
+
+### The database
+
+- #### Levels.csv database 
+    - id -- {string} in the format of ${n}-${k}
+    - level -- {number} > 0 levels, or Acts, are the major blocks of the story progression
+    - area -- {number} > 0 Areas are sub-sections of a level, each level has many areas
+    - description -- {string} free text to describe the location 
+    - player_start_pos -- When level is loaded, where does the player start 
+    - monster_spawns -- Comma separated IDs of spawnable monsters in the area (provided by a different csv file) 
+    - exits -- 
+        - Format: 5,3->0-1@0,0 (tile 5,3 goes to level-area 0-1 at position 0,0)
+        - separator "__" (as we can have multiple exists per area)
+    - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster

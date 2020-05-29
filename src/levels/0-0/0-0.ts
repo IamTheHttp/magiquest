@@ -3,9 +3,11 @@ import {CHARACTERS} from 'gameConstants';
 import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
 import townLocation from "./locations/town";
 import spawnableOneLocation from "./locations/spawnable_1";
+import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 
-let level:ILevelArea = {
-  levelName: '0-0',
+let level: ILevelArea = {
+  levelAreaID: '0-0', // Filled by static csv data
+  startPos: null, // Filled by static csv data
   locations: [
     townLocation,
     spawnableOneLocation
@@ -23,13 +25,7 @@ let level:ILevelArea = {
       ]
     }] as PossibleTriggersArray,
     actOnEntity: {},
-    move: {
-      '8,7': [{
-        oneOff: false,
-        type: 'portal',
-        level: 0,
-        area: 1
-      }] as PossibleTriggersArray,
+    move: { // Extended by static csv data
       '-1,-2': [{
         oneOff: true,
         type: 'dialog',
@@ -98,10 +94,6 @@ let level:ILevelArea = {
       name: 'NPC_5'
     }
   ],
-  startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-    col: 4,
-    row: 5
-  }
 };
 
-export default level;
+export default mergeStaticLevelAreaData(level);
