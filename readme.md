@@ -36,7 +36,7 @@
 ### The database
 
 - #### Levels.csv database 
-    - id -- {string} in the format of ${n}-${k}
+    - id -- {string} in the format of ${level}-${area}
     - level -- {number} > 0 levels, or Acts, are the major blocks of the story progression
     - area -- {number} > 0 Areas are sub-sections of a level, each level has many areas
     - description -- {string} free text to describe the location 
@@ -45,4 +45,4 @@
     - exits -- 
         - Format: 5,3->0-1@0,0 (tile 5,3 goes to level-area 0-1 at position 0,0)
         - separator "__" (as we can have multiple exists per area)
-    - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster
+    - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
