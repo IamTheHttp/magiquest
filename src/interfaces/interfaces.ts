@@ -20,12 +20,6 @@ export interface ITileIndexMap {
   [key: string]: IndexedTile
 }
 
-export type ISpawnableEnemies = Array<{
-  chance: number,
-  characterType: CHARACTERS
-}>;
-
-
 /**
  * Incoming user actions
  */

@@ -4,7 +4,6 @@ import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import BaseEntity from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
-import {ISpawnableEnemies} from "../../interfaces/interfaces";
 import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "components/ComponentNamesConfig";
 
 
@@ -15,7 +14,6 @@ interface ITileConstructor {
   height: number;
   width: number;
   tileType: number;
-  spawnableEnemies: ISpawnableEnemies;
   tileLocationID: AllowedLevelLocationIDs;
   tileCharacterLevel: number;
 }
@@ -29,7 +27,6 @@ class Tile extends BaseEntity {
                 tileIdx,
                 height,
                 width, tileType,
-                spawnableEnemies = [],
                 tileLocationID,
                 tileCharacterLevel
               }: ITileConstructor) {
@@ -42,7 +39,7 @@ class Tile extends BaseEntity {
     // TODO reuse in setTileType
     if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
       this.addComponent(new TraversableComponent());
-      this.addComponent(new CanSpawn(spawnableEnemies, tileLocationID, tileCharacterLevel));
+      this.addComponent(new CanSpawn(tileLocationID, tileCharacterLevel));
     }
 
     this.addComponent(new BackgroundComponent(

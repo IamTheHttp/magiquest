@@ -21,11 +21,13 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     const {col, row} = getGridIdxFromPos(x, y);
     const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
     const characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
+    const spawnableEnemies = systemArguments.levelArea.spawnableEnemies;
+    const monsterDensity = systemArguments.levelArea.monsterDensity;
 
-    spawningEntity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
-      if (Math.random() < enemyToSpawn.chance) { // TODO refactor to a function "rollDie" or "resolveChance"
+    spawnableEnemies.forEach((enemyToSpawn) => {
+      if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
-        let characterConfig = charactersDataConfig[enemyToSpawn.characterType];
+        let characterConfig = charactersDataConfig[enemyToSpawn];
         if (characterConfig) {
           new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
           return;

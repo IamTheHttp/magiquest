@@ -1,6 +1,4 @@
 import {SPAWNED_COMP} from './ComponentNamesConfig';
-import assertType from 'gameEngine/utils/assertType';
-import {ISpawnableEnemies} from "../../interfaces/interfaces";
 import {AllowedLevelLocationIDs} from "gameConstants";
 
 class SpawnedComponent {

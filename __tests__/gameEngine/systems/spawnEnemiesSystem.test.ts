@@ -15,16 +15,24 @@ let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyHandleAreaChange, player: BaseEntity;
-  
+  let MATH_RANDOM = global.Math.random;
   beforeEach(() => {
     Entity.reset();
     spyHandleAreaChange = jest.fn();
     player = createTestPlayer(0,0);
+    global.Math.random = () => {
+      return 0; // ensure all spawns are created
+    };
 
     systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
   });
-  
+
+  afterEach(() => {
+    global.Math.random = MATH_RANDOM;
+  });
+
   it('Attempts to spawn enemies on the map', () => {
+
     expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
@@ -42,10 +50,6 @@ describe('Tests for the AI system', () => {
   });
 
   it('Spawns an enemy that gets the right SpawnedComponent', () => {
-    global.Math.random = () => {
-      return 0; // ensure all spawns are created
-    };
-
     spawnEnemiesSystem(systemArguments);
 
     let ents = Entity.getByComp(SPAWNED_COMP) as Character[];

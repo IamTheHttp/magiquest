@@ -38,6 +38,8 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     Entity,
     shouldRenderBackground: true,
     levelArea: {
+      monsterDensity:0.01,
+      spawnableEnemies: [CHARACTERS.IMP],
       levelAreaID: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],
@@ -73,6 +75,8 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       handleAreaChange :spyHandleAreaChange
     } as unknown as GameLoop,
     tileIdxMap: createTileIndexMap({
+      monsterDensity:0,
+      spawnableEnemies: [],
       entitiesToPlace: [],
       levelAreaID: "Test Level",
       startPos: {col: 0, row: 0},
@@ -82,10 +86,6 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
           id: AllowedLevelLocationIDs.TOWN,
           locationCharacterLevel: 1,
           name: 'test',
-          spawnableEnemies: [{
-            chance: 1,
-            characterType: CHARACTERS.IMP
-          }],
           start: {
             col:0,
             row:0

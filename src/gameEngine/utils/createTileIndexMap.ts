@@ -1,6 +1,6 @@
 import Tile from 'gameEngine/entities/Tile';
 import IndexedTile from 'gameEngine/classes/IndexedTile';
-import {ISpawnableEnemies, ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
+import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
 import {ILevelArea, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
 import {AllowedLevelLocationIDs} from "gameConstants";
 
@@ -11,12 +11,8 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
   let tileMap = levelArea.tileMap;
   let locations = levelArea.locations;
 
-
-
-
   // take levelArea
   // If tile is in SAFE area, remove all "spawnable" from it.
-
 
   let idx = {} as ITileIndexMap;
   for (let rowIdx = 0; rowIdx < tileMap.length; rowIdx++) {
@@ -30,7 +26,6 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
       let tileHeight = mapHeight / numOfRows; // num of cols
 
 
-      let spawnableEnemies: ISpawnableEnemies = [];
       let tileLocationID: AllowedLevelLocationIDs = null;
       let tileCharacterLevel:number = 1;
       let locationsFoundForTile = 0;
@@ -44,7 +39,6 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         let inRowRange = rowIdx >= rowStart && rowIdx <= rowEnd;
 
         if (inColRange && inRowRange) {
-          spawnableEnemies = levelLocation.spawnableEnemies || [];
           tileLocationID = levelLocation.id;
           tileCharacterLevel = levelLocation.locationCharacterLevel;
           // if spawnable, it MUST have a levelLocationID
@@ -67,7 +61,6 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         width: tileWidth,
         height: tileHeight,
         tileType: tileMap[rowIdx][colIdx],
-        spawnableEnemies,
         tileLocationID,
         tileCharacterLevel
       });

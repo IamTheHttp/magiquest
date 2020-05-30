@@ -17,7 +17,7 @@
 				"level": "0"
 			}
 		},
-		"mon_per_tile": "0.01"
+		"mon_per_tile": "0.05"
 	},
 	{
 		"id": "0-1",
@@ -33,7 +33,7 @@
 			" IMP"
 		],
 		"exits": {},
-		"mon_per_tile": "0.01"
+		"mon_per_tile": "0.15"
 	},
 	{
 		"id": "0-2",

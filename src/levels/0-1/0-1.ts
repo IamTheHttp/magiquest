@@ -3,6 +3,8 @@ import {ILevelArea} from "../../interfaces/levels.i";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 
 let level: ILevelArea = {
+  monsterDensity: 0, //
+  spawnableEnemies:[], // Filled by static csv data
   levelAreaID: '0-1',
   locations: [],
   tileMap: map,

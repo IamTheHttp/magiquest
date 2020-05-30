@@ -19,6 +19,8 @@ describe('Tests the placeLevelEntities util', () => {
   it('places some entities', () => {
     let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities({
+      monsterDensity:0,
+      spawnableEnemies:[],
       locations: [],
       levelAreaID: 'TEST',
       startPos: {

@@ -15,14 +15,12 @@ describe('Full integration test for game.ts', () => {
     new GameLoop({
       gameEventListener: () => {},
       levelArea: {
+        monsterDensity:0,
+        spawnableEnemies:[],
         locations: [{
           locationCharacterLevel: 1,
           id: AllowedLevelLocationIDs.TOWN,
           name: 'test area',
-          spawnableEnemies: [{
-            chance: 1,
-            characterType: CHARACTERS.ENEMY
-          }],
           start: {
             col: 0,
             row: 0,

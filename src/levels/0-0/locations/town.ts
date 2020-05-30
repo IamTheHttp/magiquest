@@ -5,7 +5,6 @@ let townLocation:ILevelLocation;
 
 townLocation = {
   id: AllowedLevelLocationIDs.TOWN,
-  spawnableEnemies: [],
   name: 'town',
   locationCharacterLevel: 1,
   start: {

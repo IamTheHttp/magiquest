@@ -16,6 +16,8 @@ function generateMap(width: number, height: number) {
 }
 
 export default {
+  monsterDensity:0,
+  spawnableEnemies:[],
   locations: [],
   levelAreaID: '0-0',
   tileMap: generateMap(100, 100),
