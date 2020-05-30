@@ -2,7 +2,6 @@ import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
 import ILevelCSVRow from "../../interfaces/levelsCSVRow.i";
 import levelsJSON from "../levels.json";
 import {IPortalTrigger} from "../../interfaces/triggers.i";
-import {CHARACTERS} from "gameConstants";
 
 function mergeStaticLevelAreaData(level: ILevelArea): ILevelArea {
   const areaLevelRowData: ILevelCSVRow = levelsJSON.find((levelRow: ILevelCSVRow) => {

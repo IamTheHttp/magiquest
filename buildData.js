@@ -18,7 +18,7 @@ csv()
     allLevels.forEach((lvl) => {
       // parse player start post
       let [x, y] = lvl.player_start_pos.split(',');
-      lvl.player_start_pos = {x, y};
+      lvl.player_start_pos = {x: +x, y: +y};
 
       // parse monster_spawns by ID
       lvl.monster_spawns = lvl.monster_spawns.split(',');
@@ -35,8 +35,8 @@ csv()
         let [targetLevel, targetArea] = targetLevelID.split('-');
 
         lvl.exits[sourcePosition.trim()] = {
-          area: targetArea,
-          level: targetLevel
+          area: +targetArea,
+          level: +targetLevel
         }
       })
     });
