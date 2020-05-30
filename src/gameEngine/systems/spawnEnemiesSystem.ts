@@ -14,26 +14,25 @@ let {entityLoop} = GAME_PLATFORM;
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
-  let entities = Entity.getByComps([CAN_SPAWN_COMP]);
+  let spawningEntities = Entity.getByComps([CAN_SPAWN_COMP]);
 
-  entityLoop(entities, (entity: BaseEntity) => {
-    let {x, y} = entity.getPos(); // for example a tile that can spawn
-    entity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
-      if (Math.random() < enemyToSpawn.chance) {
-        let spawningTileLocationID = entity[CAN_SPAWN_COMP].tileLocationID;
-        let characterLevel = entity[CAN_SPAWN_COMP].tileCharacterLevel;
+  entityLoop(spawningEntities, (spawningEntity: BaseEntity) => {
+    const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
+    const {col, row} = getGridIdxFromPos(x, y);
+    const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
+    const characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
 
+    spawningEntity[CAN_SPAWN_COMP].enemies.forEach((enemyToSpawn) => {
+      if (Math.random() < enemyToSpawn.chance) { // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
         let characterConfig = charactersDataConfig[enemyToSpawn.characterType];
-
         if (characterConfig) {
-          let {col, row} = getGridIdxFromPos(x, y);
           new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
           return;
         }
       }
     });
-    entity.removeComponent(CAN_SPAWN_COMP);
+    spawningEntity.removeComponent(CAN_SPAWN_COMP);
   });
 }
 
