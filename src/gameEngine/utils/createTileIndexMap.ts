@@ -3,7 +3,19 @@ import IndexedTile from 'gameEngine/classes/IndexedTile';
 import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
 import {ILevelArea, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
 import {AllowedLevelLocationIDs} from "gameConstants";
+import {CAN_SPAWN_COMP} from "components/ComponentNamesConfig";
 
+
+/**
+ *
+ * @param a
+ * @param x
+ * @param b
+ * A function that checks of a number is between two other numbers
+ */
+function inRange(a:number ,x:number ,b:number) {
+  return x > a && x < b;
+}
 
 function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIndexMap {
   let {mapHeight, mapWidth} = viewSize;
@@ -63,6 +75,20 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
         tileType: tileMap[rowIdx][colIdx],
         tileLocationID,
         tileCharacterLevel
+      });
+
+      // Is the tile location within a safe spot?
+
+      let {x, y} = tile.getPos();
+
+      levelArea.noSpawnLocations.forEach((safeLocation) => {
+        let withinX = inRange(safeLocation.start.x, x, safeLocation.end.x);
+        let withinY = inRange(safeLocation.start.y, y, safeLocation.end.y);
+
+        if (withinX && withinY) {
+          tile.removeComponent(CAN_SPAWN_COMP);
+          return;
+        }
       });
 
 

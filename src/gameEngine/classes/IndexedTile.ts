@@ -2,6 +2,10 @@ import Tile from "entities/Tile";
 import BaseEntity from "BaseEntity";
 import {IEntityMap} from "game-platform/types/lib/interfaces";
 
+/**
+ * An indexedTile is a wrapper around the Tile Entity.
+ * The indexedTile is NOT an entity, but provides additional methods and properties that don't belong on an Entity
+ */
 class IndexedTile {
   idx: string;
   entities: IEntityMap;

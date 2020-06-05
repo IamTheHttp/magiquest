@@ -41,7 +41,9 @@
     - area -- {number} > 0 Areas are sub-sections of a level, each level has many areas
     - description -- {string} free text to describe the location 
     - player_start_pos -- When level is loaded, where does the player start 
-    - monster_spawns -- Comma separated IDs of spawnable monsters in the area (provided by a different csv file) 
+    - monster_spawns -- Comma separated IDs of spawnable monsters in the area (provided by a different csv file)
+    - no_spawn_locations - 0,0-1000,1000 -> x,y-x,y range in pixels in which enemies should not spawn, 
+                           Can have multiple values separated by __ 
     - exits -- 
         - Format: 5,3->0-1@0,0 (tile 5,3 goes to level-area 0-1 at position 0,0)
         - separator "__" (as we can have multiple exists per area)

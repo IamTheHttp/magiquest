@@ -19,6 +19,10 @@ interface ITileConstructor {
 }
 
 
+/**
+ * A tile is an Entity in the game.
+ * The Tile is rendered to the background has different states such as "isTraversable"
+ */
 class Tile extends BaseEntity {
   tileIdx: string;
   constructor({

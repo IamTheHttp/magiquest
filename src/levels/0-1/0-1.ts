@@ -3,9 +3,11 @@ import {ILevelArea} from "../../interfaces/levels.i";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 
 let level: ILevelArea = {
-  monsterDensity: 0, //
+  noSpawnLocations:[], // Filled by static csv data
+  monsterDensity:0, // Filled by static csv data
   spawnableEnemies:[], // Filled by static csv data
-  levelAreaID: '0-1',
+  levelAreaID: '0-0', // Filled by static csv data
+  startPos: null, // Filled by static csv data
   locations: [],
   tileMap: map,
   triggers: {
@@ -24,11 +26,7 @@ let level: ILevelArea = {
       }]
     }
   },
-  entitiesToPlace: [],
-  startPos: { // if not specified otherwise, this is where we start (useful for for new levels)
-    col: 5,
-    row: 95
-  }
+  entitiesToPlace: []
 };
 
 export default mergeStaticLevelAreaData(level);

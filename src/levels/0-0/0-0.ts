@@ -6,6 +6,7 @@ import spawnableOneLocation from "./locations/spawnable_1";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 
 let level: ILevelArea = {
+  noSpawnLocations:[], // Filled by static csv data
   monsterDensity:0, // Filled by static csv data
   spawnableEnemies:[], // Filled by static csv data
   levelAreaID: '0-0', // Filled by static csv data

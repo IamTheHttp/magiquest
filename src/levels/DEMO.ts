@@ -16,6 +16,7 @@ function generateMap(width: number, height: number) {
 }
 
 export default {
+  noSpawnLocations:[],
   monsterDensity:0,
   spawnableEnemies:[],
   locations: [],

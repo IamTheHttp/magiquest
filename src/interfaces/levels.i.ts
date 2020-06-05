@@ -1,5 +1,7 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from "./triggers.i";
 import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
+import {ICoordinates} from "game-platform/types/lib/interfaces";
+import {INoSpawnLocation} from "./IParsedLevelCSVRow";
 
 export type ITileMap = Array<Array<number>>
 
@@ -29,11 +31,16 @@ export interface ILevelLocation {
   locationCharacterLevel:number;
 }
 
+/**
+ * This is the level shape we expect in the game logic.
+ * This is after all parsing and merging from csv -> json -> live object.
+ */
 export interface ILevelArea {
   monsterDensity:number;
   locations: ILevelLocation[];
   levelAreaID: string;
   spawnableEnemies: CHARACTERS[];
+  noSpawnLocations: INoSpawnLocation[],
   startPos: {
     col: number;
     row: number;

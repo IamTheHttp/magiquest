@@ -1,10 +1,14 @@
 import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
-import ILevelCSVRow from "../../interfaces/levelsCSVRow.i";
+import IParsedLevelCSVRow from "../../interfaces/IParsedLevelCSVRow";
 import levelsJSON from "../levels.json";
 import {IPortalTrigger} from "../../interfaces/triggers.i";
 
+/**
+ * This function takes the static levels.json and merges it with real code from the level
+ * @param level
+ */
 function mergeStaticLevelAreaData(level: ILevelArea): ILevelArea {
-  const areaLevelRowData: ILevelCSVRow = levelsJSON.find((levelRow: ILevelCSVRow) => {
+  const areaLevelRowData: IParsedLevelCSVRow = levelsJSON.find((levelRow: IParsedLevelCSVRow) => {
     return levelRow.id && levelRow.id === level.levelAreaID;
   });
 
@@ -13,6 +17,8 @@ function mergeStaticLevelAreaData(level: ILevelArea): ILevelArea {
     col: areaLevelRowData.player_start_pos.x,
     row: areaLevelRowData.player_start_pos.y,
   };
+
+  level.noSpawnLocations = areaLevelRowData.no_spawn_locations;
 
   level.spawnableEnemies = areaLevelRowData.monster_spawns;
   level.monsterDensity = areaLevelRowData.mon_per_tile;

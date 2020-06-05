@@ -15,6 +15,7 @@ describe('Full integration test for game.ts', () => {
     new GameLoop({
       gameEventListener: () => {},
       levelArea: {
+        noSpawnLocations:[],
         monsterDensity:0,
         spawnableEnemies:[],
         locations: [{
