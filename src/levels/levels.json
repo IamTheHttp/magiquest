@@ -1,8 +1,8 @@
 [
 	{
 		"id": "0-0",
-		"level": "0",
-		"area": "0",
+		"level": 0,
+		"area": 0,
 		"description": "Elvenar",
 		"player_start_pos": {
 			"x": 4,
@@ -17,12 +17,12 @@
 				"level": 0
 			}
 		},
-		"mon_per_tile": "0.05"
+		"mon_per_tile": 0.05
 	},
 	{
 		"id": "0-1",
-		"level": "0",
-		"area": "1",
+		"level": 0,
+		"area": 1,
 		"description": "Sewers",
 		"player_start_pos": {
 			"x": 5,
@@ -33,66 +33,6 @@
 			" IMP"
 		],
 		"exits": {},
-		"mon_per_tile": "0.15"
-	},
-	{
-		"id": "0-2",
-		"level": "0",
-		"area": "2",
-		"description": "NOT_CREATED",
-		"player_start_pos": {
-			"x": 0,
-			"y": 0
-		},
-		"monster_spawns": [
-			"IMP"
-		],
-		"exits": {},
-		"mon_per_tile": "0.01"
-	},
-	{
-		"id": "0-3",
-		"level": "0",
-		"area": "3",
-		"description": "NOT_CREATED",
-		"player_start_pos": {
-			"x": 0,
-			"y": 0
-		},
-		"monster_spawns": [
-			"IMP"
-		],
-		"exits": {},
-		"mon_per_tile": "0.01"
-	},
-	{
-		"id": "0-4",
-		"level": "0",
-		"area": "4",
-		"description": "NOT_CREATED",
-		"player_start_pos": {
-			"x": 0,
-			"y": 0
-		},
-		"monster_spawns": [
-			"IMP"
-		],
-		"exits": {},
-		"mon_per_tile": "0.01"
-	},
-	{
-		"id": "0-5",
-		"level": "0",
-		"area": "5",
-		"description": "NOT_CREATED",
-		"player_start_pos": {
-			"x": 0,
-			"y": 0
-		},
-		"monster_spawns": [
-			"IMP"
-		],
-		"exits": {},
-		"mon_per_tile": "0.01"
+		"mon_per_tile": 0.15
 	}
 ]
