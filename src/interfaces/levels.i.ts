@@ -5,13 +5,15 @@ import {INoSpawnLocation} from "./IParsedLevelCSVRow";
 
 export type ITileMap = Array<Array<number>>
 
+export interface ITileCoordinate {
+  col: number,
+  row: number
+}
+
 export type IEntitiesToPlace = {
   characterType: CHARACTERS,
   characterLevel: number,
-  pos: {
-    col: number,
-    row: number
-  }
+  pos: ITileCoordinate
   name: string,
 }[];
 
@@ -20,14 +22,8 @@ export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];
 export interface ILevelLocation {
   name: string,
   id: AllowedLevelLocationIDs,
-  start: {
-    col: number;
-    row: number;
-  },
-  end: {
-    col: number;
-    row: number;
-  },
+  start: ITileCoordinate
+  end: ITileCoordinate
   locationCharacterLevel:number;
 }
 
@@ -41,10 +37,7 @@ export interface ILevelArea {
   levelAreaID: string;
   spawnableEnemies: CHARACTERS[];
   noSpawnLocations: INoSpawnLocation[],
-  startPos: {
-    col: number;
-    row: number;
-  },
+  startPos: ITileCoordinate
   triggers: {
     levelStart: PossibleTriggersArray,
     actOnEntity: ActOnEntityTriggers,

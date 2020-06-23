@@ -6,7 +6,7 @@ import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 import levelConfig from 'levels/levelConfig';
 import {Entity} from 'gameEngine/BaseEntity';
 import Editor from './Editor';
-import {ILevelArea, ITileMap} from "../interfaces/levels.i";
+import {ILevelArea, ITileCoordinate, ITileMap} from "../interfaces/levels.i";
 import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
@@ -36,6 +36,10 @@ type IState = {
   clickedTileIdx: any; // TODO this should not be any
   editorTileType: number; // TODO this should not be any
   minimapAPI: any; // TODO this should not be any
+  debug: {
+    countOfEnemyEntities: number,
+    countOfTileEntities: number
+  }
   playerState: IPlayerUIState,
 };
 
@@ -45,6 +49,15 @@ class App extends React.Component<any, IState> {
 
   constructor(props: object) {
     super(props);
+
+    setInterval(() => {
+      this.setState({
+        debug: {
+          countOfEnemyEntities: Entity.getByComp('AI_CONTROLLED_COMP').length,
+          countOfTileEntities: Entity.getByComp('TRAVERSABLE_COMP').length
+        }
+      })
+    }, 1000);
 
     this.state = {
       mapCanvasEl: null,
@@ -62,6 +75,10 @@ class App extends React.Component<any, IState> {
       clickedTileIdx: null,
       editorTileType: null,
       minimapAPI: null,
+      debug: {
+        countOfEnemyEntities:0,
+        countOfTileEntities:0
+      },
       playerState: {
         maxHealth: 0,
         currentHealth: 0,
@@ -154,7 +171,7 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  changeMap(levelNum: number, areaNum: number) {
+  changeMap(levelNum: number, areaNum: number, targetTile:ITileCoordinate = null) {
     this.setState({
       currentLevel: levelNum,
       currentArea: areaNum
@@ -171,7 +188,7 @@ class App extends React.Component<any, IState> {
       mapWidth: this.state.mapWidth
     };
 
-    this.game.setLevelArea(nextArea, viewSize);
+    this.game.setLevelArea(nextArea, viewSize, targetTile);
   }
 
   startGame() {
@@ -189,8 +206,8 @@ class App extends React.Component<any, IState> {
     setTimeout(() => {
       this.game = new GameLoop({
         levelArea: areaToLoad,
-        onAreaChange: (level, area) => {
-          this.changeMap(level, area);
+        onAreaChange: (level, area, newPlayerPosition) => {
+          this.changeMap(level, area, newPlayerPosition);
         },
         getMapAPI: () => {
           return this.state.mapAPI;
@@ -272,6 +289,10 @@ class App extends React.Component<any, IState> {
     } else {
       return (
         <div>
+          <div style={{position:'absolute', bottom:0, right:0, zIndex:100 }}>
+            <div>Enemies: {this.state.debug.countOfEnemyEntities}</div>
+            <div>Tiles: {this.state.debug.countOfTileEntities}</div>
+          </div>
           <button
             id="toggle-editor"
             onClick={() => {

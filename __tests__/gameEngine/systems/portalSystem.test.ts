@@ -12,7 +12,7 @@ let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyHandleAreaChange: fn, player: BaseEntity;
-  
+
   beforeEach(() => {
     Entity.reset();
     spyHandleAreaChange = jest.fn();
@@ -20,7 +20,7 @@ describe('Tests for the AI system', () => {
 
     systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
   });
-  
+
   it('doesnt break with no portals to run', () => {
     portalSystem(systemArguments);
   });
@@ -32,6 +32,10 @@ describe('Tests for the AI system', () => {
       area: 66,
       type: 'portal',
       oneOff: true,
+      exitTile: {
+        col:0,
+        row:0
+      }
     }];
 
     portalSystem(systemArguments);

@@ -1,10 +1,12 @@
 import {CHARACTERS} from "gameConstants";
 import {ICoordinates} from "game-platform/types/lib/interfaces";
+import {ITileCoordinate} from "./levels.i";
 
 export interface IExits {
   [key: string]: { // key in the form of "x,y"
     area: number,
-    level: number
+    level: number,
+    exitTile: ITileCoordinate
   }
 }
 
@@ -25,10 +27,7 @@ interface IParsedLevelCSVRow {
   area:number,
   description:string,
   no_spawn_locations:INoSpawnLocation[],
-  player_start_pos: {
-    x: number;
-    y: number;
-  }
+  player_start_pos: ITileCoordinate
   exits: IExits
 }
 

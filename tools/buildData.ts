@@ -1,3 +1,5 @@
+import {ITileCoordinate} from "../src/interfaces/levels.i";
+
 process.chdir(__dirname);
 
 const csv = require('csvtojson');
@@ -43,12 +45,12 @@ function buildLevels() {
       allLevels.forEach((csvLevelRow) => {
         let EXITS: IExits = {};
         let MONSTER_SPAWNS: CHARACTERS[];
-        let PLAYER_START_POS: ICoordinates;
+        let PLAYER_START_POS: ITileCoordinate;
         let NO_SPAWN_LOCATIONS: INoSpawnLocation[] = [];
 
         // parse player start post
         let [x, y] = csvLevelRow.player_start_pos.split(',');
-        PLAYER_START_POS = {x: +x, y: +y};
+        PLAYER_START_POS = {col: +x, row: +y};
 
         // parse monster_spawns by ID
         MONSTER_SPAWNS = csvLevelRow.monster_spawns.split(',') as CHARACTERS[];
@@ -62,10 +64,15 @@ function buildLevels() {
           }
           let [targetLevelID, targetTilePosition] = encodedTargetLevel.split('@');
           let [targetLevel, targetArea] = targetLevelID.split('-');
+          let [targetX, targetY] = targetTilePosition.split(',');
 
           EXITS[sourcePosition.trim()] = {
             area: +targetArea,
-            level: +targetLevel
+            level: +targetLevel,
+            exitTile: {
+              col: +targetX,
+              row: +targetY
+            }
           }
         });
 

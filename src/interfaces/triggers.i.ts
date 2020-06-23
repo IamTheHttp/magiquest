@@ -1,9 +1,9 @@
 import BaseEntity from "BaseEntity";
+import {ITileCoordinate} from "./levels.i";
 export type ITriggerLinesOfText = {
   text:string,
   speaker: number
 }[];
-
 
 
 export interface ActOnEntityTriggers {
@@ -26,5 +26,6 @@ export interface IPortalTrigger {
   oneOff: boolean,
   type: 'portal',
   level: number,
-  area: number
+  area: number,
+  exitTile: ITileCoordinate
 }

@@ -5,17 +5,29 @@
 		"area": 0,
 		"description": "Elvenar",
 		"player_start_pos": {
-			"x": 4,
-			"y": 5
+			"col": 4,
+			"row": 4
 		},
 		"monster_spawns": [
 			"IMP",
-			" VAMPIRE"
+			"VAMPIRE"
 		],
 		"exits": {
-			"5,3": {
+			"5,5": {
 				"area": 1,
-				"level": 0
+				"level": 0,
+				"exitTile": {
+					"col": 4,
+					"row": 95
+				}
+			},
+			"10,10": {
+				"area": 1,
+				"level": 0,
+				"exitTile": {
+					"col": 5,
+					"row": 5
+				}
 			}
 		},
 		"mon_per_tile": 0.05,
@@ -38,14 +50,31 @@
 		"area": 1,
 		"description": "Sewers",
 		"player_start_pos": {
-			"x": 5,
-			"y": 95
+			"col": 5,
+			"row": 95
 		},
 		"monster_spawns": [
 			"VAMPIRE",
-			" IMP"
+			"IMP"
 		],
-		"exits": {},
+		"exits": {
+			"5,95": {
+				"area": 0,
+				"level": 0,
+				"exitTile": {
+					"col": 12,
+					"row": 12
+				}
+			},
+			"10,10": {
+				"area": 1,
+				"level": 0,
+				"exitTile": {
+					"col": 5,
+					"row": 5
+				}
+			}
+		},
 		"mon_per_tile": 0.15,
 		"no_spawn_locations": [
 			{

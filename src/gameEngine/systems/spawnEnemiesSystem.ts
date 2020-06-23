@@ -15,6 +15,8 @@ let {entityLoop} = GAME_PLATFORM;
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   let spawningEntities = Entity.getByComps([CAN_SPAWN_COMP]);
+  const monsterDensity = systemArguments.levelArea.monsterDensity;
+
 
   entityLoop(spawningEntities, (spawningEntity: BaseEntity) => {
     const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
@@ -22,7 +24,6 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
     const characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
     const spawnableEnemies = systemArguments.levelArea.spawnableEnemies;
-    const monsterDensity = systemArguments.levelArea.monsterDensity;
 
     spawnableEnemies.forEach((enemyToSpawn) => {
       if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"

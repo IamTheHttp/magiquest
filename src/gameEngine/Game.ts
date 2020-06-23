@@ -1,5 +1,6 @@
+
 declare type getCanvasAPICallback = () => ICanvasAPI;
-declare type onAreaChangeCallback = (level: number, area: number) => void;
+declare type onAreaChangeCallback = (level: number, area: number, newPlayerPosition: ITileCoordinate) => void;
 
 import GAME_PLATFORM from 'game-platform';
 import renderSystem from './systems/renderSystem';
@@ -24,7 +25,7 @@ import destroyAllButPlayer from 'gameEngine/utils/destroyAllButPlayer';
 import Tile from 'gameEngine/entities/Tile';
 import assertType from 'gameEngine/utils/assertType';
 import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import {ILevelArea} from "../interfaces/levels.i";
+import {ILevelArea, ITileCoordinate} from "../interfaces/levels.i";
 import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
 import {ISystemArguments} from "../interfaces/gameloop.i";
 import {
@@ -93,13 +94,13 @@ class GameLoop {
 
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
+    engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(moveSystem);
     engine.addSystem(aiSystem);
     engine.addSystem(attackSystem);
     engine.addSystem(renderSystem);
     engine.addSystem(animationSystem);
     engine.addSystem(portalSystem);
-    engine.addSystem(spawnEnemiesSystem);
     engine.addSystem(questSystem);
     engine.addSystem(experienceSystem);
 
@@ -109,14 +110,12 @@ class GameLoop {
       let {gameEvents} = systemArguments;
       let hasEvents = gameEvents.getEvents().length > 0;
       gameEvents.getEvents().forEach((event) => {
-        console.log('KILLING IN TEH NAME OF');
         if (event instanceof EnemyKilledEvent) {
           event.readEvent().entity.destroy();
         }
       });
 
       if (hasEvents) {
-        console.log('Notifying UI that enemies killed');
         this.dispatchGameEvent(this.getPlayerStateEvent());
       }
     });
@@ -192,7 +191,7 @@ class GameLoop {
     centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
   }
 
-  setLevelArea(levelArea: ILevelArea, viewSize: IViewSize) {
+  setLevelArea(levelArea: ILevelArea, viewSize: IViewSize, targetTile:ITileCoordinate = null) {
     let {viewWidth, viewHeight, mapWidth, mapHeight} = viewSize;
     let mapAPI = this.getMapAPI();
     this.renderBackground = true; // for the first time
@@ -203,7 +202,8 @@ class GameLoop {
 
     this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
 
-    let player = placePlayerInLevel(levelArea, this.tileIdxMap);
+
+    let player = placePlayerInLevel(levelArea, this.tileIdxMap, targetTile);
     placeLevelEntities(levelArea, this.tileIdxMap);
 
     // set triggers
@@ -238,8 +238,8 @@ class GameLoop {
     return this.levelArea;
   }
 
-  handleAreaChange(level: number, area: number) {
-    this.onAreaChange(level, area);
+  handleAreaChange(level: number, area: number, newPlayerPosition: ITileCoordinate) {
+    this.onAreaChange(level, area, newPlayerPosition);
   }
 
   requestBackgroundRender() {

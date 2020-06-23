@@ -14,8 +14,8 @@ function mergeStaticLevelAreaData(level: ILevelArea): ILevelArea {
 
   level.levelAreaID = areaLevelRowData.id;
   level.startPos = { // if not specified otherwise, this is where we start (useful for for new levels)
-    col: areaLevelRowData.player_start_pos.x,
-    row: areaLevelRowData.player_start_pos.y,
+    col: areaLevelRowData.player_start_pos.col,
+    row: areaLevelRowData.player_start_pos.row,
   };
 
   level.noSpawnLocations = areaLevelRowData.no_spawn_locations;
@@ -28,7 +28,8 @@ function mergeStaticLevelAreaData(level: ILevelArea): ILevelArea {
       oneOff: false,
       type: 'portal',
       level: areaLevelRowData.exits[tileCoordinate].level,
-      area: areaLevelRowData.exits[tileCoordinate].area
+      area: areaLevelRowData.exits[tileCoordinate].area,
+      exitTile: areaLevelRowData.exits[tileCoordinate].exitTile
     } as IPortalTrigger;
 
     if (!level.triggers.move[tileCoordinate]) {
