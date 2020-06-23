@@ -5,7 +5,6 @@ import {ICharacterConfig} from "entities/characters/ICharacterConfig";
 import playerAnimations from "entities/animations/playerAnimations";
 import CharacterData from "../data/characters.json";
 
-console.log(CharacterData);
 
 type ICharsConfig = {
   [CHARACTER in CHARACTERS]?: ICharacterConfig
@@ -31,11 +30,7 @@ Object.keys(CharacterData).forEach((char:CHARACTERS) => {
     ...CharacterData[char],
     animationTypes: animations
   };
-
-  console.log(charactersDataConfig);
 });
 
-
-console.log(charactersDataConfig);
 
 export default charactersDataConfig;
