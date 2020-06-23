@@ -1,5 +1,5 @@
 import {CHARACTERS} from "gameConstants";
-import charactersDataConfig from "../../src/levels/charactersDataConfig";
+import charactersDataConfig from "../../src/data/charactersDataConfig";
 import FamNPC from "entities/characters/FamNPC";
 
 function createFamNPC(col: number, row: number) {

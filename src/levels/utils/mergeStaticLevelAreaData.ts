@@ -1,6 +1,6 @@
 import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
 import IParsedLevelCSVRow from "../../interfaces/IParsedLevelCSVRow";
-import levelsJSON from "../levels.json";
+import levelsJSON from "../../data/levels.json";
 import {IPortalTrigger} from "../../interfaces/triggers.i";
 
 /**

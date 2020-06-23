@@ -7,7 +7,7 @@ import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/g
 import {ISystemArguments} from "../../interfaces/gameloop.i";
 import BaseEntity from "BaseEntity";
 import Character from "gameEngine/entities/characters/Character";
-import charactersDataConfig from "../../levels/charactersDataConfig";
+import charactersDataConfig from "../../data/charactersDataConfig";
 import Enemy from "entities/characters/Enemy";
 
 let {entityLoop} = GAME_PLATFORM;
@@ -28,6 +28,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
       if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
         let characterConfig = charactersDataConfig[enemyToSpawn];
+
         if (characterConfig) {
           new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
           return;

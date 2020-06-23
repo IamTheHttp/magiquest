@@ -10,7 +10,7 @@ type ICharacterConfig = {
   attackSpeed: ATTACK_SPEEDS_OPTIONS;
   id: CHARACTERS;
   displayName: string;
-  radius: 16;
+  radius: number; // for now everyone uses 16
   animationTypes: IAnimationTypes;
 }
 

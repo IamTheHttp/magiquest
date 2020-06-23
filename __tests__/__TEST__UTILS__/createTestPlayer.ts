@@ -1,5 +1,5 @@
 import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
-import charactersDataConfig from "../../src/levels/charactersDataConfig";
+import charactersDataConfig from "../../src/data/charactersDataConfig";
 import Player from "entities/characters/Player";
 
 

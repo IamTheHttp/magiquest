@@ -1,5 +1,5 @@
 import {AllowedQuestIDs} from "gameConstants";
-import questsDataConfig from "../../levels/questsDataConfig";
+import questsDataConfig from "../../data/questsDataConfig";
 import {QUEST_DATA_COMP, KILL_QUEST_DATA_COMP} from "components/ComponentNamesConfig";
 
 export enum AllowedQuestState {

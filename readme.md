@@ -48,3 +48,14 @@
         - Format: 5,3->0-1@0,0 (tile 5,3 goes to level-area 0-1 at position 0,0)
         - separator "__" (as we can have multiple exists per area)
     - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
+
+- #### characters.csv database 
+    - id - {string} one of Enum's CHARACTERS;
+    - display_name -- {string}
+    - dmg -- {number}
+    - health - {number} 
+    - vision - {number} indicating the vision range of an enemy 
+    - attack_speed - {string} One of Enum's ATTACK_SPEEDS_OPTIONS (FAST, FASTEST etc.)
+    - radius - {number} currently constant 16 
+    - animation_types - {string} PLAYER_ANIMATION | ENEMY_ANIMATION
+        

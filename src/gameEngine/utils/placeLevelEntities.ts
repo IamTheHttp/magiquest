@@ -6,7 +6,7 @@ import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUti
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
-import charactersDataConfig from "../../levels/charactersDataConfig";
+import charactersDataConfig from "../../data/charactersDataConfig";
 import Chest from "entities/characters/Chest";
 import createFamNPC from "../../../__tests__/__TEST__UTILS__/createFamNPC";
 import Enemy from "entities/characters/Enemy";

@@ -6,7 +6,7 @@ import {bit} from 'gameEngine/config';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ILevelArea} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
-import charactersDataConfig from "../../levels/charactersDataConfig";
+import charactersDataConfig from "../../data/charactersDataConfig";
 import {CHARACTERS} from "gameConstants";
 
 function placePlayerInLevel(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
