@@ -20,7 +20,7 @@
     "@rollup/plugin-url": "^6.1.0",
     "@types/enzyme": "^3.10.9",
     "@types/jest": "^26.0.24",
-    "@types/react": "^17.0.16",
+    "@types/react": "^17.0.17",
     "@types/react-dom": "^17.0.9",
     "bootstrap": "^3.3.7",
     "canvas": "^2.8.0",
@@ -34,7 +34,7 @@
     "live-server": "^1.2.1",
     "react": "16.8.2",
     "react-dom": "16.8.2",
-    "rollup": "^2.56.0",
+    "rollup": "^2.56.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-includepaths": "^0.2.4",
@@ -43,6 +43,6 @@
     "rollup-plugin-typescript": "^1.0.1",
     "sass": "^1.37.5",
     "ts-jest": "^27.0.4",
-    "ts-node": "^10.1.0"
+    "ts-node": "^10.2.0"
   }
 }
