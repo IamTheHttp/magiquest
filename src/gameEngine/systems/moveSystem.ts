@@ -1,10 +1,7 @@
-import GAME_PLATFORM from 'game-platform';
 import {
   MOVEMENT_COMP,
   IS_MOVING_COMP,
-  PLAYER_CONTROLLED_COMP,
   POSITION_COMP,
-  ANIMATION_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
@@ -17,12 +14,10 @@ import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/g
 import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {Trigger, pushTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import Dialog from "components/Dialog";
-import {IDialogTrigger} from "../../interfaces/triggers.i";
-import BaseEntity from "BaseEntity";
-import {isNonEmptyArray} from "systems/portalSystem";
+import {Entity, entityLoop} from "game-platform";
+import {BaseEntity} from "../BaseEntity";
+import {isNonEmptyArray} from "./portalSystem";
 
-let {Entity, entityLoop} = GAME_PLATFORM;
 
 
 // TODO - Sort this mess :) -- ORIENTATION vs DIRECTION vs animation.direction
@@ -177,9 +172,9 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
 }
 
 function moveSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
   if (entities.length) {
-    entityLoop(entities, (entity: BaseEntity) => {
+    entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity);
     });
   }

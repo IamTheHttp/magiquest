@@ -1,6 +1,6 @@
-import {CHARACTERS} from "gameConstants";
-import {ICoordinates} from "game-platform/types/lib/interfaces";
 import {ITileCoordinate} from "./levels.i";
+import {ICoordinates} from "game-platform/dist/lib/interfaces";
+import {CHARACTERS} from "../gameEngine/gameConstants";
 
 export interface IExits {
   [key: string]: { // key in the form of "x,y"

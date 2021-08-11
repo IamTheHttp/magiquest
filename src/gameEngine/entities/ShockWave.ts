@@ -2,13 +2,12 @@
  * Created by patrik.tolosa on 2019-10-23.
 
  */
-import BaseEntity from 'gameEngine/BaseEntity';
+import {BaseEntity} from 'gameEngine/BaseEntity';
 import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
-import {bit} from 'gameEngine/config';
-import {AllowedUIShapes} from 'gameEngine/gameConstants';
-import getColRowByTileIdx from "utils/getColRowByTileIdx";
+import {AllowedUIShapes, bit} from 'gameEngine/gameConstants';
+import getColRowByTileIdx from "../utils/getColRowByTileIdx";
 
 
 function getCenterPosOfTile(tileIdx: string) {

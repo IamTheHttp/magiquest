@@ -1,10 +1,4 @@
-/* global describe */
-/* global it */
-/* global expect */
-/* global beforeEach */
-import {mount, shallow} from 'enzyme';
-import React from 'react';
-import BaseEntity from 'BaseEntity';
+import {BaseEntity} from "../../src/gameEngine/BaseEntity";
 
 describe('Tests the Base Entity', () => {
   let entity: BaseEntity;

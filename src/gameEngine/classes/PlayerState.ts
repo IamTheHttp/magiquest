@@ -1,6 +1,6 @@
 import {AllowedSkills} from "../../data/skillConfig";
 import {IPlayerState, IUIEvent} from "../../interfaces/interfaces";
-import {IAssignedCharacterAttributes} from "components/CharacterAttributesComponent";
+import {IAssignedCharacterAttributes} from "../components/CharacterAttributesComponent";
 
 class PlayerState implements IPlayerState {
   public maxHealth: number;

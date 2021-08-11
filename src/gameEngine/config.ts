@@ -1,6 +1,5 @@
-import getSpriteCrop, {ISprite} from 'gameEngine/utils/getSpriteCrop';
+import {getSpriteCrop} from "./utils/getSpriteCrop";
 
-let bit = 32;
 let grassTile = getSpriteCrop(7, 10);
 let mountainTile = getSpriteCrop(7, 11);
 let riverTiles = getSpriteCrop(5, 10);
@@ -18,59 +17,3 @@ let rockGate = getSpriteCrop(0, 19);
 let sandMountain = getSpriteCrop(12, 11);
 let caveFloor = getSpriteCrop(22, 1);
 let caveWall = getSpriteCrop(19, 1);
-
-interface ITileTypes {
-  [key:number]: ISprite
-}
-
-let tileTypes = {
-  0: mountainTile,
-  1: grassTile,
-  2: riverTiles,
-  3: brownBrickDay,
-  4: brownDoorDay,
-  5: redRoofDay,
-  6: monument,
-  7: dirtPath,
-  8: treeGrassTile,
-  9: treeGrassTileGreen,
-  10: treeGrassTilePine,
-  11: rockGate,
-  12: sandMountain,
-  13: caveFloor,
-  14: caveWall,
-  100: sand,
-  1000: sea
-} as ITileTypes;
-
-export enum ATTACK_SPEEDS_OPTIONS {
-  SLOW = 'SLOW',
-  FAST = 'FAST',
-  FASTER = 'FASTER',
-  FASTEST = 'FASTEST',
-}
-
-let attackSpeeds = {
-  [ATTACK_SPEEDS_OPTIONS.SLOW]: 90,
-  [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
-  [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
-  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
-};
-
-
-let resolution = {
-  width: 400 * 2,
-  height: 240 * 2
-};
-
-let ATTACK_CONFIG = {
-  lineWidth: 3
-};
-
-export {
-  ATTACK_CONFIG,
-  bit,
-  tileTypes,
-  resolution,
-  attackSpeeds
-};

@@ -1,5 +1,5 @@
 import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {DIRECTIONS_OPTIONS} from "gameConstants";
+import {DIRECTIONS_OPTIONS} from "../gameConstants";
 
 interface IPositionComponentConstructor {
   x:number;

@@ -1,16 +1,13 @@
-import GAME_PLATFORM from 'game-platform';
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import triggerSystem, {pushTrigger} from 'systems/triggerSystem';
-import Player from 'entities/characters/Player';
-import {DIALOG_COMP} from 'components/ComponentNamesConfig';
-import FamNPC from 'entities/characters/FamNPC';
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import createSystemArgs from "../../__TEST__UTILS__/createSystemArguments";
+import {Entity} from "game-platform";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
 import createFamNPC from "../../__TEST__UTILS__/createFamNPC";
+import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import triggerSystem, {pushTrigger} from "../../../src/gameEngine/systems/triggerSystem";
+import {DIALOG_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
 
-let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
@@ -23,7 +20,7 @@ describe('Tests for the AI system', () => {
 
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
-  
+
   it('doesnt break with no triggers to run', () => {
     triggerSystem(systemArguments);
   });

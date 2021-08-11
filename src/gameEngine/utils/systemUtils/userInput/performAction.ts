@@ -1,30 +1,21 @@
-import {IS_MOVING_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-
-
-import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
+import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import GAME_PLATFORM from 'game-platform';
-
-let {entityLoop} = GAME_PLATFORM;
-
-
-import Dialog from 'gameEngine/components/Dialog';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
-import {isNonEmptyArray} from "systems/portalSystem";
-import IndexedTile from "classes/IndexedTile";
-import {IEntityMap} from "game-platform/types/lib/interfaces";
-import Quest from "entities/Quest";
-import {AllowedQuestState} from "components/QuestDataComponent";
-import {InteractWithNPC} from "classes/GameEvents";
-import FamNPC from "entities/characters/FamNPC";
+import {entityLoop} from "game-platform";
+import {IEntityMap} from "game-platform/dist/lib/interfaces";
+import FamNPC from "../../../entities/characters/FamNPC";
+import {BaseEntity} from "../../../BaseEntity";
+import IndexedTile from "../../../classes/IndexedTile";
+import {InteractWithNPC} from "../../../classes/GameEvents";
+import {isNonEmptyArray} from "../../../systems/portalSystem";
 
 
-function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap } {
+function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap<BaseEntity> } {
   let {tileIdxMap, Entity, levelArea} = systemArguments;
-  let entity = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   let curOrientation = entity[POSITION_COMP].orientation;
 
@@ -68,9 +59,9 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
 function performAction(systemArguments: ISystemArguments) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
   let {Entity, levelArea, gameEvents} = systemArguments;
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
-  entityLoop(targetEntities, (targetEnt: BaseEntity) => {
+  entityLoop(targetEntities, (targetEnt) => {
       // try to attack
       if (targetEnt.isAttackable() && targetTile && !player.isAttacking()) {
         player.addComponent(new IsAttackingComp(targetTile));

@@ -1,5 +1,7 @@
 import {ILevelArea} from "../interfaces/levels.i";
-import hasValue from "utils/hasValue";
+import hasValue from "../gameEngine/utils/hasValue";
+import {ZERO_ZERO} from "./0-0/0-0";
+import {ZERO_ONE} from "./0-1/0-1";
 
 // TODO this should be some interface
 let levelConfig = {} as {
@@ -11,25 +13,41 @@ let levelConfig = {} as {
 };
 
 
+function processLevel(levelArea: ILevelArea) {
+  let [level, area] = levelArea.levelAreaID.split('-');
+  if (hasValue(level) && hasValue(area)) {
+    let numLevel = +level;
+    let numArea = +area;
+
+    levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
+    levelConfig[numLevel].areas[numArea] = levelArea;
+  }
+}
+
 // TOOD create a live object based on these levels
 function requireAllMapLevels() {
-  let ctx = require.context('levels', true, /\.ts$/);
+  processLevel(ZERO_ZERO);
+  processLevel(ZERO_ONE)
 
-  ctx.keys().forEach((path) => {
-    let name = path.replace('./', '').replace('.ts', '');
-
-    let [dir, file] = name.split('/');
-    if (file) {
-      let [level, area] = file.split('-');
-
-      if (hasValue(level) && hasValue(area)) {
-        let numLevel = +level;
-        let numArea = +area;
-        levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
-        levelConfig[numLevel].areas[numArea] = ctx(path).default;
-      }
-    }
-  });
+  //
+  // // @ts-ignore
+  // let ctx = require.context('levels', true, /\.ts$/);
+  //
+  // ctx.keys().forEach((path: string) => {
+  //   let name = path.replace('./', '').replace('.ts', '');
+  //
+  //   let [dir, file] = name.split('/');
+  //   if (file) {
+  //     let [level, area] = file.split('-');
+  //
+  //     if (hasValue(level) && hasValue(area)) {
+  //       let numLevel = +level;
+  //       let numArea = +area;
+  //       levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
+  //       levelConfig[numLevel].areas[numArea] = ctx(path).default;
+  //     }
+  //   }
+  // });
 }
 
 requireAllMapLevels();

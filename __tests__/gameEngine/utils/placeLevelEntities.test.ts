@@ -1,14 +1,12 @@
-/* global describe */
-/* global it */
-/* global expect */
-/* global beforeEach */
+
 import React from 'react';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import placeLevelEntities from 'utils/placeLevelEntities';
-import {CHARACTERS} from 'gameConstants';
-import {Entity} from 'BaseEntity';
-import {ANIMATION_COMP, LEVEL_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
+import {Entity} from "game-platform";
+import placeLevelEntities from "../../../src/gameEngine/utils/placeLevelEntities";
+import {LEVEL_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
+import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
+import {CHARACTERS} from "../../../src/gameEngine/gameConstants";
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
@@ -66,7 +64,7 @@ describe('Tests the placeLevelEntities util', () => {
     }, tileIdxMap);
 
     // Expected an assertion error in this test, as we have an UNKNOWN_TYPE
-    let entsPlaced = Entity.getByComp(LEVEL_COMP);
+    let entsPlaced = Entity.getByComp<BaseEntity>(LEVEL_COMP);
     expect(entsPlaced.length).toBe(2); // and not 3
   });
 });

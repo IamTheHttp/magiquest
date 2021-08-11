@@ -1,5 +1,5 @@
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import GameLoop from "Game";
+import GameLoop from "../../gameEngine/Game";
 
 class Glob {
   keyPressed: boolean;
@@ -8,7 +8,7 @@ class Glob {
 
 function registerUserInputEvents(game: GameLoop) {
   let glob = new Glob();
-  
+
   document.body.addEventListener('keyup', (event) => {
     glob.keyPressed = false;
     // Stop.. on key up, right?
@@ -16,14 +16,14 @@ function registerUserInputEvents(game: GameLoop) {
       name: AllowedActions.MOVE_ACTION
     });
   });
-  
+
   document.body.addEventListener('keydown', (event) => {
     if (glob.keyPressed) {
       return true;
     }
-    
+
     glob.keyPressed = true;
-    
+
     let code = +(event.which || event.keyCode || event.code);
     // Support arrow keys and WASD
     let map = {
@@ -38,7 +38,7 @@ function registerUserInputEvents(game: GameLoop) {
     } as {
       [key:number]: DIRECTIONS_OPTIONS
     };
-    
+
     if (code === 32) {
       if (!game.isRunning) {
         game.resume(); // if it was paused, this unpauses it..

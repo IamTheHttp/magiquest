@@ -1,6 +1,5 @@
-import ExperienceComp, {getXPToLevel} from "components/ExperienceComp";
-import {XP_TO_FIRST_LEVEL} from "gameConstants";
-
+import ExperienceComp, {getXPToLevel} from "../../../src/gameEngine/components/ExperienceComp";
+import {XP_TO_FIRST_LEVEL} from "../../../src/gameEngine/gameConstants";
 
 describe('XP Component Tests', function () {
   it ('Test XP to next level', () => {

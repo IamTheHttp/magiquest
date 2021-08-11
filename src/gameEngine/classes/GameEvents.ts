@@ -1,6 +1,6 @@
-import BaseEntity from "BaseEntity";
-import Character from "gameEngine/entities/characters/Character";
-import Player from "entities/characters/Player";
+import Player from "../entities/characters/Player";
+import Character from "../entities/characters/Character";
+import {BaseEntity} from "../BaseEntity";
 
 export interface IGameEvent {
   readEvent():{

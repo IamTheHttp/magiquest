@@ -1,0 +1,249 @@
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  color: white;
+}
+
+.canvas-main-container, .canvas-minimap-container {
+  position: relative;
+}
+
+.canvas-main-container {
+  width: 100%;
+  height: 100%;
+  border: 5px solid #b78846;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.canvas-minimap-container {
+  width: 200px;
+  height: 120px;
+  border: 1px solid black;
+  display: none;
+}
+
+#editor-panel {
+  height: 170px;
+  background-color: #202058;
+  color: white;
+}
+
+#toggle-editor {
+  bottom: 15px;
+  left: 15px;
+  z-index: 1;
+  position: absolute;
+  border-radius: 100px;
+  height: 70px;
+  width: 70px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: tan;
+}
+
+#tiles {
+  display: flex;
+}
+#tiles .tile.active {
+  border: 3px solid white;
+}
+
+#start {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  font-size: 50px;
+}
+
+.row {
+  display: flex;
+}
+
+.ui-context-window {
+  background-color: #333333;
+  border: 1px solid white;
+  position: absolute;
+  z-index: 2;
+  height: 350px;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  top: 50%;
+  margin-top: -25%;
+}
+.ui-context-window .close {
+  font-size: 35px;
+  color: indianred;
+  background-color: black;
+  bordeR: 0;
+  margin-bottom: 20px;
+}
+
+.game-ui {
+  box-sizing: border-box;
+  background-color: #333333;
+  border: 1px solid white;
+  padding: 5px;
+  width: 20%;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+  color: white;
+  min-width: 200px;
+}
+.game-ui .col {
+  width: 120px;
+  margin-right: 50px;
+}
+.game-ui .stats {
+  position: absolute;
+  top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 3%;
+  color: white;
+  font-size: 1rem;
+}
+.game-ui .bar {
+  position: relative;
+  height: 20px;
+  width: 100%;
+  border: 1px solid white;
+  background-color: black;
+}
+.game-ui .bar__filled {
+  height: 100%;
+}
+.game-ui .bar__filled.xp {
+  background-color: #a05900;
+}
+.game-ui .bar__filled.health {
+  background-color: #c30000;
+}
+.game-ui .game-options {
+  padding-top: 20px;
+  width: 100%;
+  height: 200px;
+  color: indianred;
+}
+.game-ui .game-options .game-option {
+  position: relative;
+  font-size: 1.2rem;
+  color: inherit;
+  border: 0;
+  margin: 3px;
+  width: calc(50% - 6px);
+  height: 50%;
+  background-color: black;
+}
+.game-ui .game-options .game-option.active::before {
+  content: "!";
+  color: white;
+  font-size: 0.5rem;
+  width: 10px;
+  height: 10px;
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  border-radius: 100%;
+  background-color: #ad0000;
+}
+
+.skills-screen .remaining-xp {
+  font-size: 1rem;
+  color: grey;
+}
+.skills-screen .skills-grid {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.skills-screen .skill {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  border: 1px solid white;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  background-color: black;
+  color: white;
+  height: 80px;
+  padding: 3px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  box-sizing: border-box;
+  width: calc(25% - 5px);
+}
+.skills-screen .skill.owned {
+  color: green;
+}
+.skills-screen .skill.clicked {
+  border: 1px dashed red;
+}
+.skills-screen .skill-details {
+  border-top: 1px dashed white;
+  margin-top: 10px;
+}
+.skills-screen .skill-tabs .skill-tab {
+  flex: 1 1 0px;
+  text-align: center;
+  background-color: black;
+  border: 1px solid white;
+}
+.skills-screen .skill-tabs .skill-tab.active {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+}
+
+.options-screen {
+  background-color: #333333;
+  border: 1px solid white;
+  position: absolute;
+  z-index: 2;
+  height: 350px;
+  width: 50%;
+  left: 50%;
+  top: 50%;
+  margin-left: -25%;
+  margin-top: -25%;
+}
+.options-screen__title, .options-screen__body, .options-screen__footer {
+  padding: 10px;
+}
+.options-screen__header {
+  display: flex;
+}
+.options-screen__header .close {
+  margin-left: auto;
+  color: indianred;
+  background-color: black;
+  font-size: 35px;
+  line-height: 30px;
+  width: 35px;
+  height: 32px;
+  text-align: center;
+}

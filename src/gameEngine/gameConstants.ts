@@ -63,4 +63,39 @@ export const ANIMATIONS = {
 };
 
 
+
+
+export const bit = 32
+
+export enum ATTACK_SPEEDS_OPTIONS {
+  SLOW = 'SLOW',
+  FAST = 'FAST',
+  FASTER = 'FASTER',
+  FASTEST = 'FASTEST',
+}
+
+export const ATTACK_SPEEDS = {
+  [ATTACK_SPEEDS_OPTIONS.SLOW]: 90,
+  [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
+  [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
+  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
+};
+
+
+export const RESOLUTION = {
+  width: 400 * 2,
+  height: 240 * 2
+};
+
+export const ATTACK_CONFIG = {
+  lineWidth: 3
+};
+
+
+
+export const CHAR_SPRITE_URL = "src/assets/characters.png";
+export const TILESET_IMAGE_URL = "src/assets/tileSet.png";
+
+
+
 export const XP_TO_FIRST_LEVEL = 500;

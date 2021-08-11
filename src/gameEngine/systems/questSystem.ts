@@ -1,39 +1,38 @@
-import GAME_PLATFORM from 'game-platform';
+import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from "../classes/GameEvents";
 import {
   CAN_ASSIGN_QUESTS_COMP,
-  HAS_ACTION_SIGN_COMP, KILL_QUEST_DATA_COMP,
-  PLAYER_CONTROLLED_COMP,
-  POSITION_COMP,
-  QUEST_DATA_COMP, SPAWNED_COMP,
+  HAS_ACTION_SIGN_COMP,
+  KILL_QUEST_DATA_COMP, PLAYER_CONTROLLED_COMP,
+  POSITION_COMP, QUEST_DATA_COMP,
+  SPAWNED_COMP,
   UI_COMP
-} from 'components/ComponentNamesConfig';
-
-import BaseEntity from "BaseEntity";
+} from "../components/ComponentNamesConfig";
+import Quest, {KillQuest} from "../entities/Quest";
+import {BaseEntity} from "../BaseEntity";
+import {AllowedQuestState} from "../components/QuestDataComponent";
+import {isNonEmptyArray} from "./portalSystem";
+import {pushTrigger, Trigger} from "./triggerSystem";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {AllowedQuestState} from "components/QuestDataComponent";
-import Quest, {KillQuest} from "entities/Quest";
-import {isNonEmptyArray} from "systems/portalSystem";
-import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from "classes/GameEvents";
-import {pushTrigger, Trigger} from "systems/triggerSystem";
+import {Entity, entityLoop} from "game-platform";
 
-let {Entity, entityLoop} = GAME_PLATFORM;
+
 
 function questSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entitiesThatGiveQuests = Entity.getByComps([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP]);
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP]);
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   // Quests are entities that inside a component
-  let quests = Entity.getByComps([QUEST_DATA_COMP]) as Quest[];
+  let quests = Entity.getByComps<BaseEntity>([QUEST_DATA_COMP]) as Quest[];
 
   /**
    * System does a few things...
    * 1.
-   * 2. Move the Quests state around based on conditions and checks, this is done on -- Entity.getByComps([QUEST_DATA_COMP])
-   * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComps([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
+   * 2. Move the Quests state around based on conditions and checks, this is done on -- Entity.getByComp<BaseEntity>([QUEST_DATA_COMP])
+   * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComp<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
    */
 
-  let killQuests = Entity.getByComps([KILL_QUEST_DATA_COMP]) as KillQuest[];
+  let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA_COMP]) as KillQuest[];
   let eventsToProcess:IGameEvent[] = gameEvents.getEvents();
 
   // 1. process events
@@ -118,7 +117,7 @@ function questSystem(systemArguments: ISystemArguments) {
   });
 
   // 3. Assign UI elements to NPCs based on Quest state
-  entityLoop(entitiesThatGiveQuests, (entityThatGivesQuest: BaseEntity) => {
+  entityLoop<BaseEntity>(entitiesThatGiveQuests, (entityThatGivesQuest) => {
     // Switch of the following:
     // if AVAILABLE, show yellow "?"
     // If done, show yellow "!"

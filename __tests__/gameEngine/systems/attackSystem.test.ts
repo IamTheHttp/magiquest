@@ -1,6 +1,4 @@
-import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'entities/characters/Player';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {
@@ -11,13 +9,13 @@ import {
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
-import {AllowedLevelLocationIDs} from "gameConstants";
-import {EnemyKilledEvent, IGameEvent} from "classes/GameEvents";
 import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import {Entity} from "game-platform";
+import {EnemyKilledEvent, IGameEvent} from "../../../src/gameEngine/classes/GameEvents";
+import {AllowedLevelLocationIDs} from "../../../src/gameEngine/gameConstants";
+import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
 
-let {Entity} = GAME_PLATFORM;
 
 describe('attack system tests', () => {
   let systemArguments: ISystemArguments, spyPan;

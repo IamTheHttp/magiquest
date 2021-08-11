@@ -4,8 +4,8 @@
 // row 3 down
 // all animations have 4 frames
 
-import {ANIMATIONS} from "gameConstants";
-import getSpriteCrop from "utils/getSpriteCrop";
+import {ANIMATIONS} from "../../gameConstants";
+import {getSpriteCrop} from "../../utils/getSpriteCrop";
 
 /**
  * @param {string} charSpriteURL

@@ -1,4 +1,3 @@
-import GAME_PLATFORM from 'game-platform';
 import {
   MOVEMENT_COMP,
   AI_CONTROLLED_COMP,
@@ -7,22 +6,21 @@ import {
 } from '../components/ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
-import {DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
+import {bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import { bit } from 'gameEngine/config';
-import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
+import {Entity, entityLoop} from "game-platform";
+import {BaseEntity} from "../BaseEntity";
 
-let { Entity, entityLoop } = GAME_PLATFORM;
 
 // TODO do this for all systems
 function aiSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let entities = Entity.getByComps<BaseEntity>([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
 
-  entityLoop(entities, (entity: BaseEntity) => {
+  entityLoop(entities, (entity) => {
     if (entity.isMoving()) {
       return;
     }

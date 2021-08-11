@@ -2,9 +2,9 @@ import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes, AllowedLevelLocationIDs} fro
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
-import BaseEntity from '../BaseEntity';
+import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
-import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "components/ComponentNamesConfig";
+import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "../components/ComponentNamesConfig";
 
 
 interface ITileConstructor {

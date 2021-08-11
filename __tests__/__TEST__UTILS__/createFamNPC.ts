@@ -1,6 +1,6 @@
-import {CHARACTERS} from "gameConstants";
+import FamNPC from "../../src/gameEngine/entities/characters/FamNPC";
 import charactersDataConfig from "../../src/data/charactersDataConfig";
-import FamNPC from "entities/characters/FamNPC";
+import {CHARACTERS} from "../../src/gameEngine/gameConstants";
 
 function createFamNPC(col: number, row: number) {
   return new FamNPC({

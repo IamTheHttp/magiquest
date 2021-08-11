@@ -1,6 +1,6 @@
-import Tile from "entities/Tile";
-import BaseEntity from "BaseEntity";
-import {IEntityMap} from "game-platform/types/lib/interfaces";
+import {IEntityMap} from "game-platform/dist/lib/interfaces";
+import {BaseEntity} from "../BaseEntity";
+import Tile from "../entities/Tile";
 
 /**
  * An indexedTile is a wrapper around the Tile Entity.
@@ -8,7 +8,7 @@ import {IEntityMap} from "game-platform/types/lib/interfaces";
  */
 class IndexedTile {
   idx: string;
-  entities: IEntityMap;
+  entities: IEntityMap<BaseEntity>;
   tile: Tile;
   entityCount:number;
 

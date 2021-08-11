@@ -1,17 +1,13 @@
-import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'entities/characters/Player';
-import portalSystem from 'gameEngine/systems/portalSystem';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import {AI_CONTROLLED_COMP, CAN_SPAWN_COMP, SPAWNED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
-import SpawnedComponent from "components/SpawnedComponent";
 import Character from "gameEngine/entities/characters/Character";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import {Entity} from "game-platform";
+import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
 
-let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyHandleAreaChange, player: BaseEntity;
@@ -33,26 +29,26 @@ describe('Tests for the AI system', () => {
 
   it('Attempts to spawn enemies on the map', () => {
 
-    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(AI_CONTROLLED_COMP).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBeGreaterThan(0);
+    expect(Entity.getByComp<BaseEntity>(AI_CONTROLLED_COMP).length).toBeGreaterThan(0);
   });
 
   it('Can safely not create any enemies', () => {
     global.Math.random = () => {
       return 1; // prevents all spawns from being created
     }
-    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(AI_CONTROLLED_COMP).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComp(AI_CONTROLLED_COMP).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(AI_CONTROLLED_COMP).length).toBe(0);
   });
 
   it('Spawns an enemy that gets the right SpawnedComponent', () => {
     spawnEnemiesSystem(systemArguments);
 
-    let ents = Entity.getByComp(SPAWNED_COMP) as Character[];
+    let ents = Entity.getByComp<BaseEntity>(SPAWNED_COMP) as Character[];
     ents.forEach((ent) => {
       expect(typeof ent[SPAWNED_COMP].spawningTileLocationID).toBe('string');
     });

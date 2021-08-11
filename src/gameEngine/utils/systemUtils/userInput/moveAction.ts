@@ -1,12 +1,12 @@
 import {PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
-import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
 import {IAction} from "../../../../interfaces/interfaces";
+import {BaseEntity} from "../../../BaseEntity";
 
 function moveAction(systemArguments: ISystemArguments, action: IAction) {
   let {Entity} = systemArguments;
   let {direction} = action;
-  let ent = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let ent = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   if (typeof direction !== 'undefined' && direction !== null) {
     ent.setMoveDirection(direction);

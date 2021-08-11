@@ -6,21 +6,21 @@ import {
   UI_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
 import {
-  AllowedUIShapes,
+  AllowedUIShapes, bit,
   DIRECTIONS,
   DIRECTIONS_OPTIONS
 } from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
-import {bit} from '../../../config';
 import char from 'assets/characters.png';
 import misc from 'assets/misc.png';
-import getSpriteCrop from 'gameEngine/utils/getSpriteCrop';
+import {getSpriteCrop} from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
 import {assetLoader} from 'cache/assetLoader';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
-import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
+import {Entity} from "game-platform";
+import {BaseEntity} from "../../../BaseEntity";
 
 function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntity[], closeEntsWithAnimation:BaseEntity[]) {
   let {mapAPI} = systemArguments;
@@ -48,7 +48,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
       if (section.shape === AllowedUIShapes.CIRCLE_SHAPE) {
         renderCircle(systemArguments, entity);
       }
-      
+
       if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {
         renderHealthBar(systemArguments, entity);
       }
@@ -83,7 +83,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
           [DIRECTIONS_OPTIONS.UP]: getSpriteCrop(1, 3),
           [DIRECTIONS_OPTIONS.DOWN]: getSpriteCrop(1, 2)
         };
-  
+
         let crops = spriteCrop[entity.getOrientation()] || {
           cropStartX: 0,
           cropStartY: 0
@@ -111,12 +111,12 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
   // render animations
   for (let i = 0; i < closeEntsWithAnimation.length; i++) {
     let entity = closeEntsWithAnimation[i];
-    
+
     renderAnimations(systemArguments, entity);
   }
   // one dialog at a time!
 
-  let entity = Entity.getByComp(DIALOG_COMP)[0] as BaseEntity;
+  let entity = Entity.getByComp<BaseEntity>(DIALOG_COMP)[0];
   if (entity) {
     renderDialog(systemArguments, entity);
     systemArguments.game.stop();

@@ -1,9 +1,9 @@
 import oneMap from './0-0.map.json';
-import {CHARACTERS} from 'gameConstants';
 import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
 import townLocation from "./locations/town";
 import spawnableOneLocation from "./locations/spawnable_1";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
+import {CHARACTERS} from "../../gameEngine/gameConstants";
 
 let level: ILevelArea = {
   levelAreaID: '0-0',
@@ -99,4 +99,5 @@ let level: ILevelArea = {
   ],
 };
 
-export default mergeStaticLevelAreaData(level);
+export const ZERO_ZERO = mergeStaticLevelAreaData(level);
+

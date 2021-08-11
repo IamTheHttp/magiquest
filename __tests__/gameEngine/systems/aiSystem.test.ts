@@ -1,21 +1,18 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 
-import aiSystem from 'systems/aiSystem';
-import GAME_PLATFORM from 'game-platform';
-import moveSystem from 'systems/moveSystem';
-import IsMoving from 'components/IsMoving';
-import Player from 'entities/characters/Player';
-import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
-import {ATTACK_SPEEDS_OPTIONS, bit} from 'config';
-import attackSystem from 'systems/attackSystem';
-import {HEALTH_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import {Entity} from "game-platform";
+import updateMapTileIdx from "../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx";
+import attackSystem from "../../../src/gameEngine/systems/attackSystem";
+import moveSystem from "../../../src/gameEngine/systems/moveSystem";
+import IsMoving from "../../../src/gameEngine/components/IsMoving";
+import {AllowedLevelLocationIDs, bit} from "../../../src/gameEngine/gameConstants";
+import aiSystem from "../../../src/gameEngine/systems/aiSystem";
+import {HEALTH_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
 
-let {Entity} = GAME_PLATFORM;
 
 
 describe('Tests for the AI system', () => {

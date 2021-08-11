@@ -1,10 +1,9 @@
-import Tile from 'gameEngine/entities/Tile';
-import IndexedTile from 'gameEngine/classes/IndexedTile';
 import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
 import {ILevelArea, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
-import {AllowedLevelLocationIDs} from "gameConstants";
-import {CAN_SPAWN_COMP} from "components/ComponentNamesConfig";
-
+import {CAN_SPAWN_COMP} from "../components/ComponentNamesConfig";
+import {AllowedLevelLocationIDs} from "../gameConstants";
+import Tile from "../entities/Tile";
+import IndexedTile from "../classes/IndexedTile";
 
 /**
  *

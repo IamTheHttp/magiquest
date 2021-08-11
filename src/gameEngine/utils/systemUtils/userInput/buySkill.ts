@@ -3,19 +3,18 @@ import {
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import GAME_PLATFORM from 'game-platform';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import Player from "entities/characters/Player";
 import {IAction} from "../../../../interfaces/interfaces";
 import {AllowedSkills, skillsConfig} from "../../../../data/skillConfig";
-import {PlayerSkillsChangeEvent} from "classes/GameEvents";
+import Player from "../../../entities/characters/Player";
+import {BaseEntity} from "../../../BaseEntity";
+import {PlayerSkillsChangeEvent} from "../../../classes/GameEvents";
 
-let {entityLoop} = GAME_PLATFORM;
 
 
 function buySkill(systemArguments: ISystemArguments, action: IAction) {
   let {Entity, levelArea, gameEvents} = systemArguments;
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
+  let player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
 
   // TODO how can we improve type safety here?
   if (action.data && action.data.skillID) {

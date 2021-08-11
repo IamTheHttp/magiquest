@@ -1,5 +1,5 @@
-import { Entity } from 'gameEngine/BaseEntity';
 import { assetLoader } from 'cache/assetLoader';
+import {Entity} from "game-platform";
 
 let global2 = global as any; // TODO Should this be any?
 
@@ -37,7 +37,7 @@ describe('Tests the placeLevelEntities util', () => {
     expect(() => {
       // no cache yet
       assetLoader.getAsset('asset_name');
-    }).toThrow(); 
+    }).toThrow();
   });
 
   it ('Do not load invalid asset types', () => {
@@ -49,4 +49,4 @@ describe('Tests the placeLevelEntities util', () => {
 
     expect(requests.length).toBe(0);
   });
-}); 
+});

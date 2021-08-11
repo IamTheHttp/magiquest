@@ -1,11 +1,11 @@
 import {POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
+import {BaseEntity} from "../../../BaseEntity";
 
 function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI} = systemArguments;
   let {x: curX, y: curY, radius} = entity[POSITION_COMP];
-  
+
   mapAPI.addCircle(
     {
       id: `${entity.id}`,

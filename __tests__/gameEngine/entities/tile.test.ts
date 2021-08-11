@@ -1,13 +1,12 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import GAME_PLATFORM from 'game-platform';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import Tile from "entities/Tile";
-import {AllowedLevelLocationIDs} from "gameConstants";
-import {CAN_SPAWN_COMP} from "components/ComponentNamesConfig";
+import {Entity} from "game-platform";
+import {CAN_SPAWN_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
+import {AllowedLevelLocationIDs} from "../../../src/gameEngine/gameConstants";
+import Tile from "../../../src/gameEngine/entities/Tile";
 
 
-let {Entity} = GAME_PLATFORM;
 
 describe('Tile tests', () => {
   let systemArguments: ISystemArguments, spyPan;

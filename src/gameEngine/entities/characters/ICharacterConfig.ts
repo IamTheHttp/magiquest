@@ -1,6 +1,5 @@
-import {ATTACK_SPEEDS_OPTIONS} from "config";
-import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
-import {IAnimationTypes} from "components/AnimationComp";
+import {IAnimationTypes} from "../../components/AnimationComp";
+import {AllowedLevelLocationIDs, ATTACK_SPEEDS_OPTIONS, CHARACTERS} from "../../gameConstants";
 
 type ICharacterConfig = {
   dmg: number;

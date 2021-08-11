@@ -1,10 +1,11 @@
 // store our triggers, singleton
-import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import Dialog from 'gameEngine/components/Dialog';
 import {IDialogTrigger, ITriggerLinesOfText, IPortalTrigger} from "../../interfaces/triggers.i";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {isNonEmptyArray} from "systems/portalSystem";
+import {Entity} from "game-platform";
+import {BaseEntity} from "../BaseEntity";
+import {isNonEmptyArray} from "./portalSystem";
 
 let triggers : IDialogTrigger[] = [];
 
@@ -32,7 +33,7 @@ class Trigger implements IDialogTrigger {
 
 
 function triggerSystem(systemArguments: ISystemArguments) {
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   // loop over all actions
   if (isNonEmptyArray(triggers)) {

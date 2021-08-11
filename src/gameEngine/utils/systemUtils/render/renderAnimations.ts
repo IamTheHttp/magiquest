@@ -1,9 +1,8 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {AllowedUIShapes, ANIMATIONS} from '../../../gameConstants';
+import {AllowedUIShapes, ANIMATIONS, ATTACK_CONFIG, bit} from '../../../gameConstants';
 import {assetLoader} from 'cache/assetLoader';
-import {ATTACK_CONFIG, bit} from 'gameEngine/config';
 import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
+import {BaseEntity} from "../../../BaseEntity";
 
 function renderAnimations(systemArguments: ISystemArguments, entity:  BaseEntity) {
   let {mapAPI} = systemArguments;

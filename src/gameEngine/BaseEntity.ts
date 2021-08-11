@@ -1,46 +1,33 @@
-import GAME_PLATFORM, {Entity} from 'game-platform';
+import {Entity} from "game-platform";
 import {
-  AI_VISION_COMP,
-  ANIMATION_COMP,
-  ATTACK_COMP,
-  BACKGROUND_COMP,
-  CAN_ASSIGN_QUESTS_COMP,
-  CAN_SPAWN_COMP,
-  DIALOG_COMP,
+  AI_VISION_COMP, ANIMATION_COMP,
+  ATTACK_COMP, BACKGROUND_COMP, CAN_ASSIGN_QUESTS_COMP,
+  CAN_SPAWN_COMP, DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
-  HEALTH_COMP,
-  IS_ATTACKING_COMP,
-  IS_MOVING_COMP,
-  MOVEMENT_COMP,
-  PLAYER_CONTROLLED_COMP,
-  POSITION_COMP, SPAWNED_COMP,
+  HEALTH_COMP, IS_ATTACKING_COMP, IS_MOVING_COMP, MOVEMENT_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP, SPAWNED_COMP,
   UI_COMP
-} from './components/ComponentNamesConfig';
-import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
-import IsMoving from './components/IsMoving';
-import {DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import {bit} from 'gameEngine/config';
-import AIVisionComponent from 'gameEngine/components/AIVisionComponent';
-import Health from "components/Health";
-import PlayerControlledComponent from "components/PlayerControlledComponent";
-import MoveComponent from "components/MoveComponent";
-import PositionComponent from "components/PositionComponent";
-import {ICoordinates} from "game-platform/types/lib/interfaces";
-import {IAnimation, IAnimationMap} from "../interfaces/interfaces";
-import IsAttackingComp from "components/IsAttacking";
-import AttackComponent from "components/AttackComponent";
-import Dialog from "components/Dialog";
-import BackgroundComponent from "components/BackgroundComponent";
-import CanSpawn from "components/CanSpawn";
-import UIComponent from "components/UIComponent";
-import CanAssignQuestsComponent from "components/CanAssignQuestsComponent";
-
-import HasActionSignComponent from "components/HasActionSignComponent";
-import {AllowedQuestState} from "components/QuestDataComponent";
-import Quest from "entities/Quest";
-import SpawnedComponent from "components/SpawnedComponent";
-
-
+} from "./components/ComponentNamesConfig";
+import {IAnimationMap} from "../interfaces/interfaces";
+import HasActionSignComponent from "./components/HasActionSignComponent";
+import {AllowedQuestState} from "./components/QuestDataComponent";
+import CanSpawn from "./components/CanSpawn";
+import BackgroundComponent from "./components/BackgroundComponent";
+import PlayerControlledComponent from "./components/PlayerControlledComponent";
+import Dialog from "./components/Dialog";
+import AnimationComp, {IAnimationVariantArguments} from "./components/AnimationComp";
+import {bit, DIRECTIONS_OPTIONS} from "./gameConstants";
+import {ICoordinates} from "game-platform/dist/lib/interfaces";
+import MoveComponent from "./components/MoveComponent";
+import SpawnedComponent from "./components/SpawnedComponent";
+import IsMoving from "./components/IsMoving";
+import Health from "./components/Health";
+import PositionComponent from "./components/PositionComponent";
+import UIComponent from "./components/UIComponent";
+import CanAssignQuestsComponent from "./components/CanAssignQuestsComponent";
+import Quest from "./entities/Quest";
+import IsAttackingComp from "./components/IsAttacking";
+import AIVisionComponent from "./components/AIVisionComponent";
+import AttackComponent from "./components/AttackComponent";
 
 class BaseEntity extends Entity {
   id: number;
@@ -298,5 +285,4 @@ class BaseEntity extends Entity {
   }
 }
 
-export {Entity};
-export default BaseEntity;
+export {BaseEntity};

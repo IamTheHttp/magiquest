@@ -29,4 +29,4 @@ let level: ILevelArea = {
   entitiesToPlace: []
 };
 
-export default mergeStaticLevelAreaData(level);
+export const ZERO_ONE = mergeStaticLevelAreaData(level);

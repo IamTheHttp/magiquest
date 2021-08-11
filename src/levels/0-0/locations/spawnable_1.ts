@@ -1,5 +1,5 @@
-import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
 import {ILevelLocation} from "../../../interfaces/levels.i";
+import {AllowedLevelLocationIDs} from "../../../gameEngine/gameConstants";
 
 let spawnableOneLocation:ILevelLocation;
 

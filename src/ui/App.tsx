@@ -1,24 +1,24 @@
 import * as  React from 'react';
-import GAME_PLATFORM from 'game-platform';
 import GameLoop from 'gameEngine/Game';
-import {bit, resolution, tileTypes} from 'gameEngine/config';
+// import {bit, resolution, tileTypes} from 'gameEngine/config';
 import registerUserInputEvents from 'ui/utils/registerUserInputEvents';
 import levelConfig from 'levels/levelConfig';
-import {Entity} from 'gameEngine/BaseEntity';
 import Editor from './Editor';
 import {ILevelArea, ITileCoordinate, ITileMap} from "../interfaces/levels.i";
-import Tile from "entities/Tile";
 import saveToServer from "./utils/saveToServer";
 import resizeGameElements from "./utils/resizeGameElements";
 import {IGameEventListener, IPlayerUIState} from "../interfaces/interfaces";
 import GameUI from "./Components/GameUI/GameUI";
 import SkillTree from "./Components/SkillTree/SkillTree";
-import {AllowedActions} from "gameConstants";
-import {PlayerState} from "classes/PlayerState";
 import {AllowedAttributes} from "data/attributesConfig";
 import Attributes from "./Components/Attributes/Attributes";
+import {ReactElement} from "react";
+import {Entity, GameCanvas} from "game-platform";
+import {PlayerState} from "../gameEngine/classes/PlayerState";
+import {AllowedActions, bit, RESOLUTION} from "../gameEngine/gameConstants";
+import {BaseEntity} from "../gameEngine/BaseEntity";
+import Tile from "../gameEngine/entities/Tile";
 
-let {GameCanvas} = GAME_PLATFORM;
 
 type IState = {
   mapCanvasEl: any; // TODO this should not be any
@@ -53,8 +53,8 @@ class App extends React.Component<any, IState> {
     setInterval(() => {
       this.setState({
         debug: {
-          countOfEnemyEntities: Entity.getByComp('AI_CONTROLLED_COMP').length,
-          countOfTileEntities: Entity.getByComp('TRAVERSABLE_COMP').length
+          countOfEnemyEntities: Entity.getByComp<BaseEntity>('AI_CONTROLLED_COMP').length,
+          countOfTileEntities: Entity.getByComp<BaseEntity>('TRAVERSABLE_COMP').length
         }
       })
     }, 1000);
@@ -112,12 +112,12 @@ class App extends React.Component<any, IState> {
     });
   }
 
-  initGameCanvas(mapWidth: number, mapHeight: number): { map: HTMLCanvasElement, minimap: HTMLCanvasElement } {
+  initGameCanvas(mapWidth: number, mapHeight: number): { map: ReactElement<HTMLCanvasElement>, minimap: ReactElement<HTMLCanvasElement> } {
     return new GameCanvas({
       mapHeight,
       mapWidth,
-      viewHeight: resolution.height,
-      viewWidth: resolution.width,
+      viewHeight: RESOLUTION.height,
+      viewWidth: RESOLUTION.width,
       onViewMapClick: (mouseClickData) => {
         // TODO - this should ONLY work in editor mode
         mouseClickData.hits.forEach((shape) => {
@@ -178,12 +178,13 @@ class App extends React.Component<any, IState> {
     });
 
     let nextArea = levelConfig[levelNum].areas[areaNum];
+    console.log('level conf', levelConfig);
     let areaTileMap = nextArea.tileMap;
     this.setNewCanvas(areaTileMap);
 
     let viewSize = {
-      viewHeight: resolution.height,
-      viewWidth: resolution.width,
+      viewHeight: RESOLUTION.height,
+      viewWidth: RESOLUTION.width,
       mapHeight: this.state.mapHeight,
       mapWidth: this.state.mapWidth
     };
@@ -197,6 +198,7 @@ class App extends React.Component<any, IState> {
     let areaNum = this.state.currentArea;
     // Use the level to get the current map for that level
     let areaToLoad = levelConfig[levelNum].areas[areaNum] as ILevelArea;
+    console.log('level Conf', levelConfig);
     let areaTileMap = areaToLoad.tileMap;
     this.setNewCanvas(areaTileMap);
 
@@ -216,8 +218,8 @@ class App extends React.Component<any, IState> {
           return this.state.minimapAPI;
         },
         viewSize: {
-          viewHeight: resolution.height,
-          viewWidth: resolution.width,
+          viewHeight: RESOLUTION.height,
+          viewWidth: RESOLUTION.width,
           mapHeight,
           mapWidth
         },

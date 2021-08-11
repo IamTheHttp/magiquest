@@ -1,56 +1,48 @@
-
-declare type getCanvasAPICallback = () => ICanvasAPI;
-declare type onAreaChangeCallback = (level: number, area: number, newPlayerPosition: ITileCoordinate) => void;
-
-import GAME_PLATFORM from 'game-platform';
-import renderSystem from './systems/renderSystem';
-import userInputSystem, {pushAction} from './systems/userInputSystem';
-import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
-import moveSystem from './systems/moveSystem';
-import throttle from './utils/throttle';
-import aiSystem from './systems/aiSystem';
-import attackSystem from './systems/attackSystem';
-import tileSetImageURL from '../assets/tileSet.png';
-import animationSystem from './systems/animationSystem';
-import charSpriteURL from 'assets/characters.png';
-import portalSystem, {isNonEmptyArray} from 'gameEngine/systems/portalSystem';
-import IEngine from "game-platform/types/lib/Engine/Engine";
-import {assetLoader} from 'cache/assetLoader';
-import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
-import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import placeLevelEntities from 'gameEngine/utils/placeLevelEntities';
-import placePlayerInLevel from 'gameEngine/utils/placePlayerInLevel';
-import centerCameraOnEntity from 'gameEngine/utils/systemUtils/centerCameraOnEntity';
-import destroyAllButPlayer from 'gameEngine/utils/destroyAllButPlayer';
-import Tile from 'gameEngine/entities/Tile';
-import assertType from 'gameEngine/utils/assertType';
-import ICanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
 import {ILevelArea, ITileCoordinate} from "../interfaces/levels.i";
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
-import {ISystemArguments} from "../interfaces/gameloop.i";
+import {Engine, Entity} from "game-platform";
+import assertType from "./utils/assertType";
+import createTileIndexMap from "./utils/createTileIndexMap";
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
-} from "components/ComponentNamesConfig";
-import BaseEntity from "BaseEntity";
-import {bit} from "config";
-import questSystem from "systems/questSystem";
+} from "./components/ComponentNamesConfig";
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
+import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
+import triggerSystem, {pushTrigger, Trigger} from "./systems/triggerSystem";
+import renderSystem from "./systems/renderSystem";
+import Player from "./entities/characters/Player";
 import GameEvents, {
   EnemyKilledEvent,
   PlayerAttributesChangeEvent,
   PlayerIsAttacked,
   PlayerSkillsChangeEvent
-} from "classes/GameEvents";
-import experienceSystem from "systems/experienceSystem";
-import getColRowByTileIdx from "utils/getColRowByTileIdx";
-import Player from "entities/characters/Player";
-import {PlayerStateChangeEvent} from "classes/PlayerState";
-
-
-let {Entity, Engine} = GAME_PLATFORM;
+} from "./classes/GameEvents";
+import {assetLoader} from "../cache/assetLoader";
+import placePlayerInLevel from "./utils/placePlayerInLevel";
+import animationSystem from "./systems/animationSystem";
+import aiSystem from "./systems/aiSystem";
+import portalSystem, {isNonEmptyArray} from "./systems/portalSystem";
+import throttle from "./utils/throttle";
+import getColRowByTileIdx from "./utils/getColRowByTileIdx";
+import centerCameraOnEntity from "./utils/systemUtils/centerCameraOnEntity";
+import questSystem from "./systems/questSystem";
+import destroyAllButPlayer from "./utils/destroyAllButPlayer";
+import {ISystemArguments} from "../interfaces/gameloop.i";
+import userInputSystem, {pushAction} from "./systems/userInputSystem";
+import spawnEnemiesSystem from "./systems/spawnEnemiesSystem";
+import attackSystem from "./systems/attackSystem";
+import {BaseEntity} from "./BaseEntity";
+import {PlayerStateChangeEvent} from "./classes/PlayerState";
+import Tile from "./entities/Tile";
+import experienceSystem from "./systems/experienceSystem";
+import moveSystem from "./systems/moveSystem";
+import placeLevelEntities from "./utils/placeLevelEntities";
+import {bit, CHAR_SPRITE_URL, TILESET_IMAGE_URL} from "./gameConstants";
+type getCanvasAPICallback = () => CanvasAPI;
+type onAreaChangeCallback = (level: number, area: number, newPlayerPosition: ITileCoordinate) => void;
 
 interface IGameConstructor {
   getMapAPI: getCanvasAPICallback;
@@ -62,7 +54,7 @@ interface IGameConstructor {
 }
 
 class GameLoop {
-  engine:IEngine;
+  engine:Engine;
   getMapAPI: getCanvasAPICallback;
   getMinimapAPI: getCanvasAPICallback;
   onAreaChange: onAreaChangeCallback;
@@ -156,8 +148,8 @@ class GameLoop {
     return {
       tileIdxMap: this.tileIdxMap,
       levelArea: this.levelArea,
-      tileSetSprite: assetLoader.getAsset(tileSetImageURL),
-      characterSprite: assetLoader.getAsset(charSpriteURL),
+      tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
+      characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
       Entity,
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,
@@ -170,7 +162,7 @@ class GameLoop {
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
-    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
     player.setPos({
       x: bit/2 + col * bit,
       y: bit/2 + row * bit
@@ -181,7 +173,7 @@ class GameLoop {
 
   // TODO this is for development/ EDITOR mode only!
   centerOnPlayer() {
-    let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
     this.renderBackground = true; // for the first time
 
@@ -269,7 +261,7 @@ class GameLoop {
   }
 
   getPlayerStateEvent(): PlayerStateChangeEvent {
-    const player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as Player;
+    const player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
     return new PlayerStateChangeEvent({
       maxHealth: player[HEALTH_COMP].max,
       currentHealth: player[HEALTH_COMP].current,

@@ -1,20 +1,20 @@
-import UIComponent from '../../components/UIComponent';
-import PlayerControlledComponent from '../../components/PlayerControlledComponent';
-import {ANIMATIONS, CANVAS_OUTPUT, AllowedUIShapes, AllowedQuestIDs} from 'gameConstants';
-import AnimationComp from 'components/AnimationComp';
-import playerAnimations from 'entities/animations/playerAnimations';
+import LevelComp from "../../components/LevelComp";
+import playerAnimations from "../animations/playerAnimations";
+import {AllowedUIShapes, CANVAS_OUTPUT} from "../../gameConstants";
+import {ICharacterConfig, ICharacterInstanceAttr} from "./ICharacterConfig";
+import Character from "./Character";
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   LEVEL_COMP
-} from "components/ComponentNamesConfig";
-import ExperienceComp from "components/ExperienceComp";
-import LevelComp from "components/LevelComp";
-import Character from "entities/characters/Character";
-import {ICharacterConfig, ICharacterInstanceAttr} from "entities/characters/ICharacterConfig";
-import CharacterSkillsComponent from "components/CharacterSkillsComponent";
-import CharacterAttributesComponent from "components/CharacterAttributesComponent";
+} from "../../components/ComponentNamesConfig";
+import UIComponent from "../../components/UIComponent";
+import CharacterAttributesComponent from "../../components/CharacterAttributesComponent";
+import CharacterSkillsComponent from "../../components/CharacterSkillsComponent";
+import PlayerControlledComponent from "../../components/PlayerControlledComponent";
+import ExperienceComp from "../../components/ExperienceComp";
+import AnimationComp from "../../components/AnimationComp";
 
 class Player extends Character {
   [EXPERIENCE_COMP]: ExperienceComp;

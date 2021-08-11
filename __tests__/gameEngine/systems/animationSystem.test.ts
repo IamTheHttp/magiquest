@@ -1,23 +1,21 @@
 import animationSystem from '../../../src/gameEngine/systems/animationSystem';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import GAME_PLATFORM from 'game-platform';
-import Player from 'entities/characters/Player';
-import getSpriteCrop from 'utils/getSpriteCrop';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
+import {Entity} from "game-platform";
+import {getSpriteCrop} from "../../../src/gameEngine/utils/getSpriteCrop";
 
-let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the Animation system', () => {
   let systemArguments: ISystemArguments, spyPan;
-  
+
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
     systemArguments = createSystemArgs(new SpyFns(spyPan));
   });
-  
+
   it ('doesnt break with no ents', () => {
     animationSystem(systemArguments);
   });

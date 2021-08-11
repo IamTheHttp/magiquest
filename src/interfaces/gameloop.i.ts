@@ -1,14 +1,14 @@
-import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import GameLoop from "Game";
-import Entity from "game-platform/types/lib/ECS/Entity";
+import {Entity} from "game-platform";
+import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
+import GameLoop from "../gameEngine/Game";
+import GameEvents from "../gameEngine/classes/GameEvents";
 import {ILevelArea} from "./levels.i";
 import {ITileIndexMap, IViewSize} from "./interfaces";
-import {ISprite} from "utils/getSpriteCrop";
-import GameEvents from "classes/GameEvents";
+
 
 export interface ISystemArguments {
   tileIdxMap: ITileIndexMap,
-  Entity: typeof Entity,
+  Entity: typeof Entity, // The game-platform static Entity
   mapAPI: CanvasAPI,
   minimapAPI:CanvasAPI,
   game: GameLoop,

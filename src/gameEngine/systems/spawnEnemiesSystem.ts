@@ -1,24 +1,21 @@
 import {
   CAN_SPAWN_COMP
 } from '../components/ComponentNamesConfig';
-import GAME_PLATFORM from 'game-platform';
-import {CHARACTERS} from 'gameEngine/gameConstants';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
-import Character from "gameEngine/entities/characters/Character";
 import charactersDataConfig from "../../data/charactersDataConfig";
-import Enemy from "entities/characters/Enemy";
+import {entityLoop} from "game-platform";
+import Enemy from "../entities/characters/Enemy";
+import {BaseEntity} from "../BaseEntity";
 
-let {entityLoop} = GAME_PLATFORM;
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
-  let spawningEntities = Entity.getByComps([CAN_SPAWN_COMP]);
+  let spawningEntities = Entity.getByComps<BaseEntity>([CAN_SPAWN_COMP]);
   const monsterDensity = systemArguments.levelArea.monsterDensity;
 
 
-  entityLoop(spawningEntities, (spawningEntity: BaseEntity) => {
+  entityLoop(spawningEntities, (spawningEntity) => {
     const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
     const {col, row} = getGridIdxFromPos(x, y);
     const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;

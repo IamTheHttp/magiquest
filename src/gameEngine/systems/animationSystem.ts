@@ -1,25 +1,25 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
-import {bit} from 'gameEngine/config';
-import BaseEntity from "BaseEntity";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
+import {BaseEntity} from "../BaseEntity";
+import {bit} from "../gameConstants";
 
 function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   // Animation system
-  let ents = Entity.getByComps([ANIMATION_COMP]) as BaseEntity[];
+  let ents = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
 
   for (let i = 0; i < ents.length; i++) {
     let entity = ents[i];
     let animations = entity[ANIMATION_COMP].animations;
-    
-    
+
+
     for (let anim in animations) {
       let animation = animations[anim];
       animation.realFrameCount = animation.realFrameCount || 0;
-      
+
       let numberOfFrames = animation.frames.length - 1;
       let isOver = animation.currentFrame >= numberOfFrames;
-      
+
       if (isOver && animation.loops) {
         animation.currentFrame = 0;
         animation.realFrameCount = 0;

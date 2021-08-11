@@ -1,5 +1,5 @@
 import charImageURL from 'assets/sentry.png';
-import commonAnimations from "entities/animations/characterAnimations";
+import commonAnimations from "./characterAnimations";
 
 const enemyAnimations = {
   ...commonAnimations(charImageURL)

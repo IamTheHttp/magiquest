@@ -1,7 +1,7 @@
 import {getTileIdxByPos} from '../../componentUtils/tileUtils/getTileIdx';
-import BaseEntity from "BaseEntity";
 import {ITileIndexMap} from "../../../../interfaces/interfaces";
-import {HEALTH_COMP} from "components/ComponentNamesConfig";
+import {BaseEntity} from "../../../BaseEntity";
+import {HEALTH_COMP} from "../../../components/ComponentNamesConfig";
 
 interface updateMapTileIdxArguments {
   entity: BaseEntity,

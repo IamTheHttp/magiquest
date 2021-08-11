@@ -1,5 +1,5 @@
 import charImageURL from 'assets/characters.png';
-import commonAnimations from "entities/animations/characterAnimations";
+import commonAnimations from "./characterAnimations";
 
 const playerAnimations = {
   ...commonAnimations(charImageURL)

@@ -1,5 +1,5 @@
-import {AllowedLevelLocationIDs} from "gameConstants";
 import {ILevelLocation} from "../../../interfaces/levels.i";
+import {AllowedLevelLocationIDs} from "../../../gameEngine/gameConstants";
 
 let townLocation:ILevelLocation;
 

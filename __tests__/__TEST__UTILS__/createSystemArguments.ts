@@ -1,13 +1,12 @@
-import GAME_PLATFORM from 'game-platform';
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ISystemArguments} from "../../src/interfaces/gameloop.i";
 import {fn} from "./SpyFns";
-import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
-import GameLoop from "Game";
-import GameEvents from "classes/GameEvents";
+import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
+import {Entity} from "game-platform";
+import GameEvents from "../../src/gameEngine/classes/GameEvents";
+import GameLoop from "../../src/gameEngine/Game";
 
-let {Entity} = GAME_PLATFORM;
 
 interface ICreateSystemArgsArguments {
   spyPan: fn;

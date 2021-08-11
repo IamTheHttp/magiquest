@@ -1,7 +1,6 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from "./triggers.i";
-import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
-import {ICoordinates} from "game-platform/types/lib/interfaces";
 import {INoSpawnLocation} from "./IParsedLevelCSVRow";
+import {AllowedLevelLocationIDs, CHARACTERS} from "../gameEngine/gameConstants";
 
 export type ITileMap = Array<Array<number>>
 

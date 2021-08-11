@@ -1,16 +1,15 @@
-import GAME_PLATFORM from 'game-platform';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import Player from 'entities/characters/Player';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
 import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
 import {AllowedSkills} from "../../../src/data/skillConfig";
-import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from "components/ComponentNamesConfig";
-import {PlayerSkillsChangeEvent} from "classes/GameEvents";
+import {Entity} from "game-platform";
+import Player from "../../../src/gameEngine/entities/characters/Player";
+import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
+import {PlayerSkillsChangeEvent} from "../../../src/gameEngine/classes/GameEvents";
 
-let {Entity} = GAME_PLATFORM;
 
 describe('Tests for the User Input system', () => {
   let systemArguments: ISystemArguments, spyPan, player: Player;

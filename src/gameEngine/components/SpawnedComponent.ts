@@ -1,5 +1,5 @@
 import {SPAWNED_COMP} from './ComponentNamesConfig';
-import {AllowedLevelLocationIDs} from "gameConstants";
+import {AllowedLevelLocationIDs} from "../gameConstants";
 
 class SpawnedComponent {
   name:string;

@@ -1,5 +1,5 @@
 import {CAN_SPAWN_COMP} from './ComponentNamesConfig';
-import {AllowedLevelLocationIDs} from "gameConstants";
+import {AllowedLevelLocationIDs} from "../gameConstants";
 
 class CanSpawn {
   name:string;

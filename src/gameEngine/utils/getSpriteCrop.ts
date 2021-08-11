@@ -1,11 +1,5 @@
-import {bit} from 'gameEngine/config';
-
-export interface ISprite {
-  cropStartX:number;
-  cropStartY: number;
-  cropSizeX:number
-  cropSizeY:number;
-}
+import {bit} from "../gameConstants";
+import {ISprite} from "../interfaces";
 
 function getSpriteCrop(col: number, row: number): ISprite {
   return {
@@ -17,4 +11,4 @@ function getSpriteCrop(col: number, row: number): ISprite {
 }
 
 
-export default getSpriteCrop;
+export {getSpriteCrop};

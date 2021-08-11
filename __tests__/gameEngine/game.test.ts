@@ -1,7 +1,6 @@
 import GameLoop from "../../src/gameEngine/Game";
-import {resolution} from "../../src/gameEngine/config";
-import {AllowedLevelLocationIDs, CHARACTERS} from "../../src/gameEngine/gameConstants";
-import CanvasAPI from "game-platform/types/lib/CanvasAPI/CanvasAPI";
+import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
+import {AllowedLevelLocationIDs, RESOLUTION} from "../../src/gameEngine/gameConstants";
 
 
 describe('Full integration test for game.ts', () => {
@@ -68,8 +67,8 @@ describe('Full integration test for game.ts', () => {
         } as unknown as CanvasAPI
       },
       viewSize: {
-        viewHeight: resolution.height,
-        viewWidth: resolution.width,
+        viewHeight: RESOLUTION.height,
+        viewWidth: RESOLUTION.width,
         mapHeight:300,
         mapWidth: 300
       }

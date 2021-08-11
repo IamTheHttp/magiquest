@@ -1,7 +1,7 @@
 import {POSITION_COMP} from '../../components/ComponentNamesConfig';
-import {bit} from '../../config';
 import {ISystemArguments} from "../../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
+import {BaseEntity} from "../../BaseEntity";
+import {bit} from "../../gameConstants";
 
 function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: BaseEntity[]) {
   let buffer = bit * 8;
@@ -9,13 +9,13 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
   let arr = [];
   let {panX, panY} = mapAPI.getPan();
   let {viewWidth, viewHeight} = systemArguments.viewSize;
-  
+
   for (let i = 0; i < entsToDraw.length; i++) {
     let entity = entsToDraw[i];
     let {x, y, radius, height, width} = entity[POSITION_COMP];
     let entWidth = radius * 2 || width;
     let entHeight = radius * 2 || height;
-    
+
     // Example
     // We have -100x, which means we move our view screen 100px to the right (the underlying is translated -100 px)
     // x = 0;
@@ -29,7 +29,7 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
     let isEntityTooFarRight = x - entWidth - buffer > -panX + viewWidth;
     let isEntityTooFarUp = y + entHeight + buffer < -panY;
     let isEntityTooFarDown = y - entHeight - buffer > -panY + viewHeight;
-    
+
     // is out of screen?
     if (isEntityTooFarLeft || isEntityTooFarRight || isEntityTooFarUp || isEntityTooFarDown) {
       // do nothing
@@ -37,7 +37,7 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
       arr.push(entity);
     }
   }
-  
+
   return arr;
 }
 

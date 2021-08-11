@@ -1,22 +1,21 @@
-import GAME_PLATFORM from 'game-platform';
 import {
   ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP
 } from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import BaseEntity from "BaseEntity";
-import {EnemyKilledEvent, PlayerIsAttacked} from "classes/GameEvents";
 import Character from "gameEngine/entities/characters/Character";
-import Player from "entities/characters/Player";
+import {Entity, entityLoop} from "game-platform";
+import {EnemyKilledEvent, PlayerIsAttacked} from "../classes/GameEvents";
+import Player from "../entities/characters/Player";
+import {BaseEntity} from "../BaseEntity";
 
-let { Entity, entityLoop } = GAME_PLATFORM;
 
 function attackSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entities = Entity.getByComps([IS_ATTACKING_COMP, ATTACK_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([IS_ATTACKING_COMP, ATTACK_COMP]);
   if (entities.length) {
-    entityLoop(entities, (entity: BaseEntity) => {
+    entityLoop(entities, (entity) => {
       let dmg = entity[ATTACK_COMP].damage;
       let coolDownFrames = entity[ATTACK_COMP].cooldownFrames;
       let targetTile = entity[IS_ATTACKING_COMP].targetTile;

@@ -1,5 +1,4 @@
-import {CHARACTERS} from "gameConstants";
-import {ATTACK_SPEEDS_OPTIONS} from "config";
+import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from "../gameEngine/gameConstants";
 
 export interface IParsedCharacterCSVRow {
   id: CHARACTERS,

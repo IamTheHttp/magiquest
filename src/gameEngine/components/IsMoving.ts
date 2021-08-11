@@ -1,5 +1,4 @@
 import {IS_MOVING_COMP} from './ComponentNamesConfig';
-import {DIRECTIONS_OPTIONS} from "gameConstants";
 
 class IsMoving {
   name:string;

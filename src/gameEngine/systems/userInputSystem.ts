@@ -4,8 +4,8 @@ import buySkill from '../utils/systemUtils/userInput/buySkill';
 import buyAttr from '../utils/systemUtils/userInput/buyAttr';
 
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {AllowedActions, DIRECTIONS_OPTIONS} from "gameConstants";
 import {IAction} from "../../interfaces/interfaces";
+import {AllowedActions} from "../gameConstants";
 
 let actionMap = {
   [AllowedActions.MOVE_ACTION]: moveAction,

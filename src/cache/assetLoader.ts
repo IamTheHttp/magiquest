@@ -15,6 +15,7 @@ class AssetLoader {
   }
 
   load(assets: Asset[], onReady: () => void) {
+
     assertType(assets.length, 'assets length', 'number');
     let requests = [];
 
@@ -22,13 +23,15 @@ class AssetLoader {
       let asset = assets[i];
       if (asset.type === 'image') {
         requests.push(new Promise((resolve) => {
+          console.log('pushing new asset', asset.url);
           let img = new Image();
           img.src = asset.url;
 
-          img.onload = () => {
-            this.cache[asset.name] = img;
+          img.onload = (e) => {
+            this.cache[asset.name.replace('./', '')] = img;
+            console.log('current cache', this.cache);
 
-            resolve();
+            resolve(null);
           };
         }));
       }
@@ -42,13 +45,14 @@ class AssetLoader {
   }
 
   getAsset(name: string) {
-    if (!this.cache[name]) {
-      throw Error(`Cannot get asset that was not loaded before hand, assetName attempted: ${name}`);
+    const ASSET_NAME = name.replace('src/assets/', '').replace('./', '');
+    if (!this.cache[ASSET_NAME]) {
+      throw Error(`Cannot get asset that was not loaded before hand, assetName attempted: ${ASSET_NAME}`);
     }
-    return this.cache[name];
+    console.log(ASSET_NAME, this.cache[ASSET_NAME]);
+    return this.cache[ASSET_NAME];
   }
 }
 
 let assetLoader = new AssetLoader();
-export default AssetLoader;
 export {assetLoader};

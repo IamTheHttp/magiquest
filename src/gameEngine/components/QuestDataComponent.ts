@@ -1,6 +1,5 @@
-import {AllowedQuestIDs} from "gameConstants";
-import questsDataConfig from "../../data/questsDataConfig";
-import {QUEST_DATA_COMP, KILL_QUEST_DATA_COMP} from "components/ComponentNamesConfig";
+import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from "./ComponentNamesConfig";
+import {AllowedQuestIDs} from "../gameConstants";
 
 export enum AllowedQuestState {
   HIDDEN = 'HIDDEN', // Not shown by the NPC, can't be offered

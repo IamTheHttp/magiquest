@@ -1,5 +1,5 @@
 import {EXPERIENCE_COMP} from './ComponentNamesConfig';
-import {XP_TO_FIRST_LEVEL} from "gameConstants";
+import {XP_TO_FIRST_LEVEL} from "../gameConstants";
 
 // TODO add memoization
 function getXPToLevel(level: number): number {

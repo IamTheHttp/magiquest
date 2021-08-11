@@ -1,5 +1,5 @@
-import {bit} from '../../../config';
-import BaseEntity from "BaseEntity";
+import {BaseEntity} from "../../../BaseEntity";
+import {bit} from "../../../gameConstants";
 
 function getTileIdxByPos(x:number, y:number) {
   let col = Math.floor(x / bit);

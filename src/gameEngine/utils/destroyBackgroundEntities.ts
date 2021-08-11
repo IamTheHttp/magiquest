@@ -1,10 +1,9 @@
 import {BACKGROUND_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import GAME_PLATFORM from 'game-platform';
-import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
-let {entityLoop} = GAME_PLATFORM;
+import {Entity, entityLoop} from "game-platform";
+import {BaseEntity} from "../BaseEntity";
 function destroyBackgroundEntities() {
-  let oldTiles = Entity.getByComp(BACKGROUND_COMP);
-  entityLoop(oldTiles, (entity:BaseEntity) => {
+  let oldTiles = Entity.getByComp<BaseEntity>(BACKGROUND_COMP);
+  entityLoop(oldTiles, (entity) => {
     entity.destroy();
   });
 }

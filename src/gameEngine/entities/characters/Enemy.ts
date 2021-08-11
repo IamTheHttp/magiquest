@@ -1,10 +1,9 @@
-import AIControlledComp from '../../components/AIControlledComp';
-import SpawnedComponent from "components/SpawnedComponent";
-import {ATTACK_COMP, LEVEL_COMP, SPAWNED_COMP} from "components/ComponentNamesConfig";
-import LevelComp from "components/LevelComp";
-import {ICharacterConfig, ICharacterInstanceAttr} from "entities/characters/ICharacterConfig";
-import Character from "entities/characters/Character";
-
+import {ICharacterConfig, ICharacterInstanceAttr} from "./ICharacterConfig";
+import {LEVEL_COMP, SPAWNED_COMP} from "../../components/ComponentNamesConfig";
+import LevelComp from "../../components/LevelComp";
+import AIControlledComp from "../../components/AIControlledComp";
+import Character from "./Character";
+import SpawnedComponent from "../../components/SpawnedComponent";
 
 class Enemy extends Character {
   [SPAWNED_COMP]: SpawnedComponent;

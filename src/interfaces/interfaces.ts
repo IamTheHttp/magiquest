@@ -1,14 +1,13 @@
-import IndexedTile from "classes/IndexedTile";
-import {AllowedActions, AllowedUIShapes, CHARACTERS, DIRECTIONS_OPTIONS} from "gameConstants";
-import {AllowedSkills} from "../data/skillConfig";
-import {PlayerStateChangeEvent} from "classes/PlayerState";
-import {IAssignedCharacterAttributes} from "components/CharacterAttributesComponent";
-
 /**
  * Represents the resolution properties of the game
  * "view" - represents the main view (player view), main screen.
  * "map" - represents the the entire map, so viewWidth <= mapWidth
- */
+ */ import {AllowedActions, AllowedUIShapes, DIRECTIONS_OPTIONS} from "../gameEngine/gameConstants";
+import {PlayerStateChangeEvent} from "../gameEngine/classes/PlayerState";
+import IndexedTile from "../gameEngine/classes/IndexedTile";
+import {AllowedSkills} from "../data/skillConfig";
+import {IAssignedCharacterAttributes} from "../gameEngine/components/CharacterAttributesComponent";
+
 export interface IViewSize {
   viewHeight: number
   viewWidth: number

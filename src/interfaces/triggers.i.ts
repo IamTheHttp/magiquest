@@ -1,5 +1,5 @@
-import BaseEntity from "BaseEntity";
 import {ITileCoordinate} from "./levels.i";
+import {BaseEntity} from "../gameEngine/BaseEntity";
 export type ITriggerLinesOfText = {
   text:string,
   speaker: number

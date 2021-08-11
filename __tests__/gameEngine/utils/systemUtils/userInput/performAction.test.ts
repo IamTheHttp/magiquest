@@ -1,20 +1,14 @@
-/* global describe */
-/* global it */
-/* global expect */
-/* global beforeEach */
-import React from 'react';
-import BaseEntity, {Entity} from 'BaseEntity';
-import performAction from 'utils/systemUtils/userInput/performAction';
-import Player from 'entities/characters/Player';
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
-import Character from 'gameEngine/entities/characters/Character';
-import {AllowedLevelLocationIDs, DIRECTIONS, DIRECTIONS_OPTIONS} from 'gameConstants';
-import updateMapTileIdx from 'utils/systemUtils/move/updateMapTileIdx';
-import {IS_ATTACKING_COMP} from 'components/ComponentNamesConfig';
 import SpyFns from "../../../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../../../src/interfaces/gameloop.i";
 import createNewEnemy from "../../../../__TEST__UTILS__/createEnemy";
 import createTestPlayer from "../../../../__TEST__UTILS__/createTestPlayer";
+import {Entity} from "game-platform";
+import updateMapTileIdx from "../../../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx";
+import {AllowedLevelLocationIDs, DIRECTIONS_OPTIONS} from "../../../../../src/gameEngine/gameConstants";
+import performAction from "../../../../../src/gameEngine/utils/systemUtils/userInput/performAction";
+import {BaseEntity} from "../../../../../src/gameEngine/BaseEntity";
+import {IS_ATTACKING_COMP} from "../../../../../src/gameEngine/components/ComponentNamesConfig";
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;

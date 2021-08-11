@@ -1,7 +1,7 @@
 import * as React from "react";
-import {tileTypes} from "config";
 import tileSet from "assets/tileSet.png";
 import {CSSProperties} from "react";
+import {TILE_TYPES} from "../gameEngine/createEntitySprites";
 
 type IProps = {
   onTileSelect: (key: number) => void,
@@ -25,8 +25,8 @@ class Editor extends React.Component<IProps, any> {
           Current Level: {this.props.currentLevel}-{this.props.currentArea}
         </h3>
         <div id='tiles'>
-          {Object.keys(tileTypes).map((key) => {
-            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = tileTypes[+key];
+          {Object.keys(TILE_TYPES).map((key) => {
+            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = TILE_TYPES[+key];
 
             let style: CSSProperties = {
               backgroundImage: `url("${tileSet}")`,

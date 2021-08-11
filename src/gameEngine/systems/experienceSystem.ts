@@ -1,19 +1,17 @@
-import GAME_PLATFORM from 'game-platform';
+import {Entity} from "game-platform";
+import {EnemyKilledEvent} from "../classes/GameEvents";
+import Player from "../entities/characters/Player";
 import {
   CHARACTER_ATTRIBUTES_COMP,
   EXPERIENCE_COMP,
   LEVEL_COMP,
   PLAYER_CONTROLLED_COMP
-} from 'components/ComponentNamesConfig';
+} from "../components/ComponentNamesConfig";
 import {ISystemArguments} from "../../interfaces/gameloop.i";
-import Player from "entities/characters/Player";
-import {EnemyKilledEvent} from "classes/GameEvents";
-
-let { Entity} = GAME_PLATFORM;
 
 function experienceSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let player = Entity.getByComps([PLAYER_CONTROLLED_COMP])[0] as Player;
+  let player = Entity.getByComps<Player>([PLAYER_CONTROLLED_COMP])[0];
 
   gameEvents.getEvents().forEach((event) => {
     if (event instanceof EnemyKilledEvent) {

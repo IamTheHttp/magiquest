@@ -1,17 +1,16 @@
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import Player from 'entities/characters/Player';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
-import BaseEntity, {Entity} from 'gameEngine/BaseEntity';
-import {bit} from 'gameEngine/config';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ILevelArea, ITileCoordinate} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
 import charactersDataConfig from "../../data/charactersDataConfig";
-import {CHARACTERS} from "gameConstants";
-import {ICoordinates} from "game-platform/types/lib/interfaces";
+import {Entity} from "game-platform";
+import Player from "../entities/characters/Player";
+import {BaseEntity} from "../BaseEntity";
+import {CHARACTERS} from "../gameConstants";
 
 function placePlayerInLevel(levelArea: ILevelArea, tileIdxMap: ITileIndexMap, targetTile: ITileCoordinate = null) {
-  let player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0] as BaseEntity;
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
   let {col, row} = targetTile || levelArea.startPos;
 
   let {x, y} = getCenterPosOfGridIdx(col, row);

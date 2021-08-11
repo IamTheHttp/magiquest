@@ -1,7 +1,6 @@
-import {AllowedLevelLocationIDs, CHARACTERS} from "gameConstants";
+import Player from "../../src/gameEngine/entities/characters/Player";
 import charactersDataConfig from "../../src/data/charactersDataConfig";
-import Player from "entities/characters/Player";
-
+import {CHARACTERS} from "../../src/gameEngine/gameConstants";
 
 function createTestPlayer(col: number, row: number) {
   return new Player({

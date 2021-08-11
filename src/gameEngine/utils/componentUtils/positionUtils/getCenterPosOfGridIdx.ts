@@ -1,4 +1,4 @@
-import {bit} from 'gameEngine/config';
+import {bit} from "../../../gameConstants";
 
 function getCenterPosOfGridIdx(col:number, row:number) {
   return {

@@ -2,25 +2,18 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "es6",
-    "target": "es5",
+    "target": "es6",
     "jsx": "react",
     "moduleResolution": "node",
     "esModuleInterop" : true,
     "baseUrl": "src/",
-    "outDir" : "/tmp/magiquest/dist",
-    "paths": {
-      "*": [
-        "*",
-        "gameEngine/*"
-      ]
-    }
+    "outDir" : "dist"
   },
   "include": [
     "./src/**/*",
     "./__tests__/**/*"
   ],
   "exclude": [
-    "./src/.dll/**/*",
     "node_modules"
   ]
 }
