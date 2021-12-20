@@ -1,62 +1,54 @@
-import {ILevelArea, ITileCoordinate} from "../interfaces/levels.i";
+import {ILevelArea, ITileCoordinate} from "../../interfaces/levels.i";
 import {Engine, Entity} from "game-platform";
-import assertType from "./utils/assertType";
-import createTileIndexMap from "./utils/createTileIndexMap";
+import assertType from "../utils/assertType";
+import createTileIndexMap from "../utils/createTileIndexMap";
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
-} from "./components/ComponentNamesConfig";
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../interfaces/interfaces";
-import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
-import triggerSystem, {pushTrigger, Trigger} from "./systems/triggerSystem";
-import renderSystem from "./systems/renderSystem";
-import Player from "./entities/characters/Player";
+} from "../components/ComponentNamesConfig";
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../../interfaces/interfaces";
+import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
+import triggerSystem, {pushTrigger, Trigger} from "../systems/triggerSystem";
+import renderSystem from "../systems/renderSystem";
+import Player from "../entities/characters/Player";
 import GameEvents, {
   EnemyKilledEvent,
   PlayerAttributesChangeEvent,
   PlayerIsAttacked,
   PlayerSkillsChangeEvent
-} from "./classes/GameEvents";
-import {assetLoader} from "../cache/assetLoader";
-import placePlayerInLevel from "./utils/placePlayerInLevel";
-import animationSystem from "./systems/animationSystem";
-import aiSystem from "./systems/aiSystem";
-import portalSystem, {isNonEmptyArray} from "./systems/portalSystem";
-import throttle from "./utils/throttle";
-import getColRowByTileIdx from "./utils/getColRowByTileIdx";
-import centerCameraOnEntity from "./utils/systemUtils/centerCameraOnEntity";
-import questSystem from "./systems/questSystem";
-import destroyAllButPlayer from "./utils/destroyAllButPlayer";
-import {ISystemArguments} from "../interfaces/gameloop.i";
-import userInputSystem, {pushAction} from "./systems/userInputSystem";
-import spawnEnemiesSystem from "./systems/spawnEnemiesSystem";
-import attackSystem from "./systems/attackSystem";
-import {BaseEntity} from "./BaseEntity";
-import {PlayerStateChangeEvent} from "./classes/PlayerState";
-import Tile from "./entities/Tile";
-import experienceSystem from "./systems/experienceSystem";
-import moveSystem from "./systems/moveSystem";
-import placeLevelEntities from "./utils/placeLevelEntities";
-import {bit, CHAR_SPRITE_URL, TILESET_IMAGE_URL} from "./gameConstants";
-type getCanvasAPICallback = () => CanvasAPI;
-type onAreaChangeCallback = (level: number, area: number, newPlayerPosition: ITileCoordinate) => void;
+} from "../classes/GameEvents";
+import {assetLoader} from "../../cache/assetLoader";
+import placePlayerInLevel from "../utils/placePlayerInLevel";
+import animationSystem from "../systems/animationSystem";
+import aiSystem from "../systems/aiSystem";
+import portalSystem, {isNonEmptyArray} from "../systems/portalSystem";
+import throttle from "../utils/throttle";
+import getColRowByTileIdx from "../utils/getColRowByTileIdx";
+import centerCameraOnEntity from "../utils/systemUtils/centerCameraOnEntity";
+import questSystem from "../systems/questSystem";
+import destroyAllButPlayer from "../utils/destroyAllButPlayer";
+import {ISystemArguments} from "../../interfaces/gameloop.i";
+import userInputSystem, {pushAction} from "../systems/userInputSystem";
+import spawnEnemiesSystem from "../systems/spawnEnemiesSystem";
+import attackSystem from "../systems/attackSystem";
+import {BaseEntity} from "../BaseEntity";
+import {PlayerStateChangeEvent} from "../classes/PlayerState";
+import Tile from "../entities/Tile";
+import experienceSystem from "../systems/experienceSystem";
+import moveSystem from "../systems/moveSystem";
+import placeLevelEntities from "../utils/placeLevelEntities";
+import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from "../gameConstants";
+import {getCanvasAPICallback, IGameConstructor, onAreaChangeCallback} from "./IGameTypes";
+import levelConfig from "../../levels/levelConfig";
 
-interface IGameConstructor {
-  getMapAPI: getCanvasAPICallback;
-  getMinimapAPI: getCanvasAPICallback;
-  levelArea: ILevelArea;
-  viewSize: IViewSize;
-  onAreaChange: onAreaChangeCallback;
-  gameEventListener: IGameEventListener
-}
 
-class GameLoop {
+class Game {
   engine:Engine;
-  getMapAPI: getCanvasAPICallback;
-  getMinimapAPI: getCanvasAPICallback;
+  mapAPI: Painter;
+  miniMapAPI: Painter;
   onAreaChange: onAreaChangeCallback;
   tileIdxMap: ITileIndexMap;
   viewSize: IViewSize;
@@ -66,22 +58,23 @@ class GameLoop {
   gameEvents: GameEvents;
   gameEventListener: IGameEventListener;
 
-  constructor({getMapAPI, getMinimapAPI, levelArea, viewSize, onAreaChange, gameEventListener}: IGameConstructor) {
+  // Player's current area TODO this is a placeholder
+  currentArea: number;
+  // Player's current level TODO this is a placeholder
+  currentLevel: number;
+
+  constructor({onAreaChange}: IGameConstructor) {
     Entity.reset();
     this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
     this.engine = engine;
-    this.getMapAPI = getMapAPI;
-    this.getMinimapAPI = getMinimapAPI;
-    this.gameEventListener = gameEventListener;
     this.onAreaChange = onAreaChange;
     this.gameEvents = new GameEvents();
 
     // TODO this probably needs to be related to player movement speed
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
-    this.setLevelArea(levelArea, viewSize);
 
 
     engine.addSystem(userInputSystem);
@@ -135,16 +128,49 @@ class GameLoop {
       this.gameEvents.endTick();
     });
 
-    this.dispatchGameEvent(this.getPlayerStateEvent());
-    // TODO resume? maybe start()?
-    this.resume();
+    // this.dispatchGameEvent(this.getPlayerStateEvent());
+  }
+
+  /**
+   * Returns the area's tilemap basd on the current game's level and area
+   * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
+   */
+  getAreaData() {
+    let levelNum = this.currentLevel
+    let areaNum = this.currentArea
+    // Use the level to get the current map for that level
+    let areaToLoad = levelConfig[levelNum].areas[areaNum] as ILevelArea;
+    return areaToLoad;
+  }
+
+  /**
+   * Sets the state for the desired level and area
+   * Populates the internal game state for the currentLevel, Area, mapHeight and mapWidth
+   * @param levelNum
+   * @param areaNum
+   */
+  setLevelAndArea(levelNum:number, areaNum:number) {
+    // Set the game state of the current level and area
+    this.currentLevel = levelNum;
+    this.currentArea   = areaNum;
   }
 
   dispatchGameEvent(event: PlayerStateChangeEvent) {
     this.gameEventListener(event);
   }
 
-  getSystemArguments(getMapAPI: getCanvasAPICallback, getMinimapAPI: getCanvasAPICallback): ISystemArguments {
+  setGameEventListener(listener: IGameEventListener) {
+    this.gameEventListener = listener;
+  }
+
+
+
+  setMapAPI(mapAPI: Painter) {
+    this.mapAPI = mapAPI;
+    mapAPI.addLayer('background');
+  }
+
+  getSystemArguments(mapAPI: Painter, miniMapAPI: Painter): ISystemArguments {
     return {
       tileIdxMap: this.tileIdxMap,
       levelArea: this.levelArea,
@@ -154,14 +180,15 @@ class GameLoop {
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,
       game: this,
-      mapAPI: getMapAPI(),
-      minimapAPI: getMinimapAPI(),
+      mapAPI: mapAPI,
+      minimapAPI: miniMapAPI,
       gameEvents: this.gameEvents
     };
   }
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
+    console.log('Setting player position', col, row);
     let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
     player.setPos({
       x: bit/2 + col * bit,
@@ -177,25 +204,42 @@ class GameLoop {
 
     this.renderBackground = true; // for the first time
 
-    let mapAPI = this.getMapAPI();
-    let {viewWidth, viewHeight, mapWidth, mapHeight} = this.viewSize;
+    if (this.mapAPI) {
+      let mapAPI = this.mapAPI;
+      let {viewWidth, viewHeight, mapWidth, mapHeight} = this.viewSize;
 
-    centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
+      centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
+    }
   }
 
-  setLevelArea(levelArea: ILevelArea, viewSize: IViewSize, targetTile:ITileCoordinate = null) {
-    let {viewWidth, viewHeight, mapWidth, mapHeight} = viewSize;
-    let mapAPI = this.getMapAPI();
+  loadCurrentLevelArea(playerStartingTile:ITileCoordinate = null) {
+    if (!this.mapAPI) {
+      throw 'Cannot load the current level area without a mapAPI instance';
+    }
+    // New level means new background
+    this.requestBackgroundRender();
+
+    let mapAPI = this.mapAPI;
+
+    const levelArea = this.getAreaData();
+    const {tileMap} = levelArea;
+
+    let mapWidth = tileMap[0].length * bit;
+    let mapHeight = tileMap.length * bit;
+
     this.renderBackground = true; // for the first time
     this.levelArea = levelArea;
-    this.viewSize = viewSize;
+    this.viewSize = {
+      viewHeight: RESOLUTION.height,
+      viewWidth: RESOLUTION.width,
+      mapHeight: mapHeight,
+      mapWidth: mapWidth
+    }
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
+    this.tileIdxMap = createTileIndexMap(levelArea, this.viewSize);
 
-    this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
-
-
-    let player = placePlayerInLevel(levelArea, this.tileIdxMap, targetTile);
+    let player = placePlayerInLevel(levelArea, this.tileIdxMap, playerStartingTile);
     placeLevelEntities(levelArea, this.tileIdxMap);
 
     // set triggers
@@ -212,7 +256,7 @@ class GameLoop {
       });
     }
 
-    centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
+    centerCameraOnEntity(player, mapAPI, this, this.viewSize.viewWidth, this.viewSize.viewHeight, mapWidth, mapHeight, true);
     this.renderBackground = true; // for the first time
   }
 
@@ -231,6 +275,11 @@ class GameLoop {
   }
 
   handleAreaChange(level: number, area: number, newPlayerPosition: ITileCoordinate) {
+    // Trigger a level change, request a background change as all the scene is different
+    this.setLevelAndArea(level, area);
+    this.loadCurrentLevelArea(newPlayerPosition);
+
+    // fire event in case anyone is listening
     this.onAreaChange(level, area, newPlayerPosition);
   }
 
@@ -246,7 +295,7 @@ class GameLoop {
     if (!this.isRunning) {
       this.isRunning = true;
       this.engine.run(() => {
-        return this.getSystemArguments(this.getMapAPI, this.getMinimapAPI);
+        return this.getSystemArguments(this.mapAPI, this.miniMapAPI);
       });
     }
   }
@@ -286,4 +335,4 @@ class GameLoop {
 }
 
 
-export default GameLoop;
+export default Game;

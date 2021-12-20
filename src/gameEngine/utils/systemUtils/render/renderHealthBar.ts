@@ -14,7 +14,7 @@ function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) 
   let healthHeight = 2;
   let healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
 
-  mapAPI.addRect(
+  mapAPI.drawRect(
     {
       id: `${entity.id}-full-${AllowedUIShapes.HEALTH_BAR_SHAPE}-`,
       x: entity[POSITION_COMP].x - healthWidth / 2,
@@ -26,7 +26,7 @@ function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) 
     }
   );
 
-  mapAPI.addRect(
+  mapAPI.drawRect(
     {
       id: `${entity.id}-damage-${AllowedUIShapes.HEALTH_BAR_SHAPE}`,
       x: entity[POSITION_COMP].x - healthWidth / 2,

@@ -100,6 +100,28 @@ body {
   margin-bottom: 20px;
 }
 
+.main-menu {
+  display: flex;
+  justify-content: center;
+}
+.main-menu__game-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  font-size: 3rem;
+  font-family: cursive;
+}
+.main-menu__btn-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10rem;
+  width: 300px;
+}
+.main-menu__btn-container button {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
 .game-ui {
   box-sizing: border-box;
   background-color: #333333;
@@ -169,81 +191,4 @@ body {
   position: absolute;
   border-radius: 100%;
   background-color: #ad0000;
-}
-
-.skills-screen .remaining-xp {
-  font-size: 1rem;
-  color: grey;
-}
-.skills-screen .skills-grid {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-}
-.skills-screen .skill {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  border: 1px solid white;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  background-color: black;
-  color: white;
-  height: 80px;
-  padding: 3px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  box-sizing: border-box;
-  width: calc(25% - 5px);
-}
-.skills-screen .skill.owned {
-  color: green;
-}
-.skills-screen .skill.clicked {
-  border: 1px dashed red;
-}
-.skills-screen .skill-details {
-  border-top: 1px dashed white;
-  margin-top: 10px;
-}
-.skills-screen .skill-tabs .skill-tab {
-  flex: 1 1 0px;
-  text-align: center;
-  background-color: black;
-  border: 1px solid white;
-}
-.skills-screen .skill-tabs .skill-tab.active {
-  background-color: white;
-  border: 1px solid black;
-  color: black;
-}
-
-.options-screen {
-  background-color: #333333;
-  border: 1px solid white;
-  position: absolute;
-  z-index: 2;
-  height: 350px;
-  width: 50%;
-  left: 50%;
-  top: 50%;
-  margin-left: -25%;
-  margin-top: -25%;
-}
-.options-screen__title, .options-screen__body, .options-screen__footer {
-  padding: 10px;
-}
-.options-screen__header {
-  display: flex;
-}
-.options-screen__header .close {
-  margin-left: auto;
-  color: indianred;
-  background-color: black;
-  font-size: 35px;
-  line-height: 30px;
-  width: 35px;
-  height: 32px;
-  text-align: center;
 }

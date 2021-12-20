@@ -16,7 +16,7 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
     entity[BACKGROUND_COMP].sections.forEach((section) => {
       if (section.shape === AllowedUIShapes.MAP_TILE_SHAPE) {
         // tile type
-        mapAPI.addImage(
+        mapAPI.drawImage(
           {
             id: `${entity.id}-${i}`,
             image: tileSetSprite,

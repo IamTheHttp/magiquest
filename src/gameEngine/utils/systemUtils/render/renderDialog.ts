@@ -5,12 +5,12 @@ import {BaseEntity} from "../../../BaseEntity";
 function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI, viewSize} = systemArguments;
 
-  let {panY, panX} = mapAPI.getPan();
+  let {panY, panX} = mapAPI.getCurrentPanValue();
   let width = 250;
   let x = viewSize.viewWidth - width - panX;
   let y = - panY;
 
-  mapAPI.writeBubble({
+  mapAPI.drawTextBubble({
     id: 'someText',
     x,
     y,

@@ -6,7 +6,7 @@ function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI} = systemArguments;
   let {x: curX, y: curY, radius} = entity[POSITION_COMP];
 
-  mapAPI.addCircle(
+  mapAPI.drawCircle(
     {
       id: `${entity.id}`,
       x: curX,

@@ -1,6 +1,25 @@
 In progress, available, notAvailable, Done
 
 
+
+Remove completely all references to callbacks of getMapAPI.
+Refactor mapAPI to painter
+Remove minimap API completely
+refactor viewSize:{} to gameDimensions:{}
+Validate the execution flow of until the canvas is ready.
+- Is game started?
+- If yes, render Canvas
+- Then pass canvas to GameCanvas
+- GameCanvas will generate a mapAPI (Painter)
+- mapAPI will be used to create a new game loop new GameLoop() with a mapAPI instance (instead of ref functions)
+
+
+
+
+
+
+
+
 General:
 QuestState: one of few options
 

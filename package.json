@@ -27,7 +27,7 @@
     "core-js": "3.6.4",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
-    "game-platform": "^2.1.2",
+    "game-platform": "^3.0.0",
     "generate-source-map": "0.0.5",
     "jest": "^27.0.6",
     "jest-canvas-mock": "2.1.1",
@@ -44,5 +44,8 @@
     "sass": "^1.37.5",
     "ts-jest": "^27.0.4",
     "ts-node": "^10.2.0"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.28"
   }
 }

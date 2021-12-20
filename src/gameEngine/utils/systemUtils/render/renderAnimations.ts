@@ -13,7 +13,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity:  BaseEntity
     let frame = frames[currentFrame];
 
     if (frame.spriteURL) {
-      mapAPI.addImage(
+      mapAPI.drawImage(
         {
           id: `${entity.id}`,
           image: assetLoader.getAsset(frame.spriteURL),
@@ -38,7 +38,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity:  BaseEntity
       let entityX = entity[POSITION_COMP].x - entity[POSITION_COMP].radius;
       let entityY = entity[POSITION_COMP].y - entity[POSITION_COMP].radius;
 
-      mapAPI.addArc(
+      mapAPI.drawArc(
         {
           id: `${entity.id}`,
           x: frameX,

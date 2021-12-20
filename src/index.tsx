@@ -3,8 +3,7 @@ import './polyfill/rAF.ts';
 
 import * as React from 'react';
 import {render} from 'react-dom';
-import App from './ui/App';
-import './ui/styles/global.scss';
+import {App} from './ui/App/App';
 import tiles from 'assets/tileSet.png';
 import charSpriteURL from 'assets/characters.png';
 import sentrySpriteURL from 'assets/sentry.png';

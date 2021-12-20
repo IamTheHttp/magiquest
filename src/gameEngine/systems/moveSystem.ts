@@ -171,6 +171,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   }
 }
 
+
+
 function moveSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
   if (entities.length) {

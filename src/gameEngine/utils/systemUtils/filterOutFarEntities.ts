@@ -7,7 +7,7 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
   let buffer = bit * 8;
   let {mapAPI} = systemArguments;
   let arr = [];
-  let {panX, panY} = mapAPI.getPan();
+  let {panX, panY} = mapAPI.getCurrentPanValue();
   let {viewWidth, viewHeight} = systemArguments.viewSize;
 
   for (let i = 0; i < entsToDraw.length; i++) {

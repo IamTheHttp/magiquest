@@ -2,10 +2,10 @@ import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ISystemArguments} from "../../src/interfaces/gameloop.i";
 import {fn} from "./SpyFns";
-import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
 import {Entity} from "game-platform";
 import GameEvents from "../../src/gameEngine/classes/GameEvents";
-import GameLoop from "../../src/gameEngine/Game";
+import Game from "../../src/gameEngine/Game/Game";
+import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
 
 
 interface ICreateSystemArgsArguments {
@@ -66,14 +66,14 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
         };
       },
       pan: spyPan
-    } as unknown as CanvasAPI,
+    } as unknown as Painter,
     game: {
       requestBackgroundRender: () => {
       },
       notifyBackgroundWasRendered: () => {
       },
       handleAreaChange :spyHandleAreaChange
-    } as unknown as GameLoop,
+    } as unknown as Game,
     tileIdxMap: createTileIndexMap({
       monsterDensity:0,
       noSpawnLocations:[],

@@ -10,9 +10,9 @@
       var lastTime = 0;
       var vendors = ['ms', 'moz', 'webkit', 'o'];
       for (var x = 0; x < vendors.length && !windowCopy.requestAnimationFrame; ++x) {
-          windowCopy.requestAnimationFrame = windowCopy[vendors[x] + "RequestAnimationFrame"];
-          windowCopy.cancelAnimationFrame = windowCopy[vendors[x] + "CancelAnimationFrame"]
-              || windowCopy[vendors[x] + "CancelRequestAnimationFrame"];
+          windowCopy.requestAnimationFrame = windowCopy["".concat(vendors[x], "RequestAnimationFrame")];
+          windowCopy.cancelAnimationFrame = windowCopy["".concat(vendors[x], "CancelAnimationFrame")]
+              || windowCopy["".concat(vendors[x], "CancelRequestAnimationFrame")];
       }
       if (!windowCopy.requestAnimationFrame) {
           windowCopy.requestAnimationFrame = function (callback) {
@@ -154,7 +154,7 @@
     module.exports = react_production_min;
   }
   });
-  var react_1 = react.Children;
+  react.Children;
   react.createRef;
   var react_3 = react.Component;
   react.PureComponent;
@@ -164,7 +164,7 @@
   react.memo;
   react.useCallback;
   react.useContext;
-  react.useEffect;
+  var react_11 = react.useEffect;
   react.useImperativeHandle;
   react.useDebugValue;
   react.useLayoutEffect;
@@ -587,6 +587,222 @@
       return to.concat(ar || from);
   }
 
+  var _a$4, _b$1;
+  var CANVAS_OUTPUT = 'CANVAS_OUTPUT';
+  var AllowedLevelLocationIDs;
+  (function (AllowedLevelLocationIDs) {
+      AllowedLevelLocationIDs["TOWN"] = "TOWN";
+      AllowedLevelLocationIDs["SPAWNABLE_1"] = "SPAWNABLE_1";
+  })(AllowedLevelLocationIDs || (AllowedLevelLocationIDs = {}));
+  var AllowedUIShapes;
+  (function (AllowedUIShapes) {
+      AllowedUIShapes["CIRCLE_SHAPE"] = "CIRCLE_SHAPE";
+      AllowedUIShapes["ARC_SHAPE"] = "ARC_SHAPE";
+      AllowedUIShapes["MAP_TILE_SHAPE"] = "MAP_TILE_SHAPE";
+      AllowedUIShapes["RECT_SHAPE"] = "RECT_SHAPE";
+      AllowedUIShapes["HEALTH_BAR_SHAPE"] = "HEALTH_BAR_SHAPE";
+      AllowedUIShapes["CHEST_SHAPE"] = "CHEST_SHAPE";
+      AllowedUIShapes["PLAYER_CHAR"] = "PLAYER_CHAR";
+  })(AllowedUIShapes || (AllowedUIShapes = {}));
+  var AllowedActions;
+  (function (AllowedActions) {
+      AllowedActions["PERFORM_ACTION"] = "PERFORM_ACTION";
+      AllowedActions["MOVE_ACTION"] = "MOVE_ACTION";
+      AllowedActions["BUY_SKILL"] = "BUY_SKILL";
+      AllowedActions["BUY_ATTR"] = "BUY_ATTR";
+  })(AllowedActions || (AllowedActions = {}));
+  var AllowedQuestIDs;
+  (function (AllowedQuestIDs) {
+      AllowedQuestIDs["CLEAR_CAMP"] = "CLEAR_CAMP";
+  })(AllowedQuestIDs || (AllowedQuestIDs = {}));
+  var CHARACTERS;
+  (function (CHARACTERS) {
+      CHARACTERS["ENEMY"] = "ENEMY";
+      CHARACTERS["FAM_NPC"] = "FAM_NPC";
+      CHARACTERS["CHEST"] = "CHEST";
+      CHARACTERS["IMP"] = "IMP";
+      CHARACTERS["GARGOYLE"] = "GARGOYLE";
+      CHARACTERS["DEMON"] = "DEMON";
+      CHARACTERS["VAMPIRE"] = "VAMPIRE";
+      CHARACTERS["PLAYER"] = "PLAYER";
+  })(CHARACTERS || (CHARACTERS = {}));
+  // TODO can these two be combined?
+  var DIRECTIONS_OPTIONS;
+  (function (DIRECTIONS_OPTIONS) {
+      DIRECTIONS_OPTIONS["UP"] = "UP";
+      DIRECTIONS_OPTIONS["DOWN"] = "DOWN";
+      DIRECTIONS_OPTIONS["LEFT"] = "LEFT";
+      DIRECTIONS_OPTIONS["RIGHT"] = "RIGHT";
+  })(DIRECTIONS_OPTIONS || (DIRECTIONS_OPTIONS = {}));
+  // TODO can these two be combined?
+  (_a$4 = {},
+      _a$4[DIRECTIONS_OPTIONS.UP] = 'UP',
+      _a$4[DIRECTIONS_OPTIONS.DOWN] = 'DOWN',
+      _a$4[DIRECTIONS_OPTIONS.LEFT] = 'LEFT',
+      _a$4[DIRECTIONS_OPTIONS.RIGHT] = 'RIGHT',
+      _a$4);
+  var ANIMATIONS = {
+      MOVE_LEFT: 'MOVE_LEFT',
+      MOVE_RIGHT: 'MOVE_RIGHT',
+      MOVE_UP: 'MOVE_UP',
+      MOVE_DOWN: 'MOVE_DOWN'
+  };
+  var bit = 32;
+  var ATTACK_SPEEDS_OPTIONS;
+  (function (ATTACK_SPEEDS_OPTIONS) {
+      ATTACK_SPEEDS_OPTIONS["SLOW"] = "SLOW";
+      ATTACK_SPEEDS_OPTIONS["FAST"] = "FAST";
+      ATTACK_SPEEDS_OPTIONS["FASTER"] = "FASTER";
+      ATTACK_SPEEDS_OPTIONS["FASTEST"] = "FASTEST";
+  })(ATTACK_SPEEDS_OPTIONS || (ATTACK_SPEEDS_OPTIONS = {}));
+  var ATTACK_SPEEDS = (_b$1 = {},
+      _b$1[ATTACK_SPEEDS_OPTIONS.SLOW] = 90,
+      _b$1[ATTACK_SPEEDS_OPTIONS.FAST] = 70,
+      _b$1[ATTACK_SPEEDS_OPTIONS.FASTER] = 60,
+      _b$1[ATTACK_SPEEDS_OPTIONS.FASTEST] = 20,
+      _b$1);
+  var RESOLUTION = {
+      width: 400 * 2,
+      height: 240 * 2
+  };
+  var ATTACK_CONFIG = {
+      lineWidth: 3
+  };
+  var CHAR_SPRITE_URL = "src/assets/characters.png";
+  var TILESET_IMAGE_URL = "src/assets/tileSet.png";
+  var XP_TO_FIRST_LEVEL = 500;
+
+  function MainMenu(props) {
+      return (react_22("div", { className: 'main-menu' },
+          react_22("div", { className: "main-menu__btn-container" },
+              react_22("h1", { className: 'main-menu__game-title' }, "MagiQuest"),
+              react_22("button", { onClick: props.startNewGame }, "New game"),
+              react_22("button", null, "Help"),
+              react_22("button", null, "About"))));
+  }
+
+  function getDefaultAppState() {
+      return {
+          mapCanvasEl: null,
+          minimapCanvasEl: null,
+          currentLevel: 0,
+          currentArea: 0,
+          mapHeight: null,
+          mapWidth: null,
+          minimap: null,
+          map: null,
+          active: null,
+          isEditing: null,
+          isGameRunning: false,
+          mapAPI: null,
+          clickedTileIdx: null,
+          editorTileType: null,
+          minimapAPI: null,
+          debug: {
+              countOfEnemyEntities: 0,
+              countOfTileEntities: 0
+          }
+      };
+  }
+
+  function GameUI(props) {
+      var canAssignAttrsClass = props.spendableAttributePoints > 0 ? 'active' : '';
+      return (react_22("div", { className: 'game-ui' },
+          react_22("h3", null, "Health"),
+          react_22("div", { className: 'bar' },
+              react_22("div", { className: 'bar__filled bar__filled health', style: { width: "".concat(props.percentHealth * 100, "%") } }),
+              react_22("div", { className: 'stats' },
+                  Math.floor(props.currentHealth),
+                  " / ",
+                  props.maxHealth)),
+          react_22("h3", null, "Exp"),
+          react_22("div", { className: 'bar' },
+              react_22("div", { className: 'bar__filled bar__filled xp', style: { width: "".concat(props.levelProgress * 100, "%") } }),
+              react_22("div", { className: 'stats' }, props.spendableXP)),
+          react_22("div", { className: 'game-options' },
+              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Skills"),
+              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Quests"),
+              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Inventory"),
+              react_22("button", { className: "game-option ".concat(canAssignAttrsClass), onClick: props.onShowAttributes }, "Attributes"))));
+  }
+
+  var _a$3;
+  var AllowedAttributes;
+  (function (AllowedAttributes) {
+      AllowedAttributes["STRENGTH"] = "STRENGTH";
+      AllowedAttributes["AGILITY"] = "AGILITY";
+      AllowedAttributes["WILL"] = "WILL";
+      AllowedAttributes["ENDURANCE"] = "ENDURANCE";
+  })(AllowedAttributes || (AllowedAttributes = {}));
+  (_a$3 = {},
+      _a$3[AllowedAttributes.AGILITY] = {
+          id: AllowedAttributes.AGILITY,
+          displayName: 'Agility',
+          description: 'Agility'
+      },
+      _a$3[AllowedAttributes.STRENGTH] = {
+          id: AllowedAttributes.STRENGTH,
+          displayName: 'STRENGTH',
+          description: 'STRENGTH'
+      },
+      _a$3[AllowedAttributes.WILL] = {
+          id: AllowedAttributes.WILL,
+          displayName: 'WILL',
+          description: 'WILL'
+      },
+      _a$3[AllowedAttributes.ENDURANCE] = {
+          id: AllowedAttributes.ENDURANCE,
+          displayName: 'ENDURANCE',
+          description: 'ENDURANCE'
+      },
+      _a$3);
+
+  function getDefaultPlayerState() {
+      var _a;
+      return {
+          maxHealth: 0,
+          currentHealth: 0,
+          percentHealth: 0,
+          skills: [],
+          spendableXP: 0,
+          levelProgress: 0,
+          spendableAttributePoints: 0,
+          attributes: (_a = {},
+              _a[AllowedAttributes.AGILITY] = 0,
+              _a[AllowedAttributes.STRENGTH] = 0,
+              _a[AllowedAttributes.WILL] = 0,
+              _a[AllowedAttributes.ENDURANCE] = 0 // assigned when game starts by game event
+          ,
+              _a)
+      };
+  }
+  function MainOverlay(props) {
+      var _this = this;
+      var _a = react_18(getDefaultPlayerState()), playerState = _a[0], setPlayerState = _a[1];
+      react_11(function () {
+          props.game.setGameEventListener(function (event) {
+              var newPlayerState = {
+                  maxHealth: event.maxHealth,
+                  currentHealth: event.currentHealth,
+                  percentHealth: event.percentHealth,
+                  skills: event.skills,
+                  spendableXP: event.spendableXP,
+                  levelProgress: event.levelProgress,
+                  attributes: event.attributes,
+                  spendableAttributePoints: event.spendableAttributePoints
+              };
+              setPlayerState(newPlayerState);
+          });
+      }, []);
+      return (react.createElement("div", null,
+          react.createElement(GameUI, __assign({}, playerState, { onShowSkillsClicked: function () {
+                  _this.toggleUIPlayerState('showSkillTree');
+              }, onShowAttributes: function () {
+                  _this.toggleUIPlayerState('showAttributes');
+              } })),
+          props.children));
+  }
+
   var entityLoop_1 = createCommonjsModule(function (module, exports) {
   Object.defineProperty(exports, "__esModule", { value: true });
   exports.entityLoop = void 0;
@@ -628,10 +844,14 @@
       }
       return ar;
   };
-  var __spreadArray = (commonjsGlobal && commonjsGlobal.__spreadArray) || function (to, from) {
-      for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-          to[j] = from[i];
-      return to;
+  var __spreadArray = (commonjsGlobal && commonjsGlobal.__spreadArray) || function (to, from, pack) {
+      if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+          if (ar || !(i in from)) {
+              if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+              ar[i] = from[i];
+          }
+      }
+      return to.concat(ar || Array.prototype.slice.call(from));
   };
   var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
       return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -689,10 +909,10 @@
               group = Group.groups[key] = new Group(compArray);
           }
           // insert the provided entities into this group...
-          entityLoop_1$1.default(entities, function (entity) {
+          (0, entityLoop_1$1.default)(entities, function (entity) {
               if (entity.hasComponents(compArray)) {
                   group.entities[entity.id] = entity;
-                  group.array = __spreadArray(__spreadArray([], __read(group.array)), [entity]);
+                  group.array = __spreadArray(__spreadArray([], __read(group.array), false), [entity], false);
               }
           });
           return group;
@@ -743,7 +963,7 @@
           Entity.counter++;
       }
       Entity.reset = function () {
-          entityLoop_1$1.default(Entity.entities, function (entity) {
+          (0, entityLoop_1$1.default)(Entity.entities, function (entity) {
               entity.destroy();
           });
           Group_1$1.default.reset();
@@ -824,7 +1044,7 @@
               // if this ent does not have all the other comps, skip..
               if (group.entities[this.id] && compInGroup && entHasReqComps) {
                   delete group.entities[this.id];
-                  spliceOne_1$1.default(group.array, group.array.indexOf(this));
+                  (0, spliceOne_1$1.default)(group.array, group.array.indexOf(this));
               }
           }
           delete this.components[compName];
@@ -1028,7 +1248,7 @@
           var width = shapeMetaData.width;
           var height = shapeMetaData.height;
           var type = shapeMetaData.type;
-          if (type === 'circle' && isPosInsideCircle_1$1.default(x, y, shapeX, shapeY, radius)) {
+          if (type === 'circle' && (0, isPosInsideCircle_1$1.default)(x, y, shapeX, shapeY, radius)) {
               hits.push({
                   id: id,
                   layerName: layerName
@@ -1131,8 +1351,9 @@
   exports.Shape = Shape;
   var Circle = /** @class */ (function (_super) {
       __extends(Circle, _super);
-      function Circle(id, x, y, radius, lineWidth, fillColor, color, ctx) {
+      function Circle(data, ctx) {
           var _this = this;
+          var id = data.id, x = data.x, y = data.y, radius = data.radius, lineWidth = data.lineWidth, fillColor = data.fillColor, color = data.color, strokeStyle = data.strokeStyle;
           var shapeMetaData = { id: id, x: x, y: y, radius: radius, type: 'circle' };
           _this = _super.call(this, function () { return _this._render(); }, shapeMetaData) || this;
           _this.metaData = shapeMetaData;
@@ -1143,7 +1364,7 @@
           _this.radius = radius;
           _this.lineWidth = lineWidth;
           _this.fillColor = fillColor;
-          _this.color = color;
+          _this.color = color || strokeStyle;
           return _this;
       }
       Circle.prototype._render = function () {
@@ -1169,7 +1390,7 @@
   Shape_1.Circle;
   Shape_1.Shape;
 
-  var CanvasAPI_1 = createCommonjsModule(function (module, exports) {
+  var Painter_1 = createCommonjsModule(function (module, exports) {
   /**
    * Library for working with Canvas,
    * Works by using a 2D context as an argument
@@ -1187,9 +1408,10 @@
       throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
   };
   Object.defineProperty(exports, "__esModule", { value: true });
+  exports.Painter = void 0;
 
-  var CanvasAPI = /** @class */ (function () {
-      function CanvasAPI(ctx, strokeStyle) {
+  var Painter = /** @class */ (function () {
+      function Painter(ctx, strokeStyle) {
           if (strokeStyle === void 0) { strokeStyle = 'white'; }
           if (!ctx) {
               throw 'Cannot create layer, no initial context found';
@@ -1203,7 +1425,12 @@
           this.defaultStrokeStyle = strokeStyle;
           ctx.strokeStyle = strokeStyle;
       }
-      CanvasAPI.prototype.addLayer = function (name) {
+      /**
+       * Add another layer that can be used for drawAllShapesInLayering.
+       * Internally this clones the existing canvas.
+       * @param name
+       */
+      Painter.prototype.addLayer = function (name) {
           var originCanvas = this.layers.initial.ctx.canvas;
           var parentNode = originCanvas.parentNode;
           var newCanvas = originCanvas.cloneNode();
@@ -1214,41 +1441,33 @@
               shapes: new Map()
           };
       };
-      CanvasAPI.prototype.removeLayer = function (name) {
+      Painter.prototype.removeLayer = function (name) {
           var originCanvas = this.layers.initial.ctx.canvas;
           var parentNode = originCanvas.parentNode;
-          parentNode.querySelector("#" + name).remove();
+          parentNode.querySelector("#".concat(name)).remove();
           delete this.layers[name];
       };
-      /**
-       * Clears all the shapes
-       */
-      CanvasAPI.prototype.clear = function (layerName) {
+      Painter.prototype.clearAllShapesInLayer = function (layerName) {
           if (layerName === void 0) { layerName = 'initial'; }
           var layer = this.layers[layerName];
           layer.shapes = new Map();
       };
-      CanvasAPI.prototype.clearAllLayers = function () {
+      Painter.prototype.clearAllLayers = function () {
           for (var layerName in this.layers) {
               if (!this.layers.hasOwnProperty(layerName)) {
                   continue;
               }
-              this.clear(layerName);
+              this.clearAllShapesInLayer(layerName);
           }
       };
-      /**
-       * Removes a shape by its ID
-       * @param id
-       * @param layerName
-       */
-      CanvasAPI.prototype.remove = function (id, layerName) {
+      Painter.prototype.removeShapeByID = function (id, layerName) {
           if (layerName === void 0) { layerName = 'initial'; }
           var layer = this.layers[layerName];
           var shapes = layer.shapes;
           shapes.delete(id);
       };
       /* istanbul ignore next */
-      CanvasAPI.prototype.addImage = function (_a) {
+      Painter.prototype.drawImage = function (_a) {
           var id = _a.id, image = _a.image, // the image to display
           x = _a.x, y = _a.y, // pos for x,y..
           height = _a.height, width = _a.width, cropStartX = _a.cropStartX, cropStartY = _a.cropStartY, cropSizeX = _a.cropSizeX, cropSizeY = _a.cropSizeY, rotation = _a.rotation, // in radians
@@ -1275,7 +1494,7 @@
               width: width
           }));
       };
-      CanvasAPI.prototype.addShape = function (_a) {
+      Painter.prototype.addShape = function (_a) {
           var id = _a.id, render = _a.render, _b = _a.layerName, layerName = _b === void 0 ? 'initial' : _b;
           var layer = this.layers[layerName];
           var ctx = layer.ctx;
@@ -1284,20 +1503,20 @@
               render(ctx);
           }));
       };
-      CanvasAPI.prototype.writeBubble = function (_a) {
+      Painter.prototype.drawTextBubble = function (_a) {
           var id = _a.id, text = _a.text, backgroundColor = _a.backgroundColor, borderColor = _a.borderColor, borderWidth = _a.borderWidth, fontSize = _a.fontSize, fontColor = _a.fontColor, x = _a.x, y = _a.y, fontFace = _a.fontFace, height = _a.height, width = _a.width, _b = _a.paddingLeft, paddingLeft = _b === void 0 ? 10 : _b, _c = _a.paddingTop, paddingTop = _c === void 0 ? 10 : _c, _d = _a.layerName, layerName = _d === void 0 ? 'initial' : _d;
           var longestTextWidth = 0;
           var linesOfText = text.split('\n');
           var fontPxSize = fontSize || +this.layers.initial.ctx.font.split('px')[0];
           var fontToUse = fontFace || +this.layers.initial.ctx.font.split('px')[1];
           // set it first for text-width calculations
-          this.layers.initial.ctx.font = fontPxSize + "px " + fontToUse;
+          this.layers.initial.ctx.font = "".concat(fontPxSize, "px ").concat(fontToUse);
           for (var i = 0; i < linesOfText.length; i++) {
               var width_1 = this.layers[layerName].ctx.measureText(linesOfText[i]).width;
               longestTextWidth = width_1 > longestTextWidth ? width_1 : longestTextWidth;
           }
-          this.addRect({
-              id: "" + id,
+          this.drawRect({
+              id: "".concat(id),
               x: x,
               y: y,
               height: Math.max(height, linesOfText.length * fontPxSize + paddingTop * 2),
@@ -1308,29 +1527,30 @@
               layerName: layerName
           });
           for (var i = 0; i < linesOfText.length; i++) {
-              this.write({
-                  id: id + "-bubbleText-" + i,
+              this.drawText({
+                  id: "".concat(id, "-bubbleText-").concat(i),
                   text: linesOfText[i],
                   x: x + paddingLeft,
                   y: y + fontPxSize + paddingTop + i * fontPxSize,
                   fillStyle: fontColor,
-                  font: fontPxSize + "px " + fontToUse,
+                  font: "".concat(fontPxSize, "px ").concat(fontToUse),
                   layerName: layerName,
                   textBaseline: null,
-                  strokeStyle: null
+                  strokeStyle: null,
+                  color: null
               });
           }
       };
-      CanvasAPI.prototype.addRect = function (_a) {
-          var id = _a.id, x = _a.x, y = _a.y, width = _a.width, height = _a.height, strokeStyle = _a.strokeStyle, lineWidth = _a.lineWidth, fillColor = _a.fillColor, _b = _a.layerName, layerName = _b === void 0 ? 'initial' : _b;
-          var layer = this.layers[layerName];
+      Painter.prototype.drawRect = function (_a) {
+          var id = _a.id, x = _a.x, y = _a.y, width = _a.width, height = _a.height, strokeStyle = _a.strokeStyle, color = _a.color, lineWidth = _a.lineWidth, fillColor = _a.fillColor, layerName = _a.layerName;
+          var layer = this.layers[layerName || 'initial'];
           if (!layer) {
-              throw "Could not find layer '" + layerName + "', are you sure you created the layer?";
+              throw "Could not find layer '".concat(layerName, "', are you sure you created the layer?");
           }
           var ctx = layer.ctx;
           var shapes = layer.shapes;
           shapes.set(id, new Shape_1.Shape(function () {
-              ctx.strokeStyle = strokeStyle;
+              ctx.strokeStyle = strokeStyle || color;
               ctx.lineWidth = lineWidth;
               ctx.beginPath();
               ctx.rect(x, y, width, height);
@@ -1349,13 +1569,13 @@
               width: width
           }));
       };
-      CanvasAPI.prototype.addArc = function (_a) {
-          var id = _a.id, direction = _a.direction, size = _a.size, _b = _a.color, color = _b === void 0 ? 'black' : _b, fillColor = _a.fillColor, _c = _a.lineWidth, lineWidth = _c === void 0 ? 1 : _c, x = _a.x, y = _a.y, radius = _a.radius, _d = _a.layerName, layerName = _d === void 0 ? 'initial' : _d;
+      Painter.prototype.drawArc = function (_a) {
+          var id = _a.id, direction = _a.direction, size = _a.size, _b = _a.color, color = _b === void 0 ? 'black' : _b, _c = _a.strokeStyle, strokeStyle = _c === void 0 ? 'black' : _c, fillColor = _a.fillColor, _d = _a.lineWidth, lineWidth = _d === void 0 ? 1 : _d, x = _a.x, y = _a.y, radius = _a.radius, _e = _a.layerName, layerName = _e === void 0 ? 'initial' : _e;
           var layer = this.layers[layerName];
           var ctx = layer.ctx;
           var shapes = layer.shapes;
           shapes.set(id, new Shape_1.Shape(function () {
-              ctx.strokeStyle = color;
+              ctx.strokeStyle = strokeStyle || color;
               ctx.lineWidth = lineWidth;
               var startArc = direction - (size / 2);
               var endArc = direction + (size / 2);
@@ -1369,17 +1589,16 @@
               ctx.closePath();
           }));
       };
-      CanvasAPI.prototype.addCircle = function (_a) {
-          var id = _a.id, x = _a.x, y = _a.y, radius = _a.radius, lineWidth = _a.lineWidth, color = _a.color, fillColor = _a.fillColor, _b = _a.layerName, layerName = _b === void 0 ? 'initial' : _b;
-          var layer = this.layers[layerName];
+      Painter.prototype.drawCircle = function (circleData) {
+          var layer = this.layers[circleData.layerName || 'initial'];
           var ctx = layer.ctx;
           var shapes = layer.shapes;
-          shapes.set(id, new Shape_1.Circle(id, x, y, radius, lineWidth, fillColor, color, ctx));
+          shapes.set(circleData.id, new Shape_1.Circle(circleData, ctx));
       };
       /**
        * Method allows us to pan around the canvas
        */
-      CanvasAPI.prototype.pan = function (x, y) {
+      Painter.prototype.panCamera = function (x, y) {
           this.panX = x;
           this.panY = y;
           for (var layerName in this.layers) {
@@ -1391,18 +1610,18 @@
               ctx.setTransform(1, 0, 0, 1, x, y);
               // non initial layers are drawn much less often, so we need a manual one here.
               if (layerName !== 'initial') {
-                  this.draw(layerName); // pan requires a draw to all non initial layers
+                  this.drawAllShapesInLayer(layerName); // pan requires a draw to all non initial layers
               }
           }
       };
-      CanvasAPI.prototype.getPan = function () {
+      Painter.prototype.getCurrentPanValue = function () {
           return {
               panX: this.panX || 0,
               panY: this.panY || 0,
           };
       };
-      CanvasAPI.prototype.write = function (_a) {
-          var id = _a.id, text = _a.text, x = _a.x, y = _a.y, _b = _a.font, font = _b === void 0 ? '' : _b, textBaseline = _a.textBaseline, fillStyle = _a.fillStyle, _c = _a.strokeStyle, strokeStyle = _c === void 0 ? '' : _c, _d = _a.layerName, layerName = _d === void 0 ? 'initial' : _d;
+      Painter.prototype.drawText = function (_a) {
+          var id = _a.id, text = _a.text, x = _a.x, y = _a.y, _b = _a.font, font = _b === void 0 ? '' : _b, textBaseline = _a.textBaseline, fillStyle = _a.fillStyle, _c = _a.strokeStyle, strokeStyle = _c === void 0 ? '' : _c, _d = _a.color, color = _d === void 0 ? '' : _d, _e = _a.layerName, layerName = _e === void 0 ? 'initial' : _e;
           var layer = this.layers[layerName];
           var ctx = layer.ctx;
           var shapes = layer.shapes;
@@ -1411,7 +1630,7 @@
               ctx.font = font;
               ctx.textBaseline = textBaseline;
               ctx.fillStyle = fillStyle;
-              ctx.strokeStyle = strokeStyle;
+              ctx.strokeStyle = strokeStyle || color;
               ctx.fillText(text, x, y);
               ctx.closePath();
           }, {
@@ -1420,7 +1639,7 @@
               y: y
           }));
       };
-      CanvasAPI.prototype.draw = function (layerName) {
+      Painter.prototype.drawAllShapesInLayer = function (layerName) {
           var e_1, _a;
           if (layerName === void 0) { layerName = 'initial'; }
           var layer = this.layers[layerName];
@@ -1445,33 +1664,15 @@
               finally { if (e_1) throw e_1.error; }
           }
       };
-      return CanvasAPI;
+      return Painter;
   }());
-  exports.default = CanvasAPI;
+  exports.Painter = Painter;
   });
 
-  unwrapExports(CanvasAPI_1);
+  unwrapExports(Painter_1);
+  Painter_1.Painter;
 
   var GameCanvas_1 = createCommonjsModule(function (module, exports) {
-  var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === undefined) k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-  }) : (function(o, m, k, k2) {
-      if (k2 === undefined) k2 = k;
-      o[k2] = m[k];
-  }));
-  var __setModuleDefault = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-  }) : function(o, v) {
-      o["default"] = v;
-  });
-  var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
-      if (mod && mod.__esModule) return mod;
-      var result = {};
-      if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-      __setModuleDefault(result, mod);
-      return result;
-  };
   var __read = (commonjsGlobal && commonjsGlobal.__read) || function (o, n) {
       var m = typeof Symbol === "function" && o[Symbol.iterator];
       if (!m) return o;
@@ -1488,25 +1689,29 @@
       }
       return ar;
   };
-  var __spreadArray = (commonjsGlobal && commonjsGlobal.__spreadArray) || function (to, from) {
-      for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-          to[j] = from[i];
-      return to;
+  var __spreadArray = (commonjsGlobal && commonjsGlobal.__spreadArray) || function (to, from, pack) {
+      if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+          if (ar || !(i in from)) {
+              if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+              ar[i] = from[i];
+          }
+      }
+      return to.concat(ar || Array.prototype.slice.call(from));
   };
   var __importDefault = (commonjsGlobal && commonjsGlobal.__importDefault) || function (mod) {
       return (mod && mod.__esModule) ? mod : { "default": mod };
   };
   Object.defineProperty(exports, "__esModule", { value: true });
-  var React = __importStar(react);
   var SelectedBox_1$1 = __importDefault(SelectedBox_1);
   var getShapesFromClick_1$1 = __importDefault(getShapesFromClick_1);
   var getShapesInSelectionBox_1$1 = __importDefault(getShapesInSelectionBox_1);
-  var CanvasAPI_1$1 = __importDefault(CanvasAPI_1);
+
+  /**
+   * This class is responsible for hooking the canvas events to the PainterAPI.
+   */
   var GameCanvas = /** @class */ (function () {
       function GameCanvas(options) {
-          var _this = this;
-          var noop = function () {
-          };
+          var noop = function () { };
           this.selectedBoxColor = options.selectedBoxColor || 'blue';
           this.mapHeight = options.mapHeight;
           this.mapWidth = options.mapWidth;
@@ -1522,32 +1727,27 @@
           this.dbClick = false;
           this.lastTap = 0;
           this.selectedBox = new SelectedBox_1$1.default();
-          [
-              'updateViewMapCursorPosition',
-              'updateMiniMapCursorPosition',
-              'handleMapMouseUp',
-              'handleMapMouseDown',
-              'handleMapMouseDown',
-              'handleMiniMapClick',
-              'handleMiniMapMove',
-              'handleMapMouseMove',
-              'handleMapMouseLeave',
-              'handleTouchMove',
-              'handleTouchStart',
-              'handleMapTouchEnd',
-              'handleMiniMapTouchStart'
-          ].forEach(function (fn) {
-              _this[fn] = _this[fn].bind(_this);
-          });
+          this.updateViewMapCursorPosition = this.updateViewMapCursorPosition.bind(this);
+          this.updateMiniMapCursorPosition = this.updateMiniMapCursorPosition.bind(this);
+          this.handleMapMouseUp = this.handleMapMouseUp.bind(this);
+          this.handleMapMouseDown = this.handleMapMouseDown.bind(this);
+          this.handleMiniMapClick = this.handleMiniMapClick.bind(this);
+          this.handleMiniMapMove = this.handleMiniMapMove.bind(this);
+          this.handleMapMouseMove = this.handleMapMouseMove.bind(this);
+          this.handleMapMouseLeave = this.handleMapMouseLeave.bind(this);
+          this.handleTouchMove = this.handleTouchMove.bind(this);
+          this.handleTouchStart = this.handleTouchStart.bind(this);
+          this.handleMapTouchEnd = this.handleMapTouchEnd.bind(this);
+          this.handleMiniMapTouchStart = this.handleMiniMapTouchStart.bind(this);
       }
       /**
        * @desc - Gets the x,y position inside the canvas based on a mouse event with clientX and clientY
        *         Will return X,Y values in relative terms to the painted Canvas dimensions and includes panning
        * @param clientInputCoordinates
        * @param canvas
-       * @param canvasAPI
+       * @param PainterAPI
        */
-      GameCanvas.prototype.getCursorPositionInCanvasTerms = function (clientInputCoordinates, canvas, canvasAPI) {
+      GameCanvas.prototype.getCursorPositionInCanvasTerms = function (clientInputCoordinates, canvas, PainterAPI) {
           var rect = canvas.getBoundingClientRect();
           if (typeof clientInputCoordinates.x !== 'number' || typeof clientInputCoordinates.y !== 'number') {
               throw 'Invalid inputCoordinates provided, missing X or Y';
@@ -1565,8 +1765,8 @@
           var scaledX = Math.max(0, Math.round(rawXOnCanvasElement * WIDTH_RATIO));
           var scaledY = Math.max(0, Math.round(rawYyOnCanvasElement * HEIGHT_RATIO));
           // Now we're in scaled canvas X,Y terms, we can safely subtract the Pan to get the right position
-          var x = scaledX - canvasAPI.getPan().panX;
-          var y = scaledY - canvasAPI.getPan().panY;
+          var x = scaledX - PainterAPI.getCurrentPanValue().panX;
+          var y = scaledY - PainterAPI.getCurrentPanValue().panY;
           return { x: x, y: y };
       };
       GameCanvas.prototype.handleMapMouseMove = function () {
@@ -1577,7 +1777,7 @@
               else {
                   this.selectedBox.setEnd(this.lastKnownPositionInCanvasTermsX, this.lastKnownPositionInCanvasTermsY);
                   var data = this.selectedBox.getData();
-                  this.mapAPI.addRect({
+                  this.mapAPI.drawRect({
                       id: 'selectedBox',
                       x: data.start.x,
                       y: data.start.y,
@@ -1614,13 +1814,13 @@
               if (selectedData.end.x === selectedData.start.x) {
                   var x = _this.lastKnownPositionInCanvasTermsX;
                   var y = _this.lastKnownPositionInCanvasTermsY;
-                  hits = __spreadArray(__spreadArray([], __read(hits)), __read(getShapesFromClick_1$1.default(_this.mapAPI.layers[layerName].shapes, layerName, x, y)));
+                  hits = __spreadArray(__spreadArray([], __read(hits), false), __read((0, getShapesFromClick_1$1.default)(_this.mapAPI.layers[layerName].shapes, layerName, x, y)), false);
               }
               else {
-                  hits = __spreadArray(__spreadArray([], __read(hits)), __read(getShapesInSelectionBox_1$1.default(_this.mapAPI.layers[layerName].shapes, layerName, selectedData)));
+                  hits = __spreadArray(__spreadArray([], __read(hits), false), __read((0, getShapesInSelectionBox_1$1.default)(_this.mapAPI.layers[layerName].shapes, layerName, selectedData)), false);
               }
           });
-          this.mapAPI.addRect({
+          this.mapAPI.drawRect({
               fillColor: null,
               layerName: "initial",
               lineWidth: 1,
@@ -1657,13 +1857,6 @@
           this.miniMapX = x;
           this.miniMapY = y;
       };
-      GameCanvas.prototype.getNewCanvasPairs = function (_a) {
-          var getMapRef = _a.getMapRef, getMiniRef = _a.getMiniRef;
-          return {
-              map: this.generateMapCanvas(getMapRef),
-              minimap: this.generateMiniMapCanvas(getMiniRef)
-          };
-      };
       GameCanvas.prototype.handleMiniMapMove = function (event) {
           this.onMiniMapMove(event);
       };
@@ -1679,18 +1872,18 @@
           var height = this.mapHeight;
           calcPanX = calcPanX + this.viewWidth < width ? calcPanX : width - this.viewWidth;
           calcPanY = calcPanY + this.viewHeight < height ? calcPanY : height - this.viewHeight;
-          this.mapAPI.pan(-calcPanX, -calcPanY);
+          this.mapAPI.panCamera(-calcPanX, -calcPanY);
           // draw the minimap square box
           this.updateMiniMapSquare();
           this.onMiniMapClick(event);
       };
       GameCanvas.prototype.updateMiniMapSquare = function () {
-          this.miniMapAPI.addRect({
+          this.miniMapAPI.drawRect({
               fillColor: null,
               layerName: "initial",
               id: 'currentMap',
-              x: -this.mapAPI.getPan().panX,
-              y: -this.mapAPI.getPan().panY,
+              x: -this.mapAPI.getCurrentPanValue().panX,
+              y: -this.mapAPI.getCurrentPanValue().panY,
               width: this.viewWidth,
               height: this.viewHeight,
               strokeStyle: 'green',
@@ -1747,7 +1940,7 @@
               y: e.touches[0].clientY
           };
           var _a = this.getCursorPositionInCanvasTerms(coords, this.viewMapCanvas, this.mapAPI), x = _a.x, y = _a.y;
-          var _b = this.mapAPI.getPan(), currentPanX = _b.panX, currentPanY = _b.panY;
+          var _b = this.mapAPI.getCurrentPanValue(), currentPanX = _b.panX, currentPanY = _b.panY;
           // example: current is 5, lastKnown is 20, we moved -15.
           var xPxChange = x - this.lastKnownPositionInCanvasTermsX;
           var yPxChange = y - this.lastKnownPositionInCanvasTermsY;
@@ -1766,46 +1959,58 @@
           // our panning is always negative, as don't allow to scroll off the edges
           // (if panning could be positive, we the canvas edge would be in the mainView)
           // This is equal to MIN_ALLOWED_X_PANNING = 0;
-          this.mapAPI.pan(this.ensureNegative(newPanX), this.ensureNegative(newPanY));
+          this.mapAPI.panCamera(this.ensureNegative(newPanX), this.ensureNegative(newPanY));
       };
-      GameCanvas.prototype.generateMapCanvas = function (getRef) {
-          var _this = this;
-          return (React.createElement("canvas", { className: 'viewMap', ref: function (el) {
-                  if (!el) {
-                      return null;
-                  }
-                  _this.viewMapCanvas = el;
-                  document.removeEventListener('mousemove', _this.updateViewMapCursorPosition);
-                  document.addEventListener('mousemove', _this.updateViewMapCursorPosition);
-                  // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
-                  el.removeEventListener('touchmove', _this.handleTouchMove, false);
-                  // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
-                  el.addEventListener('touchmove', _this.handleTouchMove, false);
-                  _this.mapAPI = new CanvasAPI_1$1.default(el.getContext('2d'));
-                  getRef(_this.mapAPI, el);
-              }, height: this.viewHeight, width: this.viewWidth, onMouseDown: this.handleMapMouseDown, onTouchStart: this.handleTouchStart, onTouchEnd: this.handleMapTouchEnd, onMouseMove: this.handleMapMouseMove, onMouseUp: this.handleMapMouseUp, onMouseLeave: this.handleMapMouseLeave }));
+      GameCanvas.prototype.registerCanvasPair = function (mainMapCanvas, miniMapCanvas) {
+          return {
+              map: this.registerMapCanvas(mainMapCanvas),
+              minimap: this.registerMinimapCanvas(miniMapCanvas)
+          };
       };
-      GameCanvas.prototype.generateMiniMapCanvas = function (getRef) {
+      GameCanvas.prototype.registerMinimapCanvas = function (canvas) {
           var _this = this;
-          return (React.createElement("canvas", { className: 'minimap', ref: function (el) {
-                  if (!el) {
-                      return null;
-                  }
-                  _this.miniMapCanvas = el;
-                  document.removeEventListener('mousemove', _this.updateMiniMapCursorPosition);
-                  document.addEventListener('mousemove', _this.updateMiniMapCursorPosition);
-                  _this.miniMapAPI = new CanvasAPI_1$1.default(el.getContext('2d'));
-                  // updateMiniMapSquare depends on mapAPI to be defined
-                  // due to some race conditions this might happen before mapAPI was defined
-                  // An interval is used to detect when mapAPI is defined
-                  var key = setInterval(function () {
-                      if (_this.mapAPI) {
-                          _this.updateMiniMapSquare();
-                          clearInterval(key);
-                      }
-                  }, 100);
-                  getRef(_this.miniMapAPI, el);
-              }, height: this.mapHeight, width: this.mapWidth, onMouseMove: this.handleMiniMapMove, onMouseDown: this.handleMiniMapClick, onTouchStart: this.handleMiniMapTouchStart }));
+          this.miniMapCanvas = canvas;
+          document.removeEventListener('mousemove', this.updateMiniMapCursorPosition);
+          document.addEventListener('mousemove', this.updateMiniMapCursorPosition);
+          // updateMiniMapSquare depends on mapAPI to be defined
+          // due to some race conditions this might happen before mapAPI was defined
+          // An interval is used to detect when mapAPI is defined
+          var key = setInterval(function () {
+              if (_this.mapAPI) {
+                  _this.updateMiniMapSquare();
+                  clearInterval(key);
+              }
+          }, 100);
+          canvas.height = this.mapHeight;
+          canvas.width = this.mapWidth;
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.addEventListener('mousemove', this.handleMiniMapMove);
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.addEventListener('mousedown', this.handleMiniMapClick);
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.addEventListener('touchstart', this.handleMiniMapTouchStart);
+          this.miniMapAPI = new Painter_1.Painter(canvas.getContext('2d'));
+          return this.miniMapAPI;
+      };
+      GameCanvas.prototype.registerMapCanvas = function (canvas) {
+          this.viewMapCanvas = canvas;
+          document.removeEventListener('mousemove', this.updateViewMapCursorPosition);
+          document.addEventListener('mousemove', this.updateViewMapCursorPosition);
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.removeEventListener('touchmove', this.handleTouchMove, false);
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.addEventListener('touchmove', this.handleTouchMove, false);
+          canvas.height = this.viewHeight;
+          canvas.width = this.viewWidth;
+          canvas.addEventListener('mousedown', this.handleMapMouseDown);
+          canvas.addEventListener('mousemove', this.handleMapMouseMove);
+          // @ts-ignore For some reason there's a misamtch between the event types TODO - can this be improved?
+          canvas.addEventListener('touchstart', this.handleTouchStart);
+          canvas.addEventListener('touchend', this.handleMapTouchEnd);
+          canvas.addEventListener('mouseup', this.handleMapMouseUp);
+          canvas.addEventListener('mouseleave', this.handleMapMouseLeave);
+          this.mapAPI = new Painter_1.Painter(canvas.getContext('2d'));
+          return this.mapAPI;
       };
       return GameCanvas;
   }());
@@ -1877,10 +2082,10 @@
   /* eslint no-console: "off" */
   function assertType(expectedType, name, type) {
       if (typeof expectedType === 'boolean') {
-          console.assert(expectedType === type, "Error, expected " + name + " to be " + type + " but " + expectedType + " received instead");
+          console.assert(expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(expectedType, " received instead"));
       }
       else {
-          console.assert(typeof expectedType === type, "Error, expected " + name + " to be " + type + " but " + typeof expectedType + " received instead");
+          console.assert(typeof expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(typeof expectedType, " received instead"));
       }
   }
 
@@ -1908,91 +2113,6 @@
   var LEVEL_COMP = 'LEVEL_COMP';
   var CHARACTER_SKILLS_COMP = 'CHARACTER_SKILLS_COMP';
   var CHARACTER_ATTRIBUTES_COMP = 'CHARACTER_ATTRIBUTES_COMP';
-
-  var _a$4, _b$1;
-  var CANVAS_OUTPUT = 'CANVAS_OUTPUT';
-  var AllowedLevelLocationIDs;
-  (function (AllowedLevelLocationIDs) {
-      AllowedLevelLocationIDs["TOWN"] = "TOWN";
-      AllowedLevelLocationIDs["SPAWNABLE_1"] = "SPAWNABLE_1";
-  })(AllowedLevelLocationIDs || (AllowedLevelLocationIDs = {}));
-  var AllowedUIShapes;
-  (function (AllowedUIShapes) {
-      AllowedUIShapes["CIRCLE_SHAPE"] = "CIRCLE_SHAPE";
-      AllowedUIShapes["ARC_SHAPE"] = "ARC_SHAPE";
-      AllowedUIShapes["MAP_TILE_SHAPE"] = "MAP_TILE_SHAPE";
-      AllowedUIShapes["RECT_SHAPE"] = "RECT_SHAPE";
-      AllowedUIShapes["HEALTH_BAR_SHAPE"] = "HEALTH_BAR_SHAPE";
-      AllowedUIShapes["CHEST_SHAPE"] = "CHEST_SHAPE";
-      AllowedUIShapes["PLAYER_CHAR"] = "PLAYER_CHAR";
-  })(AllowedUIShapes || (AllowedUIShapes = {}));
-  var AllowedActions;
-  (function (AllowedActions) {
-      AllowedActions["PERFORM_ACTION"] = "PERFORM_ACTION";
-      AllowedActions["MOVE_ACTION"] = "MOVE_ACTION";
-      AllowedActions["BUY_SKILL"] = "BUY_SKILL";
-      AllowedActions["BUY_ATTR"] = "BUY_ATTR";
-  })(AllowedActions || (AllowedActions = {}));
-  var AllowedQuestIDs;
-  (function (AllowedQuestIDs) {
-      AllowedQuestIDs["CLEAR_CAMP"] = "CLEAR_CAMP";
-  })(AllowedQuestIDs || (AllowedQuestIDs = {}));
-  var CHARACTERS;
-  (function (CHARACTERS) {
-      CHARACTERS["ENEMY"] = "ENEMY";
-      CHARACTERS["FAM_NPC"] = "FAM_NPC";
-      CHARACTERS["CHEST"] = "CHEST";
-      CHARACTERS["IMP"] = "IMP";
-      CHARACTERS["GARGOYLE"] = "GARGOYLE";
-      CHARACTERS["DEMON"] = "DEMON";
-      CHARACTERS["VAMPIRE"] = "VAMPIRE";
-      CHARACTERS["PLAYER"] = "PLAYER";
-  })(CHARACTERS || (CHARACTERS = {}));
-  // TODO can these two be combined?
-  var DIRECTIONS_OPTIONS;
-  (function (DIRECTIONS_OPTIONS) {
-      DIRECTIONS_OPTIONS["UP"] = "UP";
-      DIRECTIONS_OPTIONS["DOWN"] = "DOWN";
-      DIRECTIONS_OPTIONS["LEFT"] = "LEFT";
-      DIRECTIONS_OPTIONS["RIGHT"] = "RIGHT";
-  })(DIRECTIONS_OPTIONS || (DIRECTIONS_OPTIONS = {}));
-  // TODO can these two be combined?
-  (_a$4 = {},
-      _a$4[DIRECTIONS_OPTIONS.UP] = 'UP',
-      _a$4[DIRECTIONS_OPTIONS.DOWN] = 'DOWN',
-      _a$4[DIRECTIONS_OPTIONS.LEFT] = 'LEFT',
-      _a$4[DIRECTIONS_OPTIONS.RIGHT] = 'RIGHT',
-      _a$4);
-  var ANIMATIONS = {
-      MOVE_LEFT: 'MOVE_LEFT',
-      MOVE_RIGHT: 'MOVE_RIGHT',
-      MOVE_UP: 'MOVE_UP',
-      MOVE_DOWN: 'MOVE_DOWN'
-  };
-  var bit = 32;
-  var ATTACK_SPEEDS_OPTIONS;
-  (function (ATTACK_SPEEDS_OPTIONS) {
-      ATTACK_SPEEDS_OPTIONS["SLOW"] = "SLOW";
-      ATTACK_SPEEDS_OPTIONS["FAST"] = "FAST";
-      ATTACK_SPEEDS_OPTIONS["FASTER"] = "FASTER";
-      ATTACK_SPEEDS_OPTIONS["FASTEST"] = "FASTEST";
-  })(ATTACK_SPEEDS_OPTIONS || (ATTACK_SPEEDS_OPTIONS = {}));
-  var ATTACK_SPEEDS = (_b$1 = {},
-      _b$1[ATTACK_SPEEDS_OPTIONS.SLOW] = 90,
-      _b$1[ATTACK_SPEEDS_OPTIONS.FAST] = 70,
-      _b$1[ATTACK_SPEEDS_OPTIONS.FASTER] = 60,
-      _b$1[ATTACK_SPEEDS_OPTIONS.FASTEST] = 20,
-      _b$1);
-  var RESOLUTION = {
-      width: 400 * 2,
-      height: 240 * 2
-  };
-  var ATTACK_CONFIG = {
-      lineWidth: 3
-  };
-  var CHAR_SPRITE_URL = "src/assets/characters.png";
-  var TILESET_IMAGE_URL = "src/assets/tileSet.png";
-  var XP_TO_FIRST_LEVEL = 500;
 
   var PositionComponent = /** @class */ (function () {
       function PositionComponent(_a) {
@@ -2374,7 +2494,7 @@
           var _loop_2 = function (colIdx) {
               var numOfCols = row.length;
               var numOfRows = tileMap.length;
-              var tileIdx = colIdx + "," + rowIdx; // TODO move to util to abstract the comma
+              var tileIdx = "".concat(colIdx, ",").concat(rowIdx); // TODO move to util to abstract the comma
               var tileWidth = mapWidth / numOfCols;
               var tileHeight = mapHeight / numOfRows; // num of cols
               var tileLocationID = null;
@@ -2392,7 +2512,7 @@
                       tileCharacterLevel = levelLocation.locationCharacterLevel;
                       // if spawnable, it MUST have a levelLocationID
                       if (tileLocationID === null || tileCharacterLevel <= 0) {
-                          throw "Invalid tileLocationID or tileCharacterLevel provided in location " + { tileLocationID: tileLocationID, tileCharacterLevel: tileCharacterLevel };
+                          throw "Invalid tileLocationID or tileCharacterLevel provided in location ".concat({ tileLocationID: tileLocationID, tileCharacterLevel: tileCharacterLevel });
                       }
                       else {
                           locationsFoundForTile++;
@@ -2440,7 +2560,7 @@
   var Dialog = /** @class */ (function () {
       function Dialog(text) {
           this.name = DIALOG_COMP;
-          this.text = text + "\n\n\nPress space to continue ...";
+          this.text = "".concat(text, "\n\n\nPress space to continue ...");
       }
       return Dialog;
   }());
@@ -2448,7 +2568,7 @@
   function getTileIdxByPos(x, y) {
       var col = Math.floor(x / bit);
       var row = Math.floor(y / bit);
-      return col + "," + row; // TODO move to util to abstract the comma
+      return "".concat(col, ",").concat(row); // TODO move to util to abstract the comma
   }
   function getTileIdxByEnt(entity) {
       var _a = entity.getPos(), x = _a.x, y = _a.y;
@@ -2507,7 +2627,7 @@
                   }
                   if (nextLine) {
                       // end of tick
-                      var lines_1 = __spreadArray([], trigger.lines);
+                      var lines_1 = __spreadArray([], trigger.lines, true);
                       lines_1.shift();
                       Promise.resolve().then(function () {
                           pushTrigger(new Trigger({
@@ -2530,7 +2650,7 @@
       var buffer = bit * 8;
       var mapAPI = systemArguments.mapAPI;
       var arr = [];
-      var _a = mapAPI.getPan(), panX = _a.panX, panY = _a.panY;
+      var _a = mapAPI.getCurrentPanValue(), panX = _a.panX, panY = _a.panY;
       var _b = systemArguments.viewSize, viewWidth = _b.viewWidth, viewHeight = _b.viewHeight;
       for (var i = 0; i < entsToDraw.length; i++) {
           var entity = entsToDraw[i];
@@ -2614,7 +2734,7 @@
           entity[BACKGROUND_COMP].sections.forEach(function (section) {
               if (section.shape === AllowedUIShapes.MAP_TILE_SHAPE) {
                   // tile type
-                  mapAPI.addImage(__assign(__assign({ id: entity.id + "-" + i, image: tileSetSprite, x: entity[POSITION_COMP].x, y: entity[POSITION_COMP].y, height: entity[POSITION_COMP].height, width: entity[POSITION_COMP].width }, TILE_TYPES[section.data.tileType]), { rotation: 0, layerName: 'background' }));
+                  mapAPI.drawImage(__assign(__assign({ id: "".concat(entity.id, "-").concat(i), image: tileSetSprite, x: entity[POSITION_COMP].x, y: entity[POSITION_COMP].y, height: entity[POSITION_COMP].height, width: entity[POSITION_COMP].width }, TILE_TYPES[section.data.tileType]), { rotation: 0, layerName: 'background' }));
               }
           });
       };
@@ -2626,8 +2746,8 @@
   function renderCircle(systemArguments, entity) {
       var mapAPI = systemArguments.mapAPI;
       var _a = entity[POSITION_COMP], curX = _a.x, curY = _a.y, radius = _a.radius;
-      mapAPI.addCircle({
-          id: "" + entity.id,
+      mapAPI.drawCircle({
+          id: "".concat(entity.id),
           x: curX,
           y: curY,
           radius: radius,
@@ -2643,8 +2763,8 @@
       var healthMargin = entity[HEALTH_COMP].height;
       var healthHeight = 2;
       var healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
-      mapAPI.addRect({
-          id: entity.id + "-full-" + AllowedUIShapes.HEALTH_BAR_SHAPE + "-",
+      mapAPI.drawRect({
+          id: "".concat(entity.id, "-full-").concat(AllowedUIShapes.HEALTH_BAR_SHAPE, "-"),
           x: entity[POSITION_COMP].x - healthWidth / 2,
           y: entity[POSITION_COMP].y + healthMargin,
           width: healthWidth,
@@ -2652,8 +2772,8 @@
           strokeStyle: 'black',
           lineWidth: 2
       });
-      mapAPI.addRect({
-          id: entity.id + "-damage-" + AllowedUIShapes.HEALTH_BAR_SHAPE,
+      mapAPI.drawRect({
+          id: "".concat(entity.id, "-damage-").concat(AllowedUIShapes.HEALTH_BAR_SHAPE),
           x: entity[POSITION_COMP].x - healthWidth / 2,
           y: entity[POSITION_COMP].y + healthMargin,
           width: healthWidth * healthPercent,
@@ -2679,12 +2799,10 @@
               var asset = assets[i];
               if (asset.type === 'image') {
                   requests.push(new Promise(function (resolve) {
-                      console.log('pushing new asset', asset.url);
                       var img = new Image();
                       img.src = asset.url;
                       img.onload = function (e) {
                           _this.cache[asset.name.replace('./', '')] = img;
-                          console.log('current cache', _this.cache);
                           resolve(null);
                       };
                   }));
@@ -2701,9 +2819,8 @@
       AssetLoader.prototype.getAsset = function (name) {
           var ASSET_NAME = name.replace('src/assets/', '').replace('./', '');
           if (!this.cache[ASSET_NAME]) {
-              throw Error("Cannot get asset that was not loaded before hand, assetName attempted: " + ASSET_NAME);
+              throw Error("Cannot get asset that was not loaded before hand, assetName attempted: ".concat(ASSET_NAME));
           }
-          console.log(ASSET_NAME, this.cache[ASSET_NAME]);
           return this.cache[ASSET_NAME];
       };
       return AssetLoader;
@@ -2716,8 +2833,8 @@
           var _a = entity[ANIMATION_COMP].animations[anim], currentFrame = _a.currentFrame, frames = _a.frames;
           var frame = frames[currentFrame];
           if (frame.spriteURL) {
-              mapAPI.addImage({
-                  id: "" + entity.id,
+              mapAPI.drawImage({
+                  id: "".concat(entity.id),
                   image: assetLoader.getAsset(frame.spriteURL),
                   x: entity[POSITION_COMP].x - entity[POSITION_COMP].radius,
                   y: entity[POSITION_COMP].y - entity[POSITION_COMP].radius,
@@ -2736,8 +2853,8 @@
               var frameY = frame.y;
               entity[POSITION_COMP].x - entity[POSITION_COMP].radius;
               entity[POSITION_COMP].y - entity[POSITION_COMP].radius;
-              mapAPI.addArc({
-                  id: "" + entity.id,
+              mapAPI.drawArc({
+                  id: "".concat(entity.id),
                   x: frameX,
                   y: frameY,
                   radius: frame.radius,
@@ -2752,15 +2869,15 @@
 
   function renderDialog(systemArguments, entity) {
       var mapAPI = systemArguments.mapAPI, viewSize = systemArguments.viewSize;
-      var _a = mapAPI.getPan(), panY = _a.panY, panX = _a.panX;
+      var _a = mapAPI.getCurrentPanValue(), panY = _a.panY, panX = _a.panX;
       var width = 250;
       var x = viewSize.viewWidth - width - panX;
       var y = -panY;
-      mapAPI.writeBubble({
+      mapAPI.drawTextBubble({
           id: 'someText',
           x: x,
           y: y,
-          text: entity.name + ":\n" + entity[DIALOG_COMP].text,
+          text: "".concat(entity.name, ":\n").concat(entity[DIALOG_COMP].text),
           backgroundColor: '#b78846',
           borderColor: '#FFFFFF',
           borderWidth: 1,
@@ -2779,13 +2896,13 @@
           if (entity_1.hasComponents(HAS_ACTION_SIGN_COMP)) {
               var _a = entity_1[POSITION_COMP], x = _a.x, y = _a.y, radius = _a.radius;
               var symbol = entity_1[HAS_ACTION_SIGN_COMP].symbol;
-              mapAPI.write({
-                  id: entity_1.id + "-assign-quest",
+              mapAPI.drawText({
+                  id: "".concat(entity_1.id, "-assign-quest"),
                   text: symbol,
                   textBaseline: 'middle',
                   fillStyle: "yellow",
                   strokeStyle: 'black',
-                  font: radius * 2 + "px Arial",
+                  font: "".concat(radius * 2, "px Arial"),
                   x: x + radius / 2,
                   y: y - radius,
               });
@@ -2805,7 +2922,7 @@
                   };
                   var _b = entity_1[POSITION_COMP], radius = _b.radius, x = _b.x, y = _b.y;
                   // When the player is out of animation phase, this is what we show
-                  mapAPI.addImage(__assign(__assign({ id: "" + entity_1.id, image: assetLoader.getAsset(miscURL), x: x - radius, y: y - radius, height: 32, width: 32 }, crops), { cropSizeX: bit, cropSizeY: bit, rotation: 0 // in radians
+                  mapAPI.drawImage(__assign(__assign({ id: "".concat(entity_1.id), image: assetLoader.getAsset(miscURL), x: x - radius, y: y - radius, height: 32, width: 32 }, crops), { cropSizeX: bit, cropSizeY: bit, rotation: 0 // in radians
                    }));
               }
               if (section.shape === AllowedUIShapes.PLAYER_CHAR) {
@@ -2821,7 +2938,7 @@
                   };
                   var _c = entity_1[POSITION_COMP], radius = _c.radius, x = _c.x, y = _c.y;
                   // When the player is out of animation phase, this is what we show
-                  mapAPI.addImage(__assign(__assign({ id: "" + entity_1.id, image: assetLoader.getAsset(charSpriteURL), x: x - radius, y: y - radius, height: 32, width: 32 }, crops), { cropSizeX: bit, cropSizeY: bit, rotation: 0 // in radians
+                  mapAPI.drawImage(__assign(__assign({ id: "".concat(entity_1.id), image: assetLoader.getAsset(charSpriteURL), x: x - radius, y: y - radius, height: 32, width: 32 }, crops), { cropSizeX: bit, cropSizeY: bit, rotation: 0 // in radians
                    }));
               }
           });
@@ -2847,20 +2964,20 @@
   function renderSystem(systemArguments) {
       var mapAPI = systemArguments.mapAPI, shouldRenderBackground = systemArguments.shouldRenderBackground, game = systemArguments.game;
       // clear everything before we move forward
-      mapAPI.clear();
+      mapAPI.clearAllShapesInLayer();
       // render background
       if (shouldRenderBackground) {
-          mapAPI.clear('background');
+          mapAPI.clearAllShapesInLayer('background');
           renderBackgroundLayer(systemArguments);
           game.notifyBackgroundWasRendered();
-          mapAPI.draw('background');
+          mapAPI.drawAllShapesInLayer('background');
       }
       var allEntsToDraw = dist_5.getByComps([UI_COMP]); // O1 fetching
       var closeEnts = filterOutFarEntities(systemArguments, allEntsToDraw);
       var allAnimationsToDraw = dist_5.getByComps([ANIMATION_COMP]);
       var closeAnimations = filterOutFarEntities(systemArguments, allAnimationsToDraw);
       renderMainLayer(systemArguments, closeEnts, closeAnimations);
-      mapAPI.draw();
+      mapAPI.drawAllShapesInLayer();
   }
 
   var GameEvent = /** @class */ (function () {
@@ -3280,7 +3397,7 @@
           var _b = _a.animationName, animationName = _b === void 0 ? '' : _b, _c = _a.frames, frames = _c === void 0 ? [] : _c, _d = _a.loops, loops = _d === void 0 ? false : _d, _e = _a.size, size = _e === void 0 ? 0.25 : _e, _f = _a.speed, speed = _f === void 0 ? 1 : _f, _g = _a.animationDuration, animationDuration = _g === void 0 ? 0 : _g, rest = __rest(_a, ["animationName", "frames", "loops", "size", "speed", "animationDuration"]);
           assertType(animationName, 'Name of animation', 'string');
           if (Object.keys(rest).length > 0) {
-              throw "Extra arguments not supported to addAnimationVariant " + JSON.stringify(Object.keys(rest));
+              throw "Extra arguments not supported to addAnimationVariant ".concat(JSON.stringify(Object.keys(rest)));
           }
           this.animations[animationName] = {
               animationName: animationName,
@@ -3351,37 +3468,6 @@
       };
       return Character;
   }(BaseEntity));
-
-  var _a$3;
-  var AllowedAttributes;
-  (function (AllowedAttributes) {
-      AllowedAttributes["STRENGTH"] = "STRENGTH";
-      AllowedAttributes["AGILITY"] = "AGILITY";
-      AllowedAttributes["WILL"] = "WILL";
-      AllowedAttributes["ENDURANCE"] = "ENDURANCE";
-  })(AllowedAttributes || (AllowedAttributes = {}));
-  var characterAttributesConfig = (_a$3 = {},
-      _a$3[AllowedAttributes.AGILITY] = {
-          id: AllowedAttributes.AGILITY,
-          displayName: 'Agility',
-          description: 'Agility'
-      },
-      _a$3[AllowedAttributes.STRENGTH] = {
-          id: AllowedAttributes.STRENGTH,
-          displayName: 'STRENGTH',
-          description: 'STRENGTH'
-      },
-      _a$3[AllowedAttributes.WILL] = {
-          id: AllowedAttributes.WILL,
-          displayName: 'WILL',
-          description: 'WILL'
-      },
-      _a$3[AllowedAttributes.ENDURANCE] = {
-          id: AllowedAttributes.ENDURANCE,
-          displayName: 'ENDURANCE',
-          description: 'ENDURANCE'
-      },
-      _a$3);
 
   var CharacterAttributesComponent = /** @class */ (function () {
       function CharacterAttributesComponent() {
@@ -3635,7 +3721,7 @@
   function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight, force) {
       if (force === void 0) { force = false; }
       var _a = entity.getPos(), x = _a.x, y = _a.y;
-      var _b = mapAPI.getPan(), panX = _b.panX, panY = _b.panY;
+      var _b = mapAPI.getCurrentPanValue(), panX = _b.panX, panY = _b.panY;
       var panToX = x < viewWidth / 2 ? panX : -x + viewWidth / 2;
       var panToY = y < viewHeight / 2 ? panY : -y + viewHeight / 2;
       // if we don't need to pan, stop
@@ -3650,7 +3736,7 @@
       if (mapWidth + panToX < viewWidth) {
           panToX = viewWidth - mapWidth;
       }
-      mapAPI.pan(panToX, panToY);
+      mapAPI.panCamera(panToX, panToY);
   }
 
   var AllowedQuestState;
@@ -3919,7 +4005,7 @@
       if (curOrientation === DIRECTIONS_OPTIONS.DOWN) {
           row += 1;
       }
-      var targetIdx = col + "," + row; // TODO move to util to abstract the comma
+      var targetIdx = "".concat(col, ",").concat(row); // TODO move to util to abstract the comma
       /**
        * @type {IndexedTile}
        */
@@ -3991,7 +4077,7 @@
           description: 'An engulfing nova to scorch your enemies'
       },
       _a$1);
-  var skillTreesConfig = (_b = {},
+  (_b = {},
       _b[AllowedTrees.MAGIC] = {
           id: AllowedTrees.MAGIC,
           name: 'Magic',
@@ -4355,7 +4441,7 @@
           return;
       }
       entity.setOrientation(entity.calcOrientation(modDestX, modDestY));
-      var animationName = "MOVE_" + entity.getOrientation();
+      var animationName = "MOVE_".concat(entity.getOrientation());
       var animationToAdd = entity.getAnimationTypes()[animationName];
       // Only add this animation if we don't have it already
       if (animationToAdd && !entity.hasSpecificAnimation(animationName)) {
@@ -4384,7 +4470,7 @@
           // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
           entity.stop();
           var _e = entity.getPos(), x = _e.x, y = _e.y;
-          assertType((x + 16) % 32 === 0, "Entities should be on the grid " + x + " " + y, true);
+          assertType((x + 16) % 32 === 0, "Entities should be on the grid ".concat(x, " ").concat(y), true);
           assertType((y + 16) % 32 === 0, 'gameEngine/entities should be on the grid', true);
           if (typeof direction !== 'undefined' && direction !== null) {
               entity.setMoveDirection(direction);
@@ -4509,244 +4595,6 @@
           }
           updateMapTileIdx({ entity: entity, tileIdxMap: tileIdxMap, newX: entity.getPos().x, newY: entity.getPos().y });
       }
-  }
-
-  var GameLoop = /** @class */ (function () {
-      function GameLoop(_a) {
-          var _this = this;
-          var getMapAPI = _a.getMapAPI, getMinimapAPI = _a.getMinimapAPI, levelArea = _a.levelArea, viewSize = _a.viewSize, onAreaChange = _a.onAreaChange, gameEventListener = _a.gameEventListener;
-          dist_5.reset();
-          this.dispatchAction = this.dispatchAction.bind(this);
-          var engine = new dist_1();
-          this.engine = engine;
-          this.getMapAPI = getMapAPI;
-          this.getMinimapAPI = getMinimapAPI;
-          this.gameEventListener = gameEventListener;
-          this.onAreaChange = onAreaChange;
-          this.gameEvents = new GameEvents();
-          // TODO this probably needs to be related to player movement speed
-          // this should also probably be refactored out
-          this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
-          this.setLevelArea(levelArea, viewSize);
-          engine.addSystem(userInputSystem);
-          engine.addSystem(triggerSystem);
-          engine.addSystem(spawnEnemiesSystem);
-          engine.addSystem(moveSystem);
-          engine.addSystem(aiSystem);
-          engine.addSystem(attackSystem);
-          engine.addSystem(renderSystem);
-          engine.addSystem(animationSystem);
-          engine.addSystem(portalSystem);
-          engine.addSystem(questSystem);
-          engine.addSystem(experienceSystem);
-          // DestroyEntity system
-          // TODO export to a system file
-          engine.addSystem(function (systemArguments) {
-              var gameEvents = systemArguments.gameEvents;
-              var hasEvents = gameEvents.getEvents().length > 0;
-              gameEvents.getEvents().forEach(function (event) {
-                  if (event instanceof EnemyKilledEvent) {
-                      event.readEvent().entity.destroy();
-                  }
-              });
-              if (hasEvents) {
-                  _this.dispatchGameEvent(_this.getPlayerStateEvent());
-              }
-          });
-          // End Tick system
-          // TODO export to a system file
-          engine.addSystem(function (systemArguments) {
-              var gameEvents = systemArguments.gameEvents;
-              //notify UI (App.tsx) of certain events
-              gameEvents.getEvents().forEach(function (event) {
-                  // TODO, do we want a more general 'NotifyUISystem' event?
-                  // TODO this feels too specific :)
-                  // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
-                  if (event instanceof PlayerIsAttacked ||
-                      event instanceof PlayerSkillsChangeEvent ||
-                      event instanceof PlayerAttributesChangeEvent) {
-                      _this.dispatchGameEvent(_this.getPlayerStateEvent());
-                  }
-              });
-              // throw away old events, create a new empty list
-              _this.gameEvents.endTick();
-          });
-          this.dispatchGameEvent(this.getPlayerStateEvent());
-          // TODO resume? maybe start()?
-          this.resume();
-      }
-      GameLoop.prototype.dispatchGameEvent = function (event) {
-          this.gameEventListener(event);
-      };
-      GameLoop.prototype.getSystemArguments = function (getMapAPI, getMinimapAPI) {
-          return {
-              tileIdxMap: this.tileIdxMap,
-              levelArea: this.levelArea,
-              tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
-              characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
-              Entity: dist_5,
-              viewSize: this.viewSize,
-              shouldRenderBackground: this.renderBackground,
-              game: this,
-              mapAPI: getMapAPI(),
-              minimapAPI: getMinimapAPI(),
-              gameEvents: this.gameEvents
-          };
-      };
-      // TODO this is for development/ EDITOR mode only!
-      GameLoop.prototype.setPlayerPosition = function (col, row) {
-          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
-          player.setPos({
-              x: bit / 2 + col * bit,
-              y: bit / 2 + row * bit
-          });
-          this.centerOnPlayer();
-      };
-      // TODO this is for development/ EDITOR mode only!
-      GameLoop.prototype.centerOnPlayer = function () {
-          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
-          this.renderBackground = true; // for the first time
-          var mapAPI = this.getMapAPI();
-          var _a = this.viewSize, viewWidth = _a.viewWidth, viewHeight = _a.viewHeight, mapWidth = _a.mapWidth, mapHeight = _a.mapHeight;
-          centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
-      };
-      GameLoop.prototype.setLevelArea = function (levelArea, viewSize, targetTile) {
-          if (targetTile === void 0) { targetTile = null; }
-          var viewWidth = viewSize.viewWidth, viewHeight = viewSize.viewHeight, mapWidth = viewSize.mapWidth, mapHeight = viewSize.mapHeight;
-          var mapAPI = this.getMapAPI();
-          this.renderBackground = true; // for the first time
-          this.levelArea = levelArea;
-          this.viewSize = viewSize;
-          destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
-          this.tileIdxMap = createTileIndexMap(levelArea, viewSize);
-          var player = placePlayerInLevel(levelArea, this.tileIdxMap, targetTile);
-          placeLevelEntities(levelArea, this.tileIdxMap);
-          // set triggers
-          if (isNonEmptyArray(levelArea.triggers.levelStart)) {
-              levelArea.triggers.levelStart.forEach(function (configuredTrigger) {
-                  // activateTrigger ...
-                  if (configuredTrigger.type === 'dialog') {
-                      pushTrigger(new Trigger({
-                          type: 'dialog',
-                          lines: configuredTrigger.lines,
-                          actedOnEntity: player
-                      }));
-                  }
-              });
-          }
-          centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
-          this.renderBackground = true; // for the first time
-      };
-      // TODO - EDITOR MODE ONLY
-      GameLoop.prototype.changeTileType = function (tile, newType) {
-          assertType(tile, 'Tile', 'object');
-          tile.setTileType(newType);
-          // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
-          var _a = getColRowByTileIdx(tile.tileIdx), col = _a.col, row = _a.row;
-          this.levelArea.tileMap[row][col] = +newType;
-          this.renderBackground = true; // for the first time
-          return this.levelArea;
-      };
-      GameLoop.prototype.handleAreaChange = function (level, area, newPlayerPosition) {
-          this.onAreaChange(level, area, newPlayerPosition);
-      };
-      GameLoop.prototype.requestBackgroundRender = function () {
-          this.renderBackground = true;
-      };
-      GameLoop.prototype.notifyBackgroundWasRendered = function () {
-          this.renderBackground = false;
-      };
-      GameLoop.prototype.resume = function () {
-          var _this = this;
-          if (!this.isRunning) {
-              this.isRunning = true;
-              this.engine.run(function () {
-                  return _this.getSystemArguments(_this.getMapAPI, _this.getMinimapAPI);
-              });
-          }
-      };
-      GameLoop.prototype.stop = function () {
-          this.isRunning = false;
-          this.engine.stop();
-      };
-      GameLoop.prototype.activateTrigger = function (trigger) {
-          pushTrigger(trigger);
-      };
-      GameLoop.prototype.getPlayerStateEvent = function () {
-          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
-          return new PlayerStateChangeEvent({
-              maxHealth: player[HEALTH_COMP].max,
-              currentHealth: player[HEALTH_COMP].current,
-              percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
-              skills: __spreadArray([], player[CHARACTER_SKILLS_COMP].skills),
-              spendableXP: player[EXPERIENCE_COMP].XP,
-              levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
-              attributes: player[CHARACTER_ATTRIBUTES_COMP].attributes,
-              spendableAttributePoints: player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
-          });
-      };
-      // TODO trigger vs Action vs GameEvent vs UIEvent - Oh My.
-      // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction or inputEvent
-      // GameEvent is relatively clear, an event originated from the game.
-      // UIEvent - An event dispatched from the game, to the UI
-      // trigger - Triggers game logic within the game (trigger system)
-      GameLoop.prototype.dispatchAction = function (action) {
-          pushAction(action);
-      };
-      return GameLoop;
-  }());
-
-  var Glob = /** @class */ (function () {
-      function Glob() {
-      }
-      return Glob;
-  }());
-  function registerUserInputEvents(game) {
-      var glob = new Glob();
-      document.body.addEventListener('keyup', function (event) {
-          glob.keyPressed = false;
-          // Stop.. on key up, right?
-          game.dispatchAction({
-              name: AllowedActions.MOVE_ACTION
-          });
-      });
-      document.body.addEventListener('keydown', function (event) {
-          if (glob.keyPressed) {
-              return true;
-          }
-          glob.keyPressed = true;
-          var code = +(event.which || event.keyCode || event.code);
-          // Support arrow keys and WASD
-          var map = {
-              37: DIRECTIONS_OPTIONS.LEFT,
-              38: DIRECTIONS_OPTIONS.UP,
-              39: DIRECTIONS_OPTIONS.RIGHT,
-              40: DIRECTIONS_OPTIONS.DOWN,
-              65: DIRECTIONS_OPTIONS.LEFT,
-              87: DIRECTIONS_OPTIONS.UP,
-              68: DIRECTIONS_OPTIONS.RIGHT,
-              83: DIRECTIONS_OPTIONS.DOWN
-          };
-          if (code === 32) {
-              if (!game.isRunning) {
-                  game.resume(); // if it was paused, this unpauses it..
-              }
-              else {
-                  game.dispatchAction({
-                      name: AllowedActions.PERFORM_ACTION
-                  });
-              }
-          }
-          else {
-              var direction = map[code];
-              if (map.hasOwnProperty(code)) {
-                  game.dispatchAction({
-                      name: AllowedActions.MOVE_ACTION,
-                      direction: direction
-                  });
-              }
-          }
-      });
   }
 
   function hasValue(x) {
@@ -25476,81 +25324,233 @@
   }
   requireAllMapLevels();
 
-  var tiles = "./tileSet.png";
-
-  var Editor = /** @class */ (function (_super) {
-      __extends(Editor, _super);
-      function Editor(props) {
-          var _this = _super.call(this, props) || this;
-          _this.state = {};
-          return _this;
-      }
-      Editor.prototype.render = function () {
+  var Game = /** @class */ (function () {
+      function Game(_a) {
           var _this = this;
-          return (react_22("div", { id: 'editor-panel' },
-              react_22("h3", null,
-                  "Current Level: ",
-                  this.props.currentLevel,
-                  "-",
-                  this.props.currentArea),
-              react_22("div", { id: 'tiles' }, Object.keys(TILE_TYPES).map(function (key) {
-                  var _a = TILE_TYPES[+key], cropStartX = _a.cropStartX, cropStartY = _a.cropStartY, cropSizeX = _a.cropSizeX, cropSizeY = _a.cropSizeY;
-                  var style = {
-                      backgroundImage: "url(\"" + tiles + "\")",
-                      color: 'black',
-                      backgroundPosition: "-" + cropStartX + "px -" + cropStartY + "px",
-                      width: cropSizeX + "px",
-                      height: cropSizeY + "px",
-                      boxSizing: 'border-box'
-                  };
-                  var active = _this.state.active === key ? 'active' : '';
-                  var cls = "tile " + active;
-                  return (react_22("div", { key: key, className: cls, style: style, onClick: function () {
-                          _this.props.onTileSelect(+key);
-                          _this.setState({
-                              active: key
-                          });
-                      } }));
-              })),
-              react_22("div", null,
-                  react_22("div", null,
-                      react_22("input", { id: 'level', placeholder: 'Level', type: 'number', min: "0" }),
-                      react_22("input", { id: 'area', placeholder: 'Area', type: 'number', min: "0" }),
-                      react_22("button", { onClick: function (e) {
-                              var levelEl = document.getElementById('level');
-                              var areaEl = document.getElementById('area');
-                              _this.props.onLevelAreaNav(+levelEl.value, +areaEl.value);
-                          } }, "Go")),
-                  react_22("div", null,
-                      react_22("input", { id: 'col', placeholder: 'Col', type: 'number', min: "0" }),
-                      react_22("input", { id: 'row', placeholder: 'Row', type: 'number', min: "0" }),
-                      react_22("button", { onClick: function (e) {
-                              var colEl = document.getElementById('col');
-                              var rowEl = document.getElementById('row');
-                              _this.props.onPosNav(+colEl.value, +rowEl.value);
-                          } }, "Go"))),
-              react_22("div", null,
-                  react_22("h3", null,
-                      "Clicked Tile - ",
-                      this.props.clickedTileIdx || 'N/A'))));
+          var onAreaChange = _a.onAreaChange;
+          dist_5.reset();
+          this.dispatchAction = this.dispatchAction.bind(this);
+          var engine = new dist_1();
+          this.engine = engine;
+          this.onAreaChange = onAreaChange;
+          this.gameEvents = new GameEvents();
+          // TODO this probably needs to be related to player movement speed
+          // this should also probably be refactored out
+          this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
+          engine.addSystem(userInputSystem);
+          engine.addSystem(triggerSystem);
+          engine.addSystem(spawnEnemiesSystem);
+          engine.addSystem(moveSystem);
+          engine.addSystem(aiSystem);
+          engine.addSystem(attackSystem);
+          engine.addSystem(renderSystem);
+          engine.addSystem(animationSystem);
+          engine.addSystem(portalSystem);
+          engine.addSystem(questSystem);
+          engine.addSystem(experienceSystem);
+          // DestroyEntity system
+          // TODO export to a system file
+          engine.addSystem(function (systemArguments) {
+              var gameEvents = systemArguments.gameEvents;
+              var hasEvents = gameEvents.getEvents().length > 0;
+              gameEvents.getEvents().forEach(function (event) {
+                  if (event instanceof EnemyKilledEvent) {
+                      event.readEvent().entity.destroy();
+                  }
+              });
+              if (hasEvents) {
+                  _this.dispatchGameEvent(_this.getPlayerStateEvent());
+              }
+          });
+          // End Tick system
+          // TODO export to a system file
+          engine.addSystem(function (systemArguments) {
+              var gameEvents = systemArguments.gameEvents;
+              //notify UI (App.tsx) of certain events
+              gameEvents.getEvents().forEach(function (event) {
+                  // TODO, do we want a more general 'NotifyUISystem' event?
+                  // TODO this feels too specific :)
+                  // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
+                  if (event instanceof PlayerIsAttacked ||
+                      event instanceof PlayerSkillsChangeEvent ||
+                      event instanceof PlayerAttributesChangeEvent) {
+                      _this.dispatchGameEvent(_this.getPlayerStateEvent());
+                  }
+              });
+              // throw away old events, create a new empty list
+              _this.gameEvents.endTick();
+          });
+          // this.dispatchGameEvent(this.getPlayerStateEvent());
+      }
+      /**
+       * Returns the area's tilemap basd on the current game's level and area
+       * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
+       */
+      Game.prototype.getAreaData = function () {
+          var levelNum = this.currentLevel;
+          var areaNum = this.currentArea;
+          // Use the level to get the current map for that level
+          var areaToLoad = levelConfig[levelNum].areas[areaNum];
+          return areaToLoad;
       };
-      return Editor;
-  }(react_3));
-
-  function saveToServer(levelArea) {
-      fetch('http://localhost:3000', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              levelAreaID: levelArea.levelAreaID,
-              tileMap: levelArea.tileMap
-          }),
-      }).catch(function () {
-          alert('Could not save to server');
-      });
-  }
+      /**
+       * Sets the state for the desired level and area
+       * Populates the internal game state for the currentLevel, Area, mapHeight and mapWidth
+       * @param levelNum
+       * @param areaNum
+       */
+      Game.prototype.setLevelAndArea = function (levelNum, areaNum) {
+          // Set the game state of the current level and area
+          this.currentLevel = levelNum;
+          this.currentArea = areaNum;
+      };
+      Game.prototype.dispatchGameEvent = function (event) {
+          this.gameEventListener(event);
+      };
+      Game.prototype.setGameEventListener = function (listener) {
+          this.gameEventListener = listener;
+      };
+      Game.prototype.setMapAPI = function (mapAPI) {
+          this.mapAPI = mapAPI;
+          mapAPI.addLayer('background');
+      };
+      Game.prototype.getSystemArguments = function (mapAPI, miniMapAPI) {
+          return {
+              tileIdxMap: this.tileIdxMap,
+              levelArea: this.levelArea,
+              tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
+              characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
+              Entity: dist_5,
+              viewSize: this.viewSize,
+              shouldRenderBackground: this.renderBackground,
+              game: this,
+              mapAPI: mapAPI,
+              minimapAPI: miniMapAPI,
+              gameEvents: this.gameEvents
+          };
+      };
+      // TODO this is for development/ EDITOR mode only!
+      Game.prototype.setPlayerPosition = function (col, row) {
+          console.log('Setting player position', col, row);
+          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
+          player.setPos({
+              x: bit / 2 + col * bit,
+              y: bit / 2 + row * bit
+          });
+          this.centerOnPlayer();
+      };
+      // TODO this is for development/ EDITOR mode only!
+      Game.prototype.centerOnPlayer = function () {
+          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
+          this.renderBackground = true; // for the first time
+          if (this.mapAPI) {
+              var mapAPI = this.mapAPI;
+              var _a = this.viewSize, viewWidth = _a.viewWidth, viewHeight = _a.viewHeight, mapWidth = _a.mapWidth, mapHeight = _a.mapHeight;
+              centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
+          }
+      };
+      Game.prototype.loadCurrentLevelArea = function (playerStartingTile) {
+          if (playerStartingTile === void 0) { playerStartingTile = null; }
+          if (!this.mapAPI) {
+              throw 'Cannot load the current level area without a mapAPI instance';
+          }
+          // New level means new background
+          this.requestBackgroundRender();
+          var mapAPI = this.mapAPI;
+          var levelArea = this.getAreaData();
+          var tileMap = levelArea.tileMap;
+          var mapWidth = tileMap[0].length * bit;
+          var mapHeight = tileMap.length * bit;
+          this.renderBackground = true; // for the first time
+          this.levelArea = levelArea;
+          this.viewSize = {
+              viewHeight: RESOLUTION.height,
+              viewWidth: RESOLUTION.width,
+              mapHeight: mapHeight,
+              mapWidth: mapWidth
+          };
+          destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
+          this.tileIdxMap = createTileIndexMap(levelArea, this.viewSize);
+          var player = placePlayerInLevel(levelArea, this.tileIdxMap, playerStartingTile);
+          placeLevelEntities(levelArea, this.tileIdxMap);
+          // set triggers
+          if (isNonEmptyArray(levelArea.triggers.levelStart)) {
+              levelArea.triggers.levelStart.forEach(function (configuredTrigger) {
+                  // activateTrigger ...
+                  if (configuredTrigger.type === 'dialog') {
+                      pushTrigger(new Trigger({
+                          type: 'dialog',
+                          lines: configuredTrigger.lines,
+                          actedOnEntity: player
+                      }));
+                  }
+              });
+          }
+          centerCameraOnEntity(player, mapAPI, this, this.viewSize.viewWidth, this.viewSize.viewHeight, mapWidth, mapHeight, true);
+          this.renderBackground = true; // for the first time
+      };
+      // TODO - EDITOR MODE ONLY
+      Game.prototype.changeTileType = function (tile, newType) {
+          assertType(tile, 'Tile', 'object');
+          tile.setTileType(newType);
+          // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
+          var _a = getColRowByTileIdx(tile.tileIdx), col = _a.col, row = _a.row;
+          this.levelArea.tileMap[row][col] = +newType;
+          this.renderBackground = true; // for the first time
+          return this.levelArea;
+      };
+      Game.prototype.handleAreaChange = function (level, area, newPlayerPosition) {
+          // Trigger a level change, request a background change as all the scene is different
+          this.setLevelAndArea(level, area);
+          this.loadCurrentLevelArea(newPlayerPosition);
+          // fire event in case anyone is listening
+          this.onAreaChange(level, area, newPlayerPosition);
+      };
+      Game.prototype.requestBackgroundRender = function () {
+          this.renderBackground = true;
+      };
+      Game.prototype.notifyBackgroundWasRendered = function () {
+          this.renderBackground = false;
+      };
+      Game.prototype.resume = function () {
+          var _this = this;
+          if (!this.isRunning) {
+              this.isRunning = true;
+              this.engine.run(function () {
+                  return _this.getSystemArguments(_this.mapAPI, _this.miniMapAPI);
+              });
+          }
+      };
+      Game.prototype.stop = function () {
+          this.isRunning = false;
+          this.engine.stop();
+      };
+      Game.prototype.activateTrigger = function (trigger) {
+          pushTrigger(trigger);
+      };
+      Game.prototype.getPlayerStateEvent = function () {
+          var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
+          return new PlayerStateChangeEvent({
+              maxHealth: player[HEALTH_COMP].max,
+              currentHealth: player[HEALTH_COMP].current,
+              percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
+              skills: __spreadArray([], player[CHARACTER_SKILLS_COMP].skills, true),
+              spendableXP: player[EXPERIENCE_COMP].XP,
+              levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
+              attributes: player[CHARACTER_ATTRIBUTES_COMP].attributes,
+              spendableAttributePoints: player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
+          });
+      };
+      // TODO trigger vs Action vs GameEvent vs UIEvent - Oh My.
+      // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction or inputEvent
+      // GameEvent is relatively clear, an event originated from the game.
+      // UIEvent - An event dispatched from the game, to the UI
+      // trigger - Triggers game logic within the game (trigger system)
+      Game.prototype.dispatchAction = function (action) {
+          pushAction(action);
+      };
+      return Game;
+  }());
 
   function resizeGameElements(isEditing) {
       if (isEditing === void 0) { isEditing = false; }
@@ -25564,468 +25564,169 @@
       var newWidth = window.innerWidth - gameUIWidth;
       var newHeight = window.innerHeight - editorHeight;
       var newWidthToHeight = newWidth / newHeight;
-      gameArea.style.marginRight = gameUIWidth + "px";
+      gameArea.style.marginRight = "".concat(gameUIWidth, "px");
       if (gameArea) {
           if (newWidthToHeight > widthToHeight) {
               newWidth = newHeight * widthToHeight;
-              gameArea.style.height = newHeight + "px";
-              gameArea.style.width = newWidth + "px";
+              gameArea.style.height = "".concat(newHeight, "px");
+              gameArea.style.width = "".concat(newWidth, "px");
           }
           else {
               newHeight = newWidth / widthToHeight;
-              gameArea.style.height = newHeight + "px";
-              gameArea.style.width = newWidth + "px";
+              gameArea.style.height = "".concat(newHeight, "px");
+              gameArea.style.width = "".concat(newWidth, "px");
           }
       }
   }
 
-  function GameUI(props) {
-      var canAssignAttrsClass = props.spendableAttributePoints > 0 ? 'active' : '';
-      return (react_22("div", { className: 'game-ui' },
-          react_22("h3", null, "Health"),
-          react_22("div", { className: 'bar' },
-              react_22("div", { className: 'bar__filled bar__filled health', style: { width: props.percentHealth * 100 + "%" } }),
-              react_22("div", { className: 'stats' },
-                  Math.floor(props.currentHealth),
-                  " / ",
-                  props.maxHealth)),
-          react_22("h3", null, "Exp"),
-          react_22("div", { className: 'bar' },
-              react_22("div", { className: 'bar__filled bar__filled xp', style: { width: props.levelProgress * 100 + "%" } }),
-              react_22("div", { className: 'stats' }, props.spendableXP)),
-          react_22("div", { className: 'game-options' },
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Skills"),
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Quests"),
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Inventory"),
-              react_22("button", { className: "game-option " + canAssignAttrsClass, onClick: props.onShowAttributes }, "Attributes"))));
-  }
-
-  var OptionsScreen = /** @class */ (function (_super) {
-      __extends(OptionsScreen, _super);
-      function OptionsScreen() {
-          return _super !== null && _super.apply(this, arguments) || this;
+  var Glob = /** @class */ (function () {
+      function Glob() {
       }
-      OptionsScreen.prototype.render = function () {
-          var children = react_1.toArray(this.props.children);
-          return (react_22("div", { className: "options-screen " + this.props.className },
-              react_22("div", { className: 'options-screen__header' },
-                  react_22("div", { className: 'options-screen__title' }, children[0]),
-                  react_22("div", { onClick: this.props.onClose, className: 'close' }, "\u00D7")),
-              react_22("div", { className: 'options-screen__body' },
-                  react_22("div", null, children[1])),
-              react_22("div", { className: 'options-screen__footer' },
-                  react_22("div", null, children[2]))));
-      };
-      return OptionsScreen;
-  }(react_3));
-
-  function RenderTitle(props) {
-      return react.createElement("h3", null,
-          "Purchase Skills ",
-          react.createElement("span", { className: 'remaining-xp' },
-              "(",
-              props.spendableXP,
-              " XP remaining)"));
-  }
-
-  function skillConfigToArray(skillTreesConfig) {
-      var arrSkillTrees = [];
-      var treeID;
-      for (treeID in skillTreesConfig) {
-          if (skillTreesConfig.hasOwnProperty(treeID)) {
-              var skillTree = skillTreesConfig[treeID];
-              arrSkillTrees.push({
-                  id: treeID,
-                  name: skillTree.name,
-                  skills: skillTree.skills
-              });
+      return Glob;
+  }());
+  function registerUserInputEvents(game) {
+      var glob = new Glob();
+      document.body.addEventListener('keyup', function (event) {
+          glob.keyPressed = false;
+          // Stop.. on key up, right?
+          game.dispatchAction({
+              name: AllowedActions.MOVE_ACTION
+          });
+      });
+      document.body.addEventListener('keydown', function (event) {
+          if (glob.keyPressed) {
+              return true;
           }
-      }
-      return arrSkillTrees;
-  }
-
-  function RenderSkillTreeTabs(props) {
-      var setActiveSkillTree = props.setActiveSkillTree, activeTreeID = props.activeTreeID;
-      var arrSkillTrees = skillConfigToArray(skillTreesConfig);
-      return (react_22("div", { className: 'row skill-tabs', onClick: function (e) {
-              var el = e.target;
-              var treeID = el.getAttribute('data-id');
-              setActiveSkillTree(treeID);
-          } }, arrSkillTrees.map(function (skillTree) {
-          return (react_22("div", { key: skillTree.id, className: "skill-tab " + (activeTreeID === skillTree.id ? 'active' : ''), "data-id": skillTree.id }, skillTree.name));
-      })));
-  }
-
-  function RenderSkills(props) {
-      var skillsToRender = props.skillsToRender;
-      if (skillsToRender.length > 0) {
-          return react_22("div", { className: 'skills-grid' }, skillsToRender.map(function (skill) {
-              var isOwnedClass = props.currentPlayerState.skills.includes(skill.id) ? 'owned' : '';
-              var isFocusedClass = skill.id === props.activeSkillID ? 'clicked' : '';
-              return react_22("div", { key: skill.id, className: "skill " + isOwnedClass + " " + isFocusedClass, onClick: function () {
-                      props.onSkillClick(skill.id);
-                  } },
-                  react_22("span", null,
-                      " ",
-                      skill.name,
-                      " "),
-                  " ",
-                  react_22("span", null,
-                      " (",
-                      skill.cost,
-                      " XP) "));
-          }));
-      }
-      else {
-          return null;
-      }
-  }
-
-  function RenderSkillDetails(props) {
-      if (props.activeSkillID) {
-          var enoughXPToBuy = props.currentPlayerState.spendableXP > props.skill.cost;
-          var playerOwnsSkill = props.currentPlayerState.skills.includes(props.skill.id);
-          var btnTxt = '';
-          if (playerOwnsSkill) {
-              btnTxt = 'You own this skill';
-          }
-          else if (enoughXPToBuy) {
-              btnTxt = 'Buy';
+          glob.keyPressed = true;
+          var code = +(event.which || event.keyCode || event.code);
+          // Support arrow keys and WASD
+          var map = {
+              37: DIRECTIONS_OPTIONS.LEFT,
+              38: DIRECTIONS_OPTIONS.UP,
+              39: DIRECTIONS_OPTIONS.RIGHT,
+              40: DIRECTIONS_OPTIONS.DOWN,
+              65: DIRECTIONS_OPTIONS.LEFT,
+              87: DIRECTIONS_OPTIONS.UP,
+              68: DIRECTIONS_OPTIONS.RIGHT,
+              83: DIRECTIONS_OPTIONS.DOWN
+          };
+          if (code === 32) {
+              if (!game.isRunning) {
+                  game.resume(); // if it was paused, this unpauses it..
+              }
+              else {
+                  game.dispatchAction({
+                      name: AllowedActions.PERFORM_ACTION
+                  });
+              }
           }
           else {
-              btnTxt = 'Not enough XP';
+              var direction = map[code];
+              if (map.hasOwnProperty(code)) {
+                  game.dispatchAction({
+                      name: AllowedActions.MOVE_ACTION,
+                      direction: direction
+                  });
+              }
           }
-          return react_22("div", { className: 'skill-details' },
-              react_22("h3", null, props.skill.name),
-              react_22("div", null, props.skill.description),
-              react_22("div", null,
-                  react_22("button", { disabled: !enoughXPToBuy || playerOwnsSkill, onClick: function () {
-                          props.onBuySkillClick(props.skill.id);
-                      } }, btnTxt)));
-      }
-      else {
-          return null;
-      }
-  }
-
-  /**
-   *
-   * @param treeToRender
-   * @returns
-   */
-  function getSkillsToRender(treeToRender) {
-      var skillsToRender = [];
-      if (treeToRender) {
-          skillsToRender = treeToRender.skills;
-      }
-      return skillsToRender;
-  }
-
-  function SkillTree(props) {
-      var _a = react_18(''), activeTreeID = _a[0], setActiveSkillTree = _a[1];
-      var _b = react_18(''), activeSkillID = _b[0], setActiveSkill = _b[1];
-      var skillsToRender = getSkillsToRender(skillTreesConfig[activeTreeID]);
-      var currentPlayerState = props.currentPlayerState;
-      var skill = skillsConfig[activeSkillID];
-      return (react_22(OptionsScreen, { className: 'skills-screen', onClose: props.onCloseSkillTree },
-          react_22(RenderTitle, { spendableXP: currentPlayerState.spendableXP }),
-          react_22("div", null,
-              react_22(RenderSkillTreeTabs, { setActiveSkillTree: function (treeID) {
-                      setActiveSkillTree(treeID);
-                      setActiveSkill(null);
-                  }, activeTreeID: activeTreeID }),
-              react_22(RenderSkills, { activeSkillID: activeSkillID, skillsToRender: skillsToRender, currentPlayerState: currentPlayerState, onSkillClick: function (skillID) {
-                      setActiveSkill(skillID);
-                  } }),
-              react_22(RenderSkillDetails, { currentPlayerState: currentPlayerState, skill: skill, activeSkillID: activeSkillID, onBuySkillClick: props.onBuySkillClick }))));
-  }
-
-  function Attributes(props) {
-      var attributeIDs = Object.keys(props.currentPlayerState.attributes);
-      var playerAttributeMap = props.currentPlayerState.attributes;
-      var spendableAttributePoints = props.currentPlayerState.spendableAttributePoints;
-      return (react_22(OptionsScreen, { className: 'attributes-screen', onClose: props.onCloseAttributes },
-          react_22("h3", null,
-              "Attributes ",
-              react_22("span", null, spendableAttributePoints)),
-          react_22("div", null, attributeIDs.map(function (attrID) {
-              return (react_22("div", { key: attrID },
-                  react_22("span", null, characterAttributesConfig[attrID].displayName),
-                  react_22("span", null, playerAttributeMap[attrID]),
-                  react_22("span", null,
-                      react_22("button", { onClick: function () {
-                              props.onBuyAttributeClick(attrID);
-                          } }, "+"))));
-          }))));
+      });
   }
 
   var App = /** @class */ (function (_super) {
       __extends(App, _super);
       function App(props) {
-          var _a;
           var _this = _super.call(this, props) || this;
-          setInterval(function () {
-              _this.setState({
-                  debug: {
-                      countOfEnemyEntities: dist_5.getByComp('AI_CONTROLLED_COMP').length,
-                      countOfTileEntities: dist_5.getByComp('TRAVERSABLE_COMP').length
-                  }
-              });
-          }, 1000);
-          _this.state = {
-              mapCanvasEl: null,
-              minimapCanvasEl: null,
-              currentLevel: 0,
-              currentArea: 0,
-              mapHeight: null,
-              mapWidth: null,
-              minimap: null,
-              map: null,
-              active: null,
-              isEditing: null,
-              gameStarted: null,
-              mapAPI: null,
-              clickedTileIdx: null,
-              editorTileType: null,
-              minimapAPI: null,
-              debug: {
-                  countOfEnemyEntities: 0,
-                  countOfTileEntities: 0
-              },
-              playerState: {
-                  maxHealth: 0,
-                  currentHealth: 0,
-                  percentHealth: 0,
-                  showSkillTree: false,
-                  showAttributes: false,
-                  skills: [],
-                  spendableXP: 0,
-                  levelProgress: 0,
-                  spendableAttributePoints: 0,
-                  attributes: (_a = {},
-                      _a[AllowedAttributes.AGILITY] = 0,
-                      _a[AllowedAttributes.STRENGTH] = 0,
-                      _a[AllowedAttributes.WILL] = 0,
-                      _a[AllowedAttributes.ENDURANCE] = 0 // assigned when game starts by game event
-                  ,
-                      _a)
-              }
-          };
-          // This is the 'Player licked play' button
-          setTimeout(function () {
-              _this.clickToStartGame();
-              _this.resize();
-          }, 10);
-          window.addEventListener('resize', function () {
-              _this.resize();
-          });
-          window.addEventListener('orientationchange', function () {
-              _this.resize();
-          });
+          _this.onEscPress = _this.onEscPress.bind(_this);
+          // listen to esc key
+          document.addEventListener('keydown', _this.onEscPress);
+          _this.state = getDefaultAppState();
+          window.addEventListener('resize', _this.resize.bind(_this));
+          window.addEventListener('orientationchange', _this.resize.bind(_this));
           return _this;
       }
-      App.prototype.initGameCanvas = function (mapWidth, mapHeight) {
-          var _this = this;
-          return new dist_2({
-              mapHeight: mapHeight,
-              mapWidth: mapWidth,
-              viewHeight: RESOLUTION.height,
-              viewWidth: RESOLUTION.width,
-              onViewMapClick: function (mouseClickData) {
-                  // TODO - this should ONLY work in editor mode
-                  mouseClickData.hits.forEach(function (shape) {
-                      if (shape.layerName === 'background') {
-                          // We need to get the tile here so we can set the state for clickedTileIdx
-                          // Ideally this should all be moved internally into game.changeTileType
-                          var entityID = +shape.id.split('-')[0];
-                          var tile = dist_5.entities[entityID]; // TODO can we change these 'AS' things?
-                          if (_this.state.editorTileType !== null) {
-                              var levelArea = _this.game.changeTileType(tile, _this.state.editorTileType);
-                              saveToServer(levelArea);
-                          }
-                          _this.setState({ clickedTileIdx: tile.tileIdx });
-                      }
-                  });
-              }
-          }).getNewCanvasPairs({
-              getMapRef: function (API) {
-                  window.API = API;
-                  API.addLayer('background');
-                  _this.setState({
-                      mapAPI: API
-                  });
-              },
-              getMiniRef: function (API) {
-                  _this.setState({
-                      minimapAPI: API
-                  });
-              }
-          });
+      /**
+       * Unbind event listeners
+       */
+      App.prototype.componentWillUnmount = function () {
+          document.removeEventListener('keydown', this.onEscPress);
       };
-      App.prototype.setNewCanvas = function (currentAreaMap) {
-          if (this.state.mapAPI) {
-              this.state.mapAPI.removeLayer('background');
+      /**
+       * Handle escape keypress to open a menu
+       * The menu opening is not currently implemented
+       * @param e
+       */
+      App.prototype.onEscPress = function (e) {
+          if ("key" in e) {
+              (e.key === "Escape" || e.key === "Esc");
           }
-          var mapWidth = currentAreaMap[0].length * bit;
-          var mapHeight = currentAreaMap.length * bit;
+          else {
+              (e.keyCode === 27);
+          }
+      };
+      /**
+       * @param currentAreaMap
+       */
+      App.prototype.createCanvasManager = function () {
           // creates the new canvas
-          var gameCanvas = this.initGameCanvas(mapWidth, mapHeight);
-          var map = gameCanvas.map, minimap = gameCanvas.minimap;
-          this.setState({
-              map: map,
-              minimap: minimap,
-              mapHeight: mapHeight,
-              mapWidth: mapWidth
-          });
-      };
-      App.prototype.changeMap = function (levelNum, areaNum, targetTile) {
-          if (targetTile === void 0) { targetTile = null; }
-          this.setState({
-              currentLevel: levelNum,
-              currentArea: areaNum
-          });
-          var nextArea = levelConfig[levelNum].areas[areaNum];
-          console.log('level conf', levelConfig);
-          var areaTileMap = nextArea.tileMap;
-          this.setNewCanvas(areaTileMap);
-          var viewSize = {
+          this.gameCanvasManager = new dist_2({
+              mapHeight: 0,
+              mapWidth: 0,
               viewHeight: RESOLUTION.height,
-              viewWidth: RESOLUTION.width,
-              mapHeight: this.state.mapHeight,
-              mapWidth: this.state.mapWidth
-          };
-          this.game.setLevelArea(nextArea, viewSize, targetTile);
+              viewWidth: RESOLUTION.width
+          });
       };
-      App.prototype.startGame = function () {
+      /**
+       * Creates a new Game object and wires up all the required events
+       * Once the canvas is ready on the DOM, the game will begin
+       */
+      App.prototype.setupGameObject = function () {
           var _this = this;
-          // Load some initial state, what level are we on?
-          var levelNum = this.state.currentLevel; // this should probably be set every time it changes
-          var areaNum = this.state.currentArea;
-          // Use the level to get the current map for that level
-          var areaToLoad = levelConfig[levelNum].areas[areaNum];
-          console.log('level Conf', levelConfig);
-          var areaTileMap = areaToLoad.tileMap;
-          this.setNewCanvas(areaTileMap);
-          var mapWidth = areaTileMap[0].length * bit;
-          var mapHeight = areaTileMap.length * bit;
-          // Start the game loop
-          setTimeout(function () {
-              _this.game = new GameLoop({
-                  levelArea: areaToLoad,
-                  onAreaChange: function (level, area, newPlayerPosition) {
-                      _this.changeMap(level, area, newPlayerPosition);
-                  },
-                  getMapAPI: function () {
-                      return _this.state.mapAPI;
-                  },
-                  getMinimapAPI: function () {
-                      return _this.state.minimapAPI;
-                  },
-                  viewSize: {
-                      viewHeight: RESOLUTION.height,
-                      viewWidth: RESOLUTION.width,
-                      mapHeight: mapHeight,
-                      mapWidth: mapWidth
-                  },
-                  gameEventListener: function (event) {
-                      var newPlayerState = {
-                          maxHealth: event.maxHealth,
-                          currentHealth: event.currentHealth,
-                          percentHealth: event.percentHealth,
-                          skills: event.skills,
-                          spendableXP: event.spendableXP,
-                          levelProgress: event.levelProgress,
-                          attributes: event.attributes,
-                          spendableAttributePoints: event.spendableAttributePoints
-                      };
-                      _this.setState({
-                          playerState: Object.assign({}, _this.state.playerState, newPlayerState)
-                      });
-                  }
-              });
-              window.game = _this.game;
-              registerUserInputEvents(_this.game);
-          }, 0);
-      };
-      App.prototype.clickToStartGame = function () {
-          this.startGame();
+          this.game = new Game({
+              onAreaChange: function (level, area, newPlayerPosition) {
+              },
+          });
+          // Game always starts at level 0, area 0
+          // TODO we can use this to implement saving - the saved data can be level and area
+          this.game.setLevelAndArea(0, 0);
+          this.createCanvasManager();
+          registerUserInputEvents(this.game);
+          // For convenience purposes only
+          window.game = this.game;
+          // Remove the main menu and show the Main Game Overlay
           this.setState({
-              gameStarted: true
+              isGameRunning: true
+          }, function () {
+              console.log('Resizing after state change');
+              _this.resize();
           });
       };
       App.prototype.resize = function () {
-          resizeGameElements(this.state.isEditing);
-      };
-      App.prototype.toggleUIPlayerState = function (stateKey) {
-          var playerState = __assign({}, this.state.playerState);
-          playerState[stateKey] = !playerState[stateKey];
-          this.setState({
-              playerState: playerState
-          });
+          resizeGameElements();
       };
       App.prototype.render = function () {
           var _this = this;
-          var showSkillTree = this.state.playerState.showSkillTree;
-          var showAttributes = this.state.playerState.showAttributes;
-          var isGameStarted = this.state.gameStarted;
-          var isEditing = this.state.isEditing;
+          var isGameStarted = this.state.isGameRunning;
           if (!isGameStarted) {
-              return (react_22("div", null,
-                  react_22("button", { id: 'start', onClick: function () {
-                          _this.clickToStartGame();
-                      } }, "Start Game")));
+              return (react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this) }));
           }
           else {
-              return (react_22("div", null,
-                  react_22("div", { style: { position: 'absolute', bottom: 0, right: 0, zIndex: 100 } },
-                      react_22("div", null,
-                          "Enemies: ",
-                          this.state.debug.countOfEnemyEntities),
-                      react_22("div", null,
-                          "Tiles: ",
-                          this.state.debug.countOfTileEntities)),
-                  react_22("button", { id: "toggle-editor", onClick: function () {
-                          _this.setState({
-                              isEditing: !_this.state.isEditing
-                          });
-                      } }, "Editor"),
-                  isEditing && react_22(Editor, { clickedTileIdx: this.state.clickedTileIdx, currentLevel: this.state.currentLevel, currentArea: this.state.currentArea, onTileSelect: function (tileType) {
-                          _this.setState({
-                              editorTileType: tileType
-                          });
-                      }, onLevelAreaNav: function (level, area) {
-                          _this.changeMap(level, area);
-                          // we're re-writing the canvas, so we need to delay to next tick
-                          setTimeout(function () {
-                              _this.game.centerOnPlayer();
-                          }, 0);
-                      }, onPosNav: function (col, row) {
-                          _this.game.setPlayerPosition(col, row);
-                      } }),
-                  react_22(GameUI, __assign({}, this.state.playerState, { onShowSkillsClicked: function () { _this.toggleUIPlayerState('showSkillTree'); }, onShowAttributes: function () { _this.toggleUIPlayerState('showAttributes'); } })),
-                  showSkillTree && react_22(SkillTree, { currentPlayerState: __assign({}, this.state.playerState), onCloseSkillTree: function () { _this.toggleUIPlayerState('showSkillTree'); }, onBuySkillClick: function (skillID) {
-                          _this.game.dispatchAction({
-                              name: AllowedActions.BUY_SKILL,
-                              data: {
-                                  skillID: skillID
-                              }
-                          });
-                      } }),
-                  showAttributes && react_22(Attributes, { currentPlayerState: __assign({}, this.state.playerState), onCloseAttributes: function () { _this.toggleUIPlayerState('showAttributes'); }, onBuyAttributeClick: function (attrID) {
-                          _this.game.dispatchAction({
-                              name: AllowedActions.BUY_ATTR,
-                              data: {
-                                  attrID: attrID
-                              }
-                          });
-                      } }),
+              return react_22(MainOverlay, { game: this.game },
                   react_22("div", { className: 'wrapper' },
-                      react_22("div", { className: 'canvas-main-container' }, this.state.map)),
-                  react_22("div", { className: 'canvas-minimap-container' }, this.state.minimap)));
+                      react_22("div", { className: 'canvas-main-container' },
+                          react_22("canvas", { ref: function (el) {
+                                  if (el) {
+                                      var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
+                                      _this.game.setMapAPI(mapAPI);
+                                      _this.game.loadCurrentLevelArea();
+                                      _this.game.resume();
+                                  }
+                              } }))));
           }
       };
       return App;
   }(react_3));
+
+  var tiles = "./tileSet.png";
 
   // Load RAF polyfill
   if (!document.getElementById('app')) {

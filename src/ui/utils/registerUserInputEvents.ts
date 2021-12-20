@@ -1,12 +1,12 @@
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import GameLoop from "../../gameEngine/Game";
+import Game from "../../gameEngine/Game/Game";
 
 class Glob {
   keyPressed: boolean;
 }
 
 
-function registerUserInputEvents(game: GameLoop) {
+function registerUserInputEvents(game: Game) {
   let glob = new Glob();
 
   document.body.addEventListener('keyup', (event) => {

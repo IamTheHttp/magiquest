@@ -1,17 +1,16 @@
 import * as React from "react";
 import {IPlayerUIState} from "../../../interfaces/interfaces";
 import './GameUI.scss';
+import {PlayerState} from "../../../gameEngine/classes/PlayerState";
 
-interface IGameUIProps extends IPlayerUIState {
+interface IGameUIProps {
   onShowSkillsClicked: () => void;
   onShowAttributes: () => void;
 }
 
 
-function GameUI(props: IGameUIProps) {
-
+function GameUI(props: IGameUIProps & PlayerState) {
   let canAssignAttrsClass = props.spendableAttributePoints > 0 ? 'active' : '';
-
 
   return (
     <div className='game-ui'>

@@ -10,14 +10,14 @@ import {BaseEntity} from "../BaseEntity";
 function renderSystem(systemArguments: ISystemArguments) {
   let {mapAPI, shouldRenderBackground, game} = systemArguments;
   // clear everything before we move forward
-  mapAPI.clear();
+  mapAPI.clearAllShapesInLayer();
 
   // render background
   if (shouldRenderBackground) {
-    mapAPI.clear('background');
+    mapAPI.clearAllShapesInLayer('background');
     renderBackgroundLayer(systemArguments);
     game.notifyBackgroundWasRendered();
-    mapAPI.draw('background');
+    mapAPI.drawAllShapesInLayer('background');
   }
 
   let allEntsToDraw = Entity.getByComps<BaseEntity>([UI_COMP]); // O1 fetching
@@ -28,7 +28,7 @@ function renderSystem(systemArguments: ISystemArguments) {
 
   renderMainLayer(systemArguments, closeEnts, closeAnimations);
 
-  mapAPI.draw();
+  mapAPI.drawAllShapesInLayer();
 }
 
 export default renderSystem;

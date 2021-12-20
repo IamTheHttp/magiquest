@@ -32,7 +32,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
     if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
       let {x, y, radius} = entity[POSITION_COMP];
       let {symbol} = entity[HAS_ACTION_SIGN_COMP];;
-      mapAPI.write({
+      mapAPI.drawText({
         id: `${entity.id}-assign-quest`,
         text: symbol,
         textBaseline: 'middle',
@@ -61,7 +61,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
         let {radius, x, y} = entity[POSITION_COMP];
         // When the player is out of animation phase, this is what we show
-        mapAPI.addImage(
+        mapAPI.drawImage(
           {
             id: `${entity.id}`,
             image: assetLoader.getAsset(misc),
@@ -91,7 +91,7 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
         let {radius, x, y} = entity[POSITION_COMP];
         // When the player is out of animation phase, this is what we show
-        mapAPI.addImage(
+        mapAPI.drawImage(
           {
             id: `${entity.id}`,
             image: assetLoader.getAsset(char),

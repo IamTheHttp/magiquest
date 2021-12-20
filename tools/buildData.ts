@@ -6,10 +6,8 @@ const csv = require('csvtojson');
 const fs = require('fs');
 const path = require('path');
 
-import {ICoordinates} from "game-platform/types/lib/interfaces";
 import IParsedLevelCSVRow, {IExits, INoSpawnLocation} from "../src/interfaces/IParsedLevelCSVRow"
-import {CHARACTERS} from "../src/gameEngine/gameConstants";
-import {ATTACK_SPEEDS_OPTIONS} from "../src/gameEngine/config";
+import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from "../src/gameEngine/gameConstants";
 import {IParsedCharacterCSVMap} from "../src/interfaces/IParsedCharacterCSVRow";
 
 
@@ -77,7 +75,7 @@ function buildLevels() {
         });
 
 
-        // Prase no_spawn_locations
+        // parse no_spawn_locations
         // The format is 0,0-5,5 __ 11,12-50-50
         // split by __ to get a list of safe spots
         // split each spot by - to get coordinates

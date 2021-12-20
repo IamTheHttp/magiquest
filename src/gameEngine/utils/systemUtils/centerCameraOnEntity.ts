@@ -1,10 +1,10 @@
-import CanvasAPI from "game-platform/dist/lib/CanvasAPI/CanvasAPI";
-import GameLoop from "../../Game";
+import Game from "../../Game/Game";
 import {BaseEntity} from "../../BaseEntity";
+import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
 
-function centerCameraOnEntity(entity: BaseEntity, mapAPI: CanvasAPI, game:GameLoop, viewWidth:number, viewHeight:number, mapWidth:number, mapHeight:number, force = false) {
+function centerCameraOnEntity(entity: BaseEntity, mapAPI: Painter, game:Game, viewWidth:number, viewHeight:number, mapWidth:number, mapHeight:number, force = false) {
   let {x, y} = entity.getPos();
-  let {panX, panY} = mapAPI.getPan();
+  let {panX, panY} = mapAPI.getCurrentPanValue();
 
   let panToX = x < viewWidth / 2 ?  panX : -x + viewWidth / 2;
   let panToY = y < viewHeight / 2 ?  panY : -y + viewHeight / 2;
@@ -25,7 +25,7 @@ function centerCameraOnEntity(entity: BaseEntity, mapAPI: CanvasAPI, game:GameLo
     panToX = viewWidth - mapWidth;
   }
 
-  mapAPI.pan(panToX, panToY);
+  mapAPI.panCamera(panToX, panToY);
 }
 
 export default centerCameraOnEntity;
