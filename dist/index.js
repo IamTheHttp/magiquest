@@ -706,24 +706,17 @@
   }
 
   function GameUI(props) {
-      var canAssignAttrsClass = props.spendableAttributePoints > 0 ? 'active' : '';
+      props.spendableAttributePoints > 0 ? 'active' : '';
       return (react_22("div", { className: 'game-ui' },
-          react_22("h3", null, "Health"),
-          react_22("div", { className: 'bar' },
-              react_22("div", { className: 'bar__filled bar__filled health', style: { width: "".concat(props.percentHealth * 100, "%") } }),
+          react_22("div", { className: 'sphere sphere--health' },
+              react_22("div", { className: 'sphere__filled health', style: { maxHeight: "".concat((1 - props.percentHealth) * 100, "%") } }),
               react_22("div", { className: 'stats' },
                   Math.floor(props.currentHealth),
                   " / ",
                   props.maxHealth)),
-          react_22("h3", null, "Exp"),
           react_22("div", { className: 'bar' },
               react_22("div", { className: 'bar__filled bar__filled xp', style: { width: "".concat(props.levelProgress * 100, "%") } }),
-              react_22("div", { className: 'stats' }, props.spendableXP)),
-          react_22("div", { className: 'game-options' },
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Skills"),
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Quests"),
-              react_22("button", { className: 'game-option', onClick: props.onShowSkillsClicked }, "Inventory"),
-              react_22("button", { className: "game-option ".concat(canAssignAttrsClass), onClick: props.onShowAttributes }, "Attributes"))));
+              react_22("div", { className: 'stats' }, props.spendableXP))));
   }
 
   var _a$3;
@@ -25552,29 +25545,33 @@
       return Game;
   }());
 
+  var WIDTH_TO_HEIGHT_RATIO = 1.666; // TODO is this magical, Where is this coming from??
+  // The area to leave on screen for the Game UI
+  var UI_AREA_BELOW_CANVAS = 150;
+
   function resizeGameElements(isEditing) {
       if (isEditing === void 0) { isEditing = false; }
+      var UI_AREA = document.querySelector('.game-ui');
       var gameArea = document.querySelector('.wrapper');
-      var gameUI = document.querySelector('.game-ui');
-      var widthToHeight = 1.6666; // TODO is this magical ?
+      var widthToHeight = WIDTH_TO_HEIGHT_RATIO;
       var editorHeight = isEditing ? 170 : 0;
-      var gameUIStyles = window.getComputedStyle(gameUI);
-      var gameUIWidthStyle = gameUIStyles.getPropertyValue('width');
-      var gameUIWidth = +gameUIWidthStyle.replace('px', '');
-      var newWidth = window.innerWidth - gameUIWidth;
-      var newHeight = window.innerHeight - editorHeight;
+      var newWidth = window.innerWidth;
+      var newHeight = Math.min(window.innerHeight - editorHeight, window.innerHeight - UI_AREA_BELOW_CANVAS); // Always leave 200px for the UI at the bottom
       var newWidthToHeight = newWidth / newHeight;
-      gameArea.style.marginRight = "".concat(gameUIWidth, "px");
       if (gameArea) {
           if (newWidthToHeight > widthToHeight) {
               newWidth = newHeight * widthToHeight;
               gameArea.style.height = "".concat(newHeight, "px");
               gameArea.style.width = "".concat(newWidth, "px");
+              UI_AREA.style.width = "".concat(newWidth, "px");
+              UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
           }
           else {
               newHeight = newWidth / widthToHeight;
               gameArea.style.height = "".concat(newHeight, "px");
               gameArea.style.width = "".concat(newWidth, "px");
+              UI_AREA.style.width = "".concat(newWidth, "px");
+              UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
           }
       }
   }
@@ -25681,6 +25678,8 @@
        */
       App.prototype.setupGameObject = function () {
           var _this = this;
+          // whenever a new game is started, we go to full screen
+          document.body.requestFullscreen();
           this.game = new Game({
               onAreaChange: function (level, area, newPlayerPosition) {
               },

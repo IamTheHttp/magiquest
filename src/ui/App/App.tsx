@@ -69,6 +69,9 @@ export class App extends React.Component<any, AppState> {
    * Once the canvas is ready on the DOM, the game will begin
    */
   setupGameObject() {
+    // whenever a new game is started, we go to full screen
+    document.body.requestFullscreen();
+
     this.game = new Game({
       onAreaChange: (level, area, newPlayerPosition) => {
       },

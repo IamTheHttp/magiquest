@@ -1,73 +1,111 @@
 .game-ui {
-  box-sizing: border-box;
-  background-color: #333333;
-  border: 1px solid white;
-  padding: 5px;
-  width: 20%;
-  position: absolute;
-  right: 0;
-  z-index: 1;
-  height: 100%;
-  color:white;
-  min-width:200px;
+  width: 400px;
+  left:50%;
+  right:50%;
+  position:fixed;
+  height:150px;
+  background-color:green;
+  bottom:0;
 
   .col {
-    width:120px;
-    margin-right:50px;
+    width: 120px;
+    margin-right: 50px;
   }
 
-  .stats {
-    position:absolute;
-    top:0px;
-    margin-left:auto;
-    margin-right:auto;
-    left:3%;
-    color:white;
-    font-size:1rem;
+  .sphere {
+    &--health {
+      background-image: linear-gradient(180deg, red 30%, #790202);
+      background-color: red;
+      position: fixed;
+      left: 0px;
+      bottom: 10px;
+    }
+
+    .stats {
+      z-index: 1;
+      margin-left: 25%;
+      margin-right: 25%;
+      position: absolute;
+      color: white;
+      font-size: 1rem;
+      width: 50%;
+      top: 10%;
+      text-align: center;
+    }
+
+    border-radius: 100%;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+
+    .sphere__filled {
+      background-color: black;
+      height: 100%;
+      width: 100%;
+    }
   }
+
   .bar {
-    position:relative;
-    height:20px;
-    width:100%;
-    border:1px solid white;
-    background-color:black;
+    position: fixed;
+    height: 20px;
+    border: 1px solid white;
+    background-color: black;
+    left: 20%;
+    bottom: 10%;
+    width: 500px;
+
+    .stats {
+      position: absolute;
+      top: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 3%;
+      color: white;
+      font-size: 1rem;
+    }
 
     &__filled {
-      height:100%;
+      height: 100%;
+
       &.xp {
-        background-color:#a05900;
+        background-color: #a05900;
       }
+
       &.health {
-        background-color:#c30000;
+        background-color: #c30000;
       }
     }
   }
 
   .game-options {
-    padding-top:20px;
-    width:100%;
-    height:200px;
+    padding-top: 20px;
+    width: 100%;
+    height: 200px;
     color: indianred;
+
     .game-option {
-      position:relative;
-      font-size:1.2rem;
-      color:inherit;
-      border:0;
-      margin:3px;
-      width:calc(50% - 6px); // - 3px * x
-      height:50%;
-      background-color:black;
+      position: relative;
+      font-size: 1.2rem;
+      color: inherit;
+      border: 0;
+      margin: 3px;
+      width: calc(50% - 6px); // - 3px * x
+      height: 50%;
+      background-color: black;
+
       &.active {
         &::before {
           content: '!';
-          color:white;
-          font-size:0.5rem;
-          width:10px;
-          height:10px;
-          top:5px;
-          right:5px;
-          position:absolute;
-          border-radius:100%;
+          color: white;
+          font-size: 0.5rem;
+          width: 10px;
+          height: 10px;
+          top: 5px;
+          right: 5px;
+          position: absolute;
+          border-radius: 100%;
           background-color: #ad0000;
         }
       }

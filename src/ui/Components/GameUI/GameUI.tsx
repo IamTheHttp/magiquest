@@ -14,24 +14,22 @@ function GameUI(props: IGameUIProps & PlayerState) {
 
   return (
     <div className='game-ui'>
-      <h3>Health</h3>
-      <div className='bar'>
-        <div className='bar__filled bar__filled health' style={{width: `${props.percentHealth * 100}%`}}/>
+      <div className='sphere sphere--health'>
+        <div className='sphere__filled health' style={{maxHeight: `${(1 - props.percentHealth) * 100}%`}}/>
         <div className='stats'>{Math.floor(props.currentHealth)} / {props.maxHealth}</div>
       </div>
 
-      <h3>Exp</h3>
       <div className='bar'>
         <div className='bar__filled bar__filled xp' style={{width: `${props.levelProgress * 100}%`}}/>
         <div className='stats'>{props.spendableXP}</div>
       </div>
 
-      <div className='game-options'>
-        <button className='game-option' onClick={props.onShowSkillsClicked}>Skills</button>
-        <button className='game-option' onClick={props.onShowSkillsClicked}>Quests</button>
-        <button className='game-option' onClick={props.onShowSkillsClicked}>Inventory</button>
-        <button className={`game-option ${canAssignAttrsClass}`} onClick={props.onShowAttributes}>Attributes</button>
-      </div>
+      {/*<div className='game-options'>*/}
+      {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Skills</button>*/}
+      {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Quests</button>*/}
+      {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Inventory</button>*/}
+      {/*  <button className={`game-option ${canAssignAttrsClass}`} onClick={props.onShowAttributes}>Attributes</button>*/}
+      {/*</div>*/}
     </div>
   );
 }
