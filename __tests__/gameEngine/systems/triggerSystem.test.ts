@@ -18,7 +18,7 @@ describe('Tests for the AI system', () => {
     player = createTestPlayer(0, 0);
     NPC = createFamNPC(1, 1);
 
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
   });
 
   it('doesnt break with no triggers to run', () => {

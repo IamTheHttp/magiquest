@@ -18,7 +18,7 @@ describe('Tests for the Render system', () => {
     spyClear = jest.fn();
     spyAddImage = jest.fn();
     spyDraw = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw));
+    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw))  as ISystemArguments;
   });
 
   it('doesnt break with no ents', () => {

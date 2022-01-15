@@ -1,4 +1,4 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createSystemArguments';
 
 import SpyFns from "../../__TEST__UTILS__/SpyFns";
 import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
@@ -21,19 +21,19 @@ describe('Tests for the AI system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
   });
 
   it('doesnt break with no ents', () => {
-    aiSystem(systemArguments);
+    aiSystem(systemArguments as ISystemArguments);
   });
 
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
     let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
 
-    aiSystem(systemArguments);
-    moveSystem(systemArguments);
+    aiSystem(systemArguments as ISystemArguments);
+    moveSystem(systemArguments as ISystemArguments);
 
     let {x, y} = ent.getPos();
 

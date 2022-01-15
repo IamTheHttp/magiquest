@@ -4,7 +4,7 @@ import {RESOLUTION} from "../../gameEngine/gameConstants";
 import {MainMenu} from "../Components/MainMenu/MainMenu";
 import {AppState} from "./AppState";
 import {getDefaultAppState} from "./getDefaultAppState";
-import {MainOverlay} from "../MainOverlay/MainOverlay";
+import {MainOverlay} from "../Components/MainOverlay/MainOverlay";
 import Game from "../../gameEngine/Game/Game";
 import {GameCanvas} from "game-platform";
 import resizeGameElements from "../utils/resizeGameElements";

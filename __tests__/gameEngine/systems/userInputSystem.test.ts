@@ -18,7 +18,7 @@ describe('Tests for the User Input system', () => {
     Entity.reset();
     spyPan = jest.fn();
     player = createTestPlayer(0, 0);
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
   });
 
   it('Runs without actions', () => {

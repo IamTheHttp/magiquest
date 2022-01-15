@@ -25,7 +25,7 @@ describe('attack system tests', () => {
     Entity.reset();
     spyPan = jest.fn();
 
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
     player = createTestPlayer(0, 0);
 
     let {x, y} = player.getPos();

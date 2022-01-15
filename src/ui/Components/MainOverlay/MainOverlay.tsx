@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {ComponentProps} from "react";
-import GameUI from "../Components/GameUI/GameUI";
-import {IPlayerState, IPlayerUIState} from "../../interfaces/interfaces";
-import Game from "../../gameEngine/Game/Game";
-import {PlayerState} from "../../gameEngine/classes/PlayerState";
-import {AllowedAttributes} from "../../data/attributesConfig";
+import GameUI from "../GameUI/GameUI";
+import {IPlayerState, IPlayerUIState} from "../../../interfaces/interfaces";
+import Game from "../../../gameEngine/Game/Game";
+import {PlayerState} from "../../../gameEngine/classes/PlayerState";
+import {AllowedAttributes} from "../../../data/attributesConfig";
 
 
 function getDefaultPlayerState(): IPlayerState {
@@ -29,6 +29,11 @@ interface MainOverlayProps extends ComponentProps<any> {
   game: Game
 }
 
+/**
+ * The game overlay that's over the canvas
+ * @param props
+ * @constructor
+ */
 export function MainOverlay(props: MainOverlayProps) {
   const [playerState, setPlayerState] = useState<PlayerState>(getDefaultPlayerState());
 

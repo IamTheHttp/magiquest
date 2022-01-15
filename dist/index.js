@@ -683,25 +683,7 @@
 
   function getDefaultAppState() {
       return {
-          mapCanvasEl: null,
-          minimapCanvasEl: null,
-          currentLevel: 0,
-          currentArea: 0,
-          mapHeight: null,
-          mapWidth: null,
-          minimap: null,
-          map: null,
-          active: null,
-          isEditing: null,
-          isGameRunning: false,
-          mapAPI: null,
-          clickedTileIdx: null,
-          editorTileType: null,
-          minimapAPI: null,
-          debug: {
-              countOfEnemyEntities: 0,
-              countOfTileEntities: 0
-          }
+          isGameRunning: false
       };
   }
 
@@ -769,6 +751,11 @@
               _a)
       };
   }
+  /**
+   * The game overlay that's over the canvas
+   * @param props
+   * @constructor
+   */
   function MainOverlay(props) {
       var _this = this;
       var _a = react_18(getDefaultPlayerState()), playerState = _a[0], setPlayerState = _a[1];

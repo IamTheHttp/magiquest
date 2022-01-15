@@ -20,7 +20,7 @@ describe('Tests for the AI system', () => {
       return 0; // ensure all spawns are created
     };
 
-    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
+    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange))  as ISystemArguments;
   });
 
   afterEach(() => {

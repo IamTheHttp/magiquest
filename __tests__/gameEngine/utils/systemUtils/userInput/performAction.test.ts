@@ -18,7 +18,7 @@ describe('Tests the placeLevelEntities util', () => {
     Entity.reset();
 
     player = createTestPlayer(0, 0);
-    systemArguments = createSystemArgs(new SpyFns());
+    systemArguments = createSystemArgs(new SpyFns()) as ISystemArguments;
   });
 
   it('performs an action when there is no adjacent entity', () => {

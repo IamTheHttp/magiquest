@@ -14,7 +14,7 @@ describe('Tile tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
   });
 
   it('Should populate tileLocationID correctly in CAN_SPAWN_COMP', () => {

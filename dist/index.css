@@ -128,7 +128,6 @@ body {
   right: 50%;
   position: fixed;
   height: 150px;
-  background-color: green;
   bottom: 0;
 }
 .game-ui .col {
@@ -138,8 +137,8 @@ body {
 .game-ui .sphere {
   border-radius: 100%;
   border: 1px solid black;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   position: relative;
   overflow: hidden;
 }
@@ -148,17 +147,17 @@ body {
   background-color: red;
   position: fixed;
   left: 0px;
-  bottom: 10px;
+  bottom: 0px;
 }
 .game-ui .sphere .stats {
   z-index: 1;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 15%;
+  margin-right: 15%;
   position: absolute;
   color: white;
   font-size: 1rem;
-  width: 50%;
-  top: 10%;
+  width: 70%;
+  top: 40%;
   text-align: center;
 }
 .game-ui .sphere .sphere__filled {

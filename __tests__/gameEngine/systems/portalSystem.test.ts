@@ -16,7 +16,7 @@ describe('Tests for the AI system', () => {
     spyHandleAreaChange = jest.fn();
     player = createTestPlayer(0, 0);
 
-    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange));
+    systemArguments = createSystemArgs(new SpyFns(null, null, null, null, spyHandleAreaChange))  as ISystemArguments;
   });
 
   it('doesnt break with no portals to run', () => {

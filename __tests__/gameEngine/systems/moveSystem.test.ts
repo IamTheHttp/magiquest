@@ -8,6 +8,7 @@ import {POSITION_COMP} from "../../../src/gameEngine/components/ComponentNamesCo
 import {DIRECTIONS_OPTIONS} from "../../../src/gameEngine/gameConstants";
 import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
 import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
+import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
 
 describe('move system tests', () => {
   let systemArguments: ISystemArguments, spyPan: fn, player: BaseEntity;
@@ -15,7 +16,7 @@ describe('move system tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
 
     player = createTestPlayer(0, 0);
   });

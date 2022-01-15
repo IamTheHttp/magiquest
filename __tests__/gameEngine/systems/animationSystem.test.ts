@@ -13,7 +13,7 @@ describe('Tests for the Animation system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan));
+    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
   });
 
   it ('doesnt break with no ents', () => {

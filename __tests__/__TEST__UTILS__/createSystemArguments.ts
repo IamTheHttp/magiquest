@@ -8,6 +8,8 @@ import Game from "../../src/gameEngine/Game/Game";
 import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
 
 
+export type MockedSystemArguments = Omit<ISystemArguments, "mapAPI" | "game"> & {mapAPI: Partial<Painter>, game: Partial <Game>};
+
 interface ICreateSystemArgsArguments {
   spyPan: fn;
   spyClear: fn;
@@ -16,7 +18,8 @@ interface ICreateSystemArgsArguments {
   spyHandleAreaChange:fn;
 }
 
-function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleAreaChange}: ICreateSystemArgsArguments): ISystemArguments {
+
+function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleAreaChange}: ICreateSystemArgsArguments): MockedSystemArguments {
   let tileMap = [
     [1, 1, 1],
     [1, 1, 1],
@@ -56,24 +59,22 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       }
     },
     mapAPI: {
-      addImage: spyAddImage,
-      draw: spyDraw,
-      clear: spyClear,
-      getPan: () => {
+      drawImage: spyAddImage,
+      drawAllShapesInLayer: spyDraw,
+      clearAllShapesInLayer: spyClear,
+      getCurrentPanValue: () => {
         return {
           panX: 0,
           panY: 0
         };
       },
-      pan: spyPan
-    } as unknown as Painter,
+      panCamera: spyPan
+    },
     game: {
-      requestBackgroundRender: () => {
-      },
-      notifyBackgroundWasRendered: () => {
-      },
+      requestBackgroundRender: () => {},
+      notifyBackgroundWasRendered: () => {},
       handleAreaChange :spyHandleAreaChange
-    } as unknown as Game,
+    },
     tileIdxMap: createTileIndexMap({
       monsterDensity:0,
       noSpawnLocations:[],
