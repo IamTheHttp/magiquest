@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettier --write . && git add -A . && npm run test"
+      "pre-commit": "echo \"OMG\" && exit 1 && prettier --write . && git add -A . && npm run test"
     }
   },
   "dependencies": {
