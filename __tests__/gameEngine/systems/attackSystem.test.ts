@@ -1,21 +1,16 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {
-  IS_ATTACKING_COMP,
-  HEALTH_COMP,
-  ATTACK_COMP
-} from 'gameEngine/components/ComponentNamesConfig';
+import {IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {Entity} from "game-platform";
-import {EnemyKilledEvent, IGameEvent} from "../../../src/gameEngine/classes/GameEvents";
-import {AllowedLevelLocationIDs} from "../../../src/gameEngine/gameConstants";
-import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
-
+import SpyFns from '../../__TEST__UTILS__/SpyFns';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {Entity} from 'game-platform';
+import {EnemyKilledEvent, IGameEvent} from '../../../src/gameEngine/classes/GameEvents';
+import {AllowedLevelLocationIDs} from '../../../src/gameEngine/gameConstants';
+import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
 describe('attack system tests', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -25,27 +20,32 @@ describe('attack system tests', () => {
     Entity.reset();
     spyPan = jest.fn();
 
-    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
     player = createTestPlayer(0, 0);
 
     let {x, y} = player.getPos();
-    updateMapTileIdx({ entity: player, tileIdxMap: systemArguments.tileIdxMap, newX: x, newY: y });
+    updateMapTileIdx({
+      entity: player,
+      tileIdxMap: systemArguments.tileIdxMap,
+      newX: x,
+      newY: y
+    });
   });
 
-  it ('doesnt break without entities', () => {
+  it('doesnt break without entities', () => {
     attackSystem(systemArguments);
   });
 
-  it ('attacks an empty tile without errors', () => {
+  it('attacks an empty tile without errors', () => {
     let targetTile = systemArguments.tileIdxMap['1,1']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
     // expect the player not to be attacking anymore
-    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
+    expect(player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
   });
 
-  it ('Cannot attack self', () => {
+  it('Cannot attack self', () => {
     let targetTile = systemArguments.tileIdxMap['0,0']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
@@ -63,9 +63,9 @@ describe('attack system tests', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
 
-    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
+    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
     let playerDmg = player[ATTACK_COMP].damage;
     let maxHealth = enemy[HEALTH_COMP].max;
@@ -90,9 +90,9 @@ describe('attack system tests', () => {
   it('Can kill an enemy', () => {
     let {tileIdxMap, gameEvents} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
+    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
     // expect(enemy.hasComponents()).toBeFalsy();
 
@@ -108,8 +108,7 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-
-    let eventsForNextTick:IGameEvent[] = gameEvents.nextEvents;
+    let eventsForNextTick: IGameEvent[] = gameEvents.nextEvents;
 
     let firstEvent = eventsForNextTick[0];
 
@@ -123,9 +122,9 @@ describe('attack system tests', () => {
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({ entity: enemy, tileIdxMap, newX: x, newY: y });
+    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -135,17 +134,17 @@ describe('attack system tests', () => {
     while (i <= player[ATTACK_COMP].cooldownFrames) {
       attackSystem(systemArguments);
       i++;
-    };
+    }
 
     // expect the enemy to have no components (as it is destroyed)
-    expect (player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
+    expect(player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
   });
 
   it('Higher level enemies have more damage', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let weak = createNewEnemy(1, 1, 1,  AllowedLevelLocationIDs.TOWN);
-    let strong = createNewEnemy(1, 1, 100,  AllowedLevelLocationIDs.TOWN);
+    let weak = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let strong = createNewEnemy(1, 1, 100, AllowedLevelLocationIDs.TOWN);
 
     expect(strong[ATTACK_COMP].damage).toBeGreaterThan(weak[ATTACK_COMP].damage);
   });

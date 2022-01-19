@@ -4,12 +4,12 @@ import {
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import Player from "../../../entities/characters/Player";
-import {IAction} from "../../../../interfaces/interfaces";
-import {AllowedAttributes} from "../../../../data/attributesConfig";
-import {BaseEntity} from "../../../BaseEntity";
-import {PlayerAttributesChangeEvent} from "../../../classes/GameEvents";
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import Player from '../../../entities/characters/Player';
+import {IAction} from '../../../../interfaces/interfaces';
+import {AllowedAttributes} from '../../../../data/attributesConfig';
+import {BaseEntity} from '../../../BaseEntity';
+import {PlayerAttributesChangeEvent} from '../../../classes/GameEvents';
 
 function buyAttr(systemArguments: ISystemArguments, action: IAction) {
   let {Entity, zone, gameEvents} = systemArguments;
@@ -27,6 +27,5 @@ function buyAttr(systemArguments: ISystemArguments, action: IAction) {
     }
   }
 }
-
 
 export default buyAttr;

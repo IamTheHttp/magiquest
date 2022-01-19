@@ -1,5 +1,5 @@
-import {bit} from "../gameConstants";
-import {ISprite} from "../interfaces";
+import {bit} from '../gameConstants';
+import {ISprite} from '../interfaces';
 
 function getSpriteCrop(col: number, row: number): ISprite {
   return {
@@ -9,6 +9,5 @@ function getSpriteCrop(col: number, row: number): ISprite {
     cropSizeY: bit
   };
 }
-
 
 export {getSpriteCrop};

@@ -1,10 +1,9 @@
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import Game from "../../gameEngine/Game/Game";
+import Game from '../../gameEngine/Game/Game';
 
 class Glob {
   keyPressed: boolean;
 }
-
 
 function registerUserInputEvents(game: Game) {
   let glob = new Glob();
@@ -36,7 +35,7 @@ function registerUserInputEvents(game: Game) {
       68: DIRECTIONS_OPTIONS.RIGHT,
       83: DIRECTIONS_OPTIONS.DOWN
     } as {
-      [key:number]: DIRECTIONS_OPTIONS
+      [key: number]: DIRECTIONS_OPTIONS;
     };
 
     if (code === 32) {

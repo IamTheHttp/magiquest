@@ -3,17 +3,19 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {entityLoop} from "game-platform";
-import {IEntityMap} from "game-platform/dist/lib/interfaces";
-import FamNPC from "../../../entities/characters/FamNPC";
-import {BaseEntity} from "../../../BaseEntity";
-import IndexedTile from "../../../classes/IndexedTile";
-import {InteractWithNPC} from "../../../classes/GameEvents";
-import {isNonEmptyArray} from "../../../systems/portalSystem";
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {entityLoop} from 'game-platform';
+import {IEntityMap} from 'game-platform/dist/lib/interfaces';
+import FamNPC from '../../../entities/characters/FamNPC';
+import {BaseEntity} from '../../../BaseEntity';
+import IndexedTile from '../../../classes/IndexedTile';
+import {InteractWithNPC} from '../../../classes/GameEvents';
+import {isNonEmptyArray} from '../../../systems/portalSystem';
 
-
-function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap<BaseEntity> } {
+function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
+  targetTile: IndexedTile;
+  targetEntities: IEntityMap<BaseEntity>;
+} {
   let {tileIdxMap, Entity, zone} = systemArguments;
   let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
@@ -46,15 +48,12 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
    */
   let targetTile = tileIdxMap[targetIdx];
 
-  let entities = targetTile && targetTile.entities || [];
-  ;
-
+  let entities = (targetTile && targetTile.entities) || [];
   return {
     targetTile,
     targetEntities: entities
-  }
+  };
 }
-
 
 function performAction(systemArguments: ISystemArguments) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
@@ -62,37 +61,37 @@ function performAction(systemArguments: ISystemArguments) {
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   entityLoop(targetEntities, (targetEnt) => {
-      // try to attack
-      if (targetEnt.isAttackable() && targetTile && !player.isAttacking()) {
-        player.addComponent(new IsAttackingComp(targetTile));
-      } else {
-        // try to activate a trigger
-        let triggers = zone.triggers.actOnEntity[targetEnt.name];
+    // try to attack
+    if (targetEnt.isAttackable() && targetTile && !player.isAttacking()) {
+      player.addComponent(new IsAttackingComp(targetTile));
+    } else {
+      // try to activate a trigger
+      let triggers = zone.triggers.actOnEntity[targetEnt.name];
 
-        if (targetEnt instanceof FamNPC) {
-          gameEvents.pushEvent(new InteractWithNPC(targetEnt));
-        }
+      if (targetEnt instanceof FamNPC) {
+        gameEvents.pushEvent(new InteractWithNPC(targetEnt));
+      }
 
-        // TODO should the trigger system listen to Game Events?
-        if (isNonEmptyArray(triggers)) {
-          // activate all triggers related to acting on this entity
-          for (let i = 0; i < triggers.length; i++) {
-            let trigger = triggers[i];
+      // TODO should the trigger system listen to Game Events?
+      if (isNonEmptyArray(triggers)) {
+        // activate all triggers related to acting on this entity
+        for (let i = 0; i < triggers.length; i++) {
+          let trigger = triggers[i];
 
-            if (trigger.type === 'dialog') {
-              pushTrigger(new Trigger({
+          if (trigger.type === 'dialog') {
+            pushTrigger(
+              new Trigger({
                 type: 'dialog',
                 lines: trigger.lines,
                 actedOnEntity: targetEnt
-              }));
-            }
+              })
+            );
           }
-          return;
         }
+        return;
       }
     }
-  );
+  });
 }
-
 
 export default performAction;

@@ -1,19 +1,15 @@
-import {
-  CAN_SPAWN_COMP
-} from '../components/ComponentNamesConfig';
+import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import charactersDataConfig from "../../data/charactersDataConfig";
-import {entityLoop} from "game-platform";
-import Enemy from "../entities/characters/Enemy";
-import {BaseEntity} from "../BaseEntity";
-
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import charactersDataConfig from '../../data/charactersDataConfig';
+import {entityLoop} from 'game-platform';
+import Enemy from '../entities/characters/Enemy';
+import {BaseEntity} from '../BaseEntity';
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   let spawningEntities = Entity.getByComps<BaseEntity>([CAN_SPAWN_COMP]);
   const monsterDensity = systemArguments.zone.monsterDensity;
-
 
   entityLoop(spawningEntities, (spawningEntity) => {
     const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
@@ -23,7 +19,8 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     const spawnableEnemies = systemArguments.zone.spawnableEnemies;
 
     spawnableEnemies.forEach((enemyToSpawn) => {
-      if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"
+      if (Math.random() < monsterDensity) {
+        // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
         let characterConfig = charactersDataConfig[enemyToSpawn];
 

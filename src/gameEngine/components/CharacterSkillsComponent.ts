@@ -1,8 +1,8 @@
 import {CHARACTER_SKILLS_COMP} from './ComponentNamesConfig';
-import {AllowedSkills} from "../../data/skillConfig";
+import {AllowedSkills} from '../../data/skillConfig';
 
 class CharacterSkillsComponent {
-  name:string;
+  name: string;
   skills: AllowedSkills[];
 
   constructor() {

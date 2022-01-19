@@ -5,11 +5,7 @@ import {
   POSITION_COMP,
   UI_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {
-  AllowedUIShapes, bit,
-  DIRECTIONS,
-  DIRECTIONS_OPTIONS
-} from '../../../gameConstants';
+import {AllowedUIShapes, bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import char from 'assets/characters.png';
@@ -18,11 +14,15 @@ import {getSpriteCrop} from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
 import {assetLoader} from 'cache/assetLoader';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {Entity} from "game-platform";
-import {BaseEntity} from "../../../BaseEntity";
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {Entity} from 'game-platform';
+import {BaseEntity} from '../../../BaseEntity';
 
-function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntity[], closeEntsWithAnimation:BaseEntity[]) {
+function renderMainLayer(
+  systemArguments: ISystemArguments,
+  closeEnts: BaseEntity[],
+  closeEntsWithAnimation: BaseEntity[]
+) {
   let {mapAPI} = systemArguments;
 
   // render entities
@@ -31,16 +31,16 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
     if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
       let {x, y, radius} = entity[POSITION_COMP];
-      let {symbol} = entity[HAS_ACTION_SIGN_COMP];;
+      let {symbol} = entity[HAS_ACTION_SIGN_COMP];
       mapAPI.drawText({
         id: `${entity.id}-assign-quest`,
         text: symbol,
         textBaseline: 'middle',
-        fillStyle: "yellow",
+        fillStyle: 'yellow',
         strokeStyle: 'black',
-        font:`${radius*2}px Arial`,
-        x: x + radius/2,
-        y: y - radius,
+        font: `${radius * 2}px Arial`,
+        x: x + radius / 2,
+        y: y - radius
       });
     }
 
@@ -61,19 +61,18 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
         let {radius, x, y} = entity[POSITION_COMP];
         // When the player is out of animation phase, this is what we show
-        mapAPI.drawImage(
-          {
-            id: `${entity.id}`,
-            image: assetLoader.getAsset(misc),
-            x: x - radius, y: y - radius,
-            height: 32,
-            width: 32,
-            ...crops,
-            cropSizeX: bit,
-            cropSizeY: bit,
-            rotation: 0 // in radians
-          }
-        );
+        mapAPI.drawImage({
+          id: `${entity.id}`,
+          image: assetLoader.getAsset(misc),
+          x: x - radius,
+          y: y - radius,
+          height: 32,
+          width: 32,
+          ...crops,
+          cropSizeX: bit,
+          cropSizeY: bit,
+          rotation: 0 // in radians
+        });
       }
 
       if (section.shape === AllowedUIShapes.PLAYER_CHAR) {
@@ -91,19 +90,18 @@ function renderMainLayer(systemArguments: ISystemArguments, closeEnts: BaseEntit
 
         let {radius, x, y} = entity[POSITION_COMP];
         // When the player is out of animation phase, this is what we show
-        mapAPI.drawImage(
-          {
-            id: `${entity.id}`,
-            image: assetLoader.getAsset(char),
-            x: x - radius, y: y - radius,
-            height: 32,
-            width: 32,
-            ...crops,
-            cropSizeX: bit,
-            cropSizeY: bit,
-            rotation: 0 // in radians
-          }
-        );
+        mapAPI.drawImage({
+          id: `${entity.id}`,
+          image: assetLoader.getAsset(char),
+          x: x - radius,
+          y: y - radius,
+          height: 32,
+          width: 32,
+          ...crops,
+          cropSizeX: bit,
+          cropSizeY: bit,
+          rotation: 0 // in radians
+        });
       }
     });
   }

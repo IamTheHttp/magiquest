@@ -1,24 +1,23 @@
-import { assetLoader } from 'cache/assetLoader';
-import {Entity} from "game-platform";
+import {assetLoader} from 'cache/assetLoader';
+import {Entity} from 'game-platform';
 
 let global2 = global as any; // TODO Should this be any?
-
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
     // setup the test
     Entity.reset();
     global2.Image = class {
-      onload:() => {}
+      onload: () => {};
       constructor() {
         setTimeout(() => {
           this.onload();
         }, 100);
       }
-    }
+    };
   });
 
-  it ('Loads assets', (done) => {
+  it('Loads assets', (done) => {
     let requests;
     let onReady = () => {
       expect(assetLoader.getAsset('asset_name')).toBeDefined();
@@ -28,11 +27,16 @@ describe('Tests the placeLevelEntities util', () => {
 
       done();
     };
-    requests = assetLoader.load([{
-      type:'image',
-      name: 'asset_name',
-      url: 'http://test.com/foobar'
-    }], onReady);
+    requests = assetLoader.load(
+      [
+        {
+          type: 'image',
+          name: 'asset_name',
+          url: 'http://test.com/foobar'
+        }
+      ],
+      onReady
+    );
 
     expect(() => {
       // no cache yet
@@ -40,12 +44,17 @@ describe('Tests the placeLevelEntities util', () => {
     }).toThrow();
   });
 
-  it ('Do not load invalid asset types', () => {
-    let requests = assetLoader.load([{
-      type:'imazz' as any, // force incorrect type for the test
-      name: 'asset_name',
-      url: 'http://test.com/foobar'
-    }], () => {});
+  it('Do not load invalid asset types', () => {
+    let requests = assetLoader.load(
+      [
+        {
+          type: 'imazz' as any, // force incorrect type for the test
+          name: 'asset_name',
+          url: 'http://test.com/foobar'
+        }
+      ],
+      () => {}
+    );
 
     expect(requests.length).toBe(0);
   });

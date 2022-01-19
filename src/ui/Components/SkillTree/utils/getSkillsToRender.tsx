@@ -1,4 +1,4 @@
-import {ISkill, ISkillTree} from "../../../../data/skillConfig";
+import {ISkill, ISkillTree} from '../../../../data/skillConfig';
 
 /**
  *

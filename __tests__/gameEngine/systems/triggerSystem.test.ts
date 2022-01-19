@@ -1,13 +1,12 @@
-import createSystemArgs from "../../__TEST__UTILS__/createSystemArguments";
-import {Entity} from "game-platform";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createFamNPC from "../../__TEST__UTILS__/createFamNPC";
-import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
-import triggerSystem, {pushTrigger} from "../../../src/gameEngine/systems/triggerSystem";
-import {DIALOG_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
-
+import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import {Entity} from 'game-platform';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createFamNPC from '../../__TEST__UTILS__/createFamNPC';
+import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import SpyFns from '../../__TEST__UTILS__/SpyFns';
+import triggerSystem, {pushTrigger} from '../../../src/gameEngine/systems/triggerSystem';
+import {DIALOG_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
@@ -29,13 +28,16 @@ describe('Tests for the AI system', () => {
     pushTrigger({
       oneOff: false,
       type: 'dialog',
-      lines: [{
-        text: 'foo',
-        speaker:0 // when speaker is 0, that means the player is speaking
-      }, {
-        text: 'bar',
-        speaker:1 // when speaker is 0, that means the player is speaking
-      }],
+      lines: [
+        {
+          text: 'foo',
+          speaker: 0 // when speaker is 0, that means the player is speaking
+        },
+        {
+          text: 'bar',
+          speaker: 1 // when speaker is 0, that means the player is speaking
+        }
+      ],
       actedOnEntity: NPC
     });
 
@@ -61,7 +63,7 @@ describe('Tests for the AI system', () => {
     triggerSystem(systemArguments);
   });
 
-  it('Default line given to entity who\'s acted upon but has no lines', () => {
+  it("Default line given to entity who's acted upon but has no lines", () => {
     pushTrigger({
       oneOff: false,
       type: 'dialog',

@@ -1,14 +1,14 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {Entity} from "game-platform";
-import moveSystem from "../../../src/gameEngine/systems/moveSystem";
-import IsMoving from "../../../src/gameEngine/components/IsMoving";
-import {POSITION_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
-import {DIRECTIONS_OPTIONS} from "../../../src/gameEngine/gameConstants";
-import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
-import {BaseEntity} from "../../../src/gameEngine/BaseEntity";
-import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {Entity} from 'game-platform';
+import moveSystem from '../../../src/gameEngine/systems/moveSystem';
+import IsMoving from '../../../src/gameEngine/components/IsMoving';
+import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {DIRECTIONS_OPTIONS} from '../../../src/gameEngine/gameConstants';
+import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
+import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
+import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 
 describe('move system tests', () => {
   let systemArguments: ISystemArguments, spyPan: fn, player: BaseEntity;
@@ -16,12 +16,12 @@ describe('move system tests', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
 
     player = createTestPlayer(0, 0);
   });
 
-  it ('doesnt break without entities', () => {
+  it('doesnt break without entities', () => {
     moveSystem(systemArguments);
   });
 
@@ -81,7 +81,6 @@ describe('move system tests', () => {
     expect(player.isMoving()).toBeFalsy();
     expect(player.getDest().x).toBe(null);
   });
-
 
   it('Test moving over a mountain (two steps down in our mock data)', () => {
     player.addComponent(new IsMoving());

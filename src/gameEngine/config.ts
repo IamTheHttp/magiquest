@@ -1,4 +1,4 @@
-import {getSpriteCrop} from "./utils/getSpriteCrop";
+import {getSpriteCrop} from './utils/getSpriteCrop';
 
 let grassTile = getSpriteCrop(7, 10);
 let mountainTile = getSpriteCrop(7, 11);

@@ -1,19 +1,17 @@
 import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createSystemArguments';
 
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createNewEnemy from "../../__TEST__UTILS__/createEnemy";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {Entity} from "game-platform";
-import updateMapTileIdx from "../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx";
-import attackSystem from "../../../src/gameEngine/systems/attackSystem";
-import moveSystem from "../../../src/gameEngine/systems/moveSystem";
-import IsMoving from "../../../src/gameEngine/components/IsMoving";
-import {AllowedLevelLocationIDs, bit} from "../../../src/gameEngine/gameConstants";
-import aiSystem from "../../../src/gameEngine/systems/aiSystem";
-import {HEALTH_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
-
-
+import SpyFns from '../../__TEST__UTILS__/SpyFns';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {Entity} from 'game-platform';
+import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import attackSystem from '../../../src/gameEngine/systems/attackSystem';
+import moveSystem from '../../../src/gameEngine/systems/moveSystem';
+import IsMoving from '../../../src/gameEngine/components/IsMoving';
+import {AllowedLevelLocationIDs, bit} from '../../../src/gameEngine/gameConstants';
+import aiSystem from '../../../src/gameEngine/systems/aiSystem';
+import {HEALTH_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -43,7 +41,6 @@ describe('Tests for the AI system', () => {
 
   it('doesnt move an already moving AI', () => {
     let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
-
 
     ent.addComponent(new IsMoving());
 

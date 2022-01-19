@@ -1,4 +1,4 @@
-import {UI_AREA_BELOW_CANVAS, WIDTH_TO_HEIGHT_RATIO} from "../IUIConfig";
+import {UI_AREA_BELOW_CANVAS, WIDTH_TO_HEIGHT_RATIO} from '../IUIConfig';
 
 function resizeGameElements(isEditing = false) {
   let UI_AREA = document.querySelector('.game-ui') as HTMLElement;
@@ -16,14 +16,13 @@ function resizeGameElements(isEditing = false) {
       gameArea.style.height = `${newHeight}px`;
       gameArea.style.width = `${newWidth}px`;
       UI_AREA.style.width = `${newWidth}px`;
-      UI_AREA.style.left = `calc(50% - ${newWidth/2}px`;
-
+      UI_AREA.style.left = `calc(50% - ${newWidth / 2}px`;
     } else {
       newHeight = newWidth / widthToHeight;
       gameArea.style.height = `${newHeight}px`;
       gameArea.style.width = `${newWidth}px`;
       UI_AREA.style.width = `${newWidth}px`;
-      UI_AREA.style.left = `calc(50% - ${newWidth/2}px`;
+      UI_AREA.style.left = `calc(50% - ${newWidth / 2}px`;
     }
   }
 }

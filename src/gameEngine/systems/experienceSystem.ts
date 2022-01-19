@@ -1,13 +1,13 @@
-import {Entity} from "game-platform";
-import {EnemyKilledEvent} from "../classes/GameEvents";
-import Player from "../entities/characters/Player";
+import {Entity} from 'game-platform';
+import {EnemyKilledEvent} from '../classes/GameEvents';
+import Player from '../entities/characters/Player';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   EXPERIENCE_COMP,
   LEVEL_COMP,
   PLAYER_CONTROLLED_COMP
-} from "../components/ComponentNamesConfig";
-import {ISystemArguments} from "../../interfaces/gameloop.i";
+} from '../components/ComponentNamesConfig';
+import {ISystemArguments} from '../../interfaces/gameloop.i';
 
 function experienceSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
@@ -15,7 +15,6 @@ function experienceSystem(systemArguments: ISystemArguments) {
 
   gameEvents.getEvents().forEach((event) => {
     if (event instanceof EnemyKilledEvent) {
-
       let currentXP = player[EXPERIENCE_COMP].XP;
       let newXP = event.entity[LEVEL_COMP].characterLevel; // we currently give a certain XP boost per character level
 
@@ -31,5 +30,3 @@ function experienceSystem(systemArguments: ISystemArguments) {
 }
 
 export default experienceSystem;
-
-

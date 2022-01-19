@@ -4,13 +4,13 @@
 // row 3 down
 // all animations have 4 frames
 
-import {ANIMATIONS} from "../../gameConstants";
-import {getSpriteCrop} from "../../utils/getSpriteCrop";
+import {ANIMATIONS} from '../../gameConstants';
+import {getSpriteCrop} from '../../utils/getSpriteCrop';
 
 /**
  * @param {string} charSpriteURL
  */
-function commonAnimations(charSpriteURL:string) {
+function commonAnimations(charSpriteURL: string) {
   return {
     [ANIMATIONS.MOVE_RIGHT]: {
       frames: [
@@ -100,7 +100,7 @@ function commonAnimations(charSpriteURL:string) {
       animationName: ANIMATIONS.MOVE_DOWN,
       loops: false
     }
-  }
+  };
 }
 
 export default commonAnimations;

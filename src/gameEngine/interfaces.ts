@@ -1,10 +1,10 @@
 export interface ISprite {
-  cropStartX:number;
+  cropStartX: number;
   cropStartY: number;
-  cropSizeX:number
-  cropSizeY:number;
+  cropSizeX: number;
+  cropSizeY: number;
 }
 
 export interface ITileTypes {
-  [key:number]: ISprite
+  [key: number]: ISprite;
 }

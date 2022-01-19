@@ -1,10 +1,10 @@
 import assertType from 'gameEngine/utils/assertType';
-import tiles from "../assets/tileSet.png";
+import tiles from '../assets/tileSet.png';
 
 interface Asset {
-  type: 'image',
-  url: string,
-  name: string
+  type: 'image';
+  url: string;
+  name: string;
 }
 
 class AssetLoader {
@@ -15,22 +15,23 @@ class AssetLoader {
   }
 
   load(assets: Asset[], onReady: () => void) {
-
     assertType(assets.length, 'assets length', 'number');
     let requests = [];
 
     for (let i = 0; i < assets.length; i++) {
       let asset = assets[i];
       if (asset.type === 'image') {
-        requests.push(new Promise((resolve) => {
-          let img = new Image();
-          img.src = asset.url;
+        requests.push(
+          new Promise((resolve) => {
+            let img = new Image();
+            img.src = asset.url;
 
-          img.onload = (e) => {
-            this.cache[asset.name.replace('./', '')] = img;
-            resolve(null);
-          };
-        }));
+            img.onload = (e) => {
+              this.cache[asset.name.replace('./', '')] = img;
+              resolve(null);
+            };
+          })
+        );
       }
     }
 

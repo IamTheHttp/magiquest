@@ -3,14 +3,12 @@ import {
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {IAction} from "../../../../interfaces/interfaces";
-import {AllowedSkills, skillsConfig} from "../../../../data/skillConfig";
-import Player from "../../../entities/characters/Player";
-import {BaseEntity} from "../../../BaseEntity";
-import {PlayerSkillsChangeEvent} from "../../../classes/GameEvents";
-
-
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {IAction} from '../../../../interfaces/interfaces';
+import {AllowedSkills, skillsConfig} from '../../../../data/skillConfig';
+import Player from '../../../entities/characters/Player';
+import {BaseEntity} from '../../../BaseEntity';
+import {PlayerSkillsChangeEvent} from '../../../classes/GameEvents';
 
 function buySkill(systemArguments: ISystemArguments, action: IAction) {
   let {Entity, gameEvents} = systemArguments;
@@ -22,7 +20,6 @@ function buySkill(systemArguments: ISystemArguments, action: IAction) {
 
     let hasSkill = player[CHARACTER_SKILLS_COMP].skills.includes(skillID);
     if (!hasSkill) {
-
       let skill = skillsConfig[skillID];
       if (player[EXPERIENCE_COMP].XP > skill.cost) {
         player[CHARACTER_SKILLS_COMP].skills.push(skillID);
@@ -33,6 +30,5 @@ function buySkill(systemArguments: ISystemArguments, action: IAction) {
     }
   }
 }
-
 
 export default buySkill;

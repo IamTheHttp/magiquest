@@ -1,27 +1,19 @@
-import * as React from "react";
+import * as React from 'react';
 import './SkillTree.scss';
-import {useState} from "react";
-import {
-  skillTreesConfig,
-  AllowedSkills,
-  AllowedTrees,
-  ISkill,
-  ISkillTree,
-  skillsConfig,
-} from "data/skillConfig";
-import {IPlayerUIState} from "interfaces/interfaces";
-import OptionsScreen from "../__Shared/OptionsScreen/OptionsScreen";
-import RenderTitle from "./RenderTitle";
-import RenderSkillTreeTabs from "./RenderSkillTreeTabs";
-import RenderSkills from "./RenderSkills";
-import RenderSkillDetails from "./RenderSkillDetails";
-import getSkillsToRender from "./utils/getSkillsToRender";
-
+import {useState} from 'react';
+import {skillTreesConfig, AllowedSkills, AllowedTrees, ISkill, ISkillTree, skillsConfig} from 'data/skillConfig';
+import {IPlayerUIState} from 'interfaces/interfaces';
+import OptionsScreen from '../__Shared/OptionsScreen/OptionsScreen';
+import RenderTitle from './RenderTitle';
+import RenderSkillTreeTabs from './RenderSkillTreeTabs';
+import RenderSkills from './RenderSkills';
+import RenderSkillDetails from './RenderSkillDetails';
+import getSkillsToRender from './utils/getSkillsToRender';
 
 export interface ISkillTreeProps {
   onCloseSkillTree: () => void;
-  onBuySkillClick: (skillID: AllowedSkills) => void,
-  currentPlayerState: IPlayerUIState
+  onBuySkillClick: (skillID: AllowedSkills) => void;
+  currentPlayerState: IPlayerUIState;
 }
 
 function SkillTree(props: ISkillTreeProps) {
@@ -33,8 +25,8 @@ function SkillTree(props: ISkillTreeProps) {
   const skill = skillsConfig[activeSkillID];
 
   return (
-    <OptionsScreen className='skills-screen' onClose={props.onCloseSkillTree}>
-      <RenderTitle spendableXP={currentPlayerState.spendableXP}/>
+    <OptionsScreen className="skills-screen" onClose={props.onCloseSkillTree}>
+      <RenderTitle spendableXP={currentPlayerState.spendableXP} />
       <div>
         <RenderSkillTreeTabs
           setActiveSkillTree={(treeID) => {
@@ -55,10 +47,11 @@ function SkillTree(props: ISkillTreeProps) {
           currentPlayerState={currentPlayerState}
           skill={skill}
           activeSkillID={activeSkillID}
-          onBuySkillClick={props.onBuySkillClick}/>
+          onBuySkillClick={props.onBuySkillClick}
+        />
       </div>
     </OptionsScreen>
-  )
+  );
 }
 
 export default SkillTree;

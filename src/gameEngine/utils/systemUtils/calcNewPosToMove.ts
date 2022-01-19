@@ -1,8 +1,8 @@
 import {MOVEMENT_COMP} from '../../components/ComponentNamesConfig';
 import assertType from '../assertType';
-import {BaseEntity} from "../../BaseEntity";
+import {BaseEntity} from '../../BaseEntity';
 
-function calcNewPosToMove(entity: BaseEntity, originX: number, originY:number, destX:number, destY:number) {
+function calcNewPosToMove(entity: BaseEntity, originX: number, originY: number, destX: number, destY: number) {
   assertType(originX, 'originX', 'number');
   assertType(originY, 'originY', 'number');
   assertType(destY, 'destY', 'number');
@@ -16,8 +16,8 @@ function calcNewPosToMove(entity: BaseEntity, originX: number, originY:number, d
   let minMaxY = speedY > 0 ? Math.min : Math.max;
 
   return {
-    x:minMaxX(originX + speedX, destX),
-    y:minMaxY(originY + speedY, destY)
+    x: minMaxX(originX + speedX, destX),
+    y: minMaxY(originY + speedY, destY)
   };
 }
 

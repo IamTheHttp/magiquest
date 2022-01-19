@@ -2,7 +2,7 @@ import {ATTACK_COMP} from './ComponentNamesConfig';
 
 class AttackComponent {
   name: string;
-  damage:number;
+  damage: number;
   cooldownFrames: number;
   /**
    *

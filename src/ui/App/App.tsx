@@ -1,18 +1,18 @@
-import * as  React from 'react';
+import * as React from 'react';
 import './app.scss';
-import {RESOLUTION} from "../../gameEngine/gameConstants";
-import {MainMenu} from "../Components/MainMenu/MainMenu";
-import {AppState} from "./AppState";
-import {getDefaultAppState} from "./getDefaultAppState";
-import {MainOverlay} from "../Components/MainOverlay/MainOverlay";
-import Game from "../../gameEngine/Game/Game";
-import {GameCanvas} from "game-platform";
-import resizeGameElements from "../utils/resizeGameElements";
-import registerUserInputEvents from "../utils/registerUserInputEvents";
+import {RESOLUTION} from '../../gameEngine/gameConstants';
+import {MainMenu} from '../Components/MainMenu/MainMenu';
+import {AppState} from './AppState';
+import {getDefaultAppState} from './getDefaultAppState';
+import {MainOverlay} from '../Components/MainOverlay/MainOverlay';
+import Game from '../../gameEngine/Game/Game';
+import {GameCanvas} from 'game-platform';
+import resizeGameElements from '../utils/resizeGameElements';
+import registerUserInputEvents from '../utils/registerUserInputEvents';
 
 export class App extends React.Component<any, AppState> {
   game: Game;
-  gameCanvasManager: GameCanvas
+  gameCanvasManager: GameCanvas;
 
   constructor(props: object) {
     super(props);
@@ -39,17 +39,15 @@ export class App extends React.Component<any, AppState> {
    */
   onEscPress(e: KeyboardEvent) {
     let isEscape = false;
-    if ("key" in e) {
-      isEscape = (e.key === "Escape" || e.key === "Esc");
+    if ('key' in e) {
+      isEscape = e.key === 'Escape' || e.key === 'Esc';
     } else {
-      isEscape = (e.keyCode === 27);
+      isEscape = e.keyCode === 27;
     }
 
     if (isEscape) {
-
     }
   }
-
 
   /**
    * @param currentAreaMap
@@ -73,8 +71,7 @@ export class App extends React.Component<any, AppState> {
     document.body.requestFullscreen();
 
     this.game = new Game({
-      onAreaChange: (level, area, newPlayerPosition) => {
-      },
+      onAreaChange: (level, area, newPlayerPosition) => {}
     });
 
     // Game always starts at level 0, area 0
@@ -88,53 +85,48 @@ export class App extends React.Component<any, AppState> {
     window.game = this.game;
 
     // Remove the main menu and show the Main Game Overlay
-    this.setState({
-      isGameRunning: true
-    }, () => {
-      console.log('Resizing after state change');
-      this.resize();
-    });
+    this.setState(
+      {
+        isGameRunning: true
+      },
+      () => {
+        console.log('Resizing after state change');
+        this.resize();
+      }
+    );
   }
 
   resize() {
     resizeGameElements();
   }
 
-  startEditor() {
-
-  }
+  startEditor() {}
 
   render() {
     const isGameStarted = this.state.isGameRunning;
 
     if (!isGameStarted) {
-      return (
-        <MainMenu
-          startNewGame={this.setupGameObject.bind(this)}
-          startEditor={this.startEditor}
-        />
-      );
+      return <MainMenu startNewGame={this.setupGameObject.bind(this)} startEditor={this.startEditor} />;
     } else {
-      return <MainOverlay
-        game={this.game}
-      >
-        <div className='wrapper'>
-          <div
-            className='canvas-main-container'>
-            <canvas
-              ref={(el) => {
-                if (el) {
-                  const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
+      return (
+        <MainOverlay game={this.game}>
+          <div className="wrapper">
+            <div className="canvas-main-container">
+              <canvas
+                ref={(el) => {
+                  if (el) {
+                    const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
 
-                  this.game.setMapAPI(mapAPI);
-                  this.game.loadCurrentLevelArea();
-                  this.game.resume();
-                }
-              }}
-            />
+                    this.game.setMapAPI(mapAPI);
+                    this.game.loadCurrentLevelArea();
+                    this.game.resume();
+                  }
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </MainOverlay>
+        </MainOverlay>
+      );
     }
   }
 }

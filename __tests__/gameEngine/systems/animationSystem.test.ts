@@ -1,11 +1,10 @@
 import animationSystem from '../../../src/gameEngine/systems/animationSystem';
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {Entity} from "game-platform";
-import {getSpriteCrop} from "../../../src/gameEngine/utils/getSpriteCrop";
-
+import SpyFns from '../../__TEST__UTILS__/SpyFns';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {Entity} from 'game-platform';
+import {getSpriteCrop} from '../../../src/gameEngine/utils/getSpriteCrop';
 
 describe('Tests for the Animation system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -13,14 +12,14 @@ describe('Tests for the Animation system', () => {
   beforeEach(() => {
     Entity.reset();
     spyPan = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan))  as ISystemArguments;
+    systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
   });
 
-  it ('doesnt break with no ents', () => {
+  it('doesnt break with no ents', () => {
     animationSystem(systemArguments);
   });
 
-  it ('Adds a and runs a simple animation', () => {
+  it('Adds a and runs a simple animation', () => {
     let player = createTestPlayer(0, 0);
     player.addAnimation({
       frames: [
@@ -43,8 +42,7 @@ describe('Tests for the Animation system', () => {
     expect(player.getAnimations()['TEST_ANIMATION'].realFrameCount).toBe(1);
   });
 
-
-  it ('Advances a single frame when run', () => {
+  it('Advances a single frame when run', () => {
     // Add a player...
     // Set Direction
 
@@ -78,7 +76,7 @@ describe('Tests for the Animation system', () => {
 
     player.addAnimation({
       loops: true,
-      frames: [{},{}],
+      frames: [{}, {}],
       animationDuration: 2,
       animationName: 'TEST_LOOP'
     });

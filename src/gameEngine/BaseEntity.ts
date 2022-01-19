@@ -1,53 +1,63 @@
-import {Entity} from "game-platform";
+import {Entity} from 'game-platform';
 import {
-  AI_VISION_COMP, ANIMATION_COMP,
-  ATTACK_COMP, BACKGROUND_COMP, CAN_ASSIGN_QUESTS_COMP,
-  CAN_SPAWN_COMP, DIALOG_COMP,
+  AI_VISION_COMP,
+  ANIMATION_COMP,
+  ATTACK_COMP,
+  BACKGROUND_COMP,
+  CAN_ASSIGN_QUESTS_COMP,
+  CAN_SPAWN_COMP,
+  DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
-  HEALTH_COMP, IS_ATTACKING_COMP, IS_MOVING_COMP, MOVEMENT_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP, SPAWNED_COMP,
+  HEALTH_COMP,
+  IS_ATTACKING_COMP,
+  IS_MOVING_COMP,
+  MOVEMENT_COMP,
+  PLAYER_CONTROLLED_COMP,
+  POSITION_COMP,
+  SPAWNED_COMP,
   UI_COMP
-} from "./components/ComponentNamesConfig";
-import {IAnimationMap} from "../interfaces/interfaces";
-import HasActionSignComponent from "./components/HasActionSignComponent";
-import {AllowedQuestState} from "./components/QuestDataComponent";
-import CanSpawn from "./components/CanSpawn";
-import BackgroundComponent from "./components/BackgroundComponent";
-import PlayerControlledComponent from "./components/PlayerControlledComponent";
-import Dialog from "./components/Dialog";
-import AnimationComp, {IAnimationVariantArguments} from "./components/AnimationComp";
-import {bit, DIRECTIONS_OPTIONS} from "./gameConstants";
-import {ICoordinates} from "game-platform/dist/lib/interfaces";
-import MoveComponent from "./components/MoveComponent";
-import SpawnedComponent from "./components/SpawnedComponent";
-import IsMoving from "./components/IsMoving";
-import Health from "./components/Health";
-import PositionComponent from "./components/PositionComponent";
-import UIComponent from "./components/UIComponent";
-import CanAssignQuestsComponent from "./components/CanAssignQuestsComponent";
-import Quest from "./entities/Quest";
-import IsAttackingComp from "./components/IsAttacking";
-import AIVisionComponent from "./components/AIVisionComponent";
-import AttackComponent from "./components/AttackComponent";
+} from './components/ComponentNamesConfig';
+import {IAnimationMap} from '../interfaces/interfaces';
+import HasActionSignComponent from './components/HasActionSignComponent';
+import {AllowedQuestState} from './components/QuestDataComponent';
+import CanSpawn from './components/CanSpawn';
+import BackgroundComponent from './components/BackgroundComponent';
+import PlayerControlledComponent from './components/PlayerControlledComponent';
+import Dialog from './components/Dialog';
+import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
+import {bit, DIRECTIONS_OPTIONS} from './gameConstants';
+import {ICoordinates} from 'game-platform/dist/lib/interfaces';
+import MoveComponent from './components/MoveComponent';
+import SpawnedComponent from './components/SpawnedComponent';
+import IsMoving from './components/IsMoving';
+import Health from './components/Health';
+import PositionComponent from './components/PositionComponent';
+import UIComponent from './components/UIComponent';
+import CanAssignQuestsComponent from './components/CanAssignQuestsComponent';
+import Quest from './entities/Quest';
+import IsAttackingComp from './components/IsAttacking';
+import AIVisionComponent from './components/AIVisionComponent';
+import AttackComponent from './components/AttackComponent';
 
 class BaseEntity extends Entity {
   id: number;
-  name:string;
-  [HEALTH_COMP]: Health;// Rename to HealthComp?
+  name: string;
+  [HEALTH_COMP]: Health; // Rename to HealthComp?
   [ANIMATION_COMP]: AnimationComp;
   [PLAYER_CONTROLLED_COMP]: PlayerControlledComponent;
   [MOVEMENT_COMP]: MoveComponent;
-  [POSITION_COMP] : PositionComponent;
+  [POSITION_COMP]: PositionComponent;
   [IS_MOVING_COMP]: IsMoving;
-  [AI_VISION_COMP] : AIVisionComponent;
+  [AI_VISION_COMP]: AIVisionComponent;
   [IS_ATTACKING_COMP]: IsAttackingComp;
   [ATTACK_COMP]: AttackComponent;
   [DIALOG_COMP]: Dialog;
   [BACKGROUND_COMP]: BackgroundComponent;
   [CAN_SPAWN_COMP]: CanSpawn;
   [UI_COMP]: UIComponent;
-  [CAN_ASSIGN_QUESTS_COMP] : CanAssignQuestsComponent;
+  [CAN_ASSIGN_QUESTS_COMP]: CanAssignQuestsComponent;
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
-  [SPAWNED_COMP]:SpawnedComponent;
+  [SPAWNED_COMP]: SpawnedComponent;
 
   constructor(entity: any) {
     super(entity);
@@ -209,7 +219,6 @@ class BaseEntity extends Entity {
       };
     }
   }
-
 
   // TODO ensure this works QA
   getDestFromDirection(dir: DIRECTIONS_OPTIONS) {

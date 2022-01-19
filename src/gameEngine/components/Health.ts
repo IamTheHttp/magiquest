@@ -1,12 +1,12 @@
 import {HEALTH_COMP} from './ComponentNamesConfig';
 
 class Health {
-  name:string;
-  max:number;
-  current:number;
+  name: string;
+  max: number;
+  current: number;
   width: number;
-  height:number;
-  constructor(maxHealth:number, width:number, height:number) {
+  height: number;
+  constructor(maxHealth: number, width: number, height: number) {
     this.name = HEALTH_COMP;
     this.max = maxHealth;
     this.current = maxHealth;

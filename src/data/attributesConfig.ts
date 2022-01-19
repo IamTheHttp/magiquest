@@ -1,4 +1,3 @@
-
 export enum AllowedAttributes {
   STRENGTH = 'STRENGTH',
   AGILITY = 'AGILITY',
@@ -7,14 +6,14 @@ export enum AllowedAttributes {
 }
 
 interface CharacterAttribute {
-  id: AllowedAttributes,
-  displayName: string,
-  description: string
+  id: AllowedAttributes;
+  displayName: string;
+  description: string;
 }
 
 export type ICharacterAttributesConfig = {
-  [key in AllowedAttributes] : CharacterAttribute
-}
+  [key in AllowedAttributes]: CharacterAttribute;
+};
 
 let characterAttributesConfig: ICharacterAttributesConfig = {
   [AllowedAttributes.AGILITY]: {
@@ -38,6 +37,5 @@ let characterAttributesConfig: ICharacterAttributesConfig = {
     description: 'ENDURANCE'
   }
 };
-
 
 export {characterAttributesConfig};

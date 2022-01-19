@@ -1,9 +1,9 @@
 import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
-import {IZone, ILevelLocation, ITileMap} from "../../interfaces/zones.i";
-import {CAN_SPAWN_COMP} from "../components/ComponentNamesConfig";
-import {AllowedLevelLocationIDs} from "../gameConstants";
-import Tile from "../entities/Tile";
-import IndexedTile from "../classes/IndexedTile";
+import {IZone, ILevelLocation, ITileMap} from '../../interfaces/zones.i';
+import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
+import {AllowedLevelLocationIDs} from '../gameConstants';
+import Tile from '../entities/Tile';
+import IndexedTile from '../classes/IndexedTile';
 
 /**
  *
@@ -12,7 +12,7 @@ import IndexedTile from "../classes/IndexedTile";
  * @param b
  * A function that checks of a number is between two other numbers
  */
-function inRange(a:number ,x:number ,b:number) {
+function inRange(a: number, x: number, b: number) {
   return x > a && x < b;
 }
 
@@ -36,9 +36,8 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
       let tileWidth = mapWidth / numOfCols;
       let tileHeight = mapHeight / numOfRows; // num of cols
 
-
       let tileLocationID: AllowedLevelLocationIDs = null;
-      let tileCharacterLevel:number = 1;
+      let tileCharacterLevel: number = 1;
       let locationsFoundForTile = 0;
       locations.forEach((levelLocation: ILevelLocation) => {
         let colStart = levelLocation.start.col;
@@ -54,7 +53,10 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
           tileCharacterLevel = levelLocation.locationCharacterLevel;
           // if spawnable, it MUST have a levelLocationID
           if (tileLocationID === null || tileCharacterLevel <= 0) {
-            throw `Invalid tileLocationID or tileCharacterLevel provided in location ${{tileLocationID, tileCharacterLevel}}`
+            throw `Invalid tileLocationID or tileCharacterLevel provided in location ${{
+              tileLocationID,
+              tileCharacterLevel
+            }}`;
           } else {
             locationsFoundForTile++;
           }
@@ -90,7 +92,6 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
         }
       });
 
-
       idx[tileIdx] = new IndexedTile(tile, tileIdx);
 
       Object.defineProperty(idx[tileIdx], 'gameEngine/entities', {
@@ -98,7 +99,6 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
       });
     }
   }
-
 
   return idx;
 }

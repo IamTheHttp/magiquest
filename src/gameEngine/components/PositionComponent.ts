@@ -1,25 +1,25 @@
 import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {DIRECTIONS_OPTIONS} from "../gameConstants";
+import {DIRECTIONS_OPTIONS} from '../gameConstants';
 
 interface IPositionComponentConstructor {
-  x:number;
+  x: number;
   y: number;
   radius?: number;
-  height?:number;
-  width?:number;
+  height?: number;
+  width?: number;
 }
 
 class PositionComponent {
-  name:string;
+  name: string;
   x: number;
   y: number;
   radius: number;
   height: number;
-  width:number;
-  destY:number;
-  destX:number;
-  originX:number;
-  originY:number;
+  width: number;
+  destY: number;
+  destX: number;
+  originX: number;
+  originY: number;
   orientation: DIRECTIONS_OPTIONS;
 
   constructor({x, y, radius = -1, height = -1, width = -1}: IPositionComponentConstructor) {

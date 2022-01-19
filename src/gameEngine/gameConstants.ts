@@ -16,10 +16,10 @@ export enum AllowedUIShapes {
 }
 
 export enum AllowedActions {
-  PERFORM_ACTION = "PERFORM_ACTION",
-  MOVE_ACTION = "MOVE_ACTION",
-  BUY_SKILL = "BUY_SKILL",
-  BUY_ATTR = "BUY_ATTR"
+  PERFORM_ACTION = 'PERFORM_ACTION',
+  MOVE_ACTION = 'MOVE_ACTION',
+  BUY_SKILL = 'BUY_SKILL',
+  BUY_ATTR = 'BUY_ATTR'
 }
 
 export enum AllowedQuestIDs {
@@ -37,13 +37,12 @@ export enum CHARACTERS {
   PLAYER = 'PLAYER'
 }
 
-
 // TODO can these two be combined?
 export enum DIRECTIONS_OPTIONS {
   UP = 'UP',
   DOWN = 'DOWN',
   LEFT = 'LEFT',
-  RIGHT = 'RIGHT',
+  RIGHT = 'RIGHT'
 }
 
 // TODO can these two be combined?
@@ -54,7 +53,6 @@ export let DIRECTIONS = {
   [DIRECTIONS_OPTIONS.RIGHT]: 'RIGHT'
 };
 
-
 export const ANIMATIONS = {
   MOVE_LEFT: 'MOVE_LEFT',
   MOVE_RIGHT: 'MOVE_RIGHT',
@@ -62,16 +60,13 @@ export const ANIMATIONS = {
   MOVE_DOWN: 'MOVE_DOWN'
 };
 
-
-
-
-export const bit = 32
+export const bit = 32;
 
 export enum ATTACK_SPEEDS_OPTIONS {
   SLOW = 'SLOW',
   FAST = 'FAST',
   FASTER = 'FASTER',
-  FASTEST = 'FASTEST',
+  FASTEST = 'FASTEST'
 }
 
 export const ATTACK_SPEEDS = {
@@ -80,7 +75,6 @@ export const ATTACK_SPEEDS = {
   [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
   [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
 };
-
 
 export const RESOLUTION = {
   width: 400 * 2,
@@ -91,11 +85,7 @@ export const ATTACK_CONFIG = {
   lineWidth: 3
 };
 
-
-
-export const CHAR_SPRITE_URL = "src/assets/characters.png";
-export const TILESET_IMAGE_URL = "src/assets/tileSet.png";
-
-
+export const CHAR_SPRITE_URL = 'src/assets/characters.png';
+export const TILESET_IMAGE_URL = 'src/assets/tileSet.png';
 
 export const XP_TO_FIRST_LEVEL = 500;

@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ComponentProps} from "react";
-import GameUI from "../GameUI/GameUI";
-import {IPlayerState, IPlayerUIState} from "../../../interfaces/interfaces";
-import Game from "../../../gameEngine/Game/Game";
-import {PlayerState} from "../../../gameEngine/classes/PlayerState";
-import {AllowedAttributes} from "../../../data/attributesConfig";
-
+import {ComponentProps} from 'react';
+import GameUI from '../GameUI/GameUI';
+import {IPlayerState, IPlayerUIState} from '../../../interfaces/interfaces';
+import Game from '../../../gameEngine/Game/Game';
+import {PlayerState} from '../../../gameEngine/classes/PlayerState';
+import {AllowedAttributes} from '../../../data/attributesConfig';
 
 function getDefaultPlayerState(): IPlayerState {
   return {
@@ -22,11 +21,11 @@ function getDefaultPlayerState(): IPlayerState {
       [AllowedAttributes.WILL]: 0, // assigned when game starts by game event
       [AllowedAttributes.ENDURANCE]: 0 // assigned when game starts by game event
     }
-  }
+  };
 }
 
 interface MainOverlayProps extends ComponentProps<any> {
-  game: Game
+  game: Game;
 }
 
 /**
@@ -51,22 +50,21 @@ export function MainOverlay(props: MainOverlayProps) {
       };
 
       setPlayerState(newPlayerState);
-    })
-  }, [])
-
+    });
+  }, []);
 
   return (
     <div>
       <GameUI
         {...playerState}
         onShowSkillsClicked={() => {
-          this.toggleUIPlayerState('showSkillTree')
+          this.toggleUIPlayerState('showSkillTree');
         }}
         onShowAttributes={() => {
-          this.toggleUIPlayerState('showAttributes')
+          this.toggleUIPlayerState('showAttributes');
         }}
       />
       {props.children}
     </div>
-  )
+  );
 }

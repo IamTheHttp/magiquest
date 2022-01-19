@@ -2,32 +2,33 @@
  * Represents the resolution properties of the game
  * "view" - represents the main view (player view), main screen.
  * "map" - represents the the entire map, so viewWidth <= mapWidth
- */ import {AllowedActions, AllowedUIShapes, DIRECTIONS_OPTIONS} from "../gameEngine/gameConstants";
-import {PlayerStateChangeEvent} from "../gameEngine/classes/PlayerState";
-import IndexedTile from "../gameEngine/classes/IndexedTile";
-import {AllowedSkills} from "../data/skillConfig";
-import {IAssignedCharacterAttributes} from "../gameEngine/components/CharacterAttributesComponent";
+ */ import {AllowedActions, AllowedUIShapes, DIRECTIONS_OPTIONS} from '../gameEngine/gameConstants';
+import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
+import IndexedTile from '../gameEngine/classes/IndexedTile';
+import {AllowedSkills} from '../data/skillConfig';
+import {IAssignedCharacterAttributes} from '../gameEngine/components/CharacterAttributesComponent';
 
 export interface IViewSize {
-  viewHeight: number
-  viewWidth: number
-  mapHeight: number
-  mapWidth: number
+  viewHeight: number;
+  viewWidth: number;
+  mapHeight: number;
+  mapWidth: number;
 }
 
 export interface ITileIndexMap {
-  [key: string]: IndexedTile
+  [key: string]: IndexedTile;
 }
 
 /**
  * Incoming user actions
  */
 export interface IAction {
-  name: AllowedActions,
-  data?: { // todo move direction into data
-    [key: string]: any
-  },
-  direction?: DIRECTIONS_OPTIONS
+  name: AllowedActions;
+  data?: {
+    // todo move direction into data
+    [key: string]: any;
+  };
+  direction?: DIRECTIONS_OPTIONS;
 }
 
 /**
@@ -35,7 +36,7 @@ export interface IAction {
  */
 
 export interface IAnimationMap {
-  [key:string]: IAnimation;
+  [key: string]: IAnimation;
 }
 
 /**
@@ -47,30 +48,30 @@ export interface IAnimationMap {
  * 2. Pass a shape, with information regarding it
  */
 
-export interface IAnimationFrame{
+export interface IAnimationFrame {
   spriteURL?: string;
-  cropStartX?:number;
+  cropStartX?: number;
   cropStartY?: number;
-  cropSizeX?:number
-  cropSizeY?:number;
+  cropSizeX?: number;
+  cropSizeY?: number;
   shape?: AllowedUIShapes;
-  direction?:number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
+  direction?: number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
   size?: number;
-  radius?:number;
-  x?:number;
-  y?:number;
-  color?:string;
+  radius?: number;
+  x?: number;
+  y?: number;
+  color?: string;
 }
 
 export interface IAnimation {
-  animationName: string,
-  frames: IAnimationFrame[],
-  currentFrame: number,
-  loops: boolean,
-  size: number,
-  speed: number,
-  realFrameCount:number,
-  animationDuration: number
+  animationName: string;
+  frames: IAnimationFrame[];
+  currentFrame: number;
+  loops: boolean;
+  size: number;
+  speed: number;
+  realFrameCount: number;
+  animationDuration: number;
 }
 
 /**
@@ -80,30 +81,29 @@ export interface IUISection {
   name: string;
   shape: AllowedUIShapes;
   data: {
-    [key: string] : any // TODO can we narrow it down?
+    [key: string]: any; // TODO can we narrow it down?
   };
 }
 
 export interface IUIEvent {
-  type:string;
-  name:string;
+  type: string;
+  name: string;
 }
 
-
 export interface IPlayerState {
-  maxHealth: number,
-  currentHealth: number,
-  percentHealth: number,
-  skills: AllowedSkills[],
+  maxHealth: number;
+  currentHealth: number;
+  percentHealth: number;
+  skills: AllowedSkills[];
   spendableXP: number;
   levelProgress: number;
   attributes: IAssignedCharacterAttributes;
   spendableAttributePoints: number;
 }
 
-export interface IPlayerUIState  extends IPlayerState {
-  showSkillTree: boolean,
-  showAttributes: boolean
+export interface IPlayerUIState extends IPlayerState {
+  showSkillTree: boolean;
+  showAttributes: boolean;
 }
 
 /**

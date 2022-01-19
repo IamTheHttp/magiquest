@@ -1,17 +1,15 @@
-
 import {CHARACTER_ATTRIBUTES_COMP} from './ComponentNamesConfig';
-import {AllowedAttributes} from "../../data/attributesConfig";
-
+import {AllowedAttributes} from '../../data/attributesConfig';
 
 export interface IAssignedCharacterAttributes {
-  [AllowedAttributes.AGILITY]: number,
-  [AllowedAttributes.STRENGTH]: number,
-  [AllowedAttributes.WILL]: number,
-  [AllowedAttributes.ENDURANCE]: number
+  [AllowedAttributes.AGILITY]: number;
+  [AllowedAttributes.STRENGTH]: number;
+  [AllowedAttributes.WILL]: number;
+  [AllowedAttributes.ENDURANCE]: number;
 }
 
 class CharacterAttributesComponent {
-  name:string;
+  name: string;
   spendableAttributePoints: number;
   attributes: IAssignedCharacterAttributes;
 
@@ -23,7 +21,7 @@ class CharacterAttributesComponent {
       [AllowedAttributes.STRENGTH]: 5,
       [AllowedAttributes.WILL]: 5,
       [AllowedAttributes.ENDURANCE]: 5
-    }
+    };
   }
 }
 

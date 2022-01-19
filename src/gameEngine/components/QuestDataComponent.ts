@@ -1,5 +1,5 @@
-import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from "./ComponentNamesConfig";
-import {AllowedQuestIDs} from "../gameConstants";
+import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from './ComponentNamesConfig';
+import {AllowedQuestIDs} from '../gameConstants';
 
 export enum AllowedQuestState {
   HIDDEN = 'HIDDEN', // Not shown by the NPC, can't be offered
@@ -21,12 +21,11 @@ export interface IQuestData {
 
 export interface IKillQuestData extends IQuestData {
   kill: {
-    killed: number,
+    killed: number;
     killGoal: number;
     location: any; // what should this be?
-  }
+  };
 }
-
 
 class QuestDataComponent {
   name: string;
@@ -47,17 +46,18 @@ class QuestDataComponent {
   }
 }
 
-export class KillQuestDataComponent extends QuestDataComponent{
+export class KillQuestDataComponent extends QuestDataComponent {
   data: IKillQuestData;
   constructor(questID: AllowedQuestIDs, data: IKillQuestData) {
     super(questID, data);
     let {killGoal, killed, location} = data.kill;
     this.data.kill = {
-      killGoal, killed, location
+      killGoal,
+      killed,
+      location
     };
     this.name = KILL_QUEST_DATA_COMP;
   }
 }
-
 
 export default QuestDataComponent;

@@ -1,13 +1,13 @@
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {IZone, ITileCoordinate} from "../../interfaces/zones.i";
-import {ITileIndexMap} from "../../interfaces/interfaces";
-import charactersDataConfig from "../../data/charactersDataConfig";
-import {Entity} from "game-platform";
-import Player from "../entities/characters/Player";
-import {BaseEntity} from "../BaseEntity";
-import {CHARACTERS} from "../gameConstants";
+import {IZone, ITileCoordinate} from '../../interfaces/zones.i';
+import {ITileIndexMap} from '../../interfaces/interfaces';
+import charactersDataConfig from '../../data/charactersDataConfig';
+import {Entity} from 'game-platform';
+import Player from '../entities/characters/Player';
+import {BaseEntity} from '../BaseEntity';
+import {CHARACTERS} from '../gameConstants';
 
 function placePlayerInLevel(zone: IZone, tileIdxMap: ITileIndexMap, targetTile: ITileCoordinate = null) {
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
@@ -29,4 +29,3 @@ function placePlayerInLevel(zone: IZone, tileIdxMap: ITileIndexMap, targetTile: 
 }
 
 export default placePlayerInLevel;
-

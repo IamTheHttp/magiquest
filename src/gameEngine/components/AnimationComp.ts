@@ -1,7 +1,6 @@
 import {ANIMATION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
-import {IAnimationFrame, IAnimationMap} from "../../interfaces/interfaces";
-
+import {IAnimationFrame, IAnimationMap} from '../../interfaces/interfaces';
 
 export interface IAnimationVariantArguments {
   animationName: string;
@@ -9,18 +8,17 @@ export interface IAnimationVariantArguments {
   loops: boolean;
   size?: number;
   speed?: number;
-  animationDuration?:number;
+  animationDuration?: number;
 }
 
 export interface IAnimationTypes {
   [key: string]: {
-    frames: IAnimationFrame[],
-    animationName: string,
-    loops: boolean,
-    animationDuration?:number; // This is optional as we have some internal default
-  }
+    frames: IAnimationFrame[];
+    animationName: string;
+    loops: boolean;
+    animationDuration?: number; // This is optional as we have some internal default
+  };
 }
-
 
 class AnimationComp {
   name: string;
@@ -31,8 +29,16 @@ class AnimationComp {
     this.animations = {};
     this.animationTypes = animationTypes;
   }
-  
-  addAnimationVariant({animationName = '', frames = [], loops = false, size = 0.25, speed= 1, animationDuration = 0, ...rest}: IAnimationVariantArguments) {
+
+  addAnimationVariant({
+    animationName = '',
+    frames = [],
+    loops = false,
+    size = 0.25,
+    speed = 1,
+    animationDuration = 0,
+    ...rest
+  }: IAnimationVariantArguments) {
     assertType(animationName, 'Name of animation', 'string');
     if (Object.keys(rest).length > 0) {
       throw `Extra arguments not supported to addAnimationVariant ${JSON.stringify(Object.keys(rest))}`;
@@ -45,10 +51,10 @@ class AnimationComp {
       loops,
       size,
       speed,
-      realFrameCount:0,
+      realFrameCount: 0,
       animationDuration
     };
-  };
+  }
 }
 
 export default AnimationComp;

@@ -1,21 +1,21 @@
-import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from "../classes/GameEvents";
+import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from '../classes/GameEvents';
 import {
   CAN_ASSIGN_QUESTS_COMP,
   HAS_ACTION_SIGN_COMP,
-  KILL_QUEST_DATA_COMP, PLAYER_CONTROLLED_COMP,
-  POSITION_COMP, QUEST_DATA_COMP,
+  KILL_QUEST_DATA_COMP,
+  PLAYER_CONTROLLED_COMP,
+  POSITION_COMP,
+  QUEST_DATA_COMP,
   SPAWNED_COMP,
   UI_COMP
-} from "../components/ComponentNamesConfig";
-import Quest, {KillQuest} from "../entities/Quest";
-import {BaseEntity} from "../BaseEntity";
-import {AllowedQuestState} from "../components/QuestDataComponent";
-import {isNonEmptyArray} from "./portalSystem";
-import {pushTrigger, Trigger} from "./triggerSystem";
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {Entity, entityLoop} from "game-platform";
-
-
+} from '../components/ComponentNamesConfig';
+import Quest, {KillQuest} from '../entities/Quest';
+import {BaseEntity} from '../BaseEntity';
+import {AllowedQuestState} from '../components/QuestDataComponent';
+import {isNonEmptyArray} from './portalSystem';
+import {pushTrigger, Trigger} from './triggerSystem';
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
@@ -33,10 +33,10 @@ function questSystem(systemArguments: ISystemArguments) {
    */
 
   let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA_COMP]) as KillQuest[];
-  let eventsToProcess:IGameEvent[] = gameEvents.getEvents();
+  let eventsToProcess: IGameEvent[] = gameEvents.getEvents();
 
   // 1. process events
-  eventsToProcess.forEach((gameEvent:IGameEvent) => {
+  eventsToProcess.forEach((gameEvent: IGameEvent) => {
     // killing enemies affects some quests
     if (gameEvent instanceof EnemyKilledEvent) {
       let {entity} = gameEvent.readEvent();
@@ -68,14 +68,18 @@ function questSystem(systemArguments: ISystemArguments) {
         let quest = doneQuests[0];
         quest.setState(AllowedQuestState.REWARDED);
 
-        pushTrigger(new Trigger({
-          type: 'dialog',
-          lines: [{
-            text: quest.getFinishedText(),
-            speaker: 1
-          }],
-          actedOnEntity: NPCEntity
-        }));
+        pushTrigger(
+          new Trigger({
+            type: 'dialog',
+            lines: [
+              {
+                text: quest.getFinishedText(),
+                speaker: 1
+              }
+            ],
+            actedOnEntity: NPCEntity
+          })
+        );
         return;
       }
 
@@ -83,19 +87,22 @@ function questSystem(systemArguments: ISystemArguments) {
         let quest = availableQuests[0];
         quest.setState(AllowedQuestState.IN_PROGRESS);
 
-        pushTrigger(new Trigger({
-          type: 'dialog',
-          lines: [{
-            text: quest.getDescription(),
-            speaker: 1
-          }],
-          actedOnEntity: NPCEntity
-        }));
+        pushTrigger(
+          new Trigger({
+            type: 'dialog',
+            lines: [
+              {
+                text: quest.getDescription(),
+                speaker: 1
+              }
+            ],
+            actedOnEntity: NPCEntity
+          })
+        );
         return;
       }
     }
   });
-
 
   // 2. Adjust Quest state
   quests.forEach((quest) => {

@@ -4,8 +4,7 @@ import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
-import {BACKGROUND_COMP, TRAVERSABLE_COMP} from "../components/ComponentNamesConfig";
-
+import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/ComponentNamesConfig';
 
 interface ITileConstructor {
   x: number;
@@ -18,22 +17,13 @@ interface ITileConstructor {
   tileCharacterLevel: number;
 }
 
-
 /**
  * A tile is an Entity in the game.
  * The Tile is rendered to the background has different states such as "isTraversable"
  */
 class Tile extends BaseEntity {
   tileIdx: string;
-  constructor({
-                x,
-                y,
-                tileIdx,
-                height,
-                width, tileType,
-                tileLocationID,
-                tileCharacterLevel
-              }: ITileConstructor) {
+  constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileCharacterLevel}: ITileConstructor) {
     super(Tile);
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));
@@ -46,15 +36,17 @@ class Tile extends BaseEntity {
       this.addComponent(new CanSpawn(tileLocationID, tileCharacterLevel));
     }
 
-    this.addComponent(new BackgroundComponent(
-      [{
-        name: CANVAS_OUTPUT,
-        shape: AllowedUIShapes.MAP_TILE_SHAPE,
-        data: {
-          tileType
+    this.addComponent(
+      new BackgroundComponent([
+        {
+          name: CANVAS_OUTPUT,
+          shape: AllowedUIShapes.MAP_TILE_SHAPE,
+          data: {
+            tileType
+          }
         }
-      }]
-    ));
+      ])
+    );
   }
 
   // TODO for Editor mode only, change the tile type
@@ -66,15 +58,17 @@ class Tile extends BaseEntity {
     }
 
     this.removeComponent(BACKGROUND_COMP);
-    this.addComponent(new BackgroundComponent(
-      [{
-        name: CANVAS_OUTPUT,
-        shape: AllowedUIShapes.MAP_TILE_SHAPE,
-        data: {
-          tileType
+    this.addComponent(
+      new BackgroundComponent([
+        {
+          name: CANVAS_OUTPUT,
+          shape: AllowedUIShapes.MAP_TILE_SHAPE,
+          data: {
+            tileType
+          }
         }
-      }]
-    ));
+      ])
+    );
   }
 }
 

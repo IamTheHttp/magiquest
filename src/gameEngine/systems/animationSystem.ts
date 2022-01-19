@@ -1,7 +1,7 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {BaseEntity} from "../BaseEntity";
-import {bit} from "../gameConstants";
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {BaseEntity} from '../BaseEntity';
+import {bit} from '../gameConstants';
 
 function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
@@ -11,7 +11,6 @@ function animationSystem(systemArguments: ISystemArguments) {
   for (let i = 0; i < ents.length; i++) {
     let entity = ents[i];
     let animations = entity[ANIMATION_COMP].animations;
-
 
     for (let anim in animations) {
       let animation = animations[anim];
@@ -27,7 +26,7 @@ function animationSystem(systemArguments: ISystemArguments) {
         entity.removeAnimation(animation.animationName);
       } else {
         // the duration of the animation is the time it takes to cross a bit (32px)
-        let animationDuration = animation.animationDuration || (bit / entity.getMovementSpeed()) / numberOfFrames;
+        let animationDuration = animation.animationDuration || bit / entity.getMovementSpeed() / numberOfFrames;
 
         animation.realFrameCount++;
         // the animation lasts for {animationDuration} frames (bigger = longer)
@@ -44,5 +43,3 @@ function animationSystem(systemArguments: ISystemArguments) {
 }
 
 export default animationSystem;
-
-

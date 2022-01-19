@@ -1,15 +1,14 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import SpyFns from "../../__TEST__UTILS__/SpyFns";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {AllowedSkills} from "../../../src/data/skillConfig";
-import {Entity} from "game-platform";
-import Player from "../../../src/gameEngine/entities/characters/Player";
-import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from "../../../src/gameEngine/components/ComponentNamesConfig";
-import {PlayerSkillsChangeEvent} from "../../../src/gameEngine/classes/GameEvents";
-
+import SpyFns from '../../__TEST__UTILS__/SpyFns';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {AllowedSkills} from '../../../src/data/skillConfig';
+import {Entity} from 'game-platform';
+import Player from '../../../src/gameEngine/entities/characters/Player';
+import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {PlayerSkillsChangeEvent} from '../../../src/gameEngine/classes/GameEvents';
 
 describe('Tests for the User Input system', () => {
   let systemArguments: ISystemArguments, spyPan, player: Player;
@@ -42,7 +41,7 @@ describe('Tests for the User Input system', () => {
     });
     userInputSystem(systemArguments);
 
-    expect(player.getMoveDirection()).toBe(DIRECTIONS_OPTIONS.DOWN)
+    expect(player.getMoveDirection()).toBe(DIRECTIONS_OPTIONS.DOWN);
   });
 
   it('Buys a skill', () => {

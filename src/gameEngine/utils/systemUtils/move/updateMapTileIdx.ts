@@ -1,18 +1,25 @@
 import {getTileIdxByPos} from '../../componentUtils/tileUtils/getTileIdx';
-import {ITileIndexMap} from "../../../../interfaces/interfaces";
-import {BaseEntity} from "../../../BaseEntity";
-import {HEALTH_COMP} from "../../../components/ComponentNamesConfig";
+import {ITileIndexMap} from '../../../../interfaces/interfaces';
+import {BaseEntity} from '../../../BaseEntity';
+import {HEALTH_COMP} from '../../../components/ComponentNamesConfig';
 
 interface updateMapTileIdxArguments {
-  entity: BaseEntity,
-  tileIdxMap: ITileIndexMap,
-  oldX?:number,
-  oldY?:number,
-  newX?:number,
-  newY?:number
+  entity: BaseEntity;
+  tileIdxMap: ITileIndexMap;
+  oldX?: number;
+  oldY?: number;
+  newX?: number;
+  newY?: number;
 }
 
-function updateMapTileIdx({entity, tileIdxMap,  oldX = null, oldY = null, newX = null, newY = null}: updateMapTileIdxArguments) {
+function updateMapTileIdx({
+  entity,
+  tileIdxMap,
+  oldX = null,
+  oldY = null,
+  newX = null,
+  newY = null
+}: updateMapTileIdxArguments) {
   // This was due to a bug that caused dead entities
   // that on the next tick needed to change tiles
   // to still move after being dead (since death is async by a tick.

@@ -1,7 +1,7 @@
-import {BaseEntity} from "../../../BaseEntity";
-import {bit} from "../../../gameConstants";
+import {BaseEntity} from '../../../BaseEntity';
+import {bit} from '../../../gameConstants';
 
-function getTileIdxByPos(x:number, y:number) {
+function getTileIdxByPos(x: number, y: number) {
   let col = Math.floor(x / bit);
   let row = Math.floor(y / bit);
 
@@ -14,8 +14,4 @@ function getTileIdxByEnt(entity: BaseEntity) {
   return getTileIdxByPos(x, y);
 }
 
-
-export {
-  getTileIdxByEnt,
-  getTileIdxByPos
-};
+export {getTileIdxByEnt, getTileIdxByPos};

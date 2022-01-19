@@ -1,6 +1,6 @@
 import {DIALOG_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {BaseEntity} from "../../../BaseEntity";
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {BaseEntity} from '../../../BaseEntity';
 
 function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI, viewSize} = systemArguments;
@@ -8,7 +8,7 @@ function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {panY, panX} = mapAPI.getCurrentPanValue();
   let width = 250;
   let x = viewSize.viewWidth - width - panX;
-  let y = - panY;
+  let y = -panY;
 
   mapAPI.drawTextBubble({
     id: 'someText',
@@ -16,13 +16,13 @@ function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
     y,
     text: `${entity.name}:\n${entity[DIALOG_COMP].text}`,
     backgroundColor: '#b78846',
-    borderColor:'#FFFFFF',
+    borderColor: '#FFFFFF',
     borderWidth: 1,
     fontColor: '#FFFFFF',
     fontSize: 12,
-    paddingTop:10,
+    paddingTop: 10,
     width, // auto based on text
-    height:100 // auto based on height of text
+    height: 100 // auto based on height of text
   });
 }
 

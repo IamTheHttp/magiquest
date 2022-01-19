@@ -11,8 +11,8 @@
       var vendors = ['ms', 'moz', 'webkit', 'o'];
       for (var x = 0; x < vendors.length && !windowCopy.requestAnimationFrame; ++x) {
           windowCopy.requestAnimationFrame = windowCopy["".concat(vendors[x], "RequestAnimationFrame")];
-          windowCopy.cancelAnimationFrame = windowCopy["".concat(vendors[x], "CancelAnimationFrame")]
-              || windowCopy["".concat(vendors[x], "CancelRequestAnimationFrame")];
+          windowCopy.cancelAnimationFrame =
+              windowCopy["".concat(vendors[x], "CancelAnimationFrame")] || windowCopy["".concat(vendors[x], "CancelRequestAnimationFrame")];
       }
       if (!windowCopy.requestAnimationFrame) {
           windowCopy.requestAnimationFrame = function (callback) {
@@ -668,13 +668,13 @@
   var ATTACK_CONFIG = {
       lineWidth: 3
   };
-  var CHAR_SPRITE_URL = "src/assets/characters.png";
-  var TILESET_IMAGE_URL = "src/assets/tileSet.png";
+  var CHAR_SPRITE_URL = 'src/assets/characters.png';
+  var TILESET_IMAGE_URL = 'src/assets/tileSet.png';
   var XP_TO_FIRST_LEVEL = 500;
 
   function MainMenu(props) {
       return (react_22("div", { className: 'main-menu' },
-          react_22("div", { className: "main-menu__btn-container" },
+          react_22("div", { className: 'main-menu__btn-container' },
               react_22("h1", { className: 'main-menu__game-title' }, "MagiQuest"),
               react_22("button", { onClick: props.startNewGame }, "New game"),
               react_22("button", { onClick: props.startEditor }, "Editor"),
@@ -690,16 +690,16 @@
 
   function GameUI(props) {
       props.spendableAttributePoints > 0 ? 'active' : '';
-      return (react_22("div", { className: 'game-ui' },
-          react_22("div", { className: 'sphere sphere--health' },
-              react_22("div", { className: 'sphere__filled health', style: { maxHeight: "".concat((1 - props.percentHealth) * 100, "%") } }),
-              react_22("div", { className: 'stats' },
+      return (react_22("div", { className: "game-ui" },
+          react_22("div", { className: "sphere sphere--health" },
+              react_22("div", { className: "sphere__filled health", style: { maxHeight: "".concat((1 - props.percentHealth) * 100, "%") } }),
+              react_22("div", { className: "stats" },
                   Math.floor(props.currentHealth),
                   " / ",
                   props.maxHealth)),
-          react_22("div", { className: 'bar' },
-              react_22("div", { className: 'bar__filled bar__filled xp', style: { width: "".concat(props.levelProgress * 100, "%") } }),
-              react_22("div", { className: 'stats' }, props.spendableXP))));
+          react_22("div", { className: "bar" },
+              react_22("div", { className: "bar__filled bar__filled xp", style: { width: "".concat(props.levelProgress * 100, "%") } }),
+              react_22("div", { className: "stats" }, props.spendableXP))));
   }
 
   var _a$3;
@@ -2392,13 +2392,15 @@
               _this.addComponent(new TraversableComponent());
               _this.addComponent(new CanSpawn(tileLocationID, tileCharacterLevel));
           }
-          _this.addComponent(new BackgroundComponent([{
+          _this.addComponent(new BackgroundComponent([
+              {
                   name: CANVAS_OUTPUT,
                   shape: AllowedUIShapes.MAP_TILE_SHAPE,
                   data: {
                       tileType: tileType
                   }
-              }]));
+              }
+          ]));
           return _this;
       }
       // TODO for Editor mode only, change the tile type
@@ -2410,13 +2412,15 @@
               this.removeComponent(TRAVERSABLE_COMP);
           }
           this.removeComponent(BACKGROUND_COMP);
-          this.addComponent(new BackgroundComponent([{
+          this.addComponent(new BackgroundComponent([
+              {
                   name: CANVAS_OUTPUT,
                   shape: AllowedUIShapes.MAP_TILE_SHAPE,
                   data: {
                       tileType: tileType
                   }
-              }]));
+              }
+          ]));
       };
       return Tile;
   }(BaseEntity));
@@ -2493,7 +2497,10 @@
                       tileCharacterLevel = levelLocation.locationCharacterLevel;
                       // if spawnable, it MUST have a levelLocationID
                       if (tileLocationID === null || tileCharacterLevel <= 0) {
-                          throw "Invalid tileLocationID or tileCharacterLevel provided in location ".concat({ tileLocationID: tileLocationID, tileCharacterLevel: tileCharacterLevel });
+                          throw "Invalid tileLocationID or tileCharacterLevel provided in location ".concat({
+                              tileLocationID: tileLocationID,
+                              tileCharacterLevel: tileCharacterLevel
+                          });
                       }
                       else {
                           locationsFoundForTile++;
@@ -2881,11 +2888,11 @@
                   id: "".concat(entity_1.id, "-assign-quest"),
                   text: symbol,
                   textBaseline: 'middle',
-                  fillStyle: "yellow",
+                  fillStyle: 'yellow',
                   strokeStyle: 'black',
                   font: "".concat(radius * 2, "px Arial"),
                   x: x + radius / 2,
-                  y: y - radius,
+                  y: y - radius
               });
           }
           entity_1[UI_COMP].sections.forEach(function (section) {
@@ -3128,8 +3135,8 @@
 
   function getCenterPosOfGridIdx(col, row) {
       return {
-          x: col * bit + (bit / 2),
-          y: row * bit + (bit / 2)
+          x: col * bit + bit / 2,
+          y: row * bit + bit / 2
       };
   }
   function getGridIdxFromPos(x, y) {
@@ -3411,7 +3418,7 @@
       __extends(Character, _super);
       function Character(instanceAttributes, charConfig) {
           var _this = _super.call(this, Character) || this;
-          var col = instanceAttributes.col, row = instanceAttributes.row, characterLevel = instanceAttributes.characterLevel; instanceAttributes.spawningTileLocationID;
+          var col = instanceAttributes.col, row = instanceAttributes.row, characterLevel = instanceAttributes.characterLevel;
           var speed = charConfig.speed, health = charConfig.health, radius = charConfig.radius, dmg = charConfig.dmg, attackSpeed = charConfig.attackSpeed, vision = charConfig.vision, animationTypes = charConfig.animationTypes; charConfig.id; charConfig.displayName;
           var _a = getCenterPosOfGridIdx(col, row), x = _a.x, y = _a.y;
           _this.addComponent(new LevelComp(characterLevel));
@@ -3423,11 +3430,13 @@
               var adjustedHealth = _this.getLevelAdjustedHealth(health, characterLevel);
               _this.addComponent(new Health(adjustedHealth, radius * 2, radius));
               // the UI component can be completely overwritten by the extending class (like Player)
-              _this.addComponent(new UIComponent([{
+              _this.addComponent(new UIComponent([
+                  {
                       name: CANVAS_OUTPUT,
                       shape: AllowedUIShapes.HEALTH_BAR_SHAPE,
                       data: {}
-                  }]));
+                  }
+              ]));
           }
           if (vision) {
               _this.addComponent(new AIVisionComponent(vision));
@@ -3442,10 +3451,10 @@
           return _this;
       }
       Character.prototype.getLevelAdjustedHealth = function (health, level) {
-          return health + health * level / 100; // base health + 1% per level
+          return health + (health * level) / 100; // base health + 1% per level
       };
       Character.prototype.getLevelAdjustedDamage = function (dmg, level) {
-          return dmg + dmg * level / 200; // base damage + 0.5% per level
+          return dmg + (dmg * level) / 200; // base damage + 0.5% per level
       };
       return Character;
   }(BaseEntity));
@@ -3579,7 +3588,7 @@
               }
               else {
                   // the duration of the animation is the time it takes to cross a bit (32px)
-                  var animationDuration = animation.animationDuration || (bit / entity.getMovementSpeed()) / numberOfFrames;
+                  var animationDuration = animation.animationDuration || bit / entity.getMovementSpeed() / numberOfFrames;
                   animation.realFrameCount++;
                   // the animation lasts for {animationDuration} frames (bigger = longer)
                   // the animation has {numberOfFrames}
@@ -3802,10 +3811,12 @@
                   quest.setState(AllowedQuestState.REWARDED);
                   pushTrigger(new Trigger({
                       type: 'dialog',
-                      lines: [{
+                      lines: [
+                          {
                               text: quest.getFinishedText(),
                               speaker: 1
-                          }],
+                          }
+                      ],
                       actedOnEntity: NPCEntity
                   }));
                   return;
@@ -3815,10 +3826,12 @@
                   quest.setState(AllowedQuestState.IN_PROGRESS);
                   pushTrigger(new Trigger({
                       type: 'dialog',
-                      lines: [{
+                      lines: [
+                          {
                               text: quest.getDescription(),
                               speaker: 1
-                          }],
+                          }
+                      ],
                       actedOnEntity: NPCEntity
                   }));
                   return;
@@ -3893,8 +3906,9 @@
           preCondition: '',
           reward: '',
           description: "Help us stranger!\nThe camp outside is filled with ugly monsters!\nKill them all, and I'll get you a reward",
-          finishedText: "Thank you so much, here is your reward",
+          finishedText: 'Thank you so much, here is your reward',
           kill: {
+              // kill specifies a TYPE of quest..
               killed: 0,
               killGoal: 2,
               location: AllowedLevelLocationIDs.SPAWNABLE_1
@@ -3953,14 +3967,14 @@
       __extends(FamNPC, _super);
       function FamNPC(instanceAttributes, charConfig) {
           var _this = _super.call(this, instanceAttributes, charConfig) || this;
-          _this.addComponent(new CanAssignQuestsComponent([
-              new KillQuest(AllowedQuestIDs.CLEAR_CAMP)
-          ]));
-          _this.addComponent(new UIComponent([{
+          _this.addComponent(new CanAssignQuestsComponent([new KillQuest(AllowedQuestIDs.CLEAR_CAMP)]));
+          _this.addComponent(new UIComponent([
+              {
                   name: CANVAS_OUTPUT,
                   shape: AllowedUIShapes.PLAYER_CHAR,
                   data: {}
-              }]));
+              }
+          ]));
           return _this;
       }
       return FamNPC;
@@ -3991,7 +4005,7 @@
        * @type {IndexedTile}
        */
       var targetTile = tileIdxMap[targetIdx];
-      var entities = targetTile && targetTile.entities || [];
+      var entities = (targetTile && targetTile.entities) || [];
       return {
           targetTile: targetTile,
           targetEntities: entities
@@ -4062,10 +4076,7 @@
       _b[AllowedTrees.MAGIC] = {
           id: AllowedTrees.MAGIC,
           name: 'Magic',
-          skills: [
-              skillsConfig[AllowedSkills.FIRE_BULLET],
-              skillsConfig[AllowedSkills.SUPER_NOVA]
-          ]
+          skills: [skillsConfig[AllowedSkills.FIRE_BULLET], skillsConfig[AllowedSkills.SUPER_NOVA]]
       },
       _b[AllowedTrees.FORCE] = {
           id: AllowedTrees.FORCE,
@@ -4180,7 +4191,8 @@
           var characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
           var spawnableEnemies = systemArguments.zone.spawnableEnemies;
           spawnableEnemies.forEach(function (enemyToSpawn) {
-              if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"
+              if (Math.random() < monsterDensity) {
+                  // TODO refactor to a function "rollDie" or "resolveChance"
                   // Fetch what to spawn from config!
                   var characterConfig = charactersDataConfig[enemyToSpawn];
                   if (characterConfig) {
@@ -4234,8 +4246,8 @@
               frames.push({
                   shape: AllowedUIShapes.ARC_SHAPE,
                   direction: direction,
-                  size: 0.2 + i * sizeToGrow / frameCount,
-                  radius: 16 + i * radiusToGrow / frameCount,
+                  size: 0.2 + (i * sizeToGrow) / frameCount,
+                  radius: 16 + (i * radiusToGrow) / frameCount,
                   x: origin.x,
                   y: origin.y,
                   color: color
@@ -4410,7 +4422,8 @@
           modDestY = y;
           modDestX = x;
       }
-      else if (typeof direction !== 'undefined' && direction !== null) { // TODO replace with a util? // OR change the ENUM to start from 1?
+      else if (typeof direction !== 'undefined' && direction !== null) {
+          // TODO replace with a util? // OR change the ENUM to start from 1?
           // create destination from the direction we want to go
           var _d = entity.getDestFromDirection(direction), x = _d.x, y = _d.y;
           modDestY = y;
@@ -4485,7 +4498,12 @@
       /**
        * Prep before we move, occupy the target tile
        */
-      updateMapTileIdx({ entity: entity, tileIdxMap: tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y });
+      updateMapTileIdx({
+          entity: entity,
+          tileIdxMap: tileIdxMap,
+          newX: entity.getDest().x,
+          newY: entity.getDest().y
+      });
       /**
        * Calc the new X,Y to move to
        */
@@ -4529,11 +4547,13 @@
       __extends(Chest, _super);
       function Chest(instanceAttributes, charConfig) {
           var _this = _super.call(this, instanceAttributes, charConfig) || this;
-          _this.addComponent(new UIComponent([{
+          _this.addComponent(new UIComponent([
+              {
                   name: CANVAS_OUTPUT,
                   shape: AllowedUIShapes.CHEST_SHAPE,
                   data: {}
-              }]));
+              }
+          ]));
           return _this;
       }
       return Chest;
@@ -4574,7 +4594,12 @@
               assertType(entity, 'Entity to place', 'object');
               return;
           }
-          updateMapTileIdx({ entity: entity, tileIdxMap: tileIdxMap, newX: entity.getPos().x, newY: entity.getPos().y });
+          updateMapTileIdx({
+              entity: entity,
+              tileIdxMap: tileIdxMap,
+              newX: entity.getPos().x,
+              newY: entity.getPos().y
+          });
       }
   }
 
@@ -14792,11 +14817,11 @@
       locationCharacterLevel: 1,
       start: {
           col: 0,
-          row: 0,
+          row: 0
       },
       end: {
           col: 32,
-          row: 18,
+          row: 18
       }
   };
   var townLocation$1 = townLocation;
@@ -14807,11 +14832,11 @@
       name: 'JUST_LOCATION_NAME',
       start: {
           col: 33,
-          row: 0,
+          row: 0
       },
       end: {
           col: 100,
-          row: 18,
+          row: 18
       },
       locationCharacterLevel: 50
   };
@@ -14920,8 +14945,9 @@
       });
       zone.zoneID = zoneCSVData.id;
       zone.startPos = {
+          // if not specified otherwise, this is where we start (useful for for new levels)
           col: zoneCSVData.player_start_pos.col,
-          row: zoneCSVData.player_start_pos.row,
+          row: zoneCSVData.player_start_pos.row
       };
       zone.noSpawnLocations = zoneCSVData.no_spawn_locations;
       zone.spawnableEnemies = zoneCSVData.monster_spawns;
@@ -14948,25 +14974,26 @@
       monsterDensity: 0,
       spawnableEnemies: [],
       startPos: null,
-      locations: [
-          townLocation$1,
-          spawnableOneLocation$1
-      ],
+      locations: [townLocation$1, spawnableOneLocation$1],
       tileMap: oneMap,
       triggers: {
-          levelStart: [{
+          levelStart: [
+              {
                   oneOff: true,
                   type: 'dialog',
                   lines: [
                       {
-                          text: 'I haven\'t heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?',
+                          text: "I haven't heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?",
                           speaker: 0
                       }
                   ]
-              }],
+              }
+          ],
           actOnEntity: {},
           move: {
-              '-1,-2': [{
+              // Extended by static csv data
+              '-1,-2': [
+                  {
                       oneOff: true,
                       type: 'dialog',
                       lines: [
@@ -14975,7 +15002,8 @@
                               speaker: 0
                           }
                       ]
-                  }]
+                  }
+              ]
           }
       },
       entitiesToPlace: [
@@ -15033,7 +15061,7 @@
               characterLevel: 1,
               name: 'NPC_5'
           }
-      ],
+      ]
   };
   var ZERO_ZERO = mergeStaticZoneData(zone$1);
 
@@ -25252,7 +25280,8 @@
           levelStart: [],
           actOnEntity: {},
           move: {
-              '-1,-2': [{
+              '-1,-2': [
+                  {
                       oneOff: true,
                       type: 'dialog',
                       lines: [
@@ -25261,7 +25290,8 @@
                               speaker: 0
                           }
                       ]
-                  }]
+                  }
+              ]
           }
       },
       entitiesToPlace: []
@@ -25641,11 +25671,11 @@
        * @param e
        */
       App.prototype.onEscPress = function (e) {
-          if ("key" in e) {
-              (e.key === "Escape" || e.key === "Esc");
+          if ('key' in e) {
+              e.key === 'Escape' || e.key === 'Esc';
           }
           else {
-              (e.keyCode === 27);
+              e.keyCode === 27;
           }
       };
       /**
@@ -25669,8 +25699,7 @@
           // whenever a new game is started, we go to full screen
           document.body.requestFullscreen();
           this.game = new Game({
-              onAreaChange: function (level, area, newPlayerPosition) {
-              },
+              onAreaChange: function (level, area, newPlayerPosition) { }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
@@ -25690,18 +25719,17 @@
       App.prototype.resize = function () {
           resizeGameElements();
       };
-      App.prototype.startEditor = function () {
-      };
+      App.prototype.startEditor = function () { };
       App.prototype.render = function () {
           var _this = this;
           var isGameStarted = this.state.isGameRunning;
           if (!isGameStarted) {
-              return (react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this), startEditor: this.startEditor }));
+              return react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this), startEditor: this.startEditor });
           }
           else {
-              return react_22(MainOverlay, { game: this.game },
-                  react_22("div", { className: 'wrapper' },
-                      react_22("div", { className: 'canvas-main-container' },
+              return (react_22(MainOverlay, { game: this.game },
+                  react_22("div", { className: "wrapper" },
+                      react_22("div", { className: "canvas-main-container" },
                           react_22("canvas", { ref: function (el) {
                                   if (el) {
                                       var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
@@ -25709,7 +25737,7 @@
                                       _this.game.loadCurrentLevelArea();
                                       _this.game.resume();
                                   }
-                              } }))));
+                              } })))));
           }
       };
       return App;

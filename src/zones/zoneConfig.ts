@@ -1,17 +1,16 @@
-import {IZone} from "../interfaces/zones.i";
-import hasValue from "../gameEngine/utils/hasValue";
-import {ZERO_ZERO} from "./0-0/0-0";
-import {ZERO_ONE} from "./0-1/0-1";
+import {IZone} from '../interfaces/zones.i';
+import hasValue from '../gameEngine/utils/hasValue';
+import {ZERO_ZERO} from './0-0/0-0';
+import {ZERO_ONE} from './0-1/0-1';
 
 // TODO this should be some interface
 let zoneConfig = {} as {
   [numLevel: number]: {
     areas: {
       [numArea: number]: IZone;
-    }
+    };
   };
 };
-
 
 function processLevel(zone: IZone) {
   let [level, area] = zone.zoneID.split('-');
@@ -27,7 +26,7 @@ function processLevel(zone: IZone) {
 // TOOD create a live object based on these levels
 function requireAllMapLevels() {
   processLevel(ZERO_ZERO);
-  processLevel(ZERO_ONE)
+  processLevel(ZERO_ONE);
 
   //
   // // @ts-ignore

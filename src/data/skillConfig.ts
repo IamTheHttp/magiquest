@@ -6,30 +6,26 @@ export enum AllowedTrees {
 }
 
 export interface ISkill {
-  id: AllowedSkills,
-  name: string,
-  cost: number,
-  description:string
+  id: AllowedSkills;
+  name: string;
+  cost: number;
+  description: string;
 }
 
 export interface ISkillTree {
-  id: AllowedTrees,
-  name: string,
-  skills: ISkill[]
+  id: AllowedTrees;
+  name: string;
+  skills: ISkill[];
 }
-
-
 
 export enum AllowedSkills {
   FIRE_BULLET = 'FIRE_BULLET',
-  SUPER_NOVA = 'SUPER_NOVA',
+  SUPER_NOVA = 'SUPER_NOVA'
 }
-
-
 
 export type ISkillsConfig = {
-  [key in AllowedSkills]: ISkill
-}
+  [key in AllowedSkills]: ISkill;
+};
 
 let skillsConfig: ISkillsConfig = {
   [AllowedSkills.FIRE_BULLET]: {
@@ -43,22 +39,18 @@ let skillsConfig: ISkillsConfig = {
     name: 'SuperNova',
     cost: 550,
     description: 'An engulfing nova to scorch your enemies'
-  },
+  }
 };
 
-
 export type ISkillTreeConfig = {
-  [key in AllowedTrees]: ISkillTree
-}
+  [key in AllowedTrees]: ISkillTree;
+};
 
 let skillTreesConfig: ISkillTreeConfig = {
   [AllowedTrees.MAGIC]: {
     id: AllowedTrees.MAGIC,
     name: 'Magic',
-    skills: [
-      skillsConfig[AllowedSkills.FIRE_BULLET],
-      skillsConfig[AllowedSkills.SUPER_NOVA]
-    ]
+    skills: [skillsConfig[AllowedSkills.FIRE_BULLET], skillsConfig[AllowedSkills.SUPER_NOVA]]
   },
   [AllowedTrees.FORCE]: {
     id: AllowedTrees.FORCE,
@@ -76,6 +68,5 @@ let skillTreesConfig: ISkillTreeConfig = {
     skills: []
   }
 };
-
 
 export {skillTreesConfig, skillsConfig};

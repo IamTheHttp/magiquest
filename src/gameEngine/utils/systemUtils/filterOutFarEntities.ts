@@ -1,7 +1,7 @@
 import {POSITION_COMP} from '../../components/ComponentNamesConfig';
-import {ISystemArguments} from "../../../interfaces/gameloop.i";
-import {BaseEntity} from "../../BaseEntity";
-import {bit} from "../../gameConstants";
+import {ISystemArguments} from '../../../interfaces/gameloop.i';
+import {BaseEntity} from '../../BaseEntity';
+import {bit} from '../../gameConstants';
 
 function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: BaseEntity[]) {
   let buffer = bit * 8;

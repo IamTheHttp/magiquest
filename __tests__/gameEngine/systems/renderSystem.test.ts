@@ -1,9 +1,9 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
-import SpyFns, {fn} from "../../__TEST__UTILS__/SpyFns";
-import {ISystemArguments} from "../../../src/interfaces/gameloop.i";
-import createTestPlayer from "../../__TEST__UTILS__/createTestPlayer";
-import {Entity} from "game-platform";
-import renderSystem from "../../../src/gameEngine/systems/renderSystem";
+import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
+import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
+import {Entity} from 'game-platform';
+import renderSystem from '../../../src/gameEngine/systems/renderSystem';
 
 describe('Tests for the Render system', () => {
   let systemArguments: ISystemArguments;
@@ -18,7 +18,7 @@ describe('Tests for the Render system', () => {
     spyClear = jest.fn();
     spyAddImage = jest.fn();
     spyDraw = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw))  as ISystemArguments;
+    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw)) as ISystemArguments;
   });
 
   it('doesnt break with no ents', () => {

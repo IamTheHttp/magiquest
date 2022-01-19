@@ -1,6 +1,6 @@
-import {IEntityMap} from "game-platform/dist/lib/interfaces";
-import {BaseEntity} from "../BaseEntity";
-import Tile from "../entities/Tile";
+import {IEntityMap} from 'game-platform/dist/lib/interfaces';
+import {BaseEntity} from '../BaseEntity';
+import Tile from '../entities/Tile';
 
 /**
  * An indexedTile is a wrapper around the Tile Entity.
@@ -10,7 +10,7 @@ class IndexedTile {
   idx: string;
   entities: IEntityMap<BaseEntity>;
   tile: Tile;
-  entityCount:number;
+  entityCount: number;
 
   constructor(tile: Tile, idx: string) {
     this.idx = idx;
@@ -39,6 +39,5 @@ class IndexedTile {
     return this.entityCount;
   }
 }
-
 
 export default IndexedTile;

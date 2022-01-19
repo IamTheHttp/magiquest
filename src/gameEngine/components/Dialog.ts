@@ -1,8 +1,8 @@
 import {DIALOG_COMP} from './ComponentNamesConfig';
 
 class Dialog {
-  name:string;
-  text:string;
+  name: string;
+  text: string;
   constructor(text: string) {
     this.name = DIALOG_COMP;
     this.text = `${text}\n\n\nPress space to continue ...`;

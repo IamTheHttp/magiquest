@@ -1,16 +1,16 @@
 import {UI_COMP} from './ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
-import {IUISection} from "../../interfaces/interfaces";
+import {IUISection} from '../../interfaces/interfaces';
 
 class UIComponent {
-  name:string;
+  name: string;
   sections: IUISection[];
 
   constructor(sections: IUISection[] = []) {
     this.name = UI_COMP;
-    
+
     let sectionsArray = Array.isArray(sections) ? sections : [sections];
-    
+
     this.sections = sectionsArray.map((section) => {
       // if it's an object, great, we're done.
       if (typeof section === 'object') {

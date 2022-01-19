@@ -1,12 +1,11 @@
-
 .skills-screen {
   .remaining-xp {
-    font-size:1rem;
-    color:grey;
+    font-size: 1rem;
+    color: grey;
   }
 
   .skills-grid {
-    margin-top:20px;
+    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
   }
@@ -18,7 +17,7 @@
     text-align: center;
     border: 1px solid white;
     margin-bottom: 5px;
-    margin-right:5px;
+    margin-right: 5px;
     background-color: black;
     color: white;
     height: 80px;
@@ -26,20 +25,20 @@
     flex-shrink: 0;
     flex-grow: 0;
     box-sizing: border-box;
-    width:calc(25% - 5px);
+    width: calc(25% - 5px);
 
     &.owned {
-      color:green;
+      color: green;
     }
 
     &.clicked {
-      border:1px dashed red;
+      border: 1px dashed red;
     }
   }
 
   .skill-details {
-    border-top:1px dashed white;
-    margin-top:10px;
+    border-top: 1px dashed white;
+    margin-top: 10px;
   }
   .skill-tabs {
     .skill-tab {
@@ -49,16 +48,10 @@
       border: 1px solid white;
 
       &.active {
-        background-color:white;
-        border:1px solid black;
-        color:black;
+        background-color: white;
+        border: 1px solid black;
+        color: black;
       }
     }
   }
 }
-
-
-
-
-
-

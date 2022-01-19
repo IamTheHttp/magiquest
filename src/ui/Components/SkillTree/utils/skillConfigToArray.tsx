@@ -1,4 +1,4 @@
-import {AllowedTrees, ISkillTree, ISkillTreeConfig} from "../../../../data/skillConfig";
+import {AllowedTrees, ISkillTree, ISkillTreeConfig} from '../../../../data/skillConfig';
 
 function skillConfigToArray(skillTreesConfig: ISkillTreeConfig) {
   let arrSkillTrees: ISkillTree[] = [];
@@ -11,7 +11,7 @@ function skillConfigToArray(skillTreesConfig: ISkillTreeConfig) {
         id: treeID,
         name: skillTree.name,
         skills: skillTree.skills
-      })
+      });
     }
   }
 

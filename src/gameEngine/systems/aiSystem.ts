@@ -7,18 +7,16 @@ import {
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
 import {bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
-import { getTileIdxByEnt } from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {Entity, entityLoop} from "game-platform";
-import {BaseEntity} from "../BaseEntity";
-
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {Entity, entityLoop} from 'game-platform';
+import {BaseEntity} from '../BaseEntity';
 
 // TODO do this for all systems
 function aiSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps<BaseEntity>([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
-
 
   entityLoop(entities, (entity) => {
     if (entity.isMoving()) {
@@ -29,8 +27,8 @@ function aiSystem(systemArguments: ISystemArguments) {
     let chaseDirections = [];
 
     if (visionRange && player) {
-      let { x: playerX, y: playerY } = player.getPos();
-      let { x, y } = entity.getPos();
+      let {x: playerX, y: playerY} = player.getPos();
+      let {x, y} = entity.getPos();
       let dist = Math.sqrt(Math.pow(playerX - x, 2) + Math.pow(playerY - y, 2));
 
       // chase
@@ -80,9 +78,8 @@ function aiSystem(systemArguments: ISystemArguments) {
         DIRECTIONS_OPTIONS.DOWN,
         DIRECTIONS_OPTIONS.LEFT,
         DIRECTIONS_OPTIONS.RIGHT
-      ]
+      ];
     }
-
 
     let dir = oneOf(chaseDirections);
 

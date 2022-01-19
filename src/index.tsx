@@ -28,29 +28,31 @@ let appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';
 
-
-assetLoader.load([
-  {
-    type: 'image',
-    url: tiles,
-    name: tiles
-  },
-  {
-    type: 'image',
-    url: charSpriteURL,
-    name: charSpriteURL
-  },
-  {
-    type: 'image',
-    url: sentrySpriteURL,
-    name: sentrySpriteURL
-  },
-  {
-    type: 'image',
-    url: miscURL,
-    name: miscURL
+assetLoader.load(
+  [
+    {
+      type: 'image',
+      url: tiles,
+      name: tiles
+    },
+    {
+      type: 'image',
+      url: charSpriteURL,
+      name: charSpriteURL
+    },
+    {
+      type: 'image',
+      url: sentrySpriteURL,
+      name: sentrySpriteURL
+    },
+    {
+      type: 'image',
+      url: miscURL,
+      name: miscURL
+    }
+  ],
+  () => {
+    document.body.removeChild(document.getElementById('progress'));
+    render(<App />, document.getElementById('app'));
   }
-], () => {
-  document.body.removeChild(document.getElementById('progress'));
-  render(<App/>, document.getElementById('app'));
-});
+);

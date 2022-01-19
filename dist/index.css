@@ -1,4 +1,9 @@
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   padding: 0;
   margin: 0;
 }
@@ -17,7 +22,8 @@ body {
   color: white;
 }
 
-.canvas-main-container, .canvas-minimap-container {
+.canvas-main-container,
+.canvas-minimap-container {
   position: relative;
 }
 
@@ -96,7 +102,7 @@ body {
   font-size: 35px;
   color: indianred;
   background-color: black;
-  bordeR: 0;
+  border: 0;
   margin-bottom: 20px;
 }
 

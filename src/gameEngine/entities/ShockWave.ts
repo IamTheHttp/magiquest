@@ -7,8 +7,7 @@ import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
 import {AllowedUIShapes, bit} from 'gameEngine/gameConstants';
-import getColRowByTileIdx from "../utils/getColRowByTileIdx";
-
+import getColRowByTileIdx from '../utils/getColRowByTileIdx';
 
 function getCenterPosOfTile(tileIdx: string) {
   let {col, row} = getColRowByTileIdx(tileIdx);
@@ -20,14 +19,13 @@ function getCenterPosOfTile(tileIdx: string) {
 }
 
 interface IShockWaveConstructor {
-  x: number,
-  y: number,
-  radius?: number,
-  fromTileIdx: string,
-  toTileIdx: string,
-  color?:string
+  x: number;
+  y: number;
+  radius?: number;
+  fromTileIdx: string;
+  toTileIdx: string;
+  color?: string;
 }
-
 
 class ShockWave {
   constructor({x, y, radius = 16, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
@@ -62,8 +60,8 @@ class ShockWave {
       frames.push({
         shape: AllowedUIShapes.ARC_SHAPE,
         direction,
-        size: 0.2 + i * sizeToGrow / frameCount,
-        radius: 16 + i * radiusToGrow / frameCount,
+        size: 0.2 + (i * sizeToGrow) / frameCount,
+        radius: 16 + (i * radiusToGrow) / frameCount,
         x: origin.x,
         y: origin.y,
         color
@@ -72,15 +70,16 @@ class ShockWave {
       i++;
     }
 
-    entity.addComponent(new AnimationComp({
-      SHOCKWAVE: {
-        animationDuration, // each 'frame' takes this many
-        frames,
-        animationName: 'SHOCKWAVE',
-        loops: false
-      }
-    }));
-
+    entity.addComponent(
+      new AnimationComp({
+        SHOCKWAVE: {
+          animationDuration, // each 'frame' takes this many
+          frames,
+          animationName: 'SHOCKWAVE',
+          loops: false
+        }
+      })
+    );
 
     entity.addAnimation(entity.getAnimationTypes().SHOCKWAVE);
 

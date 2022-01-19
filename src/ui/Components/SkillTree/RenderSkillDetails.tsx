@@ -1,13 +1,13 @@
-import {IPlayerUIState} from "../../../interfaces/interfaces";
-import {AllowedSkills, ISkill} from "../../../data/skillConfig";
-import * as React from "react";
-import {ComponentProps} from "react";
+import {IPlayerUIState} from '../../../interfaces/interfaces';
+import {AllowedSkills, ISkill} from '../../../data/skillConfig';
+import * as React from 'react';
+import {ComponentProps} from 'react';
 
-interface IRenderSkillDetails extends ComponentProps <any> {
-  currentPlayerState: IPlayerUIState,
-  skill: ISkill,
-  activeSkillID: AllowedSkills,
-  onBuySkillClick: (skillID: AllowedSkills) => void
+interface IRenderSkillDetails extends ComponentProps<any> {
+  currentPlayerState: IPlayerUIState;
+  skill: ISkill;
+  activeSkillID: AllowedSkills;
+  onBuySkillClick: (skillID: AllowedSkills) => void;
 }
 
 function RenderSkillDetails(props: IRenderSkillDetails) {
@@ -25,23 +25,25 @@ function RenderSkillDetails(props: IRenderSkillDetails) {
       btnTxt = 'Not enough XP';
     }
 
-    return <div className='skill-details'>
-      <h3>{props.skill.name}</h3>
-      <div>
-        {props.skill.description}
+    return (
+      <div className="skill-details">
+        <h3>{props.skill.name}</h3>
+        <div>{props.skill.description}</div>
+        <div>
+          <button
+            disabled={!enoughXPToBuy || playerOwnsSkill}
+            onClick={() => {
+              props.onBuySkillClick(props.skill.id);
+            }}
+          >
+            {btnTxt}
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          disabled={!enoughXPToBuy || playerOwnsSkill}
-          onClick={() => {
-            props.onBuySkillClick(props.skill.id)
-          }}>
-          {btnTxt}</button>
-      </div>
-    </div>
+    );
   } else {
     return null;
   }
 }
 
-export default RenderSkillDetails
+export default RenderSkillDetails;

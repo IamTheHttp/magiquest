@@ -1,92 +1,86 @@
 [
-	{
-		"id": "0-0",
-		"act": 0,
-		"chapter": 0,
-		"description": "Elvenar",
-		"player_start_pos": {
-			"col": 4,
-			"row": 4
-		},
-		"monster_spawns": [
-			"IMP",
-			"VAMPIRE"
-		],
-		"exits": {
-			"5,5": {
-				"chapter": 1,
-				"act": 0,
-				"exitTile": {
-					"col": 4,
-					"row": 95
-				}
-			},
-			"10,10": {
-				"chapter": 1,
-				"act": 0,
-				"exitTile": {
-					"col": 5,
-					"row": 5
-				}
-			}
-		},
-		"mon_per_tile": 0.05,
-		"no_spawn_locations": [
-			{
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 1000,
-					"y": 1000
-				}
-			}
-		]
-	},
-	{
-		"id": "0-1",
-		"act": 0,
-		"chapter": 1,
-		"description": "Sewers",
-		"player_start_pos": {
-			"col": 5,
-			"row": 95
-		},
-		"monster_spawns": [
-			"VAMPIRE",
-			"IMP"
-		],
-		"exits": {
-			"5,95": {
-				"chapter": 0,
-				"act": 0,
-				"exitTile": {
-					"col": 12,
-					"row": 12
-				}
-			},
-			"10,10": {
-				"chapter": 1,
-				"act": 0,
-				"exitTile": {
-					"col": 5,
-					"row": 5
-				}
-			}
-		},
-		"mon_per_tile": 0.15,
-		"no_spawn_locations": [
-			{
-				"start": {
-					"x": 0,
-					"y": 0
-				},
-				"end": {
-					"x": 50,
-					"y": 50
-				}
-			}
-		]
-	}
+  {
+    "id": "0-0",
+    "act": 0,
+    "chapter": 0,
+    "description": "Elvenar",
+    "player_start_pos": {
+      "col": 4,
+      "row": 4
+    },
+    "monster_spawns": ["IMP", "VAMPIRE"],
+    "exits": {
+      "5,5": {
+        "chapter": 1,
+        "act": 0,
+        "exitTile": {
+          "col": 4,
+          "row": 95
+        }
+      },
+      "10,10": {
+        "chapter": 1,
+        "act": 0,
+        "exitTile": {
+          "col": 5,
+          "row": 5
+        }
+      }
+    },
+    "mon_per_tile": 0.05,
+    "no_spawn_locations": [
+      {
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 1000,
+          "y": 1000
+        }
+      }
+    ]
+  },
+  {
+    "id": "0-1",
+    "act": 0,
+    "chapter": 1,
+    "description": "Sewers",
+    "player_start_pos": {
+      "col": 5,
+      "row": 95
+    },
+    "monster_spawns": ["VAMPIRE", "IMP"],
+    "exits": {
+      "5,95": {
+        "chapter": 0,
+        "act": 0,
+        "exitTile": {
+          "col": 12,
+          "row": 12
+        }
+      },
+      "10,10": {
+        "chapter": 1,
+        "act": 0,
+        "exitTile": {
+          "col": 5,
+          "row": 5
+        }
+      }
+    },
+    "mon_per_tile": 0.15,
+    "no_spawn_locations": [
+      {
+        "start": {
+          "x": 0,
+          "y": 0
+        },
+        "end": {
+          "x": 50,
+          "y": 50
+        }
+      }
+    ]
+  }
 ]

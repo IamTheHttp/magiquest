@@ -1,44 +1,46 @@
 import oneMap from './0-0.map.json';
-import {IZone, PossibleTriggersArray} from "../../interfaces/zones.i";
-import townLocation from "./locations/town";
-import spawnableOneLocation from "./locations/spawnable_1";
-import {mergeStaticZoneData} from "../utils/mergeStaticZoneData";
-import {CHARACTERS} from "../../gameEngine/gameConstants";
+import {IZone, PossibleTriggersArray} from '../../interfaces/zones.i';
+import townLocation from './locations/town';
+import spawnableOneLocation from './locations/spawnable_1';
+import {mergeStaticZoneData} from '../utils/mergeStaticZoneData';
+import {CHARACTERS} from '../../gameEngine/gameConstants';
 
 let zone: IZone = {
   zoneID: '0-0',
-  noSpawnLocations:[], // Filled by static csv data
-  monsterDensity:0, // Filled by static csv data
-  spawnableEnemies:[], // Filled by static csv data
+  noSpawnLocations: [], // Filled by static csv data
+  monsterDensity: 0, // Filled by static csv data
+  spawnableEnemies: [], // Filled by static csv data
   startPos: null, // Filled by static csv data
-  locations: [
-    townLocation,
-    spawnableOneLocation
-  ],
+  locations: [townLocation, spawnableOneLocation],
   tileMap: oneMap,
   triggers: {
-    levelStart: [{
-      oneOff: true,
-      type: 'dialog',
-      lines: [
-        {
-          text: 'I haven\'t heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?',
-          speaker: 0
-        }
-      ]
-    }] as PossibleTriggersArray,
-    actOnEntity: {},
-    move: { // Extended by static csv data
-      '-1,-2': [{
+    levelStart: [
+      {
         oneOff: true,
         type: 'dialog',
         lines: [
           {
-            text: 'I should collect my sword\n(hit space to open chests)',
+            text: "I haven't heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?",
             speaker: 0
           }
         ]
-      }] as PossibleTriggersArray
+      }
+    ] as PossibleTriggersArray,
+    actOnEntity: {},
+    move: {
+      // Extended by static csv data
+      '-1,-2': [
+        {
+          oneOff: true,
+          type: 'dialog',
+          lines: [
+            {
+              text: 'I should collect my sword\n(hit space to open chests)',
+              speaker: 0
+            }
+          ]
+        }
+      ] as PossibleTriggersArray
     }
   },
   entitiesToPlace: [
@@ -96,8 +98,7 @@ let zone: IZone = {
       characterLevel: 1,
       name: 'NPC_5'
     }
-  ],
+  ]
 };
 
 export const ZERO_ZERO = mergeStaticZoneData(zone);
-

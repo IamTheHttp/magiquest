@@ -1,9 +1,9 @@
 import {LEVEL_COMP} from './ComponentNamesConfig';
 
 class LevelComp {
-  name:string;
-  characterLevel:number;
-  constructor(characterLevel:number) {
+  name: string;
+  characterLevel: number;
+  constructor(characterLevel: number) {
     if (characterLevel <= 0) {
       throw 'Character level has to be larger than 0';
     }

@@ -1,89 +1,89 @@
-import Player from "../entities/characters/Player";
-import Character from "../entities/characters/Character";
-import {BaseEntity} from "../BaseEntity";
+import Player from '../entities/characters/Player';
+import Character from '../entities/characters/Character';
+import {BaseEntity} from '../BaseEntity';
 
 export interface IGameEvent {
-  readEvent():{
-    entity:BaseEntity
+  readEvent(): {
+    entity: BaseEntity;
   };
 }
 
 class GameEvent implements IGameEvent {
-  readEvent(): {entity:BaseEntity} {
+  readEvent(): {entity: BaseEntity} {
     return {
-      entity:null
-    }
+      entity: null
+    };
   }
 }
 
 export class EnemyKilledEvent extends GameEvent {
-  constructor(public entity:Character) {
+  constructor(public entity: Character) {
     super();
   }
   readEvent(): {entity: Character} {
     return {
       entity: this.entity
-    }
+    };
   }
 }
 
 export class InteractWithNPC extends GameEvent {
-  constructor(public entity:BaseEntity) {
+  constructor(public entity: BaseEntity) {
     super();
   }
   readEvent() {
     return {
-      entity:this.entity
-    }
+      entity: this.entity
+    };
   }
 }
 
 export class PlayerIsAttacked extends GameEvent {
-  constructor(public entity:Player) {
+  constructor(public entity: Player) {
     super();
   }
   readEvent() {
     return {
-      entity:this.entity
-    }
+      entity: this.entity
+    };
   }
 }
 
 export class PlayerSkillsChangeEvent extends GameEvent {
-  constructor(public entity:Player) {
+  constructor(public entity: Player) {
     super();
   }
   readEvent() {
     return {
-      entity:this.entity
-    }
+      entity: this.entity
+    };
   }
 }
 
 export class PlayerAttributesChangeEvent extends GameEvent {
-  constructor(public entity:Player) {
+  constructor(public entity: Player) {
     super();
   }
   readEvent() {
     return {
-      entity:this.entity
-    }
+      entity: this.entity
+    };
   }
 }
 
 export class LevelUpEvent extends GameEvent {
-  readEvent(): {entity:BaseEntity} {
+  readEvent(): {entity: BaseEntity} {
     return {
-      entity:null
-    }
+      entity: null
+    };
   }
 }
 
 export class QuestCompleteEvent extends GameEvent {
-  readEvent(): {entity:BaseEntity} {
+  readEvent(): {entity: BaseEntity} {
     return {
-      entity:null
-    }
+      entity: null
+    };
   }
 }
 
@@ -119,11 +119,11 @@ class GameEvents {
     this.nextEvents = [];
   }
 
-  getEvents():GameEvent[] {
+  getEvents(): GameEvent[] {
     return this.events;
   }
 
-  pushEvent(event:GameEvent) {
+  pushEvent(event: GameEvent) {
     this.nextEvents.push(event);
   }
 
@@ -132,6 +132,5 @@ class GameEvents {
     this.nextEvents = [];
   }
 }
-
 
 export default GameEvents;

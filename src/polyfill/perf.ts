@@ -1,7 +1,6 @@
 // @license http://opensource.org/licenses/MIT
 // copyright Paul Irish 2015
 
-
 // Date.now() is supported everywhere except IE8. For IE8 we use the Date.now polyfill
 //   github.com/Financial-Times/polyfill-service/blob/master/polyfills/Date.now/polyfill.js
 // as Safari 6 doesn't have support for NavigationTiming, we use a Date.now() timestamp
@@ -13,14 +12,17 @@
 // important where it's placed
 let windowCopy = window as any;
 
-(function() {
+(function () {
   if ('performance' in windowCopy === false) {
     windowCopy.performance = {};
   }
 
-  Date.now = (Date.now || function() {  // thanks IE8
-    return new Date().getTime();
-  });
+  Date.now =
+    Date.now ||
+    function () {
+      // thanks IE8
+      return new Date().getTime();
+    };
 
   if ('now' in windowCopy.performance === false) {
     let nowOffset = Date.now();

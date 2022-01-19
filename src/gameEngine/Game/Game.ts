@@ -1,59 +1,58 @@
-import {IZone, ITileCoordinate} from "../../interfaces/zones.i";
-import {Engine, Entity} from "game-platform";
-import assertType from "../utils/assertType";
-import createTileIndexMap from "../utils/createTileIndexMap";
+import {IZone, ITileCoordinate} from '../../interfaces/zones.i';
+import {Engine, Entity} from 'game-platform';
+import assertType from '../utils/assertType';
+import createTileIndexMap from '../utils/createTileIndexMap';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
-} from "../components/ComponentNamesConfig";
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from "../../interfaces/interfaces";
-import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
-import triggerSystem, {pushTrigger, Trigger} from "../systems/triggerSystem";
-import renderSystem from "../systems/renderSystem";
-import Player from "../entities/characters/Player";
+} from '../components/ComponentNamesConfig';
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
+import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
+import triggerSystem, {pushTrigger, Trigger} from '../systems/triggerSystem';
+import renderSystem from '../systems/renderSystem';
+import Player from '../entities/characters/Player';
 import GameEvents, {
   EnemyKilledEvent,
   PlayerAttributesChangeEvent,
   PlayerIsAttacked,
   PlayerSkillsChangeEvent
-} from "../classes/GameEvents";
-import {assetLoader} from "../../cache/assetLoader";
-import placePlayerInLevel from "../utils/placePlayerInLevel";
-import animationSystem from "../systems/animationSystem";
-import aiSystem from "../systems/aiSystem";
-import portalSystem, {isNonEmptyArray} from "../systems/portalSystem";
-import throttle from "../utils/throttle";
-import getColRowByTileIdx from "../utils/getColRowByTileIdx";
-import centerCameraOnEntity from "../utils/systemUtils/centerCameraOnEntity";
-import questSystem from "../systems/questSystem";
-import destroyAllButPlayer from "../utils/destroyAllButPlayer";
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import userInputSystem, {pushAction} from "../systems/userInputSystem";
-import spawnEnemiesSystem from "../systems/spawnEnemiesSystem";
-import attackSystem from "../systems/attackSystem";
-import {BaseEntity} from "../BaseEntity";
-import {PlayerStateChangeEvent} from "../classes/PlayerState";
-import Tile from "../entities/Tile";
-import experienceSystem from "../systems/experienceSystem";
-import moveSystem from "../systems/moveSystem";
-import placeLevelEntities from "../utils/placeLevelEntities";
-import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from "../gameConstants";
-import {IGameConstructor, onZoneChangeCallback} from "./IGameTypes";
-import {zoneConfig} from "../../zones/zoneConfig";
-
+} from '../classes/GameEvents';
+import {assetLoader} from '../../cache/assetLoader';
+import placePlayerInLevel from '../utils/placePlayerInLevel';
+import animationSystem from '../systems/animationSystem';
+import aiSystem from '../systems/aiSystem';
+import portalSystem, {isNonEmptyArray} from '../systems/portalSystem';
+import throttle from '../utils/throttle';
+import getColRowByTileIdx from '../utils/getColRowByTileIdx';
+import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
+import questSystem from '../systems/questSystem';
+import destroyAllButPlayer from '../utils/destroyAllButPlayer';
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import userInputSystem, {pushAction} from '../systems/userInputSystem';
+import spawnEnemiesSystem from '../systems/spawnEnemiesSystem';
+import attackSystem from '../systems/attackSystem';
+import {BaseEntity} from '../BaseEntity';
+import {PlayerStateChangeEvent} from '../classes/PlayerState';
+import Tile from '../entities/Tile';
+import experienceSystem from '../systems/experienceSystem';
+import moveSystem from '../systems/moveSystem';
+import placeLevelEntities from '../utils/placeLevelEntities';
+import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from '../gameConstants';
+import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
+import {zoneConfig} from '../../zones/zoneConfig';
 
 class Game {
-  engine:Engine;
+  engine: Engine;
   mapAPI: Painter;
   miniMapAPI: Painter;
   onZoneChange: onZoneChangeCallback;
   tileIdxMap: ITileIndexMap;
   viewSize: IViewSize;
-  zone:IZone;
-  renderBackground:boolean;
+  zone: IZone;
+  renderBackground: boolean;
   isRunning: boolean;
   gameEvents: GameEvents;
   gameEventListener: IGameEventListener;
@@ -75,7 +74,6 @@ class Game {
     // TODO this probably needs to be related to player movement speed
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
-
 
     engine.addSystem(userInputSystem);
     engine.addSystem(triggerSystem);
@@ -136,8 +134,8 @@ class Game {
    * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
    */
   getZone() {
-    let levelNum = this.currentLevel
-    let areaNum = this.currentArea
+    let levelNum = this.currentLevel;
+    let areaNum = this.currentArea;
     // Use the level to get the current map for that level
     let areaToLoad = zoneConfig[levelNum].areas[areaNum] as IZone;
     return areaToLoad;
@@ -149,10 +147,10 @@ class Game {
    * @param levelNum
    * @param areaNum
    */
-  setLevelAndArea(levelNum:number, areaNum:number) {
+  setLevelAndArea(levelNum: number, areaNum: number) {
     // Set the game state of the current level and area
     this.currentLevel = levelNum;
-    this.currentArea   = areaNum;
+    this.currentArea = areaNum;
   }
 
   dispatchGameEvent(event: PlayerStateChangeEvent) {
@@ -162,8 +160,6 @@ class Game {
   setGameEventListener(listener: IGameEventListener) {
     this.gameEventListener = listener;
   }
-
-
 
   setMapAPI(mapAPI: Painter) {
     this.mapAPI = mapAPI;
@@ -191,8 +187,8 @@ class Game {
     console.log('Setting player position', col, row);
     let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
     player.setPos({
-      x: bit/2 + col * bit,
-      y: bit/2 + row * bit
+      x: bit / 2 + col * bit,
+      y: bit / 2 + row * bit
     });
 
     this.centerOnPlayer();
@@ -212,7 +208,7 @@ class Game {
     }
   }
 
-  loadCurrentLevelArea(playerStartingTile:ITileCoordinate = null) {
+  loadCurrentLevelArea(playerStartingTile: ITileCoordinate = null) {
     if (!this.mapAPI) {
       throw 'Cannot load the current level area without a mapAPI instance';
     }
@@ -234,7 +230,7 @@ class Game {
       viewWidth: RESOLUTION.width,
       mapHeight: mapHeight,
       mapWidth: mapWidth
-    }
+    };
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
     this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
@@ -247,16 +243,27 @@ class Game {
       zone.triggers.levelStart.forEach((configuredTrigger) => {
         // activateTrigger ...
         if (configuredTrigger.type === 'dialog') {
-          pushTrigger(new Trigger({
-            type: 'dialog',
-            lines: configuredTrigger.lines,
-            actedOnEntity: player
-          }));
+          pushTrigger(
+            new Trigger({
+              type: 'dialog',
+              lines: configuredTrigger.lines,
+              actedOnEntity: player
+            })
+          );
         }
       });
     }
 
-    centerCameraOnEntity(player, mapAPI, this, this.viewSize.viewWidth, this.viewSize.viewHeight, mapWidth, mapHeight, true);
+    centerCameraOnEntity(
+      player,
+      mapAPI,
+      this,
+      this.viewSize.viewWidth,
+      this.viewSize.viewHeight,
+      mapWidth,
+      mapHeight,
+      true
+    );
     this.renderBackground = true; // for the first time
   }
 
@@ -318,11 +325,10 @@ class Game {
       skills: [...player[CHARACTER_SKILLS_COMP].skills],
       spendableXP: player[EXPERIENCE_COMP].XP,
       levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
-      attributes : player[CHARACTER_ATTRIBUTES_COMP].attributes,
-      spendableAttributePoints : player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
+      attributes: player[CHARACTER_ATTRIBUTES_COMP].attributes,
+      spendableAttributePoints: player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
     });
   }
-
 
   // TODO trigger vs Action vs GameEvent vs UIEvent - Oh My.
   // Action - Incoming action from the UI. TODO maybe rename to playerAction or userAction or inputEvent
@@ -333,6 +339,5 @@ class Game {
     pushAction(action);
   }
 }
-
 
 export default Game;

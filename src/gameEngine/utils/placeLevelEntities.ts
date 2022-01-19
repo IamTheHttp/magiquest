@@ -3,13 +3,13 @@ import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
-import {IZone} from "../../interfaces/zones.i";
-import {ITileIndexMap} from "../../interfaces/interfaces";
-import charactersDataConfig from "../../data/charactersDataConfig";
-import createFamNPC from "../../../__tests__/__TEST__UTILS__/createFamNPC";
-import Chest from "../entities/characters/Chest";
-import FamNPC from "../entities/characters/FamNPC";
-import Enemy from "../entities/characters/Enemy";
+import {IZone} from '../../interfaces/zones.i';
+import {ITileIndexMap} from '../../interfaces/interfaces';
+import charactersDataConfig from '../../data/charactersDataConfig';
+import createFamNPC from '../../../__tests__/__TEST__UTILS__/createFamNPC';
+import Chest from '../entities/characters/Chest';
+import FamNPC from '../entities/characters/FamNPC';
+import Enemy from '../entities/characters/Enemy';
 
 /**
  * @description Place entities in a given levelArea.
@@ -25,7 +25,7 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap) {
 
     let {col, row} = entityToPlace.pos;
     let {x, y} = getCenterPosOfGridIdx(col, row);
-    let characterLevel =  entityToPlace.characterLevel;
+    let characterLevel = entityToPlace.characterLevel;
 
     // Fetch what to spawn from config!
     let characterConfig = charactersDataConfig[entityToPlace.characterType];
@@ -51,7 +51,12 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap) {
       return;
     }
 
-    updateMapTileIdx({entity, tileIdxMap, newX: entity.getPos().x, newY: entity.getPos().y});
+    updateMapTileIdx({
+      entity,
+      tileIdxMap,
+      newX: entity.getPos().x,
+      newY: entity.getPos().y
+    });
   }
 }
 

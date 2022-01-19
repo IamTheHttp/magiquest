@@ -2,7 +2,7 @@
 import {TRAVERSABLE_COMP} from './ComponentNamesConfig';
 
 class TraversableComponent {
-  name:string;
+  name: string;
   constructor() {
     this.name = TRAVERSABLE_COMP;
   }

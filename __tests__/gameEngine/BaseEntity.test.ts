@@ -1,4 +1,4 @@
-import {BaseEntity} from "../../src/gameEngine/BaseEntity";
+import {BaseEntity} from '../../src/gameEngine/BaseEntity';
 
 describe('Tests the Base Entity', () => {
   let entity: BaseEntity;

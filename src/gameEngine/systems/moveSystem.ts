@@ -1,8 +1,4 @@
-import {
-  MOVEMENT_COMP,
-  IS_MOVING_COMP,
-  POSITION_COMP,
-} from 'gameEngine/components/ComponentNamesConfig';
+import {MOVEMENT_COMP, IS_MOVING_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
@@ -13,12 +9,10 @@ import assertType from 'gameEngine/utils/assertType';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {Trigger, pushTrigger} from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from "../../interfaces/gameloop.i";
-import {Entity, entityLoop} from "game-platform";
-import {BaseEntity} from "../BaseEntity";
-import {isNonEmptyArray} from "./portalSystem";
-
-
+import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {Entity, entityLoop} from 'game-platform';
+import {BaseEntity} from '../BaseEntity';
+import {isNonEmptyArray} from './portalSystem';
 
 // TODO - Sort this mess :) -- ORIENTATION vs DIRECTION vs animation.direction
 
@@ -44,7 +38,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
-  } else if (typeof direction !== 'undefined' && direction !== null) { // TODO replace with a util? // OR change the ENUM to start from 1?
+  } else if (typeof direction !== 'undefined' && direction !== null) {
+    // TODO replace with a util? // OR change the ENUM to start from 1?
     // create destination from the direction we want to go
 
     let {x, y} = entity.getDestFromDirection(direction);
@@ -104,17 +99,18 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     let {col, row} = getGridIdxFromPos(x, y);
     let tileIdx = getTileIdxByPos(x, y);
 
-
     let triggers = zone.triggers.move[tileIdx];
 
     if (isNonEmptyArray(triggers)) {
       triggers.forEach((trigger) => {
         if (trigger.type === 'dialog') {
-          pushTrigger(new Trigger({
-            type: 'dialog',
-            lines: trigger.lines,
-            actedOnEntity: null
-          }));
+          pushTrigger(
+            new Trigger({
+              type: 'dialog',
+              lines: trigger.lines,
+              actedOnEntity: null
+            })
+          );
         }
       });
     }
@@ -133,7 +129,12 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   /**
    * Prep before we move, occupy the target tile
    */
-  updateMapTileIdx({entity, tileIdxMap, newX: entity.getDest().x, newY: entity.getDest().y});
+  updateMapTileIdx({
+    entity,
+    tileIdxMap,
+    newX: entity.getDest().x,
+    newY: entity.getDest().y
+  });
 
   /**
    * Calc the new X,Y to move to
@@ -161,7 +162,6 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     y: newY
   });
 
-
   /**
    * Pan the camera around the player controlled entity
    */
@@ -170,8 +170,6 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight);
   }
 }
-
-
 
 function moveSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);

@@ -1,7 +1,7 @@
 import {PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
-import {ISystemArguments} from "../../../../interfaces/gameloop.i";
-import {IAction} from "../../../../interfaces/interfaces";
-import {BaseEntity} from "../../../BaseEntity";
+import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {IAction} from '../../../../interfaces/interfaces';
+import {BaseEntity} from '../../../BaseEntity';
 
 function moveAction(systemArguments: ISystemArguments, action: IAction) {
   let {Entity} = systemArguments;

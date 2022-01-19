@@ -1,5 +1,5 @@
-import {getSpriteCrop} from "./utils/getSpriteCrop";
-import {ITileTypes} from "./interfaces";
+import {getSpriteCrop} from './utils/getSpriteCrop';
+import {ITileTypes} from './interfaces';
 
 let grassTile = getSpriteCrop(7, 10);
 let mountainTile = getSpriteCrop(7, 11);

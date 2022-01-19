@@ -1,4 +1,4 @@
-import {IZone} from "../../interfaces/zones.i";
+import {IZone} from '../../interfaces/zones.i';
 
 function saveToServer(zone: IZone) {
   fetch('http://localhost:3000', {
@@ -9,7 +9,7 @@ function saveToServer(zone: IZone) {
     body: JSON.stringify({
       IZone: zone.zoneID,
       tileMap: zone.tileMap
-    }),
+    })
   }).catch(() => {
     alert('Could not save to server');
   });

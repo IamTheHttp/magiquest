@@ -1,7 +1,7 @@
-import {IZone, PossibleTriggersArray} from "../../interfaces/zones.i";
-import IParsedLevelCSVRow from "../../interfaces/IParsedLevelCSVRow";
-import levelsJSON from "../../data/levels.json";
-import {IPortalTrigger} from "../../interfaces/triggers.i";
+import {IZone, PossibleTriggersArray} from '../../interfaces/zones.i';
+import IParsedLevelCSVRow from '../../interfaces/IParsedLevelCSVRow';
+import levelsJSON from '../../data/levels.json';
+import {IPortalTrigger} from '../../interfaces/triggers.i';
 
 /**
  * This function takes the static levels.json and merges it with real code from the level
@@ -13,9 +13,10 @@ function mergeStaticZoneData(zone: IZone): IZone {
   });
 
   zone.zoneID = zoneCSVData.id;
-  zone.startPos = { // if not specified otherwise, this is where we start (useful for for new levels)
+  zone.startPos = {
+    // if not specified otherwise, this is where we start (useful for for new levels)
     col: zoneCSVData.player_start_pos.col,
-    row: zoneCSVData.player_start_pos.row,
+    row: zoneCSVData.player_start_pos.row
   };
 
   zone.noSpawnLocations = zoneCSVData.no_spawn_locations;

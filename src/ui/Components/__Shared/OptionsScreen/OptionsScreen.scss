@@ -1,9 +1,8 @@
-$margins:5px;
+$margins: 5px;
 
 // colors
 $ui-action-color: indianred;
 $background-color: black;
-
 
 .options-screen {
   background-color: #333333;
@@ -19,21 +18,23 @@ $background-color: black;
   margin-left: -25%;
   margin-top: -25%;
 
-  &__title, &__body, &__footer {
-    padding:10px;
+  &__title,
+  &__body,
+  &__footer {
+    padding: 10px;
   }
 
   &__header {
-    display:flex;
+    display: flex;
     .close {
-      margin-left:auto;
+      margin-left: auto;
       color: $ui-action-color;
       background-color: $background-color;
       font-size: 35px;
-      line-height:30px;
-      width:35px;
-      height:32px;
-      text-align:center;
+      line-height: 30px;
+      width: 35px;
+      height: 32px;
+      text-align: center;
     }
   }
 }

@@ -1,7 +1,7 @@
-import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from "../gameEngine/gameConstants";
+import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../gameEngine/gameConstants';
 
 export interface IParsedCharacterCSVRow {
-  id: CHARACTERS,
+  id: CHARACTERS;
   displayName: string;
   dmg: number;
   health: number;
@@ -13,5 +13,5 @@ export interface IParsedCharacterCSVRow {
 }
 
 export type IParsedCharacterCSVMap = {
-  [CHARACTER in CHARACTERS]? : IParsedCharacterCSVRow
-}
+  [CHARACTER in CHARACTERS]?: IParsedCharacterCSVRow;
+};
