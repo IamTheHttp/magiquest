@@ -12,7 +12,7 @@ import {BaseEntity} from "../../../BaseEntity";
 import {PlayerAttributesChangeEvent} from "../../../classes/GameEvents";
 
 function buyAttr(systemArguments: ISystemArguments, action: IAction) {
-  let {Entity, levelArea, gameEvents} = systemArguments;
+  let {Entity, zone, gameEvents} = systemArguments;
   let player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
 
   // TODO how can we improve type safety here?

@@ -3,7 +3,7 @@ import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
-import {ILevelArea} from "../../interfaces/levels.i";
+import {IZone} from "../../interfaces/levels.i";
 import {ITileIndexMap} from "../../interfaces/interfaces";
 import charactersDataConfig from "../../data/charactersDataConfig";
 import createFamNPC from "../../../__tests__/__TEST__UTILS__/createFamNPC";
@@ -15,12 +15,12 @@ import Enemy from "../entities/characters/Enemy";
  * @description Place entities in a given levelArea.
  *              Used to place Enemies as well as Friendly NPCs
  *              enemies placed here are configured in levelArea.entitiesToPlace, including their characterLevel
- * @param {ILevelArea} levelArea
+ * @param {IZone} levelArea
  * @param {ITileIndexMap} tileIdxMap
  */
-function placeLevelEntities(levelArea: ILevelArea, tileIdxMap: ITileIndexMap) {
-  for (let i = 0; i < levelArea.entitiesToPlace.length; i++) {
-    let entityToPlace = levelArea.entitiesToPlace[i];
+function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap) {
+  for (let i = 0; i < zone.entitiesToPlace.length; i++) {
+    let entityToPlace = zone.entitiesToPlace[i];
     let entity = undefined;
 
     let {col, row} = entityToPlace.pos;

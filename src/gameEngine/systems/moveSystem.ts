@@ -28,7 +28,7 @@ import {isNonEmptyArray} from "./portalSystem";
  * @param {BaseEntity} entity
  */
 function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
-  let {mapAPI, game, tileIdxMap, viewSize, levelArea} = systemArguments;
+  let {mapAPI, game, tileIdxMap, viewSize, zone} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = viewSize;
   let {x: currX, y: currY} = entity.getPos();
   let {x: desiredDestX, y: desiredDestY} = entity.getDest();
@@ -105,7 +105,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     let tileIdx = getTileIdxByPos(x, y);
 
 
-    let triggers = levelArea.triggers.move[tileIdx];
+    let triggers = zone.triggers.move[tileIdx];
 
     if (isNonEmptyArray(triggers)) {
       triggers.forEach((trigger) => {

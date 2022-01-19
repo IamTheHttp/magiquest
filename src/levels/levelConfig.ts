@@ -1,4 +1,4 @@
-import {ILevelArea} from "../interfaces/levels.i";
+import {IZone} from "../interfaces/levels.i";
 import hasValue from "../gameEngine/utils/hasValue";
 import {ZERO_ZERO} from "./0-0/0-0";
 import {ZERO_ONE} from "./0-1/0-1";
@@ -7,20 +7,20 @@ import {ZERO_ONE} from "./0-1/0-1";
 let levelConfig = {} as {
   [numLevel: number]: {
     areas: {
-      [numArea: number]: ILevelArea;
+      [numArea: number]: IZone;
     }
   };
 };
 
 
-function processLevel(levelArea: ILevelArea) {
-  let [level, area] = levelArea.levelAreaID.split('-');
+function processLevel(zone: IZone) {
+  let [level, area] = zone.zoneID.split('-');
   if (hasValue(level) && hasValue(area)) {
     let numLevel = +level;
     let numArea = +area;
 
     levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
-    levelConfig[numLevel].areas[numArea] = levelArea;
+    levelConfig[numLevel].areas[numArea] = zone;
   }
 }
 

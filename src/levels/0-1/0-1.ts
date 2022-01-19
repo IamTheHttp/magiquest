@@ -1,9 +1,9 @@
 import map from './0-1.map.json';
-import {ILevelArea} from "../../interfaces/levels.i";
+import {IZone} from "../../interfaces/levels.i";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 
-let level: ILevelArea = {
-  levelAreaID: '0-1',
+let zone: IZone = {
+  zoneID: '0-1',
   noSpawnLocations:[], // Filled by static csv data
   monsterDensity:0, // Filled by static csv data
   spawnableEnemies:[], // Filled by static csv data
@@ -29,4 +29,4 @@ let level: ILevelArea = {
   entitiesToPlace: []
 };
 
-export const ZERO_ONE = mergeStaticLevelAreaData(level);
+export const ZERO_ONE = mergeStaticLevelAreaData(zone);

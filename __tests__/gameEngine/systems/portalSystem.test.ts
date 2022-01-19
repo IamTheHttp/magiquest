@@ -25,7 +25,7 @@ describe('Tests for the AI system', () => {
 
   it('triggers the handleAreaChange if player is on a tile with a correct trigger on it', () => {
     let idx = getTileIdxByEnt(player);
-    systemArguments.levelArea.triggers.move[idx] = [{
+    systemArguments.zone.triggers.move[idx] = [{
       level: 99,
       area: 66,
       type: 'portal',

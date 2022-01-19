@@ -30,10 +30,10 @@ export interface ILevelLocation {
  * This is the level shape we expect in the game logic.
  * This is after all parsing and merging from csv -> json -> live object.
  */
-export interface ILevelArea {
+export interface IZone {
   monsterDensity:number;
   locations: ILevelLocation[];
-  levelAreaID: string;
+  zoneID: string;
   spawnableEnemies: CHARACTERS[];
   noSpawnLocations: INoSpawnLocation[],
   startPos: ITileCoordinate

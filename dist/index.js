@@ -677,6 +677,7 @@
           react_22("div", { className: "main-menu__btn-container" },
               react_22("h1", { className: 'main-menu__game-title' }, "MagiQuest"),
               react_22("button", { onClick: props.startNewGame }, "New game"),
+              react_22("button", { onClick: props.startEditor }, "Editor"),
               react_22("button", null, "Help"),
               react_22("button", null, "About"))));
   }
@@ -2462,10 +2463,10 @@
   function inRange(a, x, b) {
       return x > a && x < b;
   }
-  function createTileIndexMap(levelArea, viewSize) {
+  function createTileIndexMap(zone, viewSize) {
       var mapHeight = viewSize.mapHeight, mapWidth = viewSize.mapWidth;
-      var tileMap = levelArea.tileMap;
-      var locations = levelArea.locations;
+      var tileMap = zone.tileMap;
+      var locations = zone.locations;
       // take levelArea
       // If tile is in SAFE area, remove all "spawnable" from it.
       var idx = {};
@@ -2514,7 +2515,7 @@
               });
               // Is the tile location within a safe spot?
               var _a = tile.getPos(), x = _a.x, y = _a.y;
-              levelArea.noSpawnLocations.forEach(function (safeLocation) {
+              zone.noSpawnLocations.forEach(function (safeLocation) {
                   var withinX = inRange(safeLocation.start.x, x, safeLocation.end.x);
                   var withinY = inRange(safeLocation.start.y, y, safeLocation.end.y);
                   if (withinX && withinY) {
@@ -2559,11 +2560,11 @@
       return x && x.length;
   }
   function portalSystem(systemArguments) {
-      var levelArea = systemArguments.levelArea, game = systemArguments.game, Entity = systemArguments.Entity;
+      var zone = systemArguments.zone, game = systemArguments.game, Entity = systemArguments.Entity;
       var player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
       var index = getTileIdxByEnt(player);
       assertType(index, 'level index', 'string');
-      var triggers = levelArea.triggers.move[index];
+      var triggers = zone.triggers.move[index];
       if (isNonEmptyArray(triggers)) {
           triggers.forEach(function (trigger) {
               // TODO This feels counter intuitive, the triggers should be pushed and the trigger system should decide what to do with active triggers
@@ -3539,10 +3540,10 @@
       return Player;
   }(Character));
 
-  function placePlayerInLevel(levelArea, tileIdxMap, targetTile) {
+  function placePlayerInLevel(zone, tileIdxMap, targetTile) {
       if (targetTile === void 0) { targetTile = null; }
       var player = dist_5.getByComp(PLAYER_CONTROLLED_COMP)[0];
-      var _a = targetTile || levelArea.startPos, col = _a.col, row = _a.row;
+      var _a = targetTile || zone.startPos, col = _a.col, row = _a.row;
       var _b = getCenterPosOfGridIdx(col, row), x = _b.x, y = _b.y;
       if (!player) {
           var playerConfig = charactersDataConfig[CHARACTERS.PLAYER];
@@ -3966,7 +3967,7 @@
   }(Character));
 
   function getEntitiesInTargetTile(systemArguments) {
-      var tileIdxMap = systemArguments.tileIdxMap, Entity = systemArguments.Entity; systemArguments.levelArea;
+      var tileIdxMap = systemArguments.tileIdxMap, Entity = systemArguments.Entity; systemArguments.zone;
       var entity = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
       var curOrientation = entity[POSITION_COMP].orientation;
       // tile to perform action on...
@@ -3998,7 +3999,7 @@
   }
   function performAction(systemArguments) {
       var _a = getEntitiesInTargetTile(systemArguments), targetEntities = _a.targetEntities, targetTile = _a.targetTile;
-      var Entity = systemArguments.Entity, levelArea = systemArguments.levelArea, gameEvents = systemArguments.gameEvents;
+      var Entity = systemArguments.Entity, zone = systemArguments.zone, gameEvents = systemArguments.gameEvents;
       var player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
       dist_4(targetEntities, function (targetEnt) {
           // try to attack
@@ -4007,7 +4008,7 @@
           }
           else {
               // try to activate a trigger
-              var triggers = levelArea.triggers.actOnEntity[targetEnt.name];
+              var triggers = zone.triggers.actOnEntity[targetEnt.name];
               if (targetEnt instanceof FamNPC) {
                   gameEvents.pushEvent(new InteractWithNPC(targetEnt));
               }
@@ -4084,7 +4085,7 @@
       _b);
 
   function buySkill(systemArguments, action) {
-      var Entity = systemArguments.Entity; systemArguments.levelArea; var gameEvents = systemArguments.gameEvents;
+      var Entity = systemArguments.Entity, gameEvents = systemArguments.gameEvents;
       var player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
       // TODO how can we improve type safety here?
       if (action.data && action.data.skillID) {
@@ -4102,7 +4103,7 @@
   }
 
   function buyAttr(systemArguments, action) {
-      var Entity = systemArguments.Entity; systemArguments.levelArea; var gameEvents = systemArguments.gameEvents;
+      var Entity = systemArguments.Entity; systemArguments.zone; var gameEvents = systemArguments.gameEvents;
       var player = Entity.getByComp(PLAYER_CONTROLLED_COMP)[0];
       // TODO how can we improve type safety here?
       if (action.data && action.data.attrID) {
@@ -4171,13 +4172,13 @@
   function spawnEnemiesSystem(systemArguments) {
       var Entity = systemArguments.Entity;
       var spawningEntities = Entity.getByComps([CAN_SPAWN_COMP]);
-      var monsterDensity = systemArguments.levelArea.monsterDensity;
+      var monsterDensity = systemArguments.zone.monsterDensity;
       dist_4(spawningEntities, function (spawningEntity) {
           var _a = spawningEntity.getPos(), x = _a.x, y = _a.y; // for example a tile that can spawn
           var _b = getGridIdxFromPos(x, y), col = _b.col, row = _b.row;
           var spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
           var characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
-          var spawnableEnemies = systemArguments.levelArea.spawnableEnemies;
+          var spawnableEnemies = systemArguments.zone.spawnableEnemies;
           spawnableEnemies.forEach(function (enemyToSpawn) {
               if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"
                   // Fetch what to spawn from config!
@@ -4394,7 +4395,7 @@
    * @param {BaseEntity} entity
    */
   function moveEntity(systemArguments, entity) {
-      var mapAPI = systemArguments.mapAPI, game = systemArguments.game, tileIdxMap = systemArguments.tileIdxMap, viewSize = systemArguments.viewSize, levelArea = systemArguments.levelArea;
+      var mapAPI = systemArguments.mapAPI, game = systemArguments.game, tileIdxMap = systemArguments.tileIdxMap, viewSize = systemArguments.viewSize, zone = systemArguments.zone;
       var mapHeight = viewSize.mapHeight, mapWidth = viewSize.mapWidth, viewHeight = viewSize.viewHeight, viewWidth = viewSize.viewWidth;
       var _a = entity.getPos(), currX = _a.x, currY = _a.y;
       var _b = entity.getDest(), desiredDestX = _b.x, desiredDestY = _b.y;
@@ -4460,7 +4461,7 @@
            */
           var _f = getGridIdxFromPos(x, y); _f.col; _f.row;
           var tileIdx = getTileIdxByPos(x, y);
-          var triggers = levelArea.triggers.move[tileIdx];
+          var triggers = zone.triggers.move[tileIdx];
           if (isNonEmptyArray(triggers)) {
               triggers.forEach(function (trigger) {
                   if (trigger.type === 'dialog') {
@@ -4542,12 +4543,12 @@
    * @description Place entities in a given levelArea.
    *              Used to place Enemies as well as Friendly NPCs
    *              enemies placed here are configured in levelArea.entitiesToPlace, including their characterLevel
-   * @param {ILevelArea} levelArea
+   * @param {IZone} levelArea
    * @param {ITileIndexMap} tileIdxMap
    */
-  function placeLevelEntities(levelArea, tileIdxMap) {
-      for (var i = 0; i < levelArea.entitiesToPlace.length; i++) {
-          var entityToPlace = levelArea.entitiesToPlace[i];
+  function placeLevelEntities(zone, tileIdxMap) {
+      for (var i = 0; i < zone.entitiesToPlace.length; i++) {
+          var entityToPlace = zone.entitiesToPlace[i];
           var entity = undefined;
           var _a = entityToPlace.pos, col = _a.col, row = _a.row;
           var _b = getCenterPosOfGridIdx(col, row); _b.x; _b.y;
@@ -14911,20 +14912,20 @@
 
   /**
    * This function takes the static levels.json and merges it with real code from the level
-   * @param level
+   * @param zone
    */
-  function mergeStaticLevelAreaData(level) {
+  function mergeStaticLevelAreaData(zone) {
       var areaLevelRowData = levelsJSON.find(function (levelRow) {
-          return levelRow.id && levelRow.id === level.levelAreaID;
+          return levelRow.id && levelRow.id === zone.zoneID;
       });
-      level.levelAreaID = areaLevelRowData.id;
-      level.startPos = {
+      zone.zoneID = areaLevelRowData.id;
+      zone.startPos = {
           col: areaLevelRowData.player_start_pos.col,
           row: areaLevelRowData.player_start_pos.row,
       };
-      level.noSpawnLocations = areaLevelRowData.no_spawn_locations;
-      level.spawnableEnemies = areaLevelRowData.monster_spawns;
-      level.monsterDensity = areaLevelRowData.mon_per_tile;
+      zone.noSpawnLocations = areaLevelRowData.no_spawn_locations;
+      zone.spawnableEnemies = areaLevelRowData.monster_spawns;
+      zone.monsterDensity = areaLevelRowData.mon_per_tile;
       Object.keys(areaLevelRowData.exits).forEach(function (tileCoordinate) {
           var trigger = {
               oneOff: false,
@@ -14933,16 +14934,16 @@
               area: areaLevelRowData.exits[tileCoordinate].area,
               exitTile: areaLevelRowData.exits[tileCoordinate].exitTile
           };
-          if (!level.triggers.move[tileCoordinate]) {
-              level.triggers.move[tileCoordinate] = [];
+          if (!zone.triggers.move[tileCoordinate]) {
+              zone.triggers.move[tileCoordinate] = [];
           }
-          level.triggers.move[tileCoordinate].push(trigger);
+          zone.triggers.move[tileCoordinate].push(trigger);
       });
-      return level;
+      return zone;
   }
 
-  var level$1 = {
-      levelAreaID: '0-0',
+  var zone$1 = {
+      zoneID: '0-0',
       noSpawnLocations: [],
       monsterDensity: 0,
       spawnableEnemies: [],
@@ -15034,7 +15035,7 @@
           }
       ],
   };
-  var ZERO_ZERO = mergeStaticLevelAreaData(level$1);
+  var ZERO_ZERO = mergeStaticLevelAreaData(zone$1);
 
   var map = [
   	[
@@ -25239,8 +25240,8 @@
   	]
   ];
 
-  var level = {
-      levelAreaID: '0-1',
+  var zone = {
+      zoneID: '0-1',
       noSpawnLocations: [],
       monsterDensity: 0,
       spawnableEnemies: [],
@@ -25265,17 +25266,17 @@
       },
       entitiesToPlace: []
   };
-  var ZERO_ONE = mergeStaticLevelAreaData(level);
+  var ZERO_ONE = mergeStaticLevelAreaData(zone);
 
   // TODO this should be some interface
   var levelConfig = {};
-  function processLevel(levelArea) {
-      var _a = levelArea.levelAreaID.split('-'), level = _a[0], area = _a[1];
+  function processLevel(zone) {
+      var _a = zone.zoneID.split('-'), level = _a[0], area = _a[1];
       if (hasValue(level) && hasValue(area)) {
           var numLevel = +level;
           var numArea = +area;
           levelConfig[numLevel] = levelConfig[numLevel] || { areas: {} };
-          levelConfig[numLevel].areas[numArea] = levelArea;
+          levelConfig[numLevel].areas[numArea] = zone;
       }
   }
   // TOOD create a live object based on these levels
@@ -25366,7 +25367,7 @@
        * Returns the area's tilemap basd on the current game's level and area
        * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
        */
-      Game.prototype.getAreaData = function () {
+      Game.prototype.getZone = function () {
           var levelNum = this.currentLevel;
           var areaNum = this.currentArea;
           // Use the level to get the current map for that level
@@ -25397,7 +25398,7 @@
       Game.prototype.getSystemArguments = function (mapAPI, miniMapAPI) {
           return {
               tileIdxMap: this.tileIdxMap,
-              levelArea: this.levelArea,
+              zone: this.zone,
               tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
               characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
               Entity: dist_5,
@@ -25437,12 +25438,12 @@
           // New level means new background
           this.requestBackgroundRender();
           var mapAPI = this.mapAPI;
-          var levelArea = this.getAreaData();
-          var tileMap = levelArea.tileMap;
+          var zone = this.getZone();
+          var tileMap = zone.tileMap;
           var mapWidth = tileMap[0].length * bit;
           var mapHeight = tileMap.length * bit;
           this.renderBackground = true; // for the first time
-          this.levelArea = levelArea;
+          this.zone = zone;
           this.viewSize = {
               viewHeight: RESOLUTION.height,
               viewWidth: RESOLUTION.width,
@@ -25450,12 +25451,12 @@
               mapWidth: mapWidth
           };
           destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
-          this.tileIdxMap = createTileIndexMap(levelArea, this.viewSize);
-          var player = placePlayerInLevel(levelArea, this.tileIdxMap, playerStartingTile);
-          placeLevelEntities(levelArea, this.tileIdxMap);
+          this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
+          var player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
+          placeLevelEntities(zone, this.tileIdxMap);
           // set triggers
-          if (isNonEmptyArray(levelArea.triggers.levelStart)) {
-              levelArea.triggers.levelStart.forEach(function (configuredTrigger) {
+          if (isNonEmptyArray(zone.triggers.levelStart)) {
+              zone.triggers.levelStart.forEach(function (configuredTrigger) {
                   // activateTrigger ...
                   if (configuredTrigger.type === 'dialog') {
                       pushTrigger(new Trigger({
@@ -25475,9 +25476,9 @@
           tile.setTileType(newType);
           // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
           var _a = getColRowByTileIdx(tile.tileIdx), col = _a.col, row = _a.row;
-          this.levelArea.tileMap[row][col] = +newType;
+          this.zone.tileMap[row][col] = +newType;
           this.renderBackground = true; // for the first time
-          return this.levelArea;
+          return this.zone;
       };
       Game.prototype.handleAreaChange = function (level, area, newPlayerPosition) {
           // Trigger a level change, request a background change as all the scene is different
@@ -25689,11 +25690,13 @@
       App.prototype.resize = function () {
           resizeGameElements();
       };
+      App.prototype.startEditor = function () {
+      };
       App.prototype.render = function () {
           var _this = this;
           var isGameStarted = this.state.isGameRunning;
           if (!isGameStarted) {
-              return (react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this) }));
+              return (react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this), startEditor: this.startEditor }));
           }
           else {
               return react_22(MainOverlay, { game: this.game },

@@ -100,6 +100,10 @@ export class App extends React.Component<any, AppState> {
     resizeGameElements();
   }
 
+  startEditor() {
+
+  }
+
   render() {
     const isGameStarted = this.state.isGameRunning;
 
@@ -107,6 +111,7 @@ export class App extends React.Component<any, AppState> {
       return (
         <MainMenu
           startNewGame={this.setupGameObject.bind(this)}
+          startEditor={this.startEditor}
         />
       );
     } else {

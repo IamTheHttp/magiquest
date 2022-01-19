@@ -1,7 +1,7 @@
 import {Entity} from "game-platform";
 import Game from "../gameEngine/Game/Game";
 import GameEvents from "../gameEngine/classes/GameEvents";
-import {ILevelArea} from "./levels.i";
+import {IZone} from "./levels.i";
 import {ITileIndexMap, IViewSize} from "./interfaces";
 import {Painter} from "game-platform/dist/lib/PainterAPI/Painter";
 
@@ -13,7 +13,7 @@ export interface ISystemArguments {
   minimapAPI:Painter,
   game: Game,
   viewSize: IViewSize,
-  levelArea: ILevelArea,
+  zone: IZone,
   shouldRenderBackground: boolean,
   tileSetSprite: HTMLImageElement,
   characterSprite: HTMLImageElement,

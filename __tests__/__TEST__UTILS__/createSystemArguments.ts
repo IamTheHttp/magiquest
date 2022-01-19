@@ -39,11 +39,11 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     tileSetSprite: undefined,
     Entity,
     shouldRenderBackground: true,
-    levelArea: {
+    zone: {
       noSpawnLocations:[],
       monsterDensity:0.01,
       spawnableEnemies: [CHARACTERS.IMP],
-      levelAreaID: 'TEST LEVEL',
+      zoneID: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
@@ -80,7 +80,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
       noSpawnLocations:[],
       spawnableEnemies: [],
       entitiesToPlace: [],
-      levelAreaID: "Test Level",
+      zoneID: "Test Level",
       startPos: {col: 0, row: 0},
       triggers: {actOnEntity: {}, levelStart: [], move: {}},
       locations: [

@@ -21,7 +21,7 @@ describe('Tests the placeLevelEntities util', () => {
       monsterDensity:0,
       spawnableEnemies:[],
       locations: [],
-      levelAreaID: 'TEST',
+      zoneID: 'TEST',
       startPos: {
         col: 0,
         row: 0,

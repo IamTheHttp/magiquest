@@ -13,7 +13,7 @@ import {PlayerSkillsChangeEvent} from "../../../classes/GameEvents";
 
 
 function buySkill(systemArguments: ISystemArguments, action: IAction) {
-  let {Entity, levelArea, gameEvents} = systemArguments;
+  let {Entity, gameEvents} = systemArguments;
   let player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
 
   // TODO how can we improve type safety here?

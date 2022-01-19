@@ -12,7 +12,7 @@ import {BaseEntity} from "../BaseEntity";
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
   let spawningEntities = Entity.getByComps<BaseEntity>([CAN_SPAWN_COMP]);
-  const monsterDensity = systemArguments.levelArea.monsterDensity;
+  const monsterDensity = systemArguments.zone.monsterDensity;
 
 
   entityLoop(spawningEntities, (spawningEntity) => {
@@ -20,7 +20,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     const {col, row} = getGridIdxFromPos(x, y);
     const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
     const characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
-    const spawnableEnemies = systemArguments.levelArea.spawnableEnemies;
+    const spawnableEnemies = systemArguments.zone.spawnableEnemies;
 
     spawnableEnemies.forEach((enemyToSpawn) => {
       if (Math.random() < monsterDensity) { // TODO refactor to a function "rollDie" or "resolveChance"

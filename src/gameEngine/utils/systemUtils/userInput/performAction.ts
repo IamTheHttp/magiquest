@@ -14,7 +14,7 @@ import {isNonEmptyArray} from "../../../systems/portalSystem";
 
 
 function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTile: IndexedTile, targetEntities: IEntityMap<BaseEntity> } {
-  let {tileIdxMap, Entity, levelArea} = systemArguments;
+  let {tileIdxMap, Entity, zone} = systemArguments;
   let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   let curOrientation = entity[POSITION_COMP].orientation;
@@ -58,7 +58,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): { targetTil
 
 function performAction(systemArguments: ISystemArguments) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
-  let {Entity, levelArea, gameEvents} = systemArguments;
+  let {Entity, zone, gameEvents} = systemArguments;
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   entityLoop(targetEntities, (targetEnt) => {
@@ -67,7 +67,7 @@ function performAction(systemArguments: ISystemArguments) {
         player.addComponent(new IsAttackingComp(targetTile));
       } else {
         // try to activate a trigger
-        let triggers = levelArea.triggers.actOnEntity[targetEnt.name];
+        let triggers = zone.triggers.actOnEntity[targetEnt.name];
 
         if (targetEnt instanceof FamNPC) {
           gameEvents.pushEvent(new InteractWithNPC(targetEnt));

@@ -1,4 +1,4 @@
-import {ILevelArea, ITileCoordinate} from "../../interfaces/levels.i";
+import {IZone, ITileCoordinate} from "../../interfaces/levels.i";
 import {Engine, Entity} from "game-platform";
 import assertType from "../utils/assertType";
 import createTileIndexMap from "../utils/createTileIndexMap";
@@ -52,7 +52,7 @@ class Game {
   onAreaChange: onAreaChangeCallback;
   tileIdxMap: ITileIndexMap;
   viewSize: IViewSize;
-  levelArea:ILevelArea;
+  zone:IZone;
   renderBackground:boolean;
   isRunning: boolean;
   gameEvents: GameEvents;
@@ -135,11 +135,11 @@ class Game {
    * Returns the area's tilemap basd on the current game's level and area
    * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
    */
-  getAreaData() {
+  getZone() {
     let levelNum = this.currentLevel
     let areaNum = this.currentArea
     // Use the level to get the current map for that level
-    let areaToLoad = levelConfig[levelNum].areas[areaNum] as ILevelArea;
+    let areaToLoad = levelConfig[levelNum].areas[areaNum] as IZone;
     return areaToLoad;
   }
 
@@ -173,7 +173,7 @@ class Game {
   getSystemArguments(mapAPI: Painter, miniMapAPI: Painter): ISystemArguments {
     return {
       tileIdxMap: this.tileIdxMap,
-      levelArea: this.levelArea,
+      zone: this.zone,
       tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
       characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
       Entity,
@@ -221,14 +221,14 @@ class Game {
 
     let mapAPI = this.mapAPI;
 
-    const levelArea = this.getAreaData();
-    const {tileMap} = levelArea;
+    const zone = this.getZone();
+    const {tileMap} = zone;
 
     let mapWidth = tileMap[0].length * bit;
     let mapHeight = tileMap.length * bit;
 
     this.renderBackground = true; // for the first time
-    this.levelArea = levelArea;
+    this.zone = zone;
     this.viewSize = {
       viewHeight: RESOLUTION.height,
       viewWidth: RESOLUTION.width,
@@ -237,14 +237,14 @@ class Game {
     }
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
-    this.tileIdxMap = createTileIndexMap(levelArea, this.viewSize);
+    this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
 
-    let player = placePlayerInLevel(levelArea, this.tileIdxMap, playerStartingTile);
-    placeLevelEntities(levelArea, this.tileIdxMap);
+    let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
+    placeLevelEntities(zone, this.tileIdxMap);
 
     // set triggers
-    if (isNonEmptyArray(levelArea.triggers.levelStart)) {
-      levelArea.triggers.levelStart.forEach((configuredTrigger) => {
+    if (isNonEmptyArray(zone.triggers.levelStart)) {
+      zone.triggers.levelStart.forEach((configuredTrigger) => {
         // activateTrigger ...
         if (configuredTrigger.type === 'dialog') {
           pushTrigger(new Trigger({
@@ -261,17 +261,17 @@ class Game {
   }
 
   // TODO - EDITOR MODE ONLY
-  changeTileType(tile: Tile, newType: number): ILevelArea {
+  changeTileType(tile: Tile, newType: number): IZone {
     assertType(tile, 'Tile', 'object');
 
     tile.setTileType(newType);
 
     // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
     let {col, row} = getColRowByTileIdx(tile.tileIdx);
-    this.levelArea.tileMap[row][col] = +newType;
+    this.zone.tileMap[row][col] = +newType;
 
     this.renderBackground = true; // for the first time
-    return this.levelArea;
+    return this.zone;
   }
 
   handleAreaChange(level: number, area: number, newPlayerPosition: ITileCoordinate) {

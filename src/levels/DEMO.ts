@@ -1,6 +1,6 @@
 import { CHARACTERS } from 'gameEngine/gameConstants';
 import {IDialogTrigger, IPortalTrigger} from "../interfaces/triggers.i";
-import {IEntitiesToPlace, ILevelArea, PossibleTriggersArray} from "../interfaces/levels.i";
+import {IEntitiesToPlace, IZone, PossibleTriggersArray} from "../interfaces/levels.i";
 
 
 function generateMap(width: number, height: number) {
@@ -20,7 +20,7 @@ export default {
   monsterDensity:0,
   spawnableEnemies:[],
   locations: [],
-  levelAreaID: '0-0',
+  zoneID: '0-0',
   tileMap: generateMap(100, 100),
   triggers: {
     levelStart: [{
@@ -66,4 +66,4 @@ export default {
     col: 1,
     row: 2
   }
-} as ILevelArea;
+} as IZone;

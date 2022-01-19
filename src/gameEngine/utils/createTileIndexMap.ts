@@ -1,5 +1,5 @@
 import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
-import {ILevelArea, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
+import {IZone, ILevelLocation, ITileMap} from "../../interfaces/levels.i";
 import {CAN_SPAWN_COMP} from "../components/ComponentNamesConfig";
 import {AllowedLevelLocationIDs} from "../gameConstants";
 import Tile from "../entities/Tile";
@@ -16,11 +16,11 @@ function inRange(a:number ,x:number ,b:number) {
   return x > a && x < b;
 }
 
-function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIndexMap {
+function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
   let {mapHeight, mapWidth} = viewSize;
 
-  let tileMap = levelArea.tileMap;
-  let locations = levelArea.locations;
+  let tileMap = zone.tileMap;
+  let locations = zone.locations;
 
   // take levelArea
   // If tile is in SAFE area, remove all "spawnable" from it.
@@ -80,7 +80,7 @@ function createTileIndexMap(levelArea: ILevelArea, viewSize: IViewSize): ITileIn
 
       let {x, y} = tile.getPos();
 
-      levelArea.noSpawnLocations.forEach((safeLocation) => {
+      zone.noSpawnLocations.forEach((safeLocation) => {
         let withinX = inRange(safeLocation.start.x, x, safeLocation.end.x);
         let withinY = inRange(safeLocation.start.y, y, safeLocation.end.y);
 

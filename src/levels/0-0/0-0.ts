@@ -1,12 +1,12 @@
 import oneMap from './0-0.map.json';
-import {ILevelArea, PossibleTriggersArray} from "../../interfaces/levels.i";
+import {IZone, PossibleTriggersArray} from "../../interfaces/levels.i";
 import townLocation from "./locations/town";
 import spawnableOneLocation from "./locations/spawnable_1";
 import mergeStaticLevelAreaData from "../utils/mergeStaticLevelAreaData";
 import {CHARACTERS} from "../../gameEngine/gameConstants";
 
-let level: ILevelArea = {
-  levelAreaID: '0-0',
+let zone: IZone = {
+  zoneID: '0-0',
   noSpawnLocations:[], // Filled by static csv data
   monsterDensity:0, // Filled by static csv data
   spawnableEnemies:[], // Filled by static csv data
@@ -99,5 +99,5 @@ let level: ILevelArea = {
   ],
 };
 
-export const ZERO_ZERO = mergeStaticLevelAreaData(level);
+export const ZERO_ZERO = mergeStaticLevelAreaData(zone);
 
