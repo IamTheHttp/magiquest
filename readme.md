@@ -35,10 +35,10 @@
 
 ### The database
 
-- #### Levels.csv database 
+- #### zones.csv database 
     - id -- {string} in the format of ${level}-${area}
-    - level -- {number} > 0 levels, or Acts, are the major blocks of the story progression
-    - area -- {number} > 0 Areas are sub-sections of a level, each level has many areas
+    - act -- {number} > 0 Acts, are the major blocks of the story progression
+    - chapter -- {number} > 0 Chapters are sub-sections of an Act, each Act has many Chapters
     - description -- {string} free text to describe the location 
     - player_start_pos -- When level is loaded, where does the player start 
     - monster_spawns -- Comma separated IDs of spawnable monsters in the area (provided by a different csv file)

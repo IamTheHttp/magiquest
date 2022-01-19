@@ -2569,8 +2569,8 @@
           triggers.forEach(function (trigger) {
               // TODO This feels counter intuitive, the triggers should be pushed and the trigger system should decide what to do with active triggers
               if (trigger && trigger.type === 'portal') {
-                  var level = trigger.level, area = trigger.area;
-                  game.handleAreaChange(level, area, trigger.exitTile);
+                  var act = trigger.act, chapter = trigger.chapter;
+                  game.handleZoneChange(act, chapter, trigger.exitTile);
               }
           });
       }
@@ -14820,8 +14820,8 @@
   var levelsJSON = [
   	{
   		id: "0-0",
-  		level: 0,
-  		area: 0,
+  		act: 0,
+  		chapter: 0,
   		description: "Elvenar",
   		player_start_pos: {
   			col: 4,
@@ -14833,16 +14833,16 @@
   		],
   		exits: {
   			"5,5": {
-  				area: 1,
-  				level: 0,
+  				chapter: 1,
+  				act: 0,
   				exitTile: {
   					col: 4,
   					row: 95
   				}
   			},
   			"10,10": {
-  				area: 1,
-  				level: 0,
+  				chapter: 1,
+  				act: 0,
   				exitTile: {
   					col: 5,
   					row: 5
@@ -14865,8 +14865,8 @@
   	},
   	{
   		id: "0-1",
-  		level: 0,
-  		area: 1,
+  		act: 0,
+  		chapter: 1,
   		description: "Sewers",
   		player_start_pos: {
   			col: 5,
@@ -14878,16 +14878,16 @@
   		],
   		exits: {
   			"5,95": {
-  				area: 0,
-  				level: 0,
+  				chapter: 0,
+  				act: 0,
   				exitTile: {
   					col: 12,
   					row: 12
   				}
   			},
   			"10,10": {
-  				area: 1,
-  				level: 0,
+  				chapter: 1,
+  				act: 0,
   				exitTile: {
   					col: 5,
   					row: 5
@@ -14914,25 +14914,25 @@
    * This function takes the static levels.json and merges it with real code from the level
    * @param zone
    */
-  function mergeStaticLevelAreaData(zone) {
-      var areaLevelRowData = levelsJSON.find(function (levelRow) {
+  function mergeStaticZoneData(zone) {
+      var zoneCSVData = levelsJSON.find(function (levelRow) {
           return levelRow.id && levelRow.id === zone.zoneID;
       });
-      zone.zoneID = areaLevelRowData.id;
+      zone.zoneID = zoneCSVData.id;
       zone.startPos = {
-          col: areaLevelRowData.player_start_pos.col,
-          row: areaLevelRowData.player_start_pos.row,
+          col: zoneCSVData.player_start_pos.col,
+          row: zoneCSVData.player_start_pos.row,
       };
-      zone.noSpawnLocations = areaLevelRowData.no_spawn_locations;
-      zone.spawnableEnemies = areaLevelRowData.monster_spawns;
-      zone.monsterDensity = areaLevelRowData.mon_per_tile;
-      Object.keys(areaLevelRowData.exits).forEach(function (tileCoordinate) {
+      zone.noSpawnLocations = zoneCSVData.no_spawn_locations;
+      zone.spawnableEnemies = zoneCSVData.monster_spawns;
+      zone.monsterDensity = zoneCSVData.mon_per_tile;
+      Object.keys(zoneCSVData.exits).forEach(function (tileCoordinate) {
           var trigger = {
               oneOff: false,
               type: 'portal',
-              level: areaLevelRowData.exits[tileCoordinate].level,
-              area: areaLevelRowData.exits[tileCoordinate].area,
-              exitTile: areaLevelRowData.exits[tileCoordinate].exitTile
+              act: zoneCSVData.exits[tileCoordinate].level,
+              chapter: zoneCSVData.exits[tileCoordinate].area,
+              exitTile: zoneCSVData.exits[tileCoordinate].exitTile
           };
           if (!zone.triggers.move[tileCoordinate]) {
               zone.triggers.move[tileCoordinate] = [];
@@ -15035,7 +15035,7 @@
           }
       ],
   };
-  var ZERO_ZERO = mergeStaticLevelAreaData(zone$1);
+  var ZERO_ZERO = mergeStaticZoneData(zone$1);
 
   var map = [
   	[
@@ -25266,17 +25266,17 @@
       },
       entitiesToPlace: []
   };
-  var ZERO_ONE = mergeStaticLevelAreaData(zone);
+  var ZERO_ONE = mergeStaticZoneData(zone);
 
   // TODO this should be some interface
-  var levelConfig = {};
+  var zoneConfig = {};
   function processLevel(zone) {
       var _a = zone.zoneID.split('-'), level = _a[0], area = _a[1];
       if (hasValue(level) && hasValue(area)) {
           var numLevel = +level;
           var numArea = +area;
-          levelConfig[numLevel] = levelConfig[numLevel] || { areas: {} };
-          levelConfig[numLevel].areas[numArea] = zone;
+          zoneConfig[numLevel] = zoneConfig[numLevel] || { areas: {} };
+          zoneConfig[numLevel].areas[numArea] = zone;
       }
   }
   // TOOD create a live object based on these levels
@@ -25313,7 +25313,7 @@
           this.dispatchAction = this.dispatchAction.bind(this);
           var engine = new dist_1();
           this.engine = engine;
-          this.onAreaChange = onAreaChange;
+          this.onZoneChange = onAreaChange;
           this.gameEvents = new GameEvents();
           // TODO this probably needs to be related to player movement speed
           // this should also probably be refactored out
@@ -25371,7 +25371,7 @@
           var levelNum = this.currentLevel;
           var areaNum = this.currentArea;
           // Use the level to get the current map for that level
-          var areaToLoad = levelConfig[levelNum].areas[areaNum];
+          var areaToLoad = zoneConfig[levelNum].areas[areaNum];
           return areaToLoad;
       };
       /**
@@ -25480,12 +25480,12 @@
           this.renderBackground = true; // for the first time
           return this.zone;
       };
-      Game.prototype.handleAreaChange = function (level, area, newPlayerPosition) {
+      Game.prototype.handleZoneChange = function (act, chapter, newPlayerPosition) {
           // Trigger a level change, request a background change as all the scene is different
-          this.setLevelAndArea(level, area);
+          this.setLevelAndArea(act, chapter);
           this.loadCurrentLevelArea(newPlayerPosition);
           // fire event in case anyone is listening
-          this.onAreaChange(level, area, newPlayerPosition);
+          this.onZoneChange(act, chapter, newPlayerPosition);
       };
       Game.prototype.requestBackgroundRender = function () {
           this.renderBackground = true;

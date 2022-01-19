@@ -73,7 +73,7 @@ function createSystemArgs({spyPan, spyClear, spyAddImage, spyDraw, spyHandleArea
     game: {
       requestBackgroundRender: () => {},
       notifyBackgroundWasRendered: () => {},
-      handleAreaChange :spyHandleAreaChange
+      handleZoneChange :spyHandleAreaChange
     },
     tileIdxMap: createTileIndexMap({
       monsterDensity:0,

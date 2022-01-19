@@ -1,4 +1,4 @@
-import {ITileCoordinate} from "./levels.i";
+import {ITileCoordinate} from "./zones.i";
 import {ICoordinates} from "game-platform/dist/lib/interfaces";
 import {CHARACTERS} from "../gameEngine/gameConstants";
 
@@ -17,7 +17,7 @@ export interface INoSpawnLocation {
 
 
 /**
- * This is a parsed levels.csv row
+ * This is a parsed zones.csv row
  */
 interface IParsedLevelCSVRow {
   id: string;

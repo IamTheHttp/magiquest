@@ -1,8 +1,8 @@
 [
 	{
 		"id": "0-0",
-		"level": 0,
-		"area": 0,
+		"act": 0,
+		"chapter": 0,
 		"description": "Elvenar",
 		"player_start_pos": {
 			"col": 4,
@@ -14,16 +14,16 @@
 		],
 		"exits": {
 			"5,5": {
-				"area": 1,
-				"level": 0,
+				"chapter": 1,
+				"act": 0,
 				"exitTile": {
 					"col": 4,
 					"row": 95
 				}
 			},
 			"10,10": {
-				"area": 1,
-				"level": 0,
+				"chapter": 1,
+				"act": 0,
 				"exitTile": {
 					"col": 5,
 					"row": 5
@@ -46,8 +46,8 @@
 	},
 	{
 		"id": "0-1",
-		"level": 0,
-		"area": 1,
+		"act": 0,
+		"chapter": 1,
 		"description": "Sewers",
 		"player_start_pos": {
 			"col": 5,
@@ -59,16 +59,16 @@
 		],
 		"exits": {
 			"5,95": {
-				"area": 0,
-				"level": 0,
+				"chapter": 0,
+				"act": 0,
 				"exitTile": {
 					"col": 12,
 					"row": 12
 				}
 			},
 			"10,10": {
-				"area": 1,
-				"level": 0,
+				"chapter": 1,
+				"act": 0,
 				"exitTile": {
 					"col": 5,
 					"row": 5

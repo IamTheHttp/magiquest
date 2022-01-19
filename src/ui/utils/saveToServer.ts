@@ -1,4 +1,4 @@
-import {IZone} from "../../interfaces/levels.i";
+import {IZone} from "../../interfaces/zones.i";
 
 function saveToServer(zone: IZone) {
   fetch('http://localhost:3000', {

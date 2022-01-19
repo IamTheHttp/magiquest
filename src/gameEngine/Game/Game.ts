@@ -1,4 +1,4 @@
-import {IZone, ITileCoordinate} from "../../interfaces/levels.i";
+import {IZone, ITileCoordinate} from "../../interfaces/zones.i";
 import {Engine, Entity} from "game-platform";
 import assertType from "../utils/assertType";
 import createTileIndexMap from "../utils/createTileIndexMap";
@@ -41,15 +41,15 @@ import experienceSystem from "../systems/experienceSystem";
 import moveSystem from "../systems/moveSystem";
 import placeLevelEntities from "../utils/placeLevelEntities";
 import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from "../gameConstants";
-import {getCanvasAPICallback, IGameConstructor, onAreaChangeCallback} from "./IGameTypes";
-import levelConfig from "../../levels/levelConfig";
+import {IGameConstructor, onZoneChangeCallback} from "./IGameTypes";
+import {zoneConfig} from "../../zones/zoneConfig";
 
 
 class Game {
   engine:Engine;
   mapAPI: Painter;
   miniMapAPI: Painter;
-  onAreaChange: onAreaChangeCallback;
+  onZoneChange: onZoneChangeCallback;
   tileIdxMap: ITileIndexMap;
   viewSize: IViewSize;
   zone:IZone;
@@ -69,7 +69,7 @@ class Game {
 
     let engine = new Engine();
     this.engine = engine;
-    this.onAreaChange = onAreaChange;
+    this.onZoneChange = onAreaChange;
     this.gameEvents = new GameEvents();
 
     // TODO this probably needs to be related to player movement speed
@@ -139,7 +139,7 @@ class Game {
     let levelNum = this.currentLevel
     let areaNum = this.currentArea
     // Use the level to get the current map for that level
-    let areaToLoad = levelConfig[levelNum].areas[areaNum] as IZone;
+    let areaToLoad = zoneConfig[levelNum].areas[areaNum] as IZone;
     return areaToLoad;
   }
 
@@ -274,13 +274,13 @@ class Game {
     return this.zone;
   }
 
-  handleAreaChange(level: number, area: number, newPlayerPosition: ITileCoordinate) {
+  handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {
     // Trigger a level change, request a background change as all the scene is different
-    this.setLevelAndArea(level, area);
+    this.setLevelAndArea(act, chapter);
     this.loadCurrentLevelArea(newPlayerPosition);
 
     // fire event in case anyone is listening
-    this.onAreaChange(level, area, newPlayerPosition);
+    this.onZoneChange(act, chapter, newPlayerPosition);
   }
 
   requestBackgroundRender() {

@@ -1,4 +1,4 @@
-import {ITileCoordinate} from "./levels.i";
+import {ITileCoordinate} from "./zones.i";
 import {BaseEntity} from "../gameEngine/BaseEntity";
 export type ITriggerLinesOfText = {
   text:string,
@@ -25,7 +25,7 @@ export interface IDialogTrigger {
 export interface IPortalTrigger {
   oneOff: boolean,
   type: 'portal',
-  level: number,
-  area: number,
+  act: number,
+  chapter: number,
   exitTile: ITileCoordinate
 }

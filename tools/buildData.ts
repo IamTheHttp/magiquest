@@ -1,4 +1,4 @@
-import {ITileCoordinate} from "../src/interfaces/levels.i";
+import {ITileCoordinate} from "../src/interfaces/zones.i";
 
 process.chdir(__dirname);
 
@@ -35,7 +35,7 @@ function buildLevels() {
    * - Ensure player_start_pos is not out of map
    */
   csv()
-    .fromFile(path.resolve('../src/data/csv/levels.csv'))
+    .fromFile(path.resolve('../src/data/csv/zones.csv'))
     .then((allLevels: ICSVRow[]) => {
       let parsedLevelsList: IParsedLevelCSVRow[] = [];
 
