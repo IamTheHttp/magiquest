@@ -9,12 +9,7 @@
     "test:coverage": "jest --coverage",
     "start": "rm -rf ./dist && rollup -c -w & live-server ./dist",
     "release": "release-it",
-    "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"OMG\" && exit 1 && prettier --write . && git add -A . && npm run test"
-    }
+    "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ tools Editor"
   },
   "dependencies": {
     "@babel/preset-env": "^7.15.0",

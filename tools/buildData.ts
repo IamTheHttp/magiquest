@@ -1,4 +1,4 @@
-import {ITileCoordinate} from "../src/interfaces/zones.i";
+import {ITileCoordinate} from '../src/interfaces/zones.i';
 
 process.chdir(__dirname);
 
@@ -6,26 +6,24 @@ const csv = require('csvtojson');
 const fs = require('fs');
 const path = require('path');
 
-import IParsedLevelCSVRow, {IExits, INoSpawnLocation} from "../src/interfaces/IParsedLevelCSVRow"
-import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from "../src/gameEngine/gameConstants";
-import {IParsedCharacterCSVMap} from "../src/interfaces/IParsedCharacterCSVRow";
-
+import IParsedLevelCSVRow, {IExits, INoSpawnLocation} from '../src/interfaces/IParsedLevelCSVRow';
+import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../src/gameEngine/gameConstants';
+import {IParsedCharacterCSVMap} from '../src/interfaces/IParsedCharacterCSVRow';
 
 /**
  * Interface depicting the structure of the level.csv shape
  */
 interface ICSVRow {
-  id: string, // "LEVEL-AREA" format
-  level: string, // number like
-  area: string, // number like
-  description: string,
-  player_start_pos: string, // "x,y" format
-  monster_spawns: string, // "MONS_A, MOBS_B" format
-  exits: string, //  "5,3->0-1@0,0 __ 5,3->0-1@0,0" -- EXIT_CORD->LEVEL-AREA@ENTER_CORD
-  mon_per_tile: string // number like
-  no_spawn_locations: string
+  id: string; // "LEVEL-AREA" format
+  level: string; // number like
+  area: string; // number like
+  description: string;
+  player_start_pos: string; // "x,y" format
+  monster_spawns: string; // "MONS_A, MOBS_B" format
+  exits: string; //  "5,3->0-1@0,0 __ 5,3->0-1@0,0" -- EXIT_CORD->LEVEL-AREA@ENTER_CORD
+  mon_per_tile: string; // number like
+  no_spawn_locations: string;
 }
-
 
 function buildLevels() {
   /**
@@ -38,7 +36,6 @@ function buildLevels() {
     .fromFile(path.resolve('../src/data/csv/zones.csv'))
     .then((allLevels: ICSVRow[]) => {
       let parsedLevelsList: IParsedLevelCSVRow[] = [];
-
 
       allLevels.forEach((csvLevelRow) => {
         let EXITS: IExits = {};
@@ -71,9 +68,8 @@ function buildLevels() {
               col: +targetX,
               row: +targetY
             }
-          }
+          };
         });
-
 
         // parse no_spawn_locations
         // The format is 0,0-5,5 __ 11,12-50-50
@@ -95,7 +91,7 @@ function buildLevels() {
               x: +endX,
               y: +endY
             }
-          })
+          });
         });
 
         // Push parsed level
@@ -122,15 +118,13 @@ function buildLevels() {
         parsedLevelsList.push(parsedLevel);
       });
 
-
       fs.writeFileSync('../src/data/levels.json', JSON.stringify(parsedLevelsList, null, '\t'));
       console.log('Done - Writing database files');
     });
 }
 
-
 interface ICSVCharacterRow {
-  id: CHARACTERS,
+  id: CHARACTERS;
   display_name: string;
   dmg: number;
   health: number;
@@ -165,9 +159,8 @@ function buildCharacters() {
           attackSpeed: csvCharacterRow.attack_speed,
           radius: +csvCharacterRow.radius,
           animationTypes: csvCharacterRow.animation_types
-        }
+        };
       });
-
 
       fs.writeFileSync('../src/data/characters.json', JSON.stringify(parsedCharacterMap, null, '\t'));
       console.log('Done - Writing database files');
@@ -176,4 +169,3 @@ function buildCharacters() {
 
 buildCharacters();
 buildLevels();
-

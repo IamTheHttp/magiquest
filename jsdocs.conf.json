@@ -15,7 +15,7 @@
     "copyright": "Copyright MIT",
     "navType": "vertical",
     "linenums": true,
-    "theme" : "cerulean",
+    "theme": "cerulean",
     "collapseSymbols": true,
     "inverseNav": true,
     "protocol": "html://",

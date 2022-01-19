@@ -2,9 +2,7 @@
   "testEnvironment": "jsdom",
   "testRegex": "test.ts|test.tsx",
   "preset": "ts-jest",
-  "transformIgnorePatterns": [
-    "/node_modules/"
-  ],
+  "transformIgnorePatterns": ["/node_modules/"],
   "transform": {
     "^.+\\.[t|j]sx?$": "ts-jest"
   },
@@ -33,11 +31,6 @@
     "<rootDir>/src/polyfill/rAF.ts",
     "jest-canvas-mock"
   ],
-  "modulePaths": [
-    "<rootDir>",
-    "<rootDir>/src",
-    "<rootDir>/__tests__"
-  ],
+  "modulePaths": ["<rootDir>", "<rootDir>/src", "<rootDir>/__tests__"],
   "bail": false
 }
-

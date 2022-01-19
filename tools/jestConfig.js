@@ -5,24 +5,24 @@ module.exports = function (jestConfig) {
   }
 
   //let's prevent Jest from collecting code coverage from the examples directory - we don't plan on testing it anyway.
-  jestConfig.collectCoverageFrom.push("!src/polyfill/*.*");
-  jestConfig.collectCoverageFrom.push("!src/index.ts");
-  jestConfig.collectCoverageFrom.push("!src/levels/*.*");
-  jestConfig.collectCoverageFrom.push("!src/pageSetup.tsx");
+  jestConfig.collectCoverageFrom.push('!src/polyfill/*.*');
+  jestConfig.collectCoverageFrom.push('!src/index.ts');
+  jestConfig.collectCoverageFrom.push('!src/levels/*.*');
+  jestConfig.collectCoverageFrom.push('!src/pageSetup.tsx');
 
   jestConfig.setupFiles = jestConfig.setupFiles || [];
 
-  jestConfig.setupFiles.push("<rootDir>/src/polyfill/rAF.ts");
-  jestConfig.setupFiles.push("jest-canvas-mock");
+  jestConfig.setupFiles.push('<rootDir>/src/polyfill/rAF.ts');
+  jestConfig.setupFiles.push('jest-canvas-mock');
 
-  jestConfig.moduleDirectories = ["./src", "./src/gameEngine", "node_modules"];
+  jestConfig.moduleDirectories = ['./src', './src/gameEngine', 'node_modules'];
   jestConfig.bail = true;
-  
+
   jestConfig.coverageThreshold.global = {
-    "branches": 80,
-    "functions": 80,
-    "lines": 85,
-    "statements": 85
+    branches: 80,
+    functions: 80,
+    lines: 85,
+    statements: 85
   };
 
   return jestConfig;

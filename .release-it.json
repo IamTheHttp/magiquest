@@ -1,5 +1,5 @@
 {
-  "hooks" : {
-    "before:init" : "npm run test && npm run build"
+  "hooks": {
+    "before:init": "npm run test && npm run build"
   }
 }
