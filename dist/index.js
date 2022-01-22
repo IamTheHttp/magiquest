@@ -25786,4 +25786,4 @@
       reactDom_4(react_22(App, null), document.getElementById('app'));
   });
 
-}());
+})();
