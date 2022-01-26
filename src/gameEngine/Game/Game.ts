@@ -46,6 +46,7 @@ import {zoneConfig} from '../../zones/zoneConfig';
 
 class Game {
   engine: Engine;
+  mode: 'editing' | 'playing';
   mapAPI: Painter;
   miniMapAPI: Painter;
   onZoneChange: onZoneChangeCallback;
@@ -62,11 +63,12 @@ class Game {
   // Player's current level TODO this is a placeholder
   currentLevel: number;
 
-  constructor({onAreaChange}: IGameConstructor) {
+  constructor({onAreaChange, mode = 'editing'}: IGameConstructor) {
     Entity.reset();
     this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
+    this.mode = 'editing';
     this.engine = engine;
     this.onZoneChange = onAreaChange;
     this.gameEvents = new GameEvents();
@@ -75,17 +77,20 @@ class Game {
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
 
-    engine.addSystem(userInputSystem);
-    engine.addSystem(triggerSystem);
-    engine.addSystem(spawnEnemiesSystem);
-    engine.addSystem(moveSystem);
-    engine.addSystem(aiSystem);
-    engine.addSystem(attackSystem);
+    if (mode === 'playing') {
+      engine.addSystem(userInputSystem);
+      engine.addSystem(triggerSystem);
+      engine.addSystem(spawnEnemiesSystem);
+      engine.addSystem(aiSystem);
+      engine.addSystem(portalSystem);
+      engine.addSystem(moveSystem);
+      engine.addSystem(attackSystem);
+      engine.addSystem(animationSystem);
+      engine.addSystem(questSystem);
+      engine.addSystem(experienceSystem);
+    }
+
     engine.addSystem(renderSystem);
-    engine.addSystem(animationSystem);
-    engine.addSystem(portalSystem);
-    engine.addSystem(questSystem);
-    engine.addSystem(experienceSystem);
 
     // DestroyEntity system
     // TODO export to a system file
@@ -208,7 +213,7 @@ class Game {
     }
   }
 
-  loadCurrentLevelArea(playerStartingTile: ITileCoordinate = null) {
+  loadCurrentLevelArea({playerStartingTile = null}: {playerStartingTile?: ITileCoordinate}) {
     if (!this.mapAPI) {
       throw 'Cannot load the current level area without a mapAPI instance';
     }
@@ -235,35 +240,38 @@ class Game {
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
     this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
 
-    let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
-    placeLevelEntities(zone, this.tileIdxMap);
+    // only out of editor mode, when playing
+    if (this.mode === 'playing') {
+      let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
+      placeLevelEntities(zone, this.tileIdxMap);
 
-    // set triggers
-    if (isNonEmptyArray(zone.triggers.levelStart)) {
-      zone.triggers.levelStart.forEach((configuredTrigger) => {
-        // activateTrigger ...
-        if (configuredTrigger.type === 'dialog') {
-          pushTrigger(
-            new Trigger({
-              type: 'dialog',
-              lines: configuredTrigger.lines,
-              actedOnEntity: player
-            })
-          );
-        }
-      });
+      // set triggers
+      // For editor, skip triggers
+      if (isNonEmptyArray(zone.triggers.levelStart)) {
+        zone.triggers.levelStart.forEach((configuredTrigger) => {
+          // activateTrigger ...
+          if (configuredTrigger.type === 'dialog') {
+            pushTrigger(
+              new Trigger({
+                type: 'dialog',
+                lines: configuredTrigger.lines,
+                actedOnEntity: player
+              })
+            );
+          }
+        });
+      }
+      centerCameraOnEntity(
+        player,
+        mapAPI,
+        this,
+        this.viewSize.viewWidth,
+        this.viewSize.viewHeight,
+        mapWidth,
+        mapHeight,
+        true
+      );
     }
-
-    centerCameraOnEntity(
-      player,
-      mapAPI,
-      this,
-      this.viewSize.viewWidth,
-      this.viewSize.viewHeight,
-      mapWidth,
-      mapHeight,
-      true
-    );
     this.renderBackground = true; // for the first time
   }
 
@@ -284,7 +292,7 @@ class Game {
   handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {
     // Trigger a level change, request a background change as all the scene is different
     this.setLevelAndArea(act, chapter);
-    this.loadCurrentLevelArea(newPlayerPosition);
+    this.loadCurrentLevelArea({playerStartingTile: newPlayerPosition});
 
     // fire event in case anyone is listening
     this.onZoneChange(act, chapter, newPlayerPosition);

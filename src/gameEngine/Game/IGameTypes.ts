@@ -6,4 +6,5 @@ export type onZoneChangeCallback = (level: number, area: number, newPlayerPositi
 
 export interface IGameConstructor {
   onAreaChange: onZoneChangeCallback;
+  mode: 'editing' | 'playing';
 }

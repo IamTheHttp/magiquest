@@ -71,6 +71,7 @@ export class App extends React.Component<any, AppState> {
     document.body.requestFullscreen();
 
     this.game = new Game({
+      mode: 'playing',
       onAreaChange: (level, area, newPlayerPosition) => {}
     });
 
@@ -87,7 +88,37 @@ export class App extends React.Component<any, AppState> {
     // Remove the main menu and show the Main Game Overlay
     this.setState(
       {
-        isGameRunning: true
+        isGameRunning: true,
+        isEditorOpen: false
+      },
+      () => {
+        console.log('Resizing after state change');
+        this.resize();
+      }
+    );
+  }
+
+  startEditor() {
+    this.game = new Game({
+      mode: 'editing',
+      onAreaChange: (level, area, newPlayerPosition) => {}
+    });
+
+    // Game always starts at level 0, area 0
+    // TODO we can use this to implement saving - the saved data can be level and area
+    this.game.setLevelAndArea(0, 0);
+
+    this.createCanvasManager();
+    // registerUserInputEvents(this.game);
+
+    // For convenience purposes only
+    window.game = this.game;
+
+    // Remove the main menu and show the Main Game Overlay
+    this.setState(
+      {
+        isEditorOpen: true,
+        isGameRunning: false
       },
       () => {
         console.log('Resizing after state change');
@@ -100,13 +131,34 @@ export class App extends React.Component<any, AppState> {
     resizeGameElements();
   }
 
-  startEditor() {}
-
   render() {
     const isGameStarted = this.state.isGameRunning;
+    const isEditorOpen = this.state.isEditorOpen;
 
-    if (!isGameStarted) {
-      return <MainMenu startNewGame={this.setupGameObject.bind(this)} startEditor={this.startEditor} />;
+    if (!isGameStarted && !isEditorOpen) {
+      return <MainMenu startNewGame={this.setupGameObject.bind(this)} startEditor={this.startEditor.bind(this)} />;
+    } else if (!isGameStarted && isEditorOpen) {
+      return (
+        <MainOverlay game={this.game}>
+          <div className="wrapper">
+            <div id="tile-selector">Foo bar</div>
+            <div className="canvas-main-container">
+              <canvas
+                ref={(el) => {
+                  if (el) {
+                    const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
+
+                    this.game.setMapAPI(mapAPI);
+                    // Load monsters, tiles and everything else!
+                    this.game.loadCurrentLevelArea({});
+                    this.game.resume();
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </MainOverlay>
+      );
     } else {
       return (
         <MainOverlay game={this.game}>
@@ -118,7 +170,7 @@ export class App extends React.Component<any, AppState> {
                     const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
 
                     this.game.setMapAPI(mapAPI);
-                    this.game.loadCurrentLevelArea();
+                    this.game.loadCurrentLevelArea({});
                     this.game.resume();
                   }
                 }}

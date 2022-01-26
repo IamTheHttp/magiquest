@@ -684,7 +684,8 @@
 
   function getDefaultAppState() {
       return {
-          isGameRunning: false
+          isGameRunning: false,
+          isEditorOpen: false
       };
   }
 
@@ -776,7 +777,7 @@
           });
       }, []);
       return (react.createElement("div", null,
-          react.createElement(GameUI, __assign({}, playerState, { onShowSkillsClicked: function () {
+          props.game.mode === 'playing' && react.createElement(GameUI, __assign({}, playerState, { onShowSkillsClicked: function () {
                   _this.toggleUIPlayerState('showSkillTree');
               }, onShowAttributes: function () {
                   _this.toggleUIPlayerState('showAttributes');
@@ -25338,27 +25339,30 @@
   var Game = /** @class */ (function () {
       function Game(_a) {
           var _this = this;
-          var onAreaChange = _a.onAreaChange;
+          var onAreaChange = _a.onAreaChange, _b = _a.mode, mode = _b === void 0 ? 'editing' : _b;
           dist_5.reset();
           this.dispatchAction = this.dispatchAction.bind(this);
           var engine = new dist_1();
+          this.mode = 'editing';
           this.engine = engine;
           this.onZoneChange = onAreaChange;
           this.gameEvents = new GameEvents();
           // TODO this probably needs to be related to player movement speed
           // this should also probably be refactored out
           this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
-          engine.addSystem(userInputSystem);
-          engine.addSystem(triggerSystem);
-          engine.addSystem(spawnEnemiesSystem);
-          engine.addSystem(moveSystem);
-          engine.addSystem(aiSystem);
-          engine.addSystem(attackSystem);
+          if (mode === 'playing') {
+              engine.addSystem(userInputSystem);
+              engine.addSystem(triggerSystem);
+              engine.addSystem(spawnEnemiesSystem);
+              engine.addSystem(aiSystem);
+              engine.addSystem(portalSystem);
+              engine.addSystem(moveSystem);
+              engine.addSystem(attackSystem);
+              engine.addSystem(animationSystem);
+              engine.addSystem(questSystem);
+              engine.addSystem(experienceSystem);
+          }
           engine.addSystem(renderSystem);
-          engine.addSystem(animationSystem);
-          engine.addSystem(portalSystem);
-          engine.addSystem(questSystem);
-          engine.addSystem(experienceSystem);
           // DestroyEntity system
           // TODO export to a system file
           engine.addSystem(function (systemArguments) {
@@ -25460,8 +25464,8 @@
               centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
           }
       };
-      Game.prototype.loadCurrentLevelArea = function (playerStartingTile) {
-          if (playerStartingTile === void 0) { playerStartingTile = null; }
+      Game.prototype.loadCurrentLevelArea = function (_a) {
+          var _b = _a.playerStartingTile, playerStartingTile = _b === void 0 ? null : _b;
           if (!this.mapAPI) {
               throw 'Cannot load the current level area without a mapAPI instance';
           }
@@ -25482,22 +25486,26 @@
           };
           destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
           this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
-          var player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
-          placeLevelEntities(zone, this.tileIdxMap);
-          // set triggers
-          if (isNonEmptyArray(zone.triggers.levelStart)) {
-              zone.triggers.levelStart.forEach(function (configuredTrigger) {
-                  // activateTrigger ...
-                  if (configuredTrigger.type === 'dialog') {
-                      pushTrigger(new Trigger({
-                          type: 'dialog',
-                          lines: configuredTrigger.lines,
-                          actedOnEntity: player
-                      }));
-                  }
-              });
+          // only out of editor mode, when playing
+          if (this.mode === 'playing') {
+              var player_1 = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
+              placeLevelEntities(zone, this.tileIdxMap);
+              // set triggers
+              // For editor, skip triggers
+              if (isNonEmptyArray(zone.triggers.levelStart)) {
+                  zone.triggers.levelStart.forEach(function (configuredTrigger) {
+                      // activateTrigger ...
+                      if (configuredTrigger.type === 'dialog') {
+                          pushTrigger(new Trigger({
+                              type: 'dialog',
+                              lines: configuredTrigger.lines,
+                              actedOnEntity: player_1
+                          }));
+                      }
+                  });
+              }
+              centerCameraOnEntity(player_1, mapAPI, this, this.viewSize.viewWidth, this.viewSize.viewHeight, mapWidth, mapHeight, true);
           }
-          centerCameraOnEntity(player, mapAPI, this, this.viewSize.viewWidth, this.viewSize.viewHeight, mapWidth, mapHeight, true);
           this.renderBackground = true; // for the first time
       };
       // TODO - EDITOR MODE ONLY
@@ -25513,7 +25521,7 @@
       Game.prototype.handleZoneChange = function (act, chapter, newPlayerPosition) {
           // Trigger a level change, request a background change as all the scene is different
           this.setLevelAndArea(act, chapter);
-          this.loadCurrentLevelArea(newPlayerPosition);
+          this.loadCurrentLevelArea({ playerStartingTile: newPlayerPosition });
           // fire event in case anyone is listening
           this.onZoneChange(act, chapter, newPlayerPosition);
       };
@@ -25567,29 +25575,32 @@
   // The area to leave on screen for the Game UI
   var UI_AREA_BELOW_CANVAS = 150;
 
-  function resizeGameElements(isEditing) {
-      if (isEditing === void 0) { isEditing = false; }
+  function resizeGameElements() {
       var UI_AREA = document.querySelector('.game-ui');
       var gameArea = document.querySelector('.wrapper');
       var widthToHeight = WIDTH_TO_HEIGHT_RATIO;
-      var editorHeight = isEditing ? 170 : 0;
+      // let editorHeight = isEditing ? 170 : 0;
       var newWidth = window.innerWidth;
-      var newHeight = Math.min(window.innerHeight - editorHeight, window.innerHeight - UI_AREA_BELOW_CANVAS); // Always leave 200px for the UI at the bottom
+      var newHeight = Math.min(window.innerHeight, window.innerHeight - UI_AREA_BELOW_CANVAS); // Always leave 200px for the UI at the bottom
       var newWidthToHeight = newWidth / newHeight;
       if (gameArea) {
           if (newWidthToHeight > widthToHeight) {
               newWidth = newHeight * widthToHeight;
               gameArea.style.height = "".concat(newHeight, "px");
               gameArea.style.width = "".concat(newWidth, "px");
-              UI_AREA.style.width = "".concat(newWidth, "px");
-              UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
+              if (UI_AREA) {
+                  UI_AREA.style.width = "".concat(newWidth, "px");
+                  UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
+              }
           }
           else {
               newHeight = newWidth / widthToHeight;
               gameArea.style.height = "".concat(newHeight, "px");
               gameArea.style.width = "".concat(newWidth, "px");
-              UI_AREA.style.width = "".concat(newWidth, "px");
-              UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
+              if (UI_AREA) {
+                  UI_AREA.style.width = "".concat(newWidth, "px");
+                  UI_AREA.style.left = "calc(50% - ".concat(newWidth / 2, "px");
+              }
           }
       }
   }
@@ -25699,7 +25710,9 @@
           // whenever a new game is started, we go to full screen
           document.body.requestFullscreen();
           this.game = new Game({
-              onAreaChange: function (level, area, newPlayerPosition) { }
+              mode: 'playing',
+              onAreaChange: function (level, area, newPlayerPosition) {
+              }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
@@ -25710,7 +25723,31 @@
           window.game = this.game;
           // Remove the main menu and show the Main Game Overlay
           this.setState({
-              isGameRunning: true
+              isGameRunning: true,
+              isEditorOpen: false
+          }, function () {
+              console.log('Resizing after state change');
+              _this.resize();
+          });
+      };
+      App.prototype.startEditor = function () {
+          var _this = this;
+          this.game = new Game({
+              mode: 'editing',
+              onAreaChange: function (level, area, newPlayerPosition) {
+              }
+          });
+          // Game always starts at level 0, area 0
+          // TODO we can use this to implement saving - the saved data can be level and area
+          this.game.setLevelAndArea(0, 0);
+          this.createCanvasManager();
+          // registerUserInputEvents(this.game);
+          // For convenience purposes only
+          window.game = this.game;
+          // Remove the main menu and show the Main Game Overlay
+          this.setState({
+              isEditorOpen: true,
+              isGameRunning: false
           }, function () {
               console.log('Resizing after state change');
               _this.resize();
@@ -25719,12 +25756,27 @@
       App.prototype.resize = function () {
           resizeGameElements();
       };
-      App.prototype.startEditor = function () { };
       App.prototype.render = function () {
           var _this = this;
           var isGameStarted = this.state.isGameRunning;
-          if (!isGameStarted) {
-              return react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this), startEditor: this.startEditor });
+          var isEditorOpen = this.state.isEditorOpen;
+          if (!isGameStarted && !isEditorOpen) {
+              return react_22(MainMenu, { startNewGame: this.setupGameObject.bind(this), startEditor: this.startEditor.bind(this) });
+          }
+          else if (!isGameStarted && isEditorOpen) {
+              return (react_22(MainOverlay, { game: this.game },
+                  react_22("div", { className: "wrapper" },
+                      react_22("div", { id: 'tile-selector' }, "Foo bar"),
+                      react_22("div", { className: "canvas-main-container" },
+                          react_22("canvas", { ref: function (el) {
+                                  if (el) {
+                                      var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
+                                      _this.game.setMapAPI(mapAPI);
+                                      // Load monsters, tiles and everything else!
+                                      _this.game.loadCurrentLevelArea({});
+                                      _this.game.resume();
+                                  }
+                              } })))));
           }
           else {
               return (react_22(MainOverlay, { game: this.game },
@@ -25734,7 +25786,7 @@
                                   if (el) {
                                       var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
                                       _this.game.setMapAPI(mapAPI);
-                                      _this.game.loadCurrentLevelArea();
+                                      _this.game.loadCurrentLevelArea({});
                                       _this.game.resume();
                                   }
                               } })))));

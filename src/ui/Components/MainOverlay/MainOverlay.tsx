@@ -55,15 +55,17 @@ export function MainOverlay(props: MainOverlayProps) {
 
   return (
     <div>
-      <GameUI
-        {...playerState}
-        onShowSkillsClicked={() => {
-          this.toggleUIPlayerState('showSkillTree');
-        }}
-        onShowAttributes={() => {
-          this.toggleUIPlayerState('showAttributes');
-        }}
-      />
+      {props.game.mode === 'playing' && (
+        <GameUI
+          {...playerState}
+          onShowSkillsClicked={() => {
+            this.toggleUIPlayerState('showSkillTree');
+          }}
+          onShowAttributes={() => {
+            this.toggleUIPlayerState('showAttributes');
+          }}
+        />
+      )}
       {props.children}
     </div>
   );

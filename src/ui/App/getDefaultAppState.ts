@@ -3,6 +3,7 @@ import {AppState} from './AppState';
 
 export function getDefaultAppState(): AppState {
   return {
-    isGameRunning: false
+    isGameRunning: false,
+    isEditorOpen: false
   };
 }
