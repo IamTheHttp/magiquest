@@ -68,7 +68,7 @@ class Game {
     this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
-    this.mode = 'editing';
+    this.mode = mode;
     this.engine = engine;
     this.onZoneChange = onAreaChange;
     this.gameEvents = new GameEvents();

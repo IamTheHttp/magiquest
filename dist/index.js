@@ -777,11 +777,11 @@
           });
       }, []);
       return (react.createElement("div", null,
-          props.game.mode === 'playing' && react.createElement(GameUI, __assign({}, playerState, { onShowSkillsClicked: function () {
+          props.game.mode === 'playing' && (react.createElement(GameUI, __assign({}, playerState, { onShowSkillsClicked: function () {
                   _this.toggleUIPlayerState('showSkillTree');
               }, onShowAttributes: function () {
                   _this.toggleUIPlayerState('showAttributes');
-              } })),
+              } }))),
           props.children));
   }
 
@@ -25343,7 +25343,7 @@
           dist_5.reset();
           this.dispatchAction = this.dispatchAction.bind(this);
           var engine = new dist_1();
-          this.mode = 'editing';
+          this.mode = mode;
           this.engine = engine;
           this.onZoneChange = onAreaChange;
           this.gameEvents = new GameEvents();
@@ -25711,8 +25711,7 @@
           document.body.requestFullscreen();
           this.game = new Game({
               mode: 'playing',
-              onAreaChange: function (level, area, newPlayerPosition) {
-              }
+              onAreaChange: function (level, area, newPlayerPosition) { }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
@@ -25734,8 +25733,7 @@
           var _this = this;
           this.game = new Game({
               mode: 'editing',
-              onAreaChange: function (level, area, newPlayerPosition) {
-              }
+              onAreaChange: function (level, area, newPlayerPosition) { }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
@@ -25766,7 +25764,7 @@
           else if (!isGameStarted && isEditorOpen) {
               return (react_22(MainOverlay, { game: this.game },
                   react_22("div", { className: "wrapper" },
-                      react_22("div", { id: 'tile-selector' }, "Foo bar"),
+                      react_22("div", { id: "tile-selector" }, "Foo bar"),
                       react_22("div", { className: "canvas-main-container" },
                           react_22("canvas", { ref: function (el) {
                                   if (el) {
