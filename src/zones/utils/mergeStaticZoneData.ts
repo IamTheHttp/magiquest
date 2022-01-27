@@ -28,8 +28,8 @@ function mergeStaticZoneData(zone: IZone): IZone {
     const trigger = {
       oneOff: false,
       type: 'portal',
-      act: zoneCSVData.exits[tileCoordinate].level,
-      chapter: zoneCSVData.exits[tileCoordinate].area,
+      act: zoneCSVData.exits[tileCoordinate].act,
+      chapter: zoneCSVData.exits[tileCoordinate].chapter,
       exitTile: zoneCSVData.exits[tileCoordinate].exitTile
     } as IPortalTrigger;
 

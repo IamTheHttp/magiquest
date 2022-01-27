@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './app.scss';
+import './editor.scss';
 import {RESOLUTION} from '../../gameEngine/gameConstants';
 import {MainMenu} from '../Components/MainMenu/MainMenu';
 import {AppState} from './AppState';
@@ -9,6 +10,7 @@ import Game from '../../gameEngine/Game/Game';
 import {GameCanvas} from 'game-platform';
 import resizeGameElements from '../utils/resizeGameElements';
 import registerUserInputEvents from '../utils/registerUserInputEvents';
+import {Editor} from '../Editor';
 
 export class App extends React.Component<any, AppState> {
   game: Game;
@@ -72,12 +74,12 @@ export class App extends React.Component<any, AppState> {
 
     this.game = new Game({
       mode: 'playing',
-      onAreaChange: (level, area, newPlayerPosition) => {}
+      onZoneChange: (act, chapter, newPlayerPosition) => {}
     });
 
     // Game always starts at level 0, area 0
     // TODO we can use this to implement saving - the saved data can be level and area
-    this.game.setLevelAndArea(0, 0);
+    this.game.setZoneByActAndChapter(0, 0);
 
     this.createCanvasManager();
     registerUserInputEvents(this.game);
@@ -101,12 +103,12 @@ export class App extends React.Component<any, AppState> {
   startEditor() {
     this.game = new Game({
       mode: 'editing',
-      onAreaChange: (level, area, newPlayerPosition) => {}
+      onZoneChange: (act, chapter, newPlayerPosition) => {}
     });
 
     // Game always starts at level 0, area 0
     // TODO we can use this to implement saving - the saved data can be level and area
-    this.game.setLevelAndArea(0, 0);
+    this.game.setZoneByActAndChapter(0, 0);
 
     this.createCanvasManager();
     // registerUserInputEvents(this.game);
@@ -140,17 +142,21 @@ export class App extends React.Component<any, AppState> {
     } else if (!isGameStarted && isEditorOpen) {
       return (
         <MainOverlay game={this.game}>
-          <div className="wrapper">
-            <div id="tile-selector">Foo bar</div>
+          <div id="editor-wrapper">
+            <Editor
+              onZoneNav={() => {}}
+              onPosNav={() => {}}
+              act={this.game.currentAct}
+              chapter={this.game.currentChapter}
+            />
+
             <div className="canvas-main-container">
               <canvas
                 ref={(el) => {
                   if (el) {
                     const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
-
                     this.game.setMapAPI(mapAPI);
-                    // Load monsters, tiles and everything else!
-                    this.game.loadCurrentLevelArea({});
+                    this.game.loadCurrentZone({});
                     this.game.resume();
                   }
                 }}
@@ -162,20 +168,18 @@ export class App extends React.Component<any, AppState> {
     } else {
       return (
         <MainOverlay game={this.game}>
-          <div className="wrapper">
-            <div className="canvas-main-container">
-              <canvas
-                ref={(el) => {
-                  if (el) {
-                    const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
+          <div className="canvas-main-container">
+            <canvas
+              ref={(el) => {
+                if (el) {
+                  const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
 
-                    this.game.setMapAPI(mapAPI);
-                    this.game.loadCurrentLevelArea({});
-                    this.game.resume();
-                  }
-                }}
-              />
-            </div>
+                  this.game.setMapAPI(mapAPI);
+                  this.game.loadCurrentZone({});
+                  this.game.resume();
+                }
+              }}
+            />
           </div>
         </MainOverlay>
       );

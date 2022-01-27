@@ -39,13 +39,6 @@ $ratio: 1.66666;
   box-sizing: border-box;
 }
 
-.wrapper {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
 .canvas-minimap-container {
   width: 200px;
   height: 120px;
@@ -58,6 +51,7 @@ $ratio: 1.66666;
   background-color: #202058;
   color: white;
 }
+
 #toggle-editor {
   bottom: 15px;
   left: 15px;
@@ -70,15 +64,6 @@ $ratio: 1.66666;
   font-weight: bold;
   font-size: 1rem;
   background-color: tan;
-}
-
-#tiles {
-  display: flex;
-  .tile {
-    &.active {
-      border: 3px solid white;
-    }
-  }
 }
 
 #start {

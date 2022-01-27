@@ -5,21 +5,21 @@ import {ZERO_ONE} from './0-1/0-1';
 
 // TODO this should be some interface
 let zoneConfig = {} as {
-  [numLevel: number]: {
-    areas: {
-      [numArea: number]: IZone;
+  [numAct: number]: {
+    chapters: {
+      [numChapter: number]: IZone;
     };
   };
 };
 
 function processLevel(zone: IZone) {
-  let [level, area] = zone.zoneID.split('-');
-  if (hasValue(level) && hasValue(area)) {
-    let numLevel = +level;
-    let numArea = +area;
+  let [act, chapter] = zone.zoneID.split('-');
+  if (hasValue(act) && hasValue(chapter)) {
+    let numAct = +act;
+    let numChapter = +chapter;
 
-    zoneConfig[numLevel] = zoneConfig[numLevel] || {areas: {}};
-    zoneConfig[numLevel].areas[numArea] = zone;
+    zoneConfig[numAct] = zoneConfig[numAct] || {chapters: {}};
+    zoneConfig[numAct].chapters[numChapter] = zone;
   }
 }
 

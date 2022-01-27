@@ -2,9 +2,9 @@ import {ITileCoordinate} from '../../interfaces/zones.i';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 
 export type getCanvasAPICallback = () => Painter;
-export type onZoneChangeCallback = (level: number, area: number, newPlayerPosition: ITileCoordinate) => void;
+export type onZoneChangeCallback = (act: number, chapter: number, newPlayerPosition: ITileCoordinate) => void;
 
 export interface IGameConstructor {
-  onAreaChange: onZoneChangeCallback;
+  onZoneChange: onZoneChangeCallback;
   mode: 'editing' | 'playing';
 }

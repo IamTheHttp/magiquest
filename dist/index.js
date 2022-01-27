@@ -14957,8 +14957,8 @@
           var trigger = {
               oneOff: false,
               type: 'portal',
-              act: zoneCSVData.exits[tileCoordinate].level,
-              chapter: zoneCSVData.exits[tileCoordinate].area,
+              act: zoneCSVData.exits[tileCoordinate].act,
+              chapter: zoneCSVData.exits[tileCoordinate].chapter,
               exitTile: zoneCSVData.exits[tileCoordinate].exitTile
           };
           if (!zone.triggers.move[tileCoordinate]) {
@@ -25302,12 +25302,12 @@
   // TODO this should be some interface
   var zoneConfig = {};
   function processLevel(zone) {
-      var _a = zone.zoneID.split('-'), level = _a[0], area = _a[1];
-      if (hasValue(level) && hasValue(area)) {
-          var numLevel = +level;
-          var numArea = +area;
-          zoneConfig[numLevel] = zoneConfig[numLevel] || { areas: {} };
-          zoneConfig[numLevel].areas[numArea] = zone;
+      var _a = zone.zoneID.split('-'), act = _a[0], chapter = _a[1];
+      if (hasValue(act) && hasValue(chapter)) {
+          var numAct = +act;
+          var numChapter = +chapter;
+          zoneConfig[numAct] = zoneConfig[numAct] || { chapters: {} };
+          zoneConfig[numAct].chapters[numChapter] = zone;
       }
   }
   // TOOD create a live object based on these levels
@@ -25339,13 +25339,13 @@
   var Game = /** @class */ (function () {
       function Game(_a) {
           var _this = this;
-          var onAreaChange = _a.onAreaChange, _b = _a.mode, mode = _b === void 0 ? 'editing' : _b;
+          var onZoneChange = _a.onZoneChange, _b = _a.mode, mode = _b === void 0 ? 'editing' : _b;
           dist_5.reset();
           this.dispatchAction = this.dispatchAction.bind(this);
           var engine = new dist_1();
           this.mode = mode;
           this.engine = engine;
-          this.onZoneChange = onAreaChange;
+          this.onZoneChange = onZoneChange;
           this.gameEvents = new GameEvents();
           // TODO this probably needs to be related to player movement speed
           // this should also probably be refactored out
@@ -25398,26 +25398,23 @@
           // this.dispatchGameEvent(this.getPlayerStateEvent());
       }
       /**
-       * Returns the area's tilemap basd on the current game's level and area
-       * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
+       * Returns the zone's tilemap basd on the current game's act and chapter
+       * TODO Implement error handling - what happens when we request a tilemap of an chapter that doesn't exist?
        */
       Game.prototype.getZone = function () {
-          var levelNum = this.currentLevel;
-          var areaNum = this.currentArea;
-          // Use the level to get the current map for that level
-          var areaToLoad = zoneConfig[levelNum].areas[areaNum];
-          return areaToLoad;
+          console.log(this.currentAct);
+          return zoneConfig[this.currentAct].chapters[this.currentChapter];
       };
       /**
-       * Sets the state for the desired level and area
-       * Populates the internal game state for the currentLevel, Area, mapHeight and mapWidth
-       * @param levelNum
-       * @param areaNum
+       * Sets the state for the desired act and chapter
+       * Populates the internal game state for the currentAct, chapter, mapHeight and mapWidth
+       * @param actNum
+       * @param chapterNum
        */
-      Game.prototype.setLevelAndArea = function (levelNum, areaNum) {
-          // Set the game state of the current level and area
-          this.currentLevel = levelNum;
-          this.currentArea = areaNum;
+      Game.prototype.setZoneByActAndChapter = function (actNum, chapterNum) {
+          // Set the game state of the current act and chapter
+          this.currentAct = actNum;
+          this.currentChapter = chapterNum;
       };
       Game.prototype.dispatchGameEvent = function (event) {
           this.gameEventListener(event);
@@ -25464,10 +25461,10 @@
               centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
           }
       };
-      Game.prototype.loadCurrentLevelArea = function (_a) {
+      Game.prototype.loadCurrentZone = function (_a) {
           var _b = _a.playerStartingTile, playerStartingTile = _b === void 0 ? null : _b;
           if (!this.mapAPI) {
-              throw 'Cannot load the current level area without a mapAPI instance';
+              throw 'Cannot load the current zone without a mapAPI instance';
           }
           // New level means new background
           this.requestBackgroundRender();
@@ -25520,8 +25517,8 @@
       };
       Game.prototype.handleZoneChange = function (act, chapter, newPlayerPosition) {
           // Trigger a level change, request a background change as all the scene is different
-          this.setLevelAndArea(act, chapter);
-          this.loadCurrentLevelArea({ playerStartingTile: newPlayerPosition });
+          this.setZoneByActAndChapter(act, chapter);
+          this.loadCurrentZone({ playerStartingTile: newPlayerPosition });
           // fire event in case anyone is listening
           this.onZoneChange(act, chapter, newPlayerPosition);
       };
@@ -25577,10 +25574,12 @@
 
   function resizeGameElements() {
       var UI_AREA = document.querySelector('.game-ui');
-      var gameArea = document.querySelector('.wrapper');
+      var EDITOR_TILE_SELECTOR = document.querySelector('#editor-tile-selector');
+      var gameArea = document.querySelector('.canvas-main-container');
       var widthToHeight = WIDTH_TO_HEIGHT_RATIO;
+      var TILE_SELECTOR_WIDTH = EDITOR_TILE_SELECTOR ? +EDITOR_TILE_SELECTOR.clientWidth : 0;
       // let editorHeight = isEditing ? 170 : 0;
-      var newWidth = window.innerWidth;
+      var newWidth = window.innerWidth - TILE_SELECTOR_WIDTH;
       var newHeight = Math.min(window.innerHeight, window.innerHeight - UI_AREA_BELOW_CANVAS); // Always leave 200px for the UI at the bottom
       var newWidthToHeight = newWidth / newHeight;
       if (gameArea) {
@@ -25658,6 +25657,52 @@
       });
   }
 
+  var tiles = "./tileSet.png";
+
+  function Editor(props) {
+      var _a = react_18(null), selectedTileKey = _a[0], setSelectedTileKey = _a[1];
+      return (react_22("div", { id: "editor-tile-selector" },
+          react_22("h3", null,
+              "Current Zone: ",
+              props.act,
+              "-",
+              props.chapter),
+          react_22("div", { id: "editor-tiles" }, Object.keys(TILE_TYPES).map(function (key) {
+              var _a = TILE_TYPES[+key], cropStartX = _a.cropStartX, cropStartY = _a.cropStartY, cropSizeX = _a.cropSizeX, cropSizeY = _a.cropSizeY;
+              var style = {
+                  backgroundImage: "url(\"".concat(tiles, "\")"),
+                  flexBasis: '32px',
+                  color: 'black',
+                  backgroundPosition: "-".concat(cropStartX, "px -").concat(cropStartY, "px"),
+                  width: "".concat(cropSizeX, "px"),
+                  height: "".concat(cropSizeY, "px"),
+                  boxSizing: 'border-box'
+              };
+              var extraStyles = selectedTileKey === key ? 'active' : '';
+              return (react_22("div", { key: key, className: "".concat(extraStyles, " editor-tile"), style: style, onClick: function () {
+                      setSelectedTileKey(key);
+                  } }));
+          })),
+          react_22("div", null,
+              react_22("div", null,
+                  react_22("input", { id: "editor-act-selector", placeholder: "Act", type: "number", min: "0" }),
+                  react_22("input", { id: "editor-chapter-selector", placeholder: "Chapter", type: "number", min: "0" }),
+                  react_22("button", { onClick: function (e) {
+                          var actEl = document.getElementById('editor-act-selector');
+                          var chapterEl = document.getElementById('editor-chapter-selector');
+                          props.onZoneNav(+actEl.value, +chapterEl.value);
+                      } }, "Go")),
+              react_22("div", null,
+                  react_22("input", { id: "col", placeholder: "Col", type: "number", min: "0" }),
+                  react_22("input", { id: "row", placeholder: "Row", type: "number", min: "0" }),
+                  react_22("button", { onClick: function (e) {
+                          var colEl = document.getElementById('col');
+                          var rowEl = document.getElementById('row');
+                          props.onPosNav(+colEl.value, +rowEl.value);
+                      } }, "Go"))),
+          react_22("div", null)));
+  }
+
   var App = /** @class */ (function (_super) {
       __extends(App, _super);
       function App(props) {
@@ -25711,11 +25756,11 @@
           document.body.requestFullscreen();
           this.game = new Game({
               mode: 'playing',
-              onAreaChange: function (level, area, newPlayerPosition) { }
+              onZoneChange: function (act, chapter, newPlayerPosition) { }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
-          this.game.setLevelAndArea(0, 0);
+          this.game.setZoneByActAndChapter(0, 0);
           this.createCanvasManager();
           registerUserInputEvents(this.game);
           // For convenience purposes only
@@ -25733,11 +25778,11 @@
           var _this = this;
           this.game = new Game({
               mode: 'editing',
-              onAreaChange: function (level, area, newPlayerPosition) { }
+              onZoneChange: function (act, chapter, newPlayerPosition) { }
           });
           // Game always starts at level 0, area 0
           // TODO we can use this to implement saving - the saved data can be level and area
-          this.game.setLevelAndArea(0, 0);
+          this.game.setZoneByActAndChapter(0, 0);
           this.createCanvasManager();
           // registerUserInputEvents(this.game);
           // For convenience purposes only
@@ -25763,37 +25808,33 @@
           }
           else if (!isGameStarted && isEditorOpen) {
               return (react_22(MainOverlay, { game: this.game },
-                  react_22("div", { className: "wrapper" },
-                      react_22("div", { id: "tile-selector" }, "Foo bar"),
+                  react_22("div", { id: "editor-wrapper" },
+                      react_22(Editor, { onZoneNav: function () { }, onPosNav: function () { }, act: this.game.currentAct, chapter: this.game.currentChapter }),
                       react_22("div", { className: "canvas-main-container" },
                           react_22("canvas", { ref: function (el) {
                                   if (el) {
                                       var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
                                       _this.game.setMapAPI(mapAPI);
-                                      // Load monsters, tiles and everything else!
-                                      _this.game.loadCurrentLevelArea({});
+                                      _this.game.loadCurrentZone({});
                                       _this.game.resume();
                                   }
                               } })))));
           }
           else {
               return (react_22(MainOverlay, { game: this.game },
-                  react_22("div", { className: "wrapper" },
-                      react_22("div", { className: "canvas-main-container" },
-                          react_22("canvas", { ref: function (el) {
-                                  if (el) {
-                                      var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
-                                      _this.game.setMapAPI(mapAPI);
-                                      _this.game.loadCurrentLevelArea({});
-                                      _this.game.resume();
-                                  }
-                              } })))));
+                  react_22("div", { className: "canvas-main-container" },
+                      react_22("canvas", { ref: function (el) {
+                              if (el) {
+                                  var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
+                                  _this.game.setMapAPI(mapAPI);
+                                  _this.game.loadCurrentZone({});
+                                  _this.game.resume();
+                              }
+                          } }))));
           }
       };
       return App;
   }(react_3));
-
-  var tiles = "./tileSet.png";
 
   // Load RAF polyfill
   if (!document.getElementById('app')) {

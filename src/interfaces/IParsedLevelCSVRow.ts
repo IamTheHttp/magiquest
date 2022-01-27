@@ -5,8 +5,8 @@ import {CHARACTERS} from '../gameEngine/gameConstants';
 export interface IExits {
   [key: string]: {
     // key in the form of "x,y"
-    area: number;
-    level: number;
+    act: number;
+    chapter: number;
     exitTile: ITileCoordinate;
   };
 }
@@ -23,8 +23,8 @@ interface IParsedLevelCSVRow {
   id: string;
   monster_spawns: CHARACTERS[];
   mon_per_tile: number;
-  level: number;
-  area: number;
+  act: number;
+  chapter: number;
   description: string;
   no_spawn_locations: INoSpawnLocation[];
   player_start_pos: ITileCoordinate;

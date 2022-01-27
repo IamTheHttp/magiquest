@@ -34,13 +34,6 @@ body {
   box-sizing: border-box;
 }
 
-.wrapper {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
 .canvas-minimap-container {
   width: 200px;
   height: 120px;
@@ -66,13 +59,6 @@ body {
   font-weight: bold;
   font-size: 1rem;
   background-color: tan;
-}
-
-#tiles {
-  display: flex;
-}
-#tiles .tile.active {
-  border: 3px solid white;
 }
 
 #start {
@@ -225,4 +211,20 @@ body {
   position: absolute;
   border-radius: 100%;
   background-color: #ad0000;
+}
+
+#editor-wrapper {
+  display: flex;
+}
+#editor-wrapper #editor-tile-selector {
+  background-color: green;
+  width: 200px;
+}
+#editor-wrapper #editor-tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
+#editor-wrapper #editor-tiles .active {
+  box-sizing: border-box;
+  border: 3px solid white;
 }

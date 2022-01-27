@@ -59,18 +59,18 @@ class Game {
   gameEventListener: IGameEventListener;
 
   // Player's current area TODO this is a placeholder
-  currentArea: number;
+  currentChapter: number;
   // Player's current level TODO this is a placeholder
-  currentLevel: number;
+  currentAct: number;
 
-  constructor({onAreaChange, mode = 'editing'}: IGameConstructor) {
+  constructor({onZoneChange, mode = 'editing'}: IGameConstructor) {
     Entity.reset();
     this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
     this.mode = mode;
     this.engine = engine;
-    this.onZoneChange = onAreaChange;
+    this.onZoneChange = onZoneChange;
     this.gameEvents = new GameEvents();
 
     // TODO this probably needs to be related to player movement speed
@@ -135,27 +135,24 @@ class Game {
   }
 
   /**
-   * Returns the area's tilemap basd on the current game's level and area
-   * TODO Implement error handling - what happens when we request a tilemap of an area that doesn't exist?
+   * Returns the zone's tilemap basd on the current game's act and chapter
+   * TODO Implement error handling - what happens when we request a tilemap of an chapter that doesn't exist?
    */
   getZone() {
-    let levelNum = this.currentLevel;
-    let areaNum = this.currentArea;
-    // Use the level to get the current map for that level
-    let areaToLoad = zoneConfig[levelNum].areas[areaNum] as IZone;
-    return areaToLoad;
+    console.log(this.currentAct);
+    return zoneConfig[this.currentAct].chapters[this.currentChapter] as IZone;
   }
 
   /**
-   * Sets the state for the desired level and area
-   * Populates the internal game state for the currentLevel, Area, mapHeight and mapWidth
-   * @param levelNum
-   * @param areaNum
+   * Sets the state for the desired act and chapter
+   * Populates the internal game state for the currentAct, chapter, mapHeight and mapWidth
+   * @param actNum
+   * @param chapterNum
    */
-  setLevelAndArea(levelNum: number, areaNum: number) {
-    // Set the game state of the current level and area
-    this.currentLevel = levelNum;
-    this.currentArea = areaNum;
+  setZoneByActAndChapter(actNum: number, chapterNum: number) {
+    // Set the game state of the current act and chapter
+    this.currentAct = actNum;
+    this.currentChapter = chapterNum;
   }
 
   dispatchGameEvent(event: PlayerStateChangeEvent) {
@@ -213,9 +210,9 @@ class Game {
     }
   }
 
-  loadCurrentLevelArea({playerStartingTile = null}: {playerStartingTile?: ITileCoordinate}) {
+  loadCurrentZone({playerStartingTile = null}: {playerStartingTile?: ITileCoordinate}) {
     if (!this.mapAPI) {
-      throw 'Cannot load the current level area without a mapAPI instance';
+      throw 'Cannot load the current zone without a mapAPI instance';
     }
     // New level means new background
     this.requestBackgroundRender();
@@ -291,8 +288,8 @@ class Game {
 
   handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {
     // Trigger a level change, request a background change as all the scene is different
-    this.setLevelAndArea(act, chapter);
-    this.loadCurrentLevelArea({playerStartingTile: newPlayerPosition});
+    this.setZoneByActAndChapter(act, chapter);
+    this.loadCurrentZone({playerStartingTile: newPlayerPosition});
 
     // fire event in case anyone is listening
     this.onZoneChange(act, chapter, newPlayerPosition);

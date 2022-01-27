@@ -11,7 +11,7 @@ describe('Full integration test for game.ts', () => {
   it('can initialize the game', () => {
     new Game({
       mode: 'playing',
-      onAreaChange: function (level, area) {
+      onZoneChange: function (level, area) {
         this.changeMap(level, area);
       }
     });
