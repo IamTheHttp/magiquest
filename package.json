@@ -38,7 +38,6 @@
     "react-dom": "16.8.2",
     "rollup": "^2.66.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-includepaths": "^0.2.4",
     "rollup-plugin-require-context": "^1.0.1",
     "rollup-plugin-scss": "^3.0.0",
@@ -48,6 +47,7 @@
     "ts-node": "^10.4.0"
   },
   "devDependencies": {
+    "@rollup/plugin-html": "^0.2.4",
     "@web/dev-server": "^0.1.29",
     "prettier": "^2.5.1"
   }

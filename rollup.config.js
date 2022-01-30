@@ -5,11 +5,51 @@ import scss from "rollup-plugin-scss";
 import commonjs from "rollup-plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import url from "@rollup/plugin-url";
-import copy from "rollup-plugin-copy";
+import html, {makeHtmlAttributes} from "@rollup/plugin-html";
 import react from "react";
 import reactDom from "react-dom";
 import includePaths from "rollup-plugin-includepaths";
 import requireContext from "rollup-plugin-require-context";
+
+
+const template = async ({ attributes, files, meta, publicPath, title }) => {
+  const scripts = (files.js || [])
+    .map(({ fileName }) => {
+      const attrs = makeHtmlAttributes(attributes.script);
+      return `<script src="${publicPath}${fileName}"${attrs}></script>`;
+    })
+    .join('\n');
+
+  const links = (files.css || [])
+    .map(({ fileName }) => {
+      const attrs = makeHtmlAttributes(attributes.link);
+      return `<link href="${publicPath}${fileName}" rel="stylesheet"${attrs}>`;
+    })
+    .join('\n');
+  const metas = meta
+    .map((input) => {
+      const attrs = makeHtmlAttributes(input);
+      return `<meta${attrs}>`;
+    })
+    .join('\n');
+  return `
+<!doctype html>
+<html${makeHtmlAttributes(attributes.html)}>
+  <head>
+    ${metas}
+    <title>${title}</title>
+    <link rel="stylesheet" href="./index.css" />
+    ${links}
+  </head>
+  <body>
+    <div id="progress"></div>
+    <div id="app" class="loading">Initializing Game</div>
+    ${scripts}
+  </body>
+</html>`;
+};
+
+
 
 export default [
   {
@@ -27,7 +67,9 @@ export default [
       includePaths({ paths: ["./src", "."] }),
       json(),
       resolve(),
-      scss(), // will output compiled styles to output.css
+      scss({
+
+      }), // will output compiled styles to output.css
       commonjs({
         namedExports: {
           react: Object.keys(react),
@@ -40,11 +82,9 @@ export default [
         fileName: "[name][extname]",
         destDir: "dist",
       }),
-      copy({
-        targets: [{ src: "html/index.html", dest: "dist" }],
-      }),
       typescript({ target: "es5" }),
       requireContext(),
+      html({template, meta: [], title: "Magic Quest"})
     ],
   },
 ];
