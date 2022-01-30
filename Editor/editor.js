@@ -15,10 +15,15 @@ app.options('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  let levelKey = req.body.levelAreaID;
-  fs.writeFileSync(`../src/levels/${levelKey}/${levelKey}.map.json`, JSON.stringify(req.body.tileMap));
+  let {act, chapter, col, row, tileType} = req.body;
+
+  const MAP_FILE_NAME = `../src/zones/${act}-${chapter}/${act}-${chapter}.map.json`;
+  const zone = JSON.parse(fs.readFileSync(MAP_FILE_NAME, 'utf-8'));
+  zone[row][col] = tileType;
+
+  fs.writeFileSync(MAP_FILE_NAME, JSON.stringify(zone));
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
   res.send('OK');
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Editor app listening on port ${port}!`));

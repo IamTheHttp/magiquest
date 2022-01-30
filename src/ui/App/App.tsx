@@ -11,6 +11,7 @@ import {GameCanvas} from 'game-platform';
 import resizeGameElements from '../utils/resizeGameElements';
 import registerUserInputEvents from '../utils/registerUserInputEvents';
 import {Editor} from '../Editor';
+import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
 
 export class App extends React.Component<any, AppState> {
   game: Game;
@@ -55,8 +56,10 @@ export class App extends React.Component<any, AppState> {
    * @param currentAreaMap
    */
   createCanvasManager() {
-    // creates the new canvas
     this.gameCanvasManager = new GameCanvas({
+      onViewMapClick(e) {
+        console.log(e);
+      },
       mapHeight: 0,
       mapWidth: 0,
       viewHeight: RESOLUTION.height,
@@ -111,6 +114,8 @@ export class App extends React.Component<any, AppState> {
     this.game.setZoneByActAndChapter(0, 0);
 
     this.createCanvasManager();
+
+    // Events for user playing, for Editor we might want to set different inputs
     // registerUserInputEvents(this.game);
 
     // For convenience purposes only
@@ -148,20 +153,9 @@ export class App extends React.Component<any, AppState> {
               onPosNav={() => {}}
               act={this.game.currentAct}
               chapter={this.game.currentChapter}
+              game={this.game}
+              gameCanvasManager={this.gameCanvasManager}
             />
-
-            <div className="canvas-main-container">
-              <canvas
-                ref={(el) => {
-                  if (el) {
-                    const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
-                    this.game.setMapAPI(mapAPI);
-                    this.game.loadCurrentZone({});
-                    this.game.resume();
-                  }
-                }}
-              />
-            </div>
           </div>
         </MainOverlay>
       );
@@ -169,17 +163,7 @@ export class App extends React.Component<any, AppState> {
       return (
         <MainOverlay game={this.game}>
           <div className="canvas-main-container">
-            <canvas
-              ref={(el) => {
-                if (el) {
-                  const mapAPI = this.gameCanvasManager.registerMapCanvas(el);
-
-                  this.game.setMapAPI(mapAPI);
-                  this.game.loadCurrentZone({});
-                  this.game.resume();
-                }
-              }}
-            />
+            <ManagedCanvasMemo game={this.game} gameCanvasManager={this.gameCanvasManager} />
           </div>
         </MainOverlay>
       );

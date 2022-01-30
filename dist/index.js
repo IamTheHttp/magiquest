@@ -161,7 +161,7 @@
   react.createContext;
   react.forwardRef;
   react.lazy;
-  react.memo;
+  var react_8 = react.memo;
   react.useCallback;
   react.useContext;
   var react_11 = react.useEffect;
@@ -172,7 +172,7 @@
   react.useReducer;
   react.useRef;
   var react_18 = react.useState;
-  react.Fragment;
+  var react_19 = react.Fragment;
   react.StrictMode;
   react.Suspense;
   var react_22 = react.createElement;
@@ -2061,16 +2061,6 @@
   var dist_4 = dist.entityLoop;
   var dist_5 = dist.Entity;
 
-  /* eslint no-console: "off" */
-  function assertType(expectedType, name, type) {
-      if (typeof expectedType === 'boolean') {
-          console.assert(expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(expectedType, " received instead"));
-      }
-      else {
-          console.assert(typeof expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(typeof expectedType, " received instead"));
-      }
-  }
-
   var IS_MOVING_COMP = 'IS_MOVING_COMP';
   var PLAYER_CONTROLLED_COMP = 'PLAYER_CONTROLLED_COMP';
   var BACKGROUND_COMP = 'BACKGROUND_COMP';
@@ -2112,6 +2102,16 @@
       }
       return PositionComponent;
   }());
+
+  /* eslint no-console: "off" */
+  function assertType(expectedType, name, type) {
+      if (typeof expectedType === 'boolean') {
+          console.assert(expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(expectedType, " received instead"));
+      }
+      else {
+          console.assert(typeof expectedType === type, "Error, expected ".concat(name, " to be ").concat(type, " but ").concat(typeof expectedType, " received instead"));
+      }
+  }
 
   var BackgroundComponent = /** @class */ (function () {
       function BackgroundComponent(sections) {
@@ -3700,15 +3700,6 @@
       };
   }
 
-  function getColRowByTileIdx(tileIdx) {
-      var col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
-      var row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
-      return {
-          row: row,
-          col: col
-      };
-  }
-
   function centerCameraOnEntity(entity, mapAPI, game, viewWidth, viewHeight, mapWidth, mapHeight, force) {
       if (force === void 0) { force = false; }
       var _a = entity.getPos(), x = _a.x, y = _a.y;
@@ -4206,6 +4197,15 @@
       });
   }
 
+  function getColRowByTileIdx(tileIdx) {
+      var col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
+      var row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
+      return {
+          row: row,
+          col: col
+      };
+  }
+
   /**
    * Created by patrik.tolosa on 2019-10-23.
 
@@ -4610,9 +4610,9 @@
 
   var oneMap = [
   	[
-  		1000,
-  		1000,
-  		1000,
+  		null,
+  		null,
+  		null,
   		1000,
   		2,
   		100,
@@ -5123,7 +5123,7 @@
   		100,
   		100,
   		100,
-  		100,
+  		"100",
   		100,
   		100,
   		9,
@@ -5136,7 +5136,7 @@
   		5,
   		5,
   		1,
-  		0,
+  		"1",
   		1,
   		1,
   		1,
@@ -25505,16 +25505,6 @@
           }
           this.renderBackground = true; // for the first time
       };
-      // TODO - EDITOR MODE ONLY
-      Game.prototype.changeTileType = function (tile, newType) {
-          assertType(tile, 'Tile', 'object');
-          tile.setTileType(newType);
-          // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
-          var _a = getColRowByTileIdx(tile.tileIdx), col = _a.col, row = _a.row;
-          this.zone.tileMap[row][col] = +newType;
-          this.renderBackground = true; // for the first time
-          return this.zone;
-      };
       Game.prototype.handleZoneChange = function (act, chapter, newPlayerPosition) {
           // Trigger a level change, request a background change as all the scene is different
           this.setZoneByActAndChapter(act, chapter);
@@ -25659,48 +25649,94 @@
 
   var tiles = "./tileSet.png";
 
+  function ManagedCanvas(props) {
+      var game = props.game, gameCanvasManager = props.gameCanvasManager;
+      return (react_22("canvas", { ref: function (el) {
+              if (el) {
+                  console.log('Go Go');
+                  var mapAPI = gameCanvasManager.registerMapCanvas(el);
+                  game.setMapAPI(mapAPI);
+                  game.loadCurrentZone({});
+                  game.resume();
+              }
+          } }));
+  }
+  var ManagedCanvasMemo = react_8(ManagedCanvas);
+
+  function updateEditorServerTile(game, col, row, tileType) {
+      fetch('http://localhost:3000', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify({
+              act: game.currentAct,
+              chapter: game.currentChapter,
+              tileType: tileType,
+              col: col,
+              row: row
+          })
+      });
+  }
   function Editor(props) {
-      var _a = react_18(null), selectedTileKey = _a[0], setSelectedTileKey = _a[1];
-      return (react_22("div", { id: "editor-tile-selector" },
-          react_22("h3", null,
-              "Current Zone: ",
-              props.act,
-              "-",
-              props.chapter),
-          react_22("div", { id: "editor-tiles" }, Object.keys(TILE_TYPES).map(function (key) {
-              var _a = TILE_TYPES[+key], cropStartX = _a.cropStartX, cropStartY = _a.cropStartY, cropSizeX = _a.cropSizeX, cropSizeY = _a.cropSizeY;
-              var style = {
-                  backgroundImage: "url(\"".concat(tiles, "\")"),
-                  flexBasis: '32px',
-                  color: 'black',
-                  backgroundPosition: "-".concat(cropStartX, "px -").concat(cropStartY, "px"),
-                  width: "".concat(cropSizeX, "px"),
-                  height: "".concat(cropSizeY, "px"),
-                  boxSizing: 'border-box'
-              };
-              var extraStyles = selectedTileKey === key ? 'active' : '';
-              return (react_22("div", { key: key, className: "".concat(extraStyles, " editor-tile"), style: style, onClick: function () {
-                      setSelectedTileKey(key);
-                  } }));
-          })),
-          react_22("div", null,
+      var game = props.game, gameCanvasManager = props.gameCanvasManager;
+      var _a = react_18(null), selectedTileType = _a[0], setSelectedTileType = _a[1];
+      gameCanvasManager.onViewMapClick = function (e) {
+          if (selectedTileType === null) {
+              return; // Do nothing if no selectedTileType
+          }
+          var _a = getGridIdxFromPos(e.x, e.y), col = _a.col, row = _a.row;
+          // Update the map in the server
+          // This will also save the changes you make
+          // TODO add server-error handling?
+          updateEditorServerTile(game, col, row, selectedTileType);
+          // Client side update (optimistic update that the server worked)
+          game.tileIdxMap["".concat(col, ",").concat(row)].tile.setTileType(selectedTileType);
+          game.renderBackground = true;
+      };
+      return (react_22(react_19, null,
+          react_22("div", { id: "editor-tile-selector" },
+              react_22("h3", null,
+                  "Current Zone: ",
+                  props.act,
+                  "-",
+                  props.chapter),
+              react_22("div", { id: "editor-tiles" }, Object.keys(TILE_TYPES).map(function (key) {
+                  var _a = TILE_TYPES[+key], cropStartX = _a.cropStartX, cropStartY = _a.cropStartY, cropSizeX = _a.cropSizeX, cropSizeY = _a.cropSizeY;
+                  var style = {
+                      backgroundImage: "url(\"".concat(tiles, "\")"),
+                      flexBasis: '32px',
+                      color: 'black',
+                      backgroundPosition: "-".concat(cropStartX, "px -").concat(cropStartY, "px"),
+                      width: "".concat(cropSizeX, "px"),
+                      height: "".concat(cropSizeY, "px"),
+                      boxSizing: 'border-box'
+                  };
+                  var extraStyles = selectedTileType === key ? 'active' : '';
+                  return (react_22("div", { key: key, className: "".concat(extraStyles, " editor-tile"), style: style, onClick: function () {
+                          setSelectedTileType(key);
+                      } }));
+              })),
               react_22("div", null,
-                  react_22("input", { id: "editor-act-selector", placeholder: "Act", type: "number", min: "0" }),
-                  react_22("input", { id: "editor-chapter-selector", placeholder: "Chapter", type: "number", min: "0" }),
-                  react_22("button", { onClick: function (e) {
-                          var actEl = document.getElementById('editor-act-selector');
-                          var chapterEl = document.getElementById('editor-chapter-selector');
-                          props.onZoneNav(+actEl.value, +chapterEl.value);
-                      } }, "Go")),
-              react_22("div", null,
-                  react_22("input", { id: "col", placeholder: "Col", type: "number", min: "0" }),
-                  react_22("input", { id: "row", placeholder: "Row", type: "number", min: "0" }),
-                  react_22("button", { onClick: function (e) {
-                          var colEl = document.getElementById('col');
-                          var rowEl = document.getElementById('row');
-                          props.onPosNav(+colEl.value, +rowEl.value);
-                      } }, "Go"))),
-          react_22("div", null)));
+                  react_22("div", null,
+                      react_22("input", { id: "editor-act-selector", placeholder: "Act", type: "number", min: "0" }),
+                      react_22("input", { id: "editor-chapter-selector", placeholder: "Chapter", type: "number", min: "0" }),
+                      react_22("button", { onClick: function (e) {
+                              var actEl = document.getElementById('editor-act-selector');
+                              var chapterEl = document.getElementById('editor-chapter-selector');
+                              props.onZoneNav(+actEl.value, +chapterEl.value);
+                          } }, "Go")),
+                  react_22("div", null,
+                      react_22("input", { id: "col", placeholder: "Col", type: "number", min: "0" }),
+                      react_22("input", { id: "row", placeholder: "Row", type: "number", min: "0" }),
+                      react_22("button", { onClick: function (e) {
+                              var colEl = document.getElementById('col');
+                              var rowEl = document.getElementById('row');
+                              props.onPosNav(+colEl.value, +rowEl.value);
+                          } }, "Go")))),
+          react_22("div", { className: "canvas-main-container" },
+              react_22(ManagedCanvasMemo, { game: game, gameCanvasManager: gameCanvasManager }))));
   }
 
   var App = /** @class */ (function (_super) {
@@ -25738,8 +25774,10 @@
        * @param currentAreaMap
        */
       App.prototype.createCanvasManager = function () {
-          // creates the new canvas
           this.gameCanvasManager = new dist_2({
+              onViewMapClick: function (e) {
+                  console.log(e);
+              },
               mapHeight: 0,
               mapWidth: 0,
               viewHeight: RESOLUTION.height,
@@ -25784,6 +25822,7 @@
           // TODO we can use this to implement saving - the saved data can be level and area
           this.game.setZoneByActAndChapter(0, 0);
           this.createCanvasManager();
+          // Events for user playing, for Editor we might want to set different inputs
           // registerUserInputEvents(this.game);
           // For convenience purposes only
           window.game = this.game;
@@ -25800,7 +25839,6 @@
           resizeGameElements();
       };
       App.prototype.render = function () {
-          var _this = this;
           var isGameStarted = this.state.isGameRunning;
           var isEditorOpen = this.state.isEditorOpen;
           if (!isGameStarted && !isEditorOpen) {
@@ -25809,28 +25847,12 @@
           else if (!isGameStarted && isEditorOpen) {
               return (react_22(MainOverlay, { game: this.game },
                   react_22("div", { id: "editor-wrapper" },
-                      react_22(Editor, { onZoneNav: function () { }, onPosNav: function () { }, act: this.game.currentAct, chapter: this.game.currentChapter }),
-                      react_22("div", { className: "canvas-main-container" },
-                          react_22("canvas", { ref: function (el) {
-                                  if (el) {
-                                      var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
-                                      _this.game.setMapAPI(mapAPI);
-                                      _this.game.loadCurrentZone({});
-                                      _this.game.resume();
-                                  }
-                              } })))));
+                      react_22(Editor, { onZoneNav: function () { }, onPosNav: function () { }, act: this.game.currentAct, chapter: this.game.currentChapter, game: this.game, gameCanvasManager: this.gameCanvasManager }))));
           }
           else {
               return (react_22(MainOverlay, { game: this.game },
                   react_22("div", { className: "canvas-main-container" },
-                      react_22("canvas", { ref: function (el) {
-                              if (el) {
-                                  var mapAPI = _this.gameCanvasManager.registerMapCanvas(el);
-                                  _this.game.setMapAPI(mapAPI);
-                                  _this.game.loadCurrentZone({});
-                                  _this.game.resume();
-                              }
-                          } }))));
+                      react_22(ManagedCanvasMemo, { game: this.game, gameCanvasManager: this.gameCanvasManager }))));
           }
       };
       return App;

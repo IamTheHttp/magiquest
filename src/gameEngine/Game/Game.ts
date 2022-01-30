@@ -272,20 +272,6 @@ class Game {
     this.renderBackground = true; // for the first time
   }
 
-  // TODO - EDITOR MODE ONLY
-  changeTileType(tile: Tile, newType: number): IZone {
-    assertType(tile, 'Tile', 'object');
-
-    tile.setTileType(newType);
-
-    // levelArea.tileMap[row][col], this the RAW json that creates the level - this is what we want to save after..
-    let {col, row} = getColRowByTileIdx(tile.tileIdx);
-    this.zone.tileMap[row][col] = +newType;
-
-    this.renderBackground = true; // for the first time
-    return this.zone;
-  }
-
   handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {
     // Trigger a level change, request a background change as all the scene is different
     this.setZoneByActAndChapter(act, chapter);
