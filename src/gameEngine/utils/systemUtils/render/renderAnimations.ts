@@ -1,7 +1,7 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {AllowedUIShapes, ANIMATIONS, ATTACK_CONFIG, bit} from '../../../gameConstants';
-import {assetLoader} from 'cache/assetLoader';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {assetLoader} from 'utils/assetLoader';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
 function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity) {

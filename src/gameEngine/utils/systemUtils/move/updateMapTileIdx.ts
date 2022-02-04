@@ -1,5 +1,5 @@
 import {getTileIdxByPos} from '../../componentUtils/tileUtils/getTileIdx';
-import {ITileIndexMap} from '../../../../interfaces/interfaces';
+import {ITileIndexMap} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';
 import {HEALTH_COMP} from '../../../components/ComponentNamesConfig';
 

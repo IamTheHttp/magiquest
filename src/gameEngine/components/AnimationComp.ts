@@ -1,6 +1,6 @@
 import {ANIMATION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
-import {IAnimationFrame, IAnimationMap} from '../../interfaces/interfaces';
+import {IAnimationFrame, IAnimationMap} from '../../interfaces/IGeneral';
 
 export interface IAnimationVariantArguments {
   animationName: string;

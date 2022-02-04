@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "CommonJS",
     "target": "es6",
     "jsx": "react",
     "moduleResolution": "node",

@@ -7,7 +7,7 @@ import {
   LEVEL_COMP,
   PLAYER_CONTROLLED_COMP
 } from '../components/ComponentNamesConfig';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 
 function experienceSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;

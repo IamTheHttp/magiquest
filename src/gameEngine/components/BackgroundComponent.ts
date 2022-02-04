@@ -1,6 +1,6 @@
 import {BACKGROUND_COMP} from './ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
-import {IUISection} from '../../interfaces/interfaces';
+import {IUISection} from '../../interfaces/IGeneral';
 
 class BackgroundComponent {
   name: string;

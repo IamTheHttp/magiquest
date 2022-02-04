@@ -1,4 +1,4 @@
-import {IZone, ITileCoordinate} from '../../interfaces/zones.i';
+import {IZone, ITileCoordinate} from '../../interfaces/IZones';
 import {Engine, Entity} from 'game-platform';
 import assertType from '../utils/assertType';
 import createTileIndexMap from '../utils/createTileIndexMap';
@@ -9,7 +9,7 @@ import {
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
 } from '../components/ComponentNamesConfig';
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {pushTrigger, Trigger} from '../systems/triggerSystem';
 import renderSystem from '../systems/renderSystem';
@@ -20,7 +20,7 @@ import GameEvents, {
   PlayerIsAttacked,
   PlayerSkillsChangeEvent
 } from '../classes/GameEvents';
-import {assetLoader} from '../../cache/assetLoader';
+import {assetLoader} from '../../utils/assetLoader';
 import placePlayerInLevel from '../utils/placePlayerInLevel';
 import animationSystem from '../systems/animationSystem';
 import aiSystem from '../systems/aiSystem';
@@ -30,7 +30,7 @@ import getColRowByTileIdx from '../utils/getColRowByTileIdx';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import questSystem from '../systems/questSystem';
 import destroyAllButPlayer from '../utils/destroyAllButPlayer';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import userInputSystem, {pushAction} from '../systems/userInputSystem';
 import spawnEnemiesSystem from '../systems/spawnEnemiesSystem';
 import attackSystem from '../systems/attackSystem';
@@ -42,7 +42,7 @@ import moveSystem from '../systems/moveSystem';
 import placeLevelEntities from '../utils/placeLevelEntities';
 import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from '../gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
-import {zoneConfig} from '../../zones/zoneConfig';
+import {zoneConfig} from '../../data/zones/zoneConfig';
 
 class Game {
   engine: Engine;

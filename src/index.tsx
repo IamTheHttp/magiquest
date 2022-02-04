@@ -1,14 +1,14 @@
 // Load RAF polyfill
-import './polyfill/rAF.ts';
+import '../.polyfills/rAF.ts';
 
 import * as React from 'react';
 import {render} from 'react-dom';
-import {App} from './ui/App/App';
-import tiles from 'assets/tileSet.png';
-import charSpriteURL from 'assets/characters.png';
-import sentrySpriteURL from 'assets/sentry.png';
-import miscURL from 'assets/misc.png';
-import {assetLoader} from 'cache/assetLoader';
+import tiles from './assets/tileSet.png';
+import charSpriteURL from './assets/characters.png';
+import sentrySpriteURL from './assets/sentry.png';
+import miscURL from './assets/misc.png';
+import {assetLoader} from 'utils/assetLoader';
+import {App} from './UIComponents/App/App';
 
 if (!document.getElementById('app')) {
   let div = document.createElement('div');

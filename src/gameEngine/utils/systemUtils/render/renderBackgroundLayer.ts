@@ -1,7 +1,7 @@
 import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import filterOutFarEntities from '../filterOutFarEntities';
 import {AllowedUIShapes} from 'gameEngine/gameConstants';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 import {TILE_TYPES} from '../../../createEntitySprites';
 

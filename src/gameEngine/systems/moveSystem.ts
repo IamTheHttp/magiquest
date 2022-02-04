@@ -9,7 +9,7 @@ import assertType from 'gameEngine/utils/assertType';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {Trigger, pushTrigger} from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';

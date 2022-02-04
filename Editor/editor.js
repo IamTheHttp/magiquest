@@ -17,9 +17,9 @@ app.options('/', (req, res) => {
 app.post('/', (req, res) => {
   let {act, chapter, col, row, tileType} = req.body;
 
-  const MAP_FILE_NAME = `../src/zones/${act}-${chapter}/${act}-${chapter}.map.json`;
+  const MAP_FILE_NAME = `../src/data/zones/${act}-${chapter}/${act}-${chapter}.map.json`;
   const zone = JSON.parse(fs.readFileSync(MAP_FILE_NAME, 'utf-8'));
-  zone[row][col] = tileType;
+  zone[row][col] = +tileType; // must be int type!
 
   fs.writeFileSync(MAP_FILE_NAME, JSON.stringify(zone));
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from

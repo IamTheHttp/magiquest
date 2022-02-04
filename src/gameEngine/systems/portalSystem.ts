@@ -1,7 +1,7 @@
 import {PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import assertType from 'gameEngine/utils/assertType';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import Player from '../entities/characters/Player';
 
 export function isNonEmptyArray(x: any) {

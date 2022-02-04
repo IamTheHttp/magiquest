@@ -1,5 +1,5 @@
 import Player from '../../src/gameEngine/entities/characters/Player';
-import charactersDataConfig from '../../src/data/charactersDataConfig';
+import {charactersDataConfig} from '../../src/data/charactersDataConfig';
 import {CHARACTERS} from '../../src/gameEngine/gameConstants';
 
 function createTestPlayer(col: number, row: number) {

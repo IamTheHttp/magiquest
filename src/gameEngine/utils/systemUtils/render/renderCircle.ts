@@ -1,5 +1,5 @@
 import {POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
 function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity) {

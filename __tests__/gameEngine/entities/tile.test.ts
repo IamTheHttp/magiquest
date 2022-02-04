@@ -1,6 +1,6 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {CAN_SPAWN_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 import {AllowedLevelLocationIDs} from '../../../src/gameEngine/gameConstants';

@@ -17,7 +17,7 @@ import {
   SPAWNED_COMP,
   UI_COMP
 } from './components/ComponentNamesConfig';
-import {IAnimationMap} from '../interfaces/interfaces';
+import {IAnimationMap} from '../interfaces/IGeneral';
 import HasActionSignComponent from './components/HasActionSignComponent';
 import {AllowedQuestState} from './components/QuestDataComponent';
 import CanSpawn from './components/CanSpawn';

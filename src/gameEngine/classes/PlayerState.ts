@@ -1,5 +1,5 @@
 import {AllowedSkills} from '../../data/skillConfig';
-import {IPlayerState, IUIEvent} from '../../interfaces/interfaces';
+import {IPlayerState, IUIEvent} from '../../interfaces/IGeneral';
 import {IAssignedCharacterAttributes} from '../components/CharacterAttributesComponent';
 
 class PlayerState implements IPlayerState {

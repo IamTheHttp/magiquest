@@ -8,13 +8,13 @@ import {
 import {AllowedUIShapes, bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
-import char from 'assets/characters.png';
-import misc from 'assets/misc.png';
+import char from '../../../../assets/characters.png';
+import misc from '../../../../assets/misc.png';
 import {getSpriteCrop} from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
-import {assetLoader} from 'cache/assetLoader';
+import {assetLoader} from 'utils/assetLoader';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../BaseEntity';
 

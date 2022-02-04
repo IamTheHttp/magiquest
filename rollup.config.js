@@ -1,27 +1,26 @@
-import resolve from "@rollup/plugin-node-resolve";
-import typescript from "rollup-plugin-typescript";
-import json from "@rollup/plugin-json";
-import scss from "rollup-plugin-scss";
-import commonjs from "rollup-plugin-commonjs";
-import replace from "@rollup/plugin-replace";
-import url from "@rollup/plugin-url";
-import html, {makeHtmlAttributes} from "@rollup/plugin-html";
-import react from "react";
-import reactDom from "react-dom";
-import includePaths from "rollup-plugin-includepaths";
-import requireContext from "rollup-plugin-require-context";
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from 'rollup-plugin-typescript';
+import json from '@rollup/plugin-json';
+import scss from 'rollup-plugin-scss';
+import commonjs from 'rollup-plugin-commonjs';
+import replace from '@rollup/plugin-replace';
+import url from '@rollup/plugin-url';
+import html, {makeHtmlAttributes} from '@rollup/plugin-html';
+import react from 'react';
+import reactDom from 'react-dom';
+import includePaths from 'rollup-plugin-includepaths';
+import requireContext from 'rollup-plugin-require-context';
 
-
-const template = async ({ attributes, files, meta, publicPath, title }) => {
+const template = async ({attributes, files, meta, publicPath, title}) => {
   const scripts = (files.js || [])
-    .map(({ fileName }) => {
+    .map(({fileName}) => {
       const attrs = makeHtmlAttributes(attributes.script);
       return `<script src="${publicPath}${fileName}"${attrs}></script>`;
     })
     .join('\n');
 
   const links = (files.css || [])
-    .map(({ fileName }) => {
+    .map(({fileName}) => {
       const attrs = makeHtmlAttributes(attributes.link);
       return `<link href="${publicPath}${fileName}" rel="stylesheet"${attrs}>`;
     })
@@ -49,42 +48,41 @@ const template = async ({ attributes, files, meta, publicPath, title }) => {
 </html>`;
 };
 
-
-
 export default [
   {
-    input: "src/index.tsx",
+    watch: {
+      exclude: './src/data/**/*'
+    },
+    input: 'src/index.tsx',
     output: [
       {
-        file: "dist/index.js",
-        format: "iife",
-      },
+        file: 'dist/index.js',
+        format: 'iife'
+      }
     ],
     plugins: [
       replace({
-        "process.env.NODE_ENV": JSON.stringify("production"),
+        'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      includePaths({ paths: ["./src", "."] }),
+      includePaths({paths: ['./src', '.']}),
       json(),
       resolve(),
-      scss({
-
-      }), // will output compiled styles to output.css
+      scss({}), // will output compiled styles to output.css
       commonjs({
         namedExports: {
           react: Object.keys(react),
-          "react-dom": Object.keys(reactDom),
-        },
+          'react-dom': Object.keys(reactDom)
+        }
       }),
       url({
         limit: 0,
-        publicPath: "./",
-        fileName: "[name][extname]",
-        destDir: "dist",
+        publicPath: './',
+        fileName: '[name][extname]',
+        destDir: 'dist'
       }),
-      typescript({ target: "es5" }),
+      typescript({target: 'es5'}),
       requireContext(),
-      html({template, meta: [], title: "Magic Quest"})
-    ],
-  },
+      html({template, meta: [], title: 'Magic Quest'})
+    ]
+  }
 ];

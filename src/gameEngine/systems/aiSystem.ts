@@ -9,7 +9,7 @@ import oneOf from '../utils/oneOf';
 import {bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 

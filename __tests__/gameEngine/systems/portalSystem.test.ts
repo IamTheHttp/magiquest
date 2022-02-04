@@ -2,7 +2,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';

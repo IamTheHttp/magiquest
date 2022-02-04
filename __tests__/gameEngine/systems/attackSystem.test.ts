@@ -4,7 +4,7 @@ import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';

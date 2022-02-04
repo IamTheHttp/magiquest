@@ -1,7 +1,7 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import {AllowedUIShapes} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
 function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) {

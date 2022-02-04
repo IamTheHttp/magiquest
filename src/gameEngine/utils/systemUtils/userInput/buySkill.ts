@@ -3,8 +3,8 @@ import {
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
-import {IAction} from '../../../../interfaces/interfaces';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
+import {IAction} from '../../../../interfaces/IGeneral';
 import {AllowedSkills, skillsConfig} from '../../../../data/skillConfig';
 import Player from '../../../entities/characters/Player';
 import {BaseEntity} from '../../../BaseEntity';

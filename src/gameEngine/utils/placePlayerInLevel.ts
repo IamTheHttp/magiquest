@@ -1,9 +1,9 @@
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {IZone, ITileCoordinate} from '../../interfaces/zones.i';
-import {ITileIndexMap} from '../../interfaces/interfaces';
-import charactersDataConfig from '../../data/charactersDataConfig';
+import {IZone, ITileCoordinate} from '../../interfaces/IZones';
+import {ITileIndexMap} from '../../interfaces/IGeneral';
+import {charactersDataConfig} from '../../data/charactersDataConfig';
 import {Entity} from 'game-platform';
 import Player from '../entities/characters/Player';
 import {BaseEntity} from '../BaseEntity';

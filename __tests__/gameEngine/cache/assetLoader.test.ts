@@ -1,4 +1,5 @@
-import {assetLoader} from 'cache/assetLoader';
+import {assetLoader} from '../../../src/utils/assetLoader';
+
 import {Entity} from 'game-platform';
 
 let global2 = global as any; // TODO Should this be any?

@@ -1,4 +1,4 @@
-import {ITileCoordinate} from '../src/interfaces/zones.i';
+import {ITileCoordinate} from '../src/interfaces/IZones';
 
 process.chdir(__dirname);
 
@@ -15,8 +15,8 @@ import {IParsedCharacterCSVMap} from '../src/interfaces/IParsedCharacterCSVRow';
  */
 interface ICSVRow {
   id: string; // "LEVEL-AREA" format
-  level: string; // number like
-  area: string; // number like
+  act: string; // number like
+  chapter: string; // number like
   description: string;
   player_start_pos: string; // "x,y" format
   monster_spawns: string; // "MONS_A, MOBS_B" format
@@ -58,12 +58,12 @@ function buildLevels() {
             return;
           }
           let [targetLevelID, targetTilePosition] = encodedTargetLevel.split('@');
-          let [targetLevel, targetArea] = targetLevelID.split('-');
+          let [targetAct, targetChapter] = targetLevelID.split('-');
           let [targetX, targetY] = targetTilePosition.split(',');
 
           EXITS[sourcePosition.trim()] = {
-            area: +targetArea,
-            level: +targetLevel,
+            act: +targetAct,
+            chapter: +targetChapter,
             exitTile: {
               col: +targetX,
               row: +targetY
@@ -97,8 +97,8 @@ function buildLevels() {
         // Push parsed level
         let parsedLevel: IParsedLevelCSVRow = {
           id: csvLevelRow.id,
-          level: +csvLevelRow.level,
-          area: +csvLevelRow.area,
+          act: +csvLevelRow.act,
+          chapter: +csvLevelRow.chapter,
           description: csvLevelRow.description,
           player_start_pos: PLAYER_START_POS,
           monster_spawns: MONSTER_SPAWNS,
@@ -108,17 +108,16 @@ function buildLevels() {
         };
 
         // Run tests/validations
-        // Validate that the level/area id exists in the file structure
-        // a level is built from csv data +
-        function validateLevelID(id: string) {
-          let stat = fs.statSync(`../src/levels/${id}`);
+        // Validate that the zone id exists in the file structure (act-chapter)
+        function validateLevelIDExists(id: string) {
+          let stat = fs.statSync(`../src/data/zones/${id}`);
         }
 
-        validateLevelID(parsedLevel.id);
+        validateLevelIDExists(parsedLevel.id);
         parsedLevelsList.push(parsedLevel);
       });
 
-      fs.writeFileSync('../src/data/levels.json', JSON.stringify(parsedLevelsList, null, '\t'));
+      fs.writeFileSync('../src/data/json/zones.json', JSON.stringify(parsedLevelsList, null, '\t'));
       console.log('Done - Writing database files');
     });
 }
@@ -162,7 +161,7 @@ function buildCharacters() {
         };
       });
 
-      fs.writeFileSync('../src/data/characters.json', JSON.stringify(parsedCharacterMap, null, '\t'));
+      fs.writeFileSync('../src/data/json/characters.json', JSON.stringify(parsedCharacterMap, null, '\t'));
       console.log('Done - Writing database files');
     });
 }

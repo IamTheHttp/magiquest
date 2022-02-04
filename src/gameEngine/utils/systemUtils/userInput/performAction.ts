@@ -3,7 +3,7 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
 import {IEntityMap} from 'game-platform/dist/lib/interfaces';
 import FamNPC from '../../../entities/characters/FamNPC';

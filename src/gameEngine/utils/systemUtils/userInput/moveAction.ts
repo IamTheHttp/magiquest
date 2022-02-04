@@ -1,6 +1,6 @@
 import {PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
-import {IAction} from '../../../../interfaces/interfaces';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
+import {IAction} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';
 
 function moveAction(systemArguments: ISystemArguments, action: IAction) {

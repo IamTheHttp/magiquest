@@ -1,5 +1,5 @@
-import {ITileIndexMap, IViewSize} from '../../interfaces/interfaces';
-import {IZone, ILevelLocation, ITileMap} from '../../interfaces/zones.i';
+import {ITileIndexMap, IViewSize} from '../../interfaces/IGeneral';
+import {IZone, ILevelLocation, ITileMap} from '../../interfaces/IZones';
 import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
 import {AllowedLevelLocationIDs} from '../gameConstants';
 import Tile from '../entities/Tile';

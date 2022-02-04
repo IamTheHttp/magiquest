@@ -9,5 +9,6 @@ stats.json
 .DS_Store
 .vscode
 distTS
-dist/__tests__
-dist/src
+dist
+# This is the build output of data/csv
+src/data/json

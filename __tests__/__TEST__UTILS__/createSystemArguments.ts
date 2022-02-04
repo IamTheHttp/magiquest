@@ -1,6 +1,6 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
 import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
-import {ISystemArguments} from '../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
 import GameEvents from '../../src/gameEngine/classes/GameEvents';

@@ -1,4 +1,4 @@
-import {ITileCoordinate} from './zones.i';
+import {ITileCoordinate} from './IZones';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import {CHARACTERS} from '../gameEngine/gameConstants';
 

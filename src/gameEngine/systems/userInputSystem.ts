@@ -3,8 +3,8 @@ import performAction from '../utils/systemUtils/userInput/performAction';
 import buySkill from '../utils/systemUtils/userInput/buySkill';
 import buyAttr from '../utils/systemUtils/userInput/buyAttr';
 
-import {ISystemArguments} from '../../interfaces/gameloop.i';
-import {IAction} from '../../interfaces/interfaces';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
+import {IAction} from '../../interfaces/IGeneral';
 import {AllowedActions} from '../gameConstants';
 
 let actionMap = {
