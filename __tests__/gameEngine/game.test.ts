@@ -1,4 +1,4 @@
-import Game from '../../src/gameEngine/Game/Game';
+import Game from '../../src/gameEngine/Game';
 import {AllowedLevelLocationIDs, RESOLUTION} from '../../src/gameEngine/gameConstants';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 

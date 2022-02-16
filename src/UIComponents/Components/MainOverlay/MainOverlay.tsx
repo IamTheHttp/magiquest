@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ComponentProps} from 'react';
 import GameUI from '../GameUI/GameUI';
 import {IPlayerState, IPlayerUIState} from '../../../interfaces/IGeneral';
-import Game from '../../../gameEngine/Game/Game';
+import Game from '../../../gameEngine/Game';
 import {PlayerState} from '../../../gameEngine/classes/PlayerState';
 import {AllowedAttributes} from '../../../data/attributesConfig';
 

@@ -4,7 +4,7 @@ import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
 import GameEvents from '../../src/gameEngine/classes/GameEvents';
-import Game from '../../src/gameEngine/Game/Game';
+import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {

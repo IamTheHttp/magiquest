@@ -1,5 +1,5 @@
 import {Entity} from 'game-platform';
-import Game from '../gameEngine/Game/Game';
+import Game from '../gameEngine/Game';
 import GameEvents from '../gameEngine/classes/GameEvents';
 import {IZone} from './IZones';
 import {ITileIndexMap, IViewSize} from './IGeneral';

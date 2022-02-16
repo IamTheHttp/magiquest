@@ -6,7 +6,7 @@ import {MainMenu} from '../Components/MainMenu/MainMenu';
 import {AppState} from './AppState';
 import {getDefaultAppState} from './getDefaultAppState';
 import {MainOverlay} from '../Components/MainOverlay/MainOverlay';
-import Game from '../../gameEngine/Game/Game';
+import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
 import {resizeGameElements} from '../utils/resizeGameElements';
 import registerUserInputEvents from '../../utils/registerUserInputEvents';
@@ -116,7 +116,7 @@ export class App extends React.Component<any, AppState> {
     this.createCanvasManager();
 
     // Events for user playing, for Editor we might want to set different inputs
-    // registerUserInputEvents(this.game);
+    registerUserInputEvents(this.game);
 
     // For convenience purposes only
     window.game = this.game;

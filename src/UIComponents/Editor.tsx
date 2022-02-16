@@ -2,7 +2,7 @@ import * as React from 'react';
 import tileSet from '../assets/tileSet.png';
 import {CSSProperties, useRef, useState} from 'react';
 import {TILE_TYPES} from '../gameEngine/createEntitySprites';
-import Game from '../gameEngine/Game/Game';
+import Game from '../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
 import {ManagedCanvasMemo} from './Components/ManagedCanvas';
 import {getGridIdxFromPos} from '../gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';

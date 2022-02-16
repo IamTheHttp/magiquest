@@ -1,5 +1,5 @@
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
-import Game from '../gameEngine/Game/Game';
+import Game from '../gameEngine/Game';
 
 class Glob {
   keyPressed: boolean;
@@ -38,7 +38,6 @@ function registerUserInputEvents(game: Game) {
     let code = +(event.which || event.keyCode || event.code);
     // Support arrow keys and WASD
 
-    console.log(code);
     let map = {
       [KEY_TO_CODE_MAP.W]: DIRECTIONS_OPTIONS.UP,
       [KEY_TO_CODE_MAP.A]: DIRECTIONS_OPTIONS.LEFT,

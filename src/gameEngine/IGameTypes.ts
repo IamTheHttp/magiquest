@@ -1,4 +1,4 @@
-import {ITileCoordinate} from '../../interfaces/IZones';
+import {ITileCoordinate} from '../interfaces/IZones';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 
 export type getCanvasAPICallback = () => Painter;

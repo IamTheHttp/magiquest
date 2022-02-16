@@ -1,48 +1,49 @@
-import {IZone, ITileCoordinate} from '../../interfaces/IZones';
+import {IZone, ITileCoordinate} from '../interfaces/IZones';
 import {Engine, Entity} from 'game-platform';
-import assertType from '../utils/assertType';
-import createTileIndexMap from '../utils/createTileIndexMap';
+import assertType from './utils/assertType';
+import createTileIndexMap from './utils/createTileIndexMap';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
-} from '../components/ComponentNamesConfig';
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../../interfaces/IGeneral';
+} from './components/ComponentNamesConfig';
+import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
-import triggerSystem, {pushTrigger, Trigger} from '../systems/triggerSystem';
-import renderSystem from '../systems/renderSystem';
-import Player from '../entities/characters/Player';
+import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
+import renderSystem from './systems/renderSystem';
+import Player from './entities/characters/Player';
 import GameEvents, {
   EnemyKilledEvent,
   PlayerAttributesChangeEvent,
   PlayerIsAttacked,
   PlayerSkillsChangeEvent
-} from '../classes/GameEvents';
-import {assetLoader} from '../../utils/assetLoader';
-import placePlayerInLevel from '../utils/placePlayerInLevel';
-import animationSystem from '../systems/animationSystem';
-import aiSystem from '../systems/aiSystem';
-import portalSystem, {isNonEmptyArray} from '../systems/portalSystem';
-import throttle from '../utils/throttle';
-import getColRowByTileIdx from '../utils/getColRowByTileIdx';
-import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
-import questSystem from '../systems/questSystem';
-import destroyAllButPlayer from '../utils/destroyAllButPlayer';
-import {ISystemArguments} from '../../interfaces/IGameLoop';
-import userInputSystem, {pushAction} from '../systems/userInputSystem';
-import spawnEnemiesSystem from '../systems/spawnEnemiesSystem';
-import attackSystem from '../systems/attackSystem';
-import {BaseEntity} from '../BaseEntity';
-import {PlayerStateChangeEvent} from '../classes/PlayerState';
-import Tile from '../entities/Tile';
-import experienceSystem from '../systems/experienceSystem';
-import moveSystem from '../systems/moveSystem';
-import placeLevelEntities from '../utils/placeLevelEntities';
-import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from '../gameConstants';
+} from './classes/GameEvents';
+import {assetLoader} from '../utils/assetLoader';
+import placePlayerInLevel from './utils/placePlayerInLevel';
+import animationSystem from './systems/animationSystem';
+import aiSystem from './systems/aiSystem';
+import portalSystem, {isNonEmptyArray} from './systems/portalSystem';
+import throttle from './utils/throttle';
+import getColRowByTileIdx from './utils/getColRowByTileIdx';
+import centerCameraOnEntity from './utils/systemUtils/centerCameraOnEntity';
+import questSystem from './systems/questSystem';
+import destroyAllButPlayer from './utils/destroyAllButPlayer';
+import {ISystemArguments} from '../interfaces/IGameLoop';
+import userInputSystem, {pushAction} from './systems/userInputSystem';
+import spawnEnemiesSystem from './systems/spawnEnemiesSystem';
+import attackSystem from './systems/attackSystem';
+import {BaseEntity} from './BaseEntity';
+import {PlayerStateChangeEvent} from './classes/PlayerState';
+import Tile from './entities/Tile';
+import experienceSystem from './systems/experienceSystem';
+import moveSystem from './systems/moveSystem';
+import placeLevelEntities from './utils/placeLevelEntities';
+import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
-import {zoneConfig} from '../../data/zones/zoneConfig';
+import {zoneConfig} from '../data/zones/zoneConfig';
+import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
 
 class Game {
   engine: Engine;
@@ -77,17 +78,22 @@ class Game {
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
 
+    engine.addSystem(userInputSystem);
+
     if (mode === 'playing') {
-      engine.addSystem(userInputSystem);
+      engine.addSystem(animationSystem);
       engine.addSystem(triggerSystem);
       engine.addSystem(spawnEnemiesSystem);
       engine.addSystem(aiSystem);
       engine.addSystem(portalSystem);
       engine.addSystem(moveSystem);
       engine.addSystem(attackSystem);
-      engine.addSystem(animationSystem);
       engine.addSystem(questSystem);
       engine.addSystem(experienceSystem);
+    }
+
+    if (mode === 'editing') {
+      engine.addSystem(editorInputSystem);
     }
 
     engine.addSystem(renderSystem);
@@ -139,7 +145,6 @@ class Game {
    * TODO Implement error handling - what happens when we request a tilemap of an chapter that doesn't exist?
    */
   getZone() {
-    console.log(this.currentAct);
     return zoneConfig[this.currentAct].chapters[this.currentChapter] as IZone;
   }
 
@@ -327,7 +332,13 @@ class Game {
   // UIEvent - An event dispatched from the game, to the UI
   // trigger - Triggers game logic within the game (trigger system)
   dispatchAction(action: IAction) {
-    pushAction(action);
+    if (this.mode === 'playing') {
+      pushAction(action);
+    } else if (this.mode === 'editing') {
+      pushEditorAction(action);
+    } else {
+      throw 'No game mode selected - cannot dispatch action';
+    }
   }
 }
 
