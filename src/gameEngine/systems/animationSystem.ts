@@ -1,7 +1,7 @@
 import {ANIMATION_COMP} from '../components/ComponentNamesConfig';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {BaseEntity} from '../BaseEntity';
-import {bit} from '../gameConstants';
+import {TILE_SIZE} from '../gameConstants';
 
 function animationSystem(systemArguments: ISystemArguments) {
   let {Entity} = systemArguments;
@@ -25,8 +25,8 @@ function animationSystem(systemArguments: ISystemArguments) {
       } else if (isOver && !animation.loops) {
         entity.removeAnimation(animation.animationName);
       } else {
-        // the duration of the animation is the time it takes to cross a bit (32px)
-        let animationDuration = animation.animationDuration || bit / entity.getMovementSpeed() / numberOfFrames;
+        // the duration of the animation is the time it takes to cross a TILE_SIZE
+        let animationDuration = animation.animationDuration || TILE_SIZE / entity.getMovementSpeed() / numberOfFrames;
 
         animation.realFrameCount++;
         // the animation lasts for {animationDuration} frames (bigger = longer)

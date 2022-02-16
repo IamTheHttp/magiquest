@@ -27,7 +27,7 @@ function editorInputSystem(systemArguments: ISystemArguments) {
         // Re-perform it every 100 ms
         cameraMapIntervalID = window.setInterval(() => {
           actionMap[action.name](systemArguments, action);
-        }, 50);
+        }, 40);
       } else {
         // If no direction, we do nothing
         // We already stopped the interval above, so no need to stop it again.

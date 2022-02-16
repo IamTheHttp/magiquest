@@ -13,6 +13,7 @@ import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';
+import {TILE_SIZE} from '../gameConstants';
 
 // TODO - Sort this mess :) -- ORIENTATION vs DIRECTION vs animation.direction
 
@@ -87,8 +88,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     entity.stop();
 
     let {x, y} = entity.getPos();
-    assertType((x + 16) % 32 === 0, `Entities should be on the grid ${x} ${y}`, true);
-    assertType((y + 16) % 32 === 0, 'gameEngine/entities should be on the grid', true);
+    assertType((x + 16) % TILE_SIZE === 0, `Entities should be on the grid ${x} ${y}`, true);
+    assertType((y + 16) % TILE_SIZE === 0, 'gameEngine/entities should be on the grid', true);
     if (typeof direction !== 'undefined' && direction !== null) {
       entity.setMoveDirection(direction);
     }

@@ -5,7 +5,7 @@ import {
   POSITION_COMP,
   UI_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {AllowedUIShapes, bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
+import {AllowedUIShapes, TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import char from '../../../../assets/characters.png';
@@ -55,7 +55,7 @@ function renderMainLayer(
 
       if (section.shape === AllowedUIShapes.CHEST_SHAPE) {
         let crops = {
-          cropStartX: 32,
+          cropStartX: TILE_SIZE,
           cropStartY: 0
         };
 
@@ -66,11 +66,11 @@ function renderMainLayer(
           image: assetLoader.getAsset(misc),
           x: x - radius,
           y: y - radius,
-          height: 32,
-          width: 32,
+          height: TILE_SIZE,
+          width: TILE_SIZE,
           ...crops,
-          cropSizeX: bit,
-          cropSizeY: bit,
+          cropSizeX: TILE_SIZE,
+          cropSizeY: TILE_SIZE,
           rotation: 0 // in radians
         });
       }
@@ -95,11 +95,11 @@ function renderMainLayer(
           image: assetLoader.getAsset(char),
           x: x - radius,
           y: y - radius,
-          height: 32,
-          width: 32,
+          height: TILE_SIZE,
+          width: TILE_SIZE,
           ...crops,
-          cropSizeX: bit,
-          cropSizeY: bit,
+          cropSizeX: TILE_SIZE,
+          cropSizeY: TILE_SIZE,
           rotation: 0 // in radians
         });
       }

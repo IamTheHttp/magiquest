@@ -6,15 +6,15 @@ import {BaseEntity} from 'gameEngine/BaseEntity';
 import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
-import {AllowedUIShapes, bit} from 'gameEngine/gameConstants';
+import {AllowedUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import getColRowByTileIdx from '../utils/getColRowByTileIdx';
 
 function getCenterPosOfTile(tileIdx: string) {
   let {col, row} = getColRowByTileIdx(tileIdx);
 
   return {
-    x: col * bit + bit / 2,
-    y: row * bit + bit / 2
+    x: col * TILE_SIZE + TILE_SIZE / 2,
+    y: row * TILE_SIZE + TILE_SIZE / 2
   };
 }
 

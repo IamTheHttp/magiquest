@@ -9,7 +9,7 @@ import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/upd
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {AllowedLevelLocationIDs, bit} from '../../../src/gameEngine/gameConstants';
+import {AllowedLevelLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
 import {HEALTH_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
@@ -80,7 +80,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(x - playerX + y - playerY).toBe(bit);
+    expect(x - playerX + y - playerY).toBe(TILE_SIZE);
 
     // now that the enemy stopped moving, lets run the system again to attack
     aiSystem(systemArguments);
@@ -122,7 +122,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
+    expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
   });
 
   it('Chase player down', () => {
@@ -152,7 +152,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
+    expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
   });
 
   it('Should only attack adjacent tile (Non aligned entities)', () => {

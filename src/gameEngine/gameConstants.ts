@@ -60,7 +60,7 @@ export const ANIMATIONS = {
   MOVE_DOWN: 'MOVE_DOWN'
 };
 
-export const bit = 32;
+export const TILE_SIZE = 32;
 
 export enum ATTACK_SPEEDS_OPTIONS {
   SLOW = 'SLOW',

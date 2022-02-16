@@ -6,6 +6,7 @@ import {Entity} from 'game-platform';
 import GameEvents from '../../src/gameEngine/classes/GameEvents';
 import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
+import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {
   mapAPI: Partial<Painter>;
@@ -33,10 +34,10 @@ function createSystemArgs({
     [0, 1, 1]
   ];
   let viewSize = {
-    mapWidth: 32 * 3,
-    mapHeight: 32 * 3,
-    viewWidth: 32 * 3,
-    viewHeight: 32 * 3
+    mapWidth: TILE_SIZE * 3,
+    mapHeight: TILE_SIZE * 3,
+    viewWidth: TILE_SIZE * 3,
+    viewHeight: TILE_SIZE * 3
   };
 
   return {

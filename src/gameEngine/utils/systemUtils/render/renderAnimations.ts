@@ -1,5 +1,5 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {AllowedUIShapes, ANIMATIONS, ATTACK_CONFIG, bit} from '../../../gameConstants';
+import {AllowedUIShapes, ANIMATIONS, ATTACK_CONFIG, TILE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
@@ -18,12 +18,12 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
         image: assetLoader.getAsset(frame.spriteURL),
         x: entity[POSITION_COMP].x - entity[POSITION_COMP].radius,
         y: entity[POSITION_COMP].y - entity[POSITION_COMP].radius,
-        height: bit,
-        width: bit,
+        height: TILE_SIZE,
+        width: TILE_SIZE,
         cropStartX: frame.cropStartX,
         cropStartY: frame.cropStartY,
-        cropSizeX: bit,
-        cropSizeY: bit,
+        cropSizeX: TILE_SIZE,
+        cropSizeY: TILE_SIZE,
         rotation: 0 // in radians
       });
     }

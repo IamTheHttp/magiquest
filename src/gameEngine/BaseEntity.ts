@@ -25,7 +25,7 @@ import BackgroundComponent from './components/BackgroundComponent';
 import PlayerControlledComponent from './components/PlayerControlledComponent';
 import Dialog from './components/Dialog';
 import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
-import {bit, DIRECTIONS_OPTIONS} from './gameConstants';
+import {TILE_SIZE, DIRECTIONS_OPTIONS} from './gameConstants';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import MoveComponent from './components/MoveComponent';
 import SpawnedComponent from './components/SpawnedComponent';
@@ -227,27 +227,27 @@ class BaseEntity extends Entity {
     if (dir === DIRECTIONS_OPTIONS.UP) {
       return {
         x,
-        y: y - bit
+        y: y - TILE_SIZE
       };
     }
 
     if (dir === DIRECTIONS_OPTIONS.DOWN) {
       return {
         x,
-        y: y + bit
+        y: y + TILE_SIZE
       };
     }
 
     if (dir === DIRECTIONS_OPTIONS.LEFT) {
       return {
-        x: x - bit,
+        x: x - TILE_SIZE,
         y
       };
     }
 
     if (dir === DIRECTIONS_OPTIONS.RIGHT) {
       return {
-        x: x + bit,
+        x: x + TILE_SIZE,
         y
       };
     }
@@ -261,27 +261,27 @@ class BaseEntity extends Entity {
     if (dir === DIRECTIONS_OPTIONS.UP) {
       this.setDest({
         x,
-        y: y - bit
+        y: y - TILE_SIZE
       });
     }
 
     if (dir === DIRECTIONS_OPTIONS.DOWN) {
       this.setDest({
         x,
-        y: y + bit
+        y: y + TILE_SIZE
       });
     }
 
     if (dir === DIRECTIONS_OPTIONS.LEFT) {
       this.setDest({
-        x: x - bit,
+        x: x - TILE_SIZE,
         y
       });
     }
 
     if (dir === DIRECTIONS_OPTIONS.RIGHT) {
       this.setDest({
-        x: x + bit,
+        x: x + TILE_SIZE,
         y
       });
     }

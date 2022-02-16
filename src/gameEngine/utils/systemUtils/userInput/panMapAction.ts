@@ -1,26 +1,47 @@
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
-import {DIRECTIONS_OPTIONS} from '../../../gameConstants';
+import {DIRECTIONS_OPTIONS, TILE_SIZE} from '../../../gameConstants';
 
 export function panMapAction(systemArguments: ISystemArguments, action: IAction) {
   const currentPanValue = systemArguments.mapAPI.getCurrentPanValue();
-
   let {direction} = action;
 
+  const MAP_WIDTH = systemArguments.viewSize.mapWidth;
+  const MAP_HEIGHT = systemArguments.viewSize.mapHeight;
+
+  const VIEW_WIDTH = systemArguments.viewSize.viewWidth;
+  const VIEW_HEIGHT = systemArguments.viewSize.viewHeight;
+
   if (direction === DIRECTIONS_OPTIONS.DOWN) {
-    systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY - 32);
+    if (MAP_HEIGHT - VIEW_HEIGHT > -currentPanValue.panY - TILE_SIZE) {
+      systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY - TILE_SIZE);
+    } else {
+      // Do nothing, we're out of bounds
+    }
   }
 
   if (direction === DIRECTIONS_OPTIONS.UP) {
-    systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY + 32);
+    if (currentPanValue.panY < TILE_SIZE) {
+      systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY + 32);
+    } else {
+      // Do not allow panning outside of the map
+    }
   }
 
   if (direction === DIRECTIONS_OPTIONS.LEFT) {
-    systemArguments.mapAPI.panCamera(currentPanValue.panX + 32, currentPanValue.panY);
+    if (currentPanValue.panX < TILE_SIZE) {
+      systemArguments.mapAPI.panCamera(currentPanValue.panX + TILE_SIZE, currentPanValue.panY);
+    } else {
+      // Do not allow panning outside of the map
+    }
   }
 
   if (direction === DIRECTIONS_OPTIONS.RIGHT) {
-    systemArguments.mapAPI.panCamera(currentPanValue.panX - 32, currentPanValue.panY);
+    if (MAP_WIDTH - VIEW_WIDTH > -currentPanValue.panX - TILE_SIZE) {
+      systemArguments.mapAPI.panCamera(currentPanValue.panX - TILE_SIZE, currentPanValue.panY);
+    } else {
+      // Do nothing, we're out of bounds
+    }
   }
 
   systemArguments.game.requestBackgroundRender();

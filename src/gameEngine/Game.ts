@@ -40,7 +40,7 @@ import Tile from './entities/Tile';
 import experienceSystem from './systems/experienceSystem';
 import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
-import {bit, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from './gameConstants';
+import {TILE_SIZE, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
@@ -194,8 +194,8 @@ class Game {
     console.log('Setting player position', col, row);
     let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
     player.setPos({
-      x: bit / 2 + col * bit,
-      y: bit / 2 + row * bit
+      x: TILE_SIZE / 2 + col * TILE_SIZE,
+      y: TILE_SIZE / 2 + row * TILE_SIZE
     });
 
     this.centerOnPlayer();
@@ -227,8 +227,8 @@ class Game {
     const zone = this.getZone();
     const {tileMap} = zone;
 
-    let mapWidth = tileMap[0].length * bit;
-    let mapHeight = tileMap.length * bit;
+    let mapWidth = tileMap[0].length * TILE_SIZE;
+    let mapHeight = tileMap.length * TILE_SIZE;
 
     this.renderBackground = true; // for the first time
     this.zone = zone;

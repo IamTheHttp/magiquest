@@ -1,10 +1,10 @@
 import {POSITION_COMP} from '../../components/ComponentNamesConfig';
 import {ISystemArguments} from '../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../BaseEntity';
-import {bit} from '../../gameConstants';
+import {TILE_SIZE} from '../../gameConstants';
 
 function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: BaseEntity[]) {
-  let buffer = bit * 8;
+  let buffer = TILE_SIZE * 8;
   let {mapAPI} = systemArguments;
   let arr = [];
   let {panX, panY} = mapAPI.getCurrentPanValue();
