@@ -1,10 +1,11 @@
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {IAction} from '../../interfaces/IGeneral';
 import {AllowedActions} from '../gameConstants';
-import {panMapAction} from '../utils/systemUtils/userInput/panMapAction';
+import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
 
 let actionMap = {
-  [AllowedActions.MOVE_ACTION]: panMapAction
+  [AllowedActions.MOVE_ACTION]: panMapInEditorAction,
+  [AllowedActions.DRAG_PAN_MAP]: panMapInEditorAction
 } as Record<AllowedActions, (sysArgs: ISystemArguments, action: IAction) => void>;
 
 // store our actions, singleton
@@ -32,6 +33,10 @@ function editorInputSystem(systemArguments: ISystemArguments) {
         // If no direction, we do nothing
         // We already stopped the interval above, so no need to stop it again.
       }
+    }
+
+    if (action.name === AllowedActions.DRAG_PAN_MAP) {
+      actionMap[AllowedActions.DRAG_PAN_MAP](systemArguments, action);
     }
   }
   // reset actions when we're done

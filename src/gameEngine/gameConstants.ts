@@ -18,6 +18,7 @@ export enum AllowedUIShapes {
 export enum AllowedActions {
   PERFORM_ACTION = 'PERFORM_ACTION',
   MOVE_ACTION = 'MOVE_ACTION',
+  DRAG_PAN_MAP = 'DRAG_PAN_MAP',
   BUY_SKILL = 'BUY_SKILL',
   BUY_ATTR = 'BUY_ATTR'
 }

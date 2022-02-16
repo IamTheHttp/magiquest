@@ -6,6 +6,7 @@ import buyAttr from '../utils/systemUtils/userInput/buyAttr';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {IAction} from '../../interfaces/IGeneral';
 import {AllowedActions} from '../gameConstants';
+import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
 
 let mapUserActionNameToAction = {
   [AllowedActions.MOVE_ACTION]: moveAction,

@@ -1,4 +1,4 @@
-function throttle(fn: () => {}, msDelay: number) {
+function throttle(fn: (...args: any) => void, msDelay: number) {
   let lastRun = Date.now();
 
   return function (...args: any[]) {

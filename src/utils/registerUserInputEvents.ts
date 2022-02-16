@@ -3,6 +3,9 @@ import Game from '../gameEngine/Game';
 
 class Glob {
   keyPressed: boolean;
+  mouseDown: boolean;
+  startDragCursorX: number;
+  startDragCursorY: number;
 }
 
 const KEY_TO_CODE_MAP = {
@@ -26,6 +29,42 @@ function registerUserInputEvents(game: Game) {
     game.dispatchAction({
       name: AllowedActions.MOVE_ACTION
     });
+  });
+
+  /**
+   * Enable panning in editor mode by tracking mouse movement
+   */
+  document.body.addEventListener('mousedown', (event) => {
+    glob.mouseDown = true;
+    glob.startDragCursorX = event.offsetX;
+    glob.startDragCursorY = event.offsetY;
+  });
+
+  /**
+   * Enable panning in editor mode by tracking mouse movement
+   */
+  document.body.addEventListener('mousemove', (event) => {
+    if (glob.mouseDown) {
+      game.dispatchAction({
+        name: AllowedActions.DRAG_PAN_MAP,
+        data: {
+          startDragCursorX: glob.startDragCursorX,
+          startDragCursorY: glob.startDragCursorY,
+          currentCursorX: event.offsetX,
+          currentCursorY: event.offsetY
+        }
+      });
+
+      glob.startDragCursorX = event.offsetX;
+      glob.startDragCursorY = event.offsetY;
+    }
+  });
+
+  /**
+   * Enable panning in editor mode by tracking mouse movement
+   */
+  document.body.addEventListener('mouseup', (event) => {
+    glob.mouseDown = false;
   });
 
   document.body.addEventListener('keydown', (event) => {

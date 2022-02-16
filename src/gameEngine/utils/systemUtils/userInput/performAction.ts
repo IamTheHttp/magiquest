@@ -11,6 +11,7 @@ import {BaseEntity} from '../../../BaseEntity';
 import IndexedTile from '../../../classes/IndexedTile';
 import {InteractWithNPC} from '../../../classes/GameEvents';
 import {isNonEmptyArray} from '../../../systems/portalSystem';
+import {IAction} from '../../../../interfaces/IGeneral';
 
 function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   targetTile: IndexedTile;
@@ -55,7 +56,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   };
 }
 
-function performAction(systemArguments: ISystemArguments) {
+function performAction(systemArguments: ISystemArguments, action: IAction) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
   let {Entity, zone, gameEvents} = systemArguments;
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];

@@ -22,7 +22,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('performs an action when there is no adjacent entity', () => {
-    performAction(systemArguments);
+    performAction(systemArguments, null);
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
@@ -42,7 +42,7 @@ describe('Tests the placeLevelEntities util', () => {
 
     player.setOrientation(DIRECTIONS_OPTIONS.DOWN);
 
-    performAction(systemArguments);
+    performAction(systemArguments, null);
 
     expect(player.hasComponents(IS_ATTACKING_COMP)).toBeTruthy();
     // expect action to attack
