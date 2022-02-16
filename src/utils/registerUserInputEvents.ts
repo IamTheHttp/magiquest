@@ -30,6 +30,7 @@ function registerUserInputEvents(game: Game) {
 
   document.body.addEventListener('keydown', (event) => {
     if (glob.keyPressed) {
+      // This prevents multiple keys from being pressed at the same time
       return true;
     }
 
@@ -61,7 +62,6 @@ function registerUserInputEvents(game: Game) {
       }
     } else {
       let direction = map[code];
-
       if (map.hasOwnProperty(code)) {
         game.dispatchAction({
           name: AllowedActions.MOVE_ACTION,
