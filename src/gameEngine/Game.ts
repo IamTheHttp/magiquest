@@ -150,7 +150,7 @@ class Game {
 
   /**
    * Sets the state for the desired act and chapter
-   * Populates the internal game state for the currentAct, chapter, mapHeight and mapWidth
+   * used before loadCurrentZone() to load the specific zone
    * @param actNum
    * @param chapterNum
    */

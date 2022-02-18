@@ -1,11 +1,14 @@
 import * as React from 'react';
-import tileSet from '../assets/tileSet.png';
-import {CSSProperties, useRef, useState} from 'react';
-import {TILE_TYPES} from '../gameEngine/createEntitySprites';
-import Game from '../gameEngine/Game';
+import tileSet from '../../assets/tileSet.png';
+import {CSSProperties, useState} from 'react';
+import {TILE_TYPES} from '../../gameEngine/createEntitySprites';
+import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
-import {ManagedCanvasMemo} from './Components/ManagedCanvas';
-import {getGridIdxFromPos} from '../gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
+import {getGridIdxFromPos} from '../../gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
+import {EditorPopup} from './EditorPopup';
+import {ZoneList} from './ZoneList';
+import {TILE_SIZE} from '../../gameEngine/gameConstants';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -38,6 +41,8 @@ export function Editor(props: IProps) {
   const {game, gameCanvasManager} = props;
   const [selectedTileType, setSelectedTileType] = useState(null);
 
+  const [isZonesListOpen, setIsZoneListOpen] = useState(false);
+
   gameCanvasManager.onViewMapClick = (e) => {
     if (selectedTileType === null) {
       return; // Do nothing if no selectedTileType
@@ -56,7 +61,38 @@ export function Editor(props: IProps) {
 
   return (
     <>
+      {isZonesListOpen && (
+        <EditorPopup
+          onClose={() => {
+            setIsZoneListOpen(false);
+          }}
+        >
+          <ZoneList
+            onZoneNav={(act, chapter) => {
+              console.log('Setting new act/chapter', act, chapter);
+
+              // Sets the internal game
+              props.game.setZoneByActAndChapter(act, chapter);
+              props.game.loadCurrentZone({});
+              props.game.requestBackgroundRender();
+              const zone = props.game.getZone();
+              props.game.mapAPI.panCamera(-zone.startPos.col * TILE_SIZE, -zone.startPos.row * TILE_SIZE);
+            }}
+          />
+        </EditorPopup>
+      )}
+
       <div id="editor-tile-selector">
+        <button
+          onClick={() => {
+            setIsZoneListOpen(true);
+          }}
+          style={{width: '50%'}}
+        >
+          Zones
+        </button>
+        <button style={{width: '50%'}}>Monsters</button>
+
         <h3>
           Current Zone: {props.act}-{props.chapter}
         </h3>

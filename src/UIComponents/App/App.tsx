@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './app.scss';
-import './editor.scss';
+import '../Editor/editor.scss';
 import {RESOLUTION} from '../../gameEngine/gameConstants';
 import {MainMenu} from '../Components/MainMenu/MainMenu';
 import {AppState} from './AppState';
@@ -10,8 +10,8 @@ import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
 import {resizeGameElements} from '../utils/resizeGameElements';
 import registerUserInputEvents from '../../utils/registerUserInputEvents';
-import {Editor} from '../Editor';
 import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
+import {Editor} from '../Editor/Editor';
 
 export class App extends React.Component<any, AppState> {
   game: Game;
