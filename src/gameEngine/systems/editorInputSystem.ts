@@ -15,9 +15,10 @@ let cameraMapIntervalID = 0;
 
 function editorInputSystem(systemArguments: ISystemArguments) {
   // loop over all actions
-
   for (let i = 0; i < actions.length; i++) {
     const action = actions[i];
+
+    // MOVE Action
     if (action.name === AllowedActions.MOVE_ACTION) {
       // Stop the interval
       clearInterval(cameraMapIntervalID);
@@ -26,6 +27,7 @@ function editorInputSystem(systemArguments: ISystemArguments) {
         actionMap[action.name](systemArguments, action);
 
         // Re-perform it every 100 ms
+        // This supports the "Long press down key"
         cameraMapIntervalID = window.setInterval(() => {
           actionMap[action.name](systemArguments, action);
         }, 40);
@@ -35,6 +37,7 @@ function editorInputSystem(systemArguments: ISystemArguments) {
       }
     }
 
+    // MOVE MOUSE DRAG PAN ACTION
     if (action.name === AllowedActions.DRAG_PAN_MAP) {
       actionMap[AllowedActions.DRAG_PAN_MAP](systemArguments, action);
     }

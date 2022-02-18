@@ -78,7 +78,11 @@ class Game {
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
 
-    engine.addSystem(userInputSystem);
+    if (mode === 'editing') {
+      engine.addSystem(editorInputSystem);
+    } else {
+      engine.addSystem(userInputSystem);
+    }
 
     if (mode === 'playing') {
       engine.addSystem(animationSystem);
@@ -90,10 +94,6 @@ class Game {
       engine.addSystem(attackSystem);
       engine.addSystem(questSystem);
       engine.addSystem(experienceSystem);
-    }
-
-    if (mode === 'editing') {
-      engine.addSystem(editorInputSystem);
     }
 
     engine.addSystem(renderSystem);

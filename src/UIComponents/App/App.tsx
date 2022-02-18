@@ -52,9 +52,6 @@ export class App extends React.Component<any, AppState> {
     }
   }
 
-  /**
-   * @param currentAreaMap
-   */
   createCanvasManager() {
     this.gameCanvasManager = new GameCanvas({
       onViewMapClick(e) {
