@@ -9,6 +9,7 @@ import {getGridIdxFromPos} from '../../gameEngine/utils/componentUtils/positionU
 import {EditorPopup} from './EditorPopup';
 import {ZoneList} from './ZoneList';
 import {TILE_SIZE} from '../../gameEngine/gameConstants';
+import {MonsterList} from './MonsterList';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -42,6 +43,7 @@ export function Editor(props: IProps) {
   const [selectedTileType, setSelectedTileType] = useState(null);
 
   const [isZonesListOpen, setIsZoneListOpen] = useState(false);
+  const [isMonsterListOpen, setIsMonsterListOpen] = useState(false);
 
   gameCanvasManager.onViewMapClick = (e) => {
     if (selectedTileType === null) {
@@ -82,6 +84,16 @@ export function Editor(props: IProps) {
         </EditorPopup>
       )}
 
+      {isMonsterListOpen && (
+        <EditorPopup
+          onClose={() => {
+            setIsMonsterListOpen(false);
+          }}
+        >
+          <MonsterList />
+        </EditorPopup>
+      )}
+
       <div id="editor-tile-selector">
         <button
           onClick={() => {
@@ -91,7 +103,14 @@ export function Editor(props: IProps) {
         >
           Zones
         </button>
-        <button style={{width: '50%'}}>Monsters</button>
+        <button
+          onClick={() => {
+            setIsMonsterListOpen(true);
+          }}
+          style={{width: '50%'}}
+        >
+          Monsters
+        </button>
 
         <h3>
           Current Zone: {props.act}-{props.chapter}
