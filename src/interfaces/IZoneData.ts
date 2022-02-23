@@ -1,6 +1,7 @@
-import {ITileCoordinate} from './IZones';
+import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, ITileMap, PossibleTriggersArray} from './IZones';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import {CHARACTERS} from '../gameEngine/gameConstants';
+import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
 
 export interface IExits {
   [key: string]: {
@@ -26,14 +27,22 @@ export interface INoSpawnLocation {
  * This is a JSON representation os a zone
  */
 interface IZoneData {
-  id: string;
-  monster_spawns: CHARACTERS[];
-  mon_per_tile: number;
   act: number;
   chapter: number;
+  id: string;
+  monsterDensity: number;
+  locations: IZoneLocation[];
+  noSpawnLocations: INoSpawnLocation[];
+  playerStartPos: ITileCoordinate;
+  triggers: {
+    levelStart: PossibleTriggersArray;
+    actOnEntity: ActOnEntityTriggers;
+    move: MoveTriggers;
+  };
+  entitiesToPlace: IEntitiesToPlace;
+  spawnableEnemies: CHARACTERS[];
+
   description: string;
-  no_spawn_locations: INoSpawnLocation[];
-  player_start_pos: ITileCoordinate;
   exits: IExits;
 }
 

@@ -1,5 +1,5 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
@@ -48,14 +48,18 @@ function createSystemArgs({
     Entity,
     shouldRenderBackground: true,
     zone: {
+      chapter: 0,
+      act: 0,
+      description: '',
+      exits: {},
       noSpawnLocations: [],
       monsterDensity: 0.01,
       spawnableEnemies: [CHARACTERS.IMP],
-      zoneID: 'TEST LEVEL',
+      id: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
-      startPos: {
+      playerStartPos: {
         col: 1,
         row: 1
       },
@@ -85,16 +89,20 @@ function createSystemArgs({
     },
     tileIdxMap: createTileIndexMap(
       {
+        chapter: 0,
+        act: 0,
+        description: '',
+        exits: {},
         monsterDensity: 0,
         noSpawnLocations: [],
         spawnableEnemies: [],
         entitiesToPlace: [],
-        zoneID: 'Test Level',
-        startPos: {col: 0, row: 0},
+        id: 'Test Level',
+        playerStartPos: {col: 0, row: 0},
         triggers: {actOnEntity: {}, levelStart: [], move: {}},
         locations: [
           {
-            id: AllowedLevelLocationIDs.TOWN,
+            id: AllowedZoneLocationIDs.TOWN,
             locationCharacterLevel: 1,
             name: 'test',
             start: {

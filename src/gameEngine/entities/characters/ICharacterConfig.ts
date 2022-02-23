@@ -1,5 +1,5 @@
 import {IAnimationTypes} from '../../components/AnimationComp';
-import {AllowedLevelLocationIDs, ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../../gameConstants';
+import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../../gameConstants';
 
 type ICharacterConfig = {
   dmg: number;
@@ -17,7 +17,7 @@ type ICharacterInstanceAttr = {
   col: number;
   row: number;
   characterLevel: number;
-  spawningTileLocationID: AllowedLevelLocationIDs;
+  spawningTileLocationID: AllowedZoneLocationIDs;
 };
 
 export {ICharacterConfig, ICharacterInstanceAttr};

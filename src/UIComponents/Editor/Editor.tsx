@@ -78,7 +78,7 @@ export function Editor(props: IProps) {
               props.game.loadCurrentZone({});
               props.game.requestBackgroundRender();
               const zone = props.game.getZone();
-              props.game.mapAPI.panCamera(-zone.startPos.col * TILE_SIZE, -zone.startPos.row * TILE_SIZE);
+              props.game.mapAPI.panCamera(-zone.playerStartPos.col * TILE_SIZE, -zone.playerStartPos.row * TILE_SIZE);
             }}
           />
         </EditorPopup>

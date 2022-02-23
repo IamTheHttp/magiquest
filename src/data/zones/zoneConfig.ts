@@ -1,7 +1,8 @@
 import {IZone} from '../../interfaces/IZones';
 import hasValue from '../../gameEngine/utils/hasValue';
-import {ZERO_ZERO} from './0-0/0-0';
-import {ZERO_ONE} from './0-1/0-1';
+import MAP_0_0 from '../json/maps/0-0.map.json';
+import MAP_0_1 from '../json/maps/0-1.map.json';
+import {createZone} from './utils/createZone';
 
 // TODO this should be some interface
 let zoneConfig = {} as {
@@ -12,43 +13,20 @@ let zoneConfig = {} as {
   };
 };
 
-function processLevel(zone: IZone) {
-  let [act, chapter] = zone.zoneID.split('-');
-  if (hasValue(act) && hasValue(chapter)) {
-    let numAct = +act;
-    let numChapter = +chapter;
+function populateGlobalZoneConfig(zone: IZone) {
+  let numAct = +zone.act;
+  let numChapter = +zone.chapter;
 
-    zoneConfig[numAct] = zoneConfig[numAct] || {chapters: {}};
-    zoneConfig[numAct].chapters[numChapter] = zone;
-  }
+  zoneConfig[numAct] = zoneConfig[numAct] || {chapters: {}};
+  zoneConfig[numAct].chapters[numChapter] = zone;
 }
 
 // TOOD create a live object based on these levels
-function requireAllMapLevels() {
-  processLevel(ZERO_ZERO);
-  processLevel(ZERO_ONE);
-
-  //
-  // // @ts-ignore
-  // let ctx = require.context('levels', true, /\.ts$/);
-  //
-  // ctx.keys().forEach((path: string) => {
-  //   let name = path.replace('./', '').replace('.ts', '');
-  //
-  //   let [dir, file] = name.split('/');
-  //   if (file) {
-  //     let [level, area] = file.split('-');
-  //
-  //     if (hasValue(level) && hasValue(area)) {
-  //       let numLevel = +level;
-  //       let numArea = +area;
-  //       levelConfig[numLevel] = levelConfig[numLevel] || {areas: {}};
-  //       levelConfig[numLevel].areas[numArea] = ctx(path).default;
-  //     }
-  //   }
-  // });
+function populateZoneConfig() {
+  populateGlobalZoneConfig(createZone({id: '0-0', tileMap: MAP_0_0}));
+  populateGlobalZoneConfig(createZone({id: '0-1', tileMap: MAP_0_1}));
 }
 
-requireAllMapLevels();
+populateZoneConfig();
 
 export {zoneConfig};

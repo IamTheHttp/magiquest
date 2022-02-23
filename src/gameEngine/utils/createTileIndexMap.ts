@@ -1,7 +1,7 @@
 import {ITileIndexMap, IViewSize} from '../../interfaces/IGeneral';
-import {IZone, ILevelLocation, ITileMap} from '../../interfaces/IZones';
+import {IZone, IZoneLocation} from '../../interfaces/IZones';
 import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
-import {AllowedLevelLocationIDs} from '../gameConstants';
+import {AllowedZoneLocationIDs} from '../gameConstants';
 import Tile from '../entities/Tile';
 import IndexedTile from '../classes/IndexedTile';
 
@@ -43,10 +43,10 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
       let tileWidth = mapWidth / numOfCols;
       let tileHeight = mapHeight / numOfRows;
 
-      let tileLocationID: AllowedLevelLocationIDs = null;
+      let tileLocationID: AllowedZoneLocationIDs = null;
       let tileCharacterLevel: number = 1;
       let locationsFoundForTile = 0;
-      locations.forEach((levelLocation: ILevelLocation) => {
+      locations.forEach((levelLocation: IZoneLocation) => {
         let colStart = levelLocation.start.col;
         let rowStart = levelLocation.start.row;
         let colEnd = levelLocation.end.col;

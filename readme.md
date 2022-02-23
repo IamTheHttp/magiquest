@@ -39,11 +39,11 @@
   - act -- {number} > Acts, are the major blocks of the story progression
   - chapter -- {number} > Chapters are sub-sections of an Act, each Act has many Chapters
   - description -- {string} free text to describe the location
-  - player_start_pos -- When level is loaded, where does the player start
-  - monster_spawns -- Array of separated IDs of spawnable monsters in the area
-  - no_spawn_locations - [{start: {col: number, row:number}, end: {col: number, row:number}}] Col/Row ranges in which enemies should not spawn.
-  - exits - [{act: number, chapter: number, exitTile: { col: number, row:number}}]
-  - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
+  - playerStartPos -- When level is loaded, where does the player start
+  - spawnableEnemies -- Array of separated IDs of spawnable monsters in the area
+  - noSpawnLocations - [{start: {col: number, row:number}, end: {col: number, row:number}}] Col/Row ranges in which enemies should not spawn.
+  - exits - map of {act,chapter ->  {act: number, chapter: number, exitTile: { col: number, row:number}}
+  - monsterDensity -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
 
 - #### characters.json database
   - id - {string} one of Enum's CHARACTERS;

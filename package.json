@@ -8,10 +8,10 @@
     "bundle": "rollup -c",
     "bundle:watch": "npm run bundle -- -w",
     "build:watch": "npm run build -- -w",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "tsc && jest",
+    "test:watch": "npm run test -- --watch",
     "test:commit": "npm run build && jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "npm run test -- --coverage",
     "start": "npm run bundle:watch & live-server ./dist",
     "release": "release-it",
     "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"

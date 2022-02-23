@@ -17,12 +17,16 @@ describe('Tests the placeLevelEntities util', () => {
     let {tileIdxMap} = createSystemArgs(new SpyFns());
     placeLevelEntities(
       {
+        chapter: 0,
+        act: 0,
+        exits: {},
+        description: '',
         noSpawnLocations: [],
         monsterDensity: 0,
         spawnableEnemies: [],
         locations: [],
-        zoneID: 'TEST',
-        startPos: {
+        id: 'TEST',
+        playerStartPos: {
           col: 0,
           row: 0
         },

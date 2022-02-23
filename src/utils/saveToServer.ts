@@ -11,7 +11,7 @@ function saveToServer(zone: IZone) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      IZone: zone.zoneID,
+      IZone: zone.id,
       tileMap: zone.tileMap
     })
   }).catch(() => {

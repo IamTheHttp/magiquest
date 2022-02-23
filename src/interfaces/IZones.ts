@@ -1,6 +1,6 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from './ITriggers';
-import {INoSpawnLocation} from './IZoneData';
-import {AllowedLevelLocationIDs, CHARACTERS} from '../gameEngine/gameConstants';
+import IZoneData, {INoSpawnLocation} from './IZoneData';
+import {AllowedZoneLocationIDs, CHARACTERS} from '../gameEngine/gameConstants';
 
 export type ITileMap = Array<Array<number>>;
 
@@ -18,9 +18,9 @@ export type IEntitiesToPlace = {
 
 export type PossibleTriggersArray = (IDialogTrigger | IPortalTrigger)[];
 
-export interface ILevelLocation {
+export interface IZoneLocation {
   name: string;
-  id: AllowedLevelLocationIDs;
+  id: AllowedZoneLocationIDs;
   start: ITileCoordinate;
   end: ITileCoordinate;
   locationCharacterLevel: number;
@@ -28,20 +28,8 @@ export interface ILevelLocation {
 
 /**
  * This is the zone shape we expect in the game logic.
- * This is after all parsing and merging of json -> live object.
+ * It extends the zone data by adding a map to it
  */
-export interface IZone {
-  monsterDensity: number;
-  locations: ILevelLocation[];
-  zoneID: string;
-  spawnableEnemies: CHARACTERS[];
-  noSpawnLocations: INoSpawnLocation[];
-  startPos: ITileCoordinate;
-  triggers: {
-    levelStart: PossibleTriggersArray;
-    actOnEntity: ActOnEntityTriggers;
-    move: MoveTriggers;
-  };
-  entitiesToPlace: IEntitiesToPlace;
+export interface IZone extends IZoneData {
   tileMap: ITileMap;
 }

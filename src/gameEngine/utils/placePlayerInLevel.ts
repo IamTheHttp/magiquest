@@ -11,7 +11,7 @@ import {CHARACTERS} from '../gameConstants';
 
 function placePlayerInLevel(zone: IZone, tileIdxMap: ITileIndexMap, targetTile: ITileCoordinate = null) {
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
-  let {col, row} = targetTile || zone.startPos;
+  let {col, row} = targetTile || zone.playerStartPos;
 
   let {x, y} = getCenterPosOfGridIdx(col, row);
 

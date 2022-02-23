@@ -9,7 +9,7 @@ import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/upd
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {AllowedLevelLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
 import {HEALTH_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
@@ -28,7 +28,7 @@ describe('Tests for the AI system', () => {
 
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     aiSystem(systemArguments as ISystemArguments);
     moveSystem(systemArguments as ISystemArguments);
@@ -40,7 +40,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('doesnt move an already moving AI', () => {
-    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     ent.addComponent(new IsMoving());
 
@@ -63,7 +63,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(2, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(2, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -105,7 +105,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -135,7 +135,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 0, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(0, 0, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -168,7 +168,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);

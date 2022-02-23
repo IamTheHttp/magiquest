@@ -2,7 +2,7 @@ import Character from 'gameEngine/entities/characters/Character';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
 import {IZone} from '../../interfaces/IZones';
 import {ITileIndexMap} from '../../interfaces/IGeneral';
 import {charactersDataConfig} from '../../data/charactersDataConfig';

@@ -1,6 +1,6 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
 
-export enum AllowedLevelLocationIDs {
+export enum AllowedZoneLocationIDs {
   TOWN = 'TOWN',
   SPAWNABLE_1 = 'SPAWNABLE_1'
 }
