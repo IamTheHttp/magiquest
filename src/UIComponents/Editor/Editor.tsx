@@ -10,6 +10,7 @@ import {EditorPopup} from './EditorPopup';
 import {ZoneList} from './ZoneList';
 import {TILE_SIZE} from '../../gameEngine/gameConstants';
 import {MonsterList} from './MonsterList';
+import {updateEditorServerTile} from './editorRequests/updateEditorServerTile';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -20,23 +21,6 @@ type IProps = {
   game: Game;
   gameCanvasManager: GameCanvas;
 };
-
-function updateEditorServerTile(game: Game, col: number, row: number, tileType: number) {
-  fetch('http://localhost:3000', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: JSON.stringify({
-      act: game.currentAct,
-      chapter: game.currentChapter,
-      tileType,
-      col,
-      row
-    })
-  });
-}
 
 export function Editor(props: IProps) {
   const {game, gameCanvasManager} = props;
@@ -70,6 +54,7 @@ export function Editor(props: IProps) {
           }}
         >
           <ZoneList
+            onCreateNewZone={() => {}}
             onZoneNav={(act, chapter) => {
               console.log('Setting new act/chapter', act, chapter);
 

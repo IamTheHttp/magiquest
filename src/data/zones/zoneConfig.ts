@@ -1,8 +1,6 @@
 import {IZone} from '../../interfaces/IZones';
-import hasValue from '../../gameEngine/utils/hasValue';
-import MAP_0_0 from '../json/maps/0-0.map.json';
-import MAP_0_1 from '../json/maps/0-1.map.json';
 import {createZone} from './utils/createZone';
+import * as maps from 'glob:../json/maps/*.map.json';
 
 // TODO this should be some interface
 let zoneConfig = {} as {
@@ -21,10 +19,12 @@ function populateGlobalZoneConfig(zone: IZone) {
   zoneConfig[numAct].chapters[numChapter] = zone;
 }
 
-// TOOD create a live object based on these levels
 function populateZoneConfig() {
-  populateGlobalZoneConfig(createZone({id: '0-0', tileMap: MAP_0_0}));
-  populateGlobalZoneConfig(createZone({id: '0-1', tileMap: MAP_0_1}));
+  for (let file in maps) {
+    const mapFile = maps[file];
+    const {act, chapter, tileMap} = mapFile;
+    populateGlobalZoneConfig(createZone({id: `${act}-${chapter}`, tileMap: tileMap}));
+  }
 }
 
 populateZoneConfig();

@@ -9,7 +9,7 @@ import html, {makeHtmlAttributes} from '@rollup/plugin-html';
 import react from 'react';
 import reactDom from 'react-dom';
 import includePaths from 'rollup-plugin-includepaths';
-import requireContext from 'rollup-plugin-require-context';
+import importGlob from '@jackfranklin/rollup-plugin-import-glob';
 
 const template = async ({attributes, files, meta, publicPath, title}) => {
   const scripts = (files.js || [])
@@ -81,7 +81,7 @@ export default [
         destDir: 'dist'
       }),
       typescript({target: 'es5'}),
-      requireContext(),
+      importGlob(),
       html({template, meta: [], title: 'Magic Quest'})
     ]
   }

@@ -24,6 +24,10 @@ function registerUserInputEvents(game: Game) {
   let glob = new Glob();
 
   document.body.addEventListener('keyup', (event) => {
+    // We only listen listen to keydowns on the body
+    if (event.target !== document.body) {
+      return;
+    }
     glob.keyPressed = false;
     // Stop.. on key up, right?
     game.dispatchAction({
@@ -68,6 +72,10 @@ function registerUserInputEvents(game: Game) {
   });
 
   document.body.addEventListener('keydown', (event) => {
+    // We only listen listen to keydowns on the body
+    if (event.target !== document.body) {
+      return;
+    }
     if (glob.keyPressed) {
       // This prevents multiple keys from being pressed at the same time
       return true;

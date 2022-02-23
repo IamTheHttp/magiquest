@@ -4,14 +4,17 @@
   "version": "0.0.1",
   "description": "Magic Quest Game!",
   "scripts": {
-    "build": "rm -rf ./dist && rollup -c",
+    "prebuild": "npm run formatcode",
+    "build": "tsc && rm -rf ./dist && rollup -c",
     "bundle": "rollup -c",
     "bundle:watch": "npm run bundle -- -w",
     "build:watch": "npm run build -- -w",
+    "pretest": "npm run formatcode ",
     "test": "tsc && jest",
     "test:watch": "npm run test -- --watch",
     "test:commit": "npm run build && jest",
     "test:coverage": "npm run test -- --coverage",
+    "prestart": "npm run formatcode",
     "start": "npm run bundle:watch & live-server ./dist",
     "release": "release-it",
     "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"
@@ -44,7 +47,6 @@
     "rollup": "^2.66.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-includepaths": "^0.2.4",
-    "rollup-plugin-require-context": "^1.0.1",
     "rollup-plugin-scss": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.1",
     "sass": "^1.49.0",
@@ -52,6 +54,7 @@
     "ts-node": "^10.4.0"
   },
   "devDependencies": {
+    "@jackfranklin/rollup-plugin-import-glob": "^0.1.0",
     "@rollup/plugin-html": "^0.2.4",
     "@web/dev-server": "^0.1.29",
     "prettier": "^2.5.1"
