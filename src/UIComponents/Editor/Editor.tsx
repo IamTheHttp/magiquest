@@ -83,7 +83,6 @@ export function Editor(props: IProps) {
           />
         </EditorPopup>
       )}
-
       {isMonsterListOpen && (
         <EditorPopup
           onClose={() => {

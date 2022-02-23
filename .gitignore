@@ -10,5 +10,3 @@ stats.json
 .vscode
 distTS
 dist
-# This is the build output of data/csv
-src/data/json

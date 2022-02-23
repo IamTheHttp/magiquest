@@ -1,5 +1,5 @@
 import {ActOnEntityTriggers, IDialogTrigger, MoveTriggers, IPortalTrigger} from './ITriggers';
-import {INoSpawnLocation} from './IParsedLevelCSVRow';
+import {INoSpawnLocation} from './IZoneData';
 import {AllowedLevelLocationIDs, CHARACTERS} from '../gameEngine/gameConstants';
 
 export type ITileMap = Array<Array<number>>;
@@ -27,8 +27,8 @@ export interface ILevelLocation {
 }
 
 /**
- * This is the level shape we expect in the game logic.
- * This is after all parsing and merging from csv -> json -> live object.
+ * This is the zone shape we expect in the game logic.
+ * This is after all parsing and merging of json -> live object.
  */
 export interface IZone {
   monsterDensity: number;

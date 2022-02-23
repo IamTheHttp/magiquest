@@ -7,10 +7,10 @@ import {CHARACTERS} from '../../../gameEngine/gameConstants';
 
 let zone: IZone = {
   zoneID: '0-0',
-  noSpawnLocations: [], // Filled by static csv data
-  monsterDensity: 0, // Filled by static csv data
-  spawnableEnemies: [], // Filled by static csv data
-  startPos: null, // Filled by static csv data
+  noSpawnLocations: [], // Filled by static json data
+  monsterDensity: 0, // Filled by static json data
+  spawnableEnemies: [], // Filled by static json data
+  startPos: null, // Filled by static json data
   locations: [townLocation, spawnableOneLocation],
   tileMap: oneMap,
   triggers: {
@@ -28,7 +28,7 @@ let zone: IZone = {
     ] as PossibleTriggersArray,
     actOnEntity: {},
     move: {
-      // Extended by static csv data
+      // Extended by static json data
       '-1,-2': [
         {
           oneOff: true,

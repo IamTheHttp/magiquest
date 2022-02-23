@@ -1,5 +1,5 @@
 import {IZone, PossibleTriggersArray} from '../../../interfaces/IZones';
-import IParsedLevelCSVRow from '../../../interfaces/IParsedLevelCSVRow';
+import IZoneData from '../../../interfaces/IZoneData';
 import levelsJSON from '../../json/zones.json';
 import {IPortalTrigger} from '../../../interfaces/ITriggers';
 
@@ -8,35 +8,38 @@ import {IPortalTrigger} from '../../../interfaces/ITriggers';
  * @param zone
  */
 function mergeStaticZoneData(zone: IZone): IZone {
-  const zoneCSVData: IParsedLevelCSVRow = levelsJSON.find((levelRow: IParsedLevelCSVRow) => {
-    return levelRow.id && levelRow.id === zone.zoneID;
+  const zoneJSONData: IZoneData = levelsJSON.find((zoneRow: IZoneData) => {
+    return zoneRow.id && zoneRow.id === zone.zoneID;
   });
 
-  zone.zoneID = zoneCSVData.id;
+  zone.zoneID = zoneJSONData.id;
   zone.startPos = {
     // if not specified otherwise, this is where we start (useful for for new levels)
-    col: zoneCSVData.player_start_pos.col,
-    row: zoneCSVData.player_start_pos.row
+    col: zoneJSONData.player_start_pos.col,
+    row: zoneJSONData.player_start_pos.row
   };
 
-  zone.noSpawnLocations = zoneCSVData.no_spawn_locations;
+  zone.noSpawnLocations = zoneJSONData.no_spawn_locations;
 
-  zone.spawnableEnemies = zoneCSVData.monster_spawns;
-  zone.monsterDensity = zoneCSVData.mon_per_tile;
+  zone.spawnableEnemies = zoneJSONData.monster_spawns;
+  zone.monsterDensity = zoneJSONData.mon_per_tile;
 
-  Object.keys(zoneCSVData.exits).forEach((tileCoordinate) => {
+  Object.keys(zoneJSONData.exits).forEach((tileCoordinate) => {
     const trigger = {
       oneOff: false,
       type: 'portal',
-      act: zoneCSVData.exits[tileCoordinate].act,
-      chapter: zoneCSVData.exits[tileCoordinate].chapter,
-      exitTile: zoneCSVData.exits[tileCoordinate].exitTile
+      act: zoneJSONData.exits[tileCoordinate].act,
+      chapter: zoneJSONData.exits[tileCoordinate].chapter,
+      exitTile: zoneJSONData.exits[tileCoordinate].exitTile
     } as IPortalTrigger;
 
+    // If the move triggers is not yet set as an array, create it
     if (!zone.triggers.move[tileCoordinate]) {
+      // Set move triggers for this tile as an array
       zone.triggers.move[tileCoordinate] = [] as PossibleTriggersArray;
     }
 
+    // Add another move trigger to this tile
     zone.triggers.move[tileCoordinate].push(trigger);
   });
 

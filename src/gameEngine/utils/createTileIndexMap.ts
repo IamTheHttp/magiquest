@@ -10,10 +10,15 @@ import IndexedTile from '../classes/IndexedTile';
  * @param a
  * @param x
  * @param b
+ * @param inclusive
  * A function that checks of a number is between two other numbers
  */
-function inRange(a: number, x: number, b: number) {
-  return x > a && x < b;
+function inRange(a: number, x: number, b: number, inclusive = true) {
+  if (inclusive) {
+    return x >= a && x <= b;
+  } else {
+    return x > a && x < b;
+  }
 }
 
 function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
@@ -26,15 +31,17 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
   // If tile is in SAFE area, remove all "spawnable" from it.
 
   let idx = {} as ITileIndexMap;
-  for (let rowIdx = 0; rowIdx < tileMap.length; rowIdx++) {
-    let row = tileMap[rowIdx];
-    for (let colIdx = 0; colIdx < row.length; colIdx++) {
+
+  for (let rowNumber = 0; rowNumber < tileMap.length; rowNumber++) {
+    let row = tileMap[rowNumber];
+
+    for (let colNumber = 0; colNumber < row.length; colNumber++) {
       let numOfCols = row.length;
       let numOfRows = tileMap.length;
-      let tileIdx = `${colIdx},${rowIdx}`; // TODO move to util to abstract the comma
+      let tileIdx = `${colNumber},${rowNumber}`; // TODO move to util to abstract the comma
 
       let tileWidth = mapWidth / numOfCols;
-      let tileHeight = mapHeight / numOfRows; // num of cols
+      let tileHeight = mapHeight / numOfRows;
 
       let tileLocationID: AllowedLevelLocationIDs = null;
       let tileCharacterLevel: number = 1;
@@ -45,8 +52,8 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
         let colEnd = levelLocation.end.col;
         let rowEnd = levelLocation.end.row;
 
-        let inColRange = colIdx >= colStart && colIdx <= colEnd;
-        let inRowRange = rowIdx >= rowStart && rowIdx <= rowEnd;
+        let inColRange = inRange(colStart, colNumber, colEnd);
+        let inRowRange = inRange(rowStart, rowNumber, rowEnd);
 
         if (inColRange && inRowRange) {
           tileLocationID = levelLocation.id;
@@ -68,27 +75,24 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
       }
 
       let tile = new Tile({
-        x: colIdx * tileWidth,
-        y: rowIdx * tileHeight,
+        x: colNumber * tileWidth,
+        y: rowNumber * tileHeight,
         tileIdx,
         width: tileWidth,
         height: tileHeight,
-        tileType: tileMap[rowIdx][colIdx],
+        tileType: tileMap[rowNumber][colNumber],
         tileLocationID,
         tileCharacterLevel
       });
 
       // Is the tile location within a safe spot?
 
-      let {x, y} = tile.getPos();
-
       zone.noSpawnLocations.forEach((safeLocation) => {
-        let withinX = inRange(safeLocation.start.x, x, safeLocation.end.x);
-        let withinY = inRange(safeLocation.start.y, y, safeLocation.end.y);
+        let withinX = inRange(safeLocation.start.col, colNumber, safeLocation.end.col);
+        let withinY = inRange(safeLocation.start.row, rowNumber, safeLocation.end.row);
 
         if (withinX && withinY) {
           tile.removeComponent(CAN_SPAWN_COMP);
-          return;
         }
       });
 

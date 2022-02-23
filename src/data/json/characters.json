@@ -1,0 +1,90 @@
+{
+  "PLAYER": {
+    "id": "PLAYER",
+    "displayName": "'The amazing player'",
+    "dmg": 2500,
+    "health": 1500,
+    "speed": 4,
+    "vision": 0,
+    "attackSpeed": "FASTEST",
+    "radius": 16,
+    "animationTypes": "PLAYER_ANIMATION"
+  },
+  "CHEST": {
+    "id": "CHEST",
+    "displayName": "'Chest'",
+    "dmg": 0,
+    "health": 20,
+    "speed": 0,
+    "vision": 0,
+    "attackSpeed": "null",
+    "radius": 16,
+    "animationTypes": "null"
+  },
+  "FAM_NPC": {
+    "id": "FAM_NPC",
+    "displayName": "'An NPC'",
+    "dmg": 0,
+    "health": 20,
+    "speed": 0,
+    "vision": 0,
+    "attackSpeed": "null",
+    "radius": 16,
+    "animationTypes": "null"
+  },
+  "DEMON": {
+    "id": "DEMON",
+    "displayName": "'A Demon'",
+    "dmg": 20,
+    "health": 100,
+    "speed": 1,
+    "vision": 200,
+    "attackSpeed": "FAST",
+    "radius": 16,
+    "animationTypes": "ENEMY_ANIMATION"
+  },
+  "IMP": {
+    "id": "IMP",
+    "displayName": "'An Imp'",
+    "dmg": 20,
+    "health": 100,
+    "speed": 1,
+    "vision": 200,
+    "attackSpeed": "FAST",
+    "radius": 16,
+    "animationTypes": "ENEMY_ANIMATION"
+  },
+  "ENEMY": {
+    "id": "ENEMY",
+    "displayName": "'The Generic Enemy",
+    "dmg": 20,
+    "health": 1000,
+    "speed": 4,
+    "vision": 200,
+    "attackSpeed": "FAST",
+    "radius": 16,
+    "animationTypes": "ENEMY_ANIMATION"
+  },
+  "GARGOYLE": {
+    "id": "GARGOYLE",
+    "displayName": "'A gargoyle'",
+    "dmg": 20,
+    "health": 100,
+    "speed": 4,
+    "vision": 200,
+    "attackSpeed": "FAST",
+    "radius": 16,
+    "animationTypes": "ENEMY_ANIMATION"
+  },
+  "VAMPIRE": {
+    "id": "VAMPIRE",
+    "displayName": "'A Vampire'",
+    "dmg": 20,
+    "health": 100,
+    "speed": 1,
+    "vision": 200,
+    "attackSpeed": "FAST",
+    "radius": 16,
+    "animationTypes": "ENEMY_ANIMATION"
+  }
+}

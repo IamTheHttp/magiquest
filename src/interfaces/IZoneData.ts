@@ -12,14 +12,20 @@ export interface IExits {
 }
 
 export interface INoSpawnLocation {
-  start: ICoordinates;
-  end: ICoordinates;
+  start: {
+    row: number;
+    col: number;
+  };
+  end: {
+    row: number;
+    col: number;
+  };
 }
 
 /**
- * This is a parsed zones.csv row
+ * This is a JSON representation os a zone
  */
-interface IParsedLevelCSVRow {
+interface IZoneData {
   id: string;
   monster_spawns: CHARACTERS[];
   mon_per_tile: number;
@@ -31,4 +37,4 @@ interface IParsedLevelCSVRow {
   exits: IExits;
 }
 
-export default IParsedLevelCSVRow;
+export default IZoneData;

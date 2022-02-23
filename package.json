@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Magic Quest Game!",
   "scripts": {
-    "build": "ts-node tools/buildData.ts && rm -rf ./dist && rollup -c",
+    "build": "rm -rf ./dist && rollup -c",
     "bundle": "rollup -c",
     "bundle:watch": "npm run bundle -- -w",
     "build:watch": "npm run build -- -w",
@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "start": "npm run bundle:watch & live-server ./dist",
     "release": "release-it",
-    "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ tools Editor *.js *.json"
+    "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.11",
@@ -54,7 +54,6 @@
   "devDependencies": {
     "@rollup/plugin-html": "^0.2.4",
     "@web/dev-server": "^0.1.29",
-    "csvtojson": "^2.0.10",
     "prettier": "^2.5.1"
   }
 }

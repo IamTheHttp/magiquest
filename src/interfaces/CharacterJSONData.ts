@@ -1,6 +1,6 @@
 import {ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../gameEngine/gameConstants';
 
-export interface IParsedCharacterCSVRow {
+export interface CharacterJSONData {
   id: CHARACTERS;
   displayName: string;
   dmg: number;
@@ -12,6 +12,6 @@ export interface IParsedCharacterCSVRow {
   animationTypes: string;
 }
 
-export type IParsedCharacterCSVMap = {
-  [CHARACTER in CHARACTERS]?: IParsedCharacterCSVRow;
+export type CharacterJSONDataMap = {
+  [CHARACTER in CHARACTERS]?: CharacterJSONData;
 };
