@@ -2,6 +2,10 @@ import {UI_COMP} from './ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
 import {IUISection} from '../../interfaces/IGeneral';
 
+/**
+ * This Component is required for an entity to be rendered.
+ * Removing the UI Component is one way to make an entity transparent
+ */
 class UIComponent {
   name: string;
   sections: IUISection[];
@@ -17,7 +21,6 @@ class UIComponent {
         assertType(section.name, 'section.name', 'string');
         return section;
       } else {
-        // if it's a string, make it an object..
         return {
           name: section,
           shape: null,

@@ -46,7 +46,7 @@ function renderMainLayer(
 
     entity[UI_COMP].sections.forEach((section) => {
       if (section.shape === AllowedUIShapes.CIRCLE_SHAPE) {
-        renderCircle(systemArguments, entity);
+        renderCircle(systemArguments, entity, section);
       }
 
       if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {

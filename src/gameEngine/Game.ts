@@ -7,7 +7,9 @@ import {
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
-  PLAYER_CONTROLLED_COMP
+  PLAYER_CONTROLLED_COMP,
+  POSITION_COMP,
+  UI_COMP
 } from './components/ComponentNamesConfig';
 import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
@@ -36,14 +38,22 @@ import spawnEnemiesSystem from './systems/spawnEnemiesSystem';
 import attackSystem from './systems/attackSystem';
 import {BaseEntity} from './BaseEntity';
 import {PlayerStateChangeEvent} from './classes/PlayerState';
-import Tile from './entities/Tile';
 import experienceSystem from './systems/experienceSystem';
 import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
-import {TILE_SIZE, CHAR_SPRITE_URL, RESOLUTION, TILESET_IMAGE_URL} from './gameConstants';
+import {
+  TILE_SIZE,
+  CHAR_SPRITE_URL,
+  RESOLUTION,
+  TILESET_IMAGE_URL,
+  CANVAS_OUTPUT,
+  AllowedUIShapes
+} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
+import PositionComponent from './components/PositionComponent';
+import UIComponent from './components/UIComponent';
 
 class Game {
   engine: Engine;
@@ -141,11 +151,51 @@ class Game {
   }
 
   /**
+   * Create an entity to represent the player starting position
+   * This function is only called from the Editor
+   */
+  highlightStartPosition() {
+    if (this.mode !== 'editing') {
+      throw 'Calling highlightStartPosition from outside the editor is not allowed';
+    }
+
+    const startPosEntity = new BaseEntity(null);
+
+    const {x, y} = this.getZoneStartXY();
+    startPosEntity.addComponent(
+      new PositionComponent({
+        x,
+        y,
+        radius: 0.5 * TILE_SIZE
+      })
+    );
+
+    startPosEntity.addComponent(
+      new UIComponent([
+        {
+          name: CANVAS_OUTPUT,
+          shape: AllowedUIShapes.CIRCLE_SHAPE,
+          data: {
+            fillColor: 'lime'
+          }
+        }
+      ])
+    );
+  }
+
+  /**
    * Returns the zone's tilemap basd on the current game's act and chapter
    * TODO Implement error handling - what happens when we request a tilemap of an chapter that doesn't exist?
    */
   getZone() {
     return zoneConfig[this.currentAct].chapters[this.currentChapter] as IZone;
+  }
+
+  getZoneStartXY(): {x: number; y: number} {
+    return {
+      x: this.getZone().playerStartPos.col * TILE_SIZE + 0.5 * TILE_SIZE,
+      y: this.getZone().playerStartPos.row * TILE_SIZE + 0.5 * TILE_SIZE
+    };
   }
 
   /**
@@ -215,6 +265,14 @@ class Game {
     }
   }
 
+  /**
+   * Set up the current zone of the game
+   * This function is responsible for:
+   * - Wiping the old zone state (removeAllButPlayer)
+   * - Creating all the entities of the zone
+   * - Creating all the triggers in the zone
+   * @param playerStartingTile
+   */
   loadCurrentZone({playerStartingTile = null}: {playerStartingTile?: ITileCoordinate}) {
     if (!this.mapAPI) {
       throw 'Cannot load the current zone without a mapAPI instance';
@@ -241,6 +299,10 @@ class Game {
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
     this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
+
+    if (this.mode === 'editing') {
+      this.highlightStartPosition();
+    }
 
     // only out of editor mode, when playing
     if (this.mode === 'playing') {

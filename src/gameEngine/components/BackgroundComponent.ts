@@ -1,28 +1,17 @@
 import {BACKGROUND_COMP} from './ComponentNamesConfig';
-import assertType from 'gameEngine/utils/assertType';
 import {IUISection} from '../../interfaces/IGeneral';
+import UIComponent from './UIComponent';
 
-class BackgroundComponent {
-  name: string;
-  sections: IUISection[];
-  constructor(sections: IUISection[]) {
+/**
+ * This extension to the UIComponent allows separation between Front UI Entities (like characters)
+ * and Background Entities (Such as Tiles on the map)
+ *
+ * With this class we can easily select BACKGROUND_COMP vs UI_COMP entities
+ */
+class BackgroundComponent extends UIComponent {
+  constructor(sections: IUISection[] = []) {
+    super(sections);
     this.name = BACKGROUND_COMP;
-
-    let sectionsArray = Array.isArray(sections) ? sections : [sections];
-
-    this.sections = sectionsArray.map((section) => {
-      // if it's an object, great, we're done.
-      if (typeof section === 'object') {
-        assertType(section.name, 'section.name', 'string');
-        return section;
-      } else {
-        return {
-          name: section,
-          shape: null,
-          data: {}
-        };
-      }
-    });
   }
 }
 

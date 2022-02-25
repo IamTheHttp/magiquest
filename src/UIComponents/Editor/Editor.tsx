@@ -127,34 +127,15 @@ export function Editor(props: IProps) {
             );
           })}
         </div>
-        <div>
-          <div>
-            <input id="editor-act-selector" placeholder="Act" type="number" min="0" />
-            <input id="editor-chapter-selector" placeholder="Chapter" type="number" min="0" />
-            <button
-              onClick={(e) => {
-                let actEl = document.getElementById('editor-act-selector') as HTMLInputElement;
-                let chapterEl = document.getElementById('editor-chapter-selector') as HTMLInputElement;
-                props.onZoneNav(+actEl.value, +chapterEl.value);
-              }}
-            >
-              Go
-            </button>
-          </div>
-          <div>
-            <input id="col" placeholder="Col" type="number" min="0" />
-            <input id="row" placeholder="Row" type="number" min="0" />
-            <button
-              onClick={(e) => {
-                let colEl = document.getElementById('col') as HTMLInputElement;
-                let rowEl = document.getElementById('row') as HTMLInputElement;
-                props.onPosNav(+colEl.value, +rowEl.value);
-              }}
-            >
-              Go
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={() => {
+            const {x, y} = game.getZoneStartXY();
+            game.mapAPI.panCamera(-(x - game.viewSize.viewWidth / 2), -(y - game.viewSize.viewHeight / 2));
+            game.requestBackgroundRender();
+          }}
+        >
+          Go to start position
+        </button>
       </div>
       <div className="canvas-main-container">
         <ManagedCanvasMemo game={game} gameCanvasManager={gameCanvasManager} />
