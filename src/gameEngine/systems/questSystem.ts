@@ -14,7 +14,7 @@ import {BaseEntity} from '../BaseEntity';
 import {AllowedQuestState} from '../components/QuestDataComponent';
 import {isNonEmptyArray} from './portalSystem';
 import {pushTrigger, Trigger} from './triggerSystem';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {

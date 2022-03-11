@@ -5,16 +5,16 @@ import {
   POSITION_COMP,
   UI_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {AllowedUIShapes, bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
+import {AllowedUIShapes, TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
-import char from 'assets/characters.png';
-import misc from 'assets/misc.png';
+import char from '../../../../assets/characters.png';
+import misc from '../../../../assets/misc.png';
 import {getSpriteCrop} from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
-import {assetLoader} from 'cache/assetLoader';
+import {assetLoader} from 'utils/assetLoader';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../BaseEntity';
 
@@ -46,7 +46,7 @@ function renderMainLayer(
 
     entity[UI_COMP].sections.forEach((section) => {
       if (section.shape === AllowedUIShapes.CIRCLE_SHAPE) {
-        renderCircle(systemArguments, entity);
+        renderCircle(systemArguments, entity, section);
       }
 
       if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {
@@ -55,7 +55,7 @@ function renderMainLayer(
 
       if (section.shape === AllowedUIShapes.CHEST_SHAPE) {
         let crops = {
-          cropStartX: 32,
+          cropStartX: TILE_SIZE,
           cropStartY: 0
         };
 
@@ -66,11 +66,11 @@ function renderMainLayer(
           image: assetLoader.getAsset(misc),
           x: x - radius,
           y: y - radius,
-          height: 32,
-          width: 32,
+          height: TILE_SIZE,
+          width: TILE_SIZE,
           ...crops,
-          cropSizeX: bit,
-          cropSizeY: bit,
+          cropSizeX: TILE_SIZE,
+          cropSizeY: TILE_SIZE,
           rotation: 0 // in radians
         });
       }
@@ -95,11 +95,11 @@ function renderMainLayer(
           image: assetLoader.getAsset(char),
           x: x - radius,
           y: y - radius,
-          height: 32,
-          width: 32,
+          height: TILE_SIZE,
+          width: TILE_SIZE,
           ...crops,
-          cropSizeX: bit,
-          cropSizeY: bit,
+          cropSizeX: TILE_SIZE,
+          cropSizeY: TILE_SIZE,
           rotation: 0 // in radians
         });
       }

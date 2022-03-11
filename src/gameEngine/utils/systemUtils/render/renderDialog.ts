@@ -1,5 +1,5 @@
 import {DIALOG_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
 function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {

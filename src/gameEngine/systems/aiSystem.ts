@@ -6,10 +6,10 @@ import {
 } from '../components/ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
-import {bit, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
+import {TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
@@ -56,9 +56,9 @@ function aiSystem(systemArguments: ISystemArguments) {
       let isNextToPlayer = false;
 
       if (x === playerX) {
-        isNextToPlayer = Math.abs(playerY - y) === bit;
+        isNextToPlayer = Math.abs(playerY - y) === TILE_SIZE;
       } else if (y === playerY) {
-        isNextToPlayer = Math.abs(playerX - x) === bit;
+        isNextToPlayer = Math.abs(playerX - x) === TILE_SIZE;
       }
 
       let isCurrentlyAttacking = entity.isAttacking();

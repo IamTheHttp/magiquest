@@ -4,7 +4,7 @@ import enemyAnimations from '../gameEngine/entities/animations/enemyAnimations';
 import {CHARACTERS} from '../gameEngine/gameConstants';
 
 // TODO Rename CharacterData to something else
-import CharacterData from '../data/characters.json';
+import CharacterData from '../data/json/characters.json';
 
 type ICharsConfig = {
   [CHARACTER in CHARACTERS]?: ICharacterConfig;
@@ -28,4 +28,4 @@ Object.keys(CharacterData).forEach((char: CHARACTERS) => {
   };
 });
 
-export default charactersDataConfig;
+export {charactersDataConfig};

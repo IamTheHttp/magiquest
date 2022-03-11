@@ -4,12 +4,12 @@ import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import {EnemyKilledEvent, IGameEvent} from '../../../src/gameEngine/classes/GameEvents';
-import {AllowedLevelLocationIDs} from '../../../src/gameEngine/gameConstants';
+import {AllowedZoneLocationIDs} from '../../../src/gameEngine/gameConstants';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
 describe('attack system tests', () => {
@@ -63,7 +63,7 @@ describe('attack system tests', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
 
-    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
@@ -90,7 +90,7 @@ describe('attack system tests', () => {
   it('Can kill an enemy', () => {
     let {tileIdxMap, gameEvents} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
@@ -122,7 +122,7 @@ describe('attack system tests', () => {
   it('No longer attacks once the attack frames are done', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
     updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
 
@@ -143,8 +143,8 @@ describe('attack system tests', () => {
   it('Higher level enemies have more damage', () => {
     let {tileIdxMap} = systemArguments;
     let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
-    let weak = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
-    let strong = createNewEnemy(1, 1, 100, AllowedLevelLocationIDs.TOWN);
+    let weak = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
+    let strong = createNewEnemy(1, 1, 100, AllowedZoneLocationIDs.TOWN);
 
     expect(strong[ATTACK_COMP].damage).toBeGreaterThan(weak[ATTACK_COMP].damage);
   });

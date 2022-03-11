@@ -1,6 +1,6 @@
 import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import {Entity} from 'game-platform';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createFamNPC from '../../__TEST__UTILS__/createFamNPC';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';

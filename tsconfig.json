@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "CommonJS",
     "target": "es6",
     "jsx": "react",
     "moduleResolution": "node",
@@ -10,5 +10,5 @@
     "outDir": "dist",
     "noEmit": true
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*", "./__tests__"]
 }

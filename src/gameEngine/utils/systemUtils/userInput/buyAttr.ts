@@ -4,9 +4,9 @@ import {
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import Player from '../../../entities/characters/Player';
-import {IAction} from '../../../../interfaces/interfaces';
+import {IAction} from '../../../../interfaces/IGeneral';
 import {AllowedAttributes} from '../../../../data/attributesConfig';
 import {BaseEntity} from '../../../BaseEntity';
 import {PlayerAttributesChangeEvent} from '../../../classes/GameEvents';

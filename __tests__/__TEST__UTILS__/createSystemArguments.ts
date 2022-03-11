@@ -1,11 +1,12 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import {AllowedLevelLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
-import {ISystemArguments} from '../../src/interfaces/gameloop.i';
+import {AllowedZoneLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
+import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
 import GameEvents from '../../src/gameEngine/classes/GameEvents';
-import Game from '../../src/gameEngine/Game/Game';
+import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
+import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {
   mapAPI: Partial<Painter>;
@@ -33,10 +34,10 @@ function createSystemArgs({
     [0, 1, 1]
   ];
   let viewSize = {
-    mapWidth: 32 * 3,
-    mapHeight: 32 * 3,
-    viewWidth: 32 * 3,
-    viewHeight: 32 * 3
+    mapWidth: TILE_SIZE * 3,
+    mapHeight: TILE_SIZE * 3,
+    viewWidth: TILE_SIZE * 3,
+    viewHeight: TILE_SIZE * 3
   };
 
   return {
@@ -47,14 +48,18 @@ function createSystemArgs({
     Entity,
     shouldRenderBackground: true,
     zone: {
+      chapter: 0,
+      act: 0,
+      description: '',
+      exits: {},
       noSpawnLocations: [],
       monsterDensity: 0.01,
       spawnableEnemies: [CHARACTERS.IMP],
-      zoneID: 'TEST LEVEL',
+      id: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],
       entitiesToPlace: [],
-      startPos: {
+      playerStartPos: {
         col: 1,
         row: 1
       },
@@ -84,16 +89,20 @@ function createSystemArgs({
     },
     tileIdxMap: createTileIndexMap(
       {
+        chapter: 0,
+        act: 0,
+        description: '',
+        exits: {},
         monsterDensity: 0,
         noSpawnLocations: [],
         spawnableEnemies: [],
         entitiesToPlace: [],
-        zoneID: 'Test Level',
-        startPos: {col: 0, row: 0},
+        id: 'Test Level',
+        playerStartPos: {col: 0, row: 0},
         triggers: {actOnEntity: {}, levelStart: [], move: {}},
         locations: [
           {
-            id: AllowedLevelLocationIDs.TOWN,
+            id: AllowedZoneLocationIDs.TOWN,
             locationCharacterLevel: 1,
             name: 'test',
             start: {

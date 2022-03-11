@@ -3,6 +3,7 @@ import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
 function destroyAllButPlayer() {
+  console.log('Debug: Destroying all but player');
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
   let allEnts = Entity.getByComp<BaseEntity>(POSITION_COMP);
   entityLoop(allEnts, (entity) => {

@@ -1,9 +1,0 @@
-id,display_name,dmg, health, speed, vision, attack_speed, radius, animation_types
-PLAYER, 'The amazing player', 2500, 1500, 4, 0, FASTEST, 16, PLAYER_ANIMATION
-CHEST, 'Chest', 0, 20, 0, 0, null, 16, null
-FAM_NPC, 'An NPC', 0, 20, 0, 0, null, 16, null
-DEMON, 'A Demon', 20, 100, 1, 200, FAST, 16, ENEMY_ANIMATION
-IMP, 'An Imp', 20, 100, 1, 200, FAST, 16, ENEMY_ANIMATION
-ENEMY, 'The Generic Enemy, 20, 1000, 4, 200, FAST, 16, ENEMY_ANIMATION
-GARGOYLE, 'A gargoyle', 20, 100, 4, 200, FAST, 16, ENEMY_ANIMATION
-VAMPIRE, 'A Vampire', 20, 100, 1, 200, FAST, 16, ENEMY_ANIMATION

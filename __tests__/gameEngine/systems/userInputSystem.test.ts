@@ -2,7 +2,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {AllowedSkills} from '../../../src/data/skillConfig';
 import {Entity} from 'game-platform';

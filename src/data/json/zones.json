@@ -1,0 +1,227 @@
+[
+  {
+    "id": "0-0",
+    "act": 0,
+    "chapter": 0,
+    "description": "Elvenar",
+    "playerStartPos": {
+      "col": 4,
+      "row": 4
+    },
+    "spawnableEnemies": ["IMP", "VAMPIRE"],
+    "exits": {
+      "5,5": {
+        "act": 0,
+        "chapter": 1,
+        "exitTile": {
+          "col": 4,
+          "row": 95
+        }
+      },
+      "10,10": {
+        "act": 0,
+        "chapter": 1,
+        "exitTile": {
+          "col": 5,
+          "row": 5
+        }
+      }
+    },
+    "monsterDensity": 0.05,
+    "noSpawnLocations": [
+      {
+        "start": {
+          "col": 0,
+          "row": 0
+        },
+        "end": {
+          "col": 30,
+          "row": 30
+        }
+      }
+    ],
+    "entitiesToPlace": [
+      {
+        "pos": {
+          "col": 6,
+          "row": 6
+        },
+        "characterType": "CHEST",
+        "characterLevel": 1,
+        "name": "Chest 1"
+      },
+      {
+        "pos": {
+          "col": 8,
+          "row": 4
+        },
+        "characterType": "FAM_NPC",
+        "characterLevel": 1,
+        "name": "NPC_1"
+      },
+      {
+        "pos": {
+          "col": 13,
+          "row": 7
+        },
+        "characterType": "FAM_NPC",
+        "characterLevel": 1,
+        "name": "NPC_2"
+      },
+      {
+        "pos": {
+          "col": 18,
+          "row": 10
+        },
+        "characterType": "FAM_NPC",
+        "characterLevel": 1,
+        "name": "NPC_3"
+      },
+      {
+        "pos": {
+          "col": 5,
+          "row": 9
+        },
+        "characterType": "FAM_NPC",
+        "characterLevel": 1,
+        "name": "NPC_4"
+      },
+      {
+        "pos": {
+          "col": 62,
+          "row": 42
+        },
+        "characterType": "FAM_NPC",
+        "characterLevel": 1,
+        "name": "NPC_5"
+      }
+    ],
+    "triggers": {
+      "levelStart": [
+        {
+          "oneOff": true,
+          "type": "dialog",
+          "lines": [
+            {
+              "text": "I haven't heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?",
+              "speaker": 0
+            }
+          ]
+        }
+      ],
+      "actOnEntity": {},
+      "move": {
+        "-1,-2": [
+          {
+            "oneOff": true,
+            "type": "dialog",
+            "lines": [
+              {
+                "text": "I should collect my sword\n(hit space to open chests)",
+                "speaker": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "locations": [
+      {
+        "id": "TOWN",
+        "name": "town",
+        "locationCharacterLevel": 1,
+        "start": {
+          "col": 0,
+          "row": 0
+        },
+        "end": {
+          "col": 32,
+          "row": 18
+        }
+      },
+      {
+        "id": "SPAWNABLE_1",
+        "name": "JUST_LOCATION_NAME",
+        "start": {
+          "col": 33,
+          "row": 0
+        },
+        "end": {
+          "col": 100,
+          "row": 18
+        },
+        "locationCharacterLevel": 50
+      }
+    ]
+  },
+  {
+    "id": "0-1",
+    "act": 0,
+    "chapter": 1,
+    "description": "Sewers",
+    "playerStartPos": {
+      "col": 5,
+      "row": 95
+    },
+    "spawnableEnemies": ["VAMPIRE", "IMP"],
+    "exits": {
+      "5,95": {
+        "act": 0,
+        "chapter": 0,
+        "exitTile": {
+          "col": 12,
+          "row": 12
+        }
+      },
+      "10,10": {
+        "act": 0,
+        "chapter": 1,
+        "exitTile": {
+          "col": 5,
+          "row": 5
+        }
+      }
+    },
+    "locations": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "monsterDensity": 0.15,
+    "noSpawnLocations": [
+      {
+        "start": {
+          "col": 0,
+          "row": 0
+        },
+        "end": {
+          "col": 20,
+          "row": 20
+        }
+      }
+    ],
+    "entitiesToPlace": []
+  },
+  {
+    "id": "5-5",
+    "act": 5,
+    "chapter": 5,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  }
+]

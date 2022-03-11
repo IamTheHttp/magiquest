@@ -1,6 +1,6 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
 
-export enum AllowedLevelLocationIDs {
+export enum AllowedZoneLocationIDs {
   TOWN = 'TOWN',
   SPAWNABLE_1 = 'SPAWNABLE_1'
 }
@@ -18,6 +18,7 @@ export enum AllowedUIShapes {
 export enum AllowedActions {
   PERFORM_ACTION = 'PERFORM_ACTION',
   MOVE_ACTION = 'MOVE_ACTION',
+  DRAG_PAN_MAP = 'DRAG_PAN_MAP',
   BUY_SKILL = 'BUY_SKILL',
   BUY_ATTR = 'BUY_ATTR'
 }
@@ -60,7 +61,7 @@ export const ANIMATIONS = {
   MOVE_DOWN: 'MOVE_DOWN'
 };
 
-export const bit = 32;
+export const TILE_SIZE = 32;
 
 export enum ATTACK_SPEEDS_OPTIONS {
   SLOW = 'SLOW',

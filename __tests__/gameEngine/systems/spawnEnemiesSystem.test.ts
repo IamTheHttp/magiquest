@@ -2,7 +2,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import {AI_CONTROLLED_COMP, CAN_SPAWN_COMP, SPAWNED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import Character from 'gameEngine/entities/characters/Character';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';

@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes, AllowedLevelLocationIDs} from '../gameConstants';
+import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes, AllowedZoneLocationIDs} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
@@ -13,7 +13,7 @@ interface ITileConstructor {
   height: number;
   width: number;
   tileType: number;
-  tileLocationID: AllowedLevelLocationIDs;
+  tileLocationID: AllowedZoneLocationIDs;
   tileCharacterLevel: number;
 }
 

@@ -1,6 +1,6 @@
 import {TRAVERSABLE_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {getTileIdxByPos} from '../tileUtils/getTileIdx';
-import {ITileIndexMap} from '../../../../interfaces/interfaces';
+import {ITileIndexMap} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';
 
 // is an x, y traversable for an entity

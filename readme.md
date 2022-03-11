@@ -33,22 +33,19 @@
 
 ### The database
 
-- #### zones.csv database
+- #### zones.json database
 
   - id -- {string} in the format of ${level}-${area}
-  - act -- {number} > 0 Acts, are the major blocks of the story progression
-  - chapter -- {number} > 0 Chapters are sub-sections of an Act, each Act has many Chapters
+  - act -- {number} > Acts, are the major blocks of the story progression
+  - chapter -- {number} > Chapters are sub-sections of an Act, each Act has many Chapters
   - description -- {string} free text to describe the location
-  - player_start_pos -- When level is loaded, where does the player start
-  - monster_spawns -- Comma separated IDs of spawnable monsters in the area (provided by a different csv file)
-  - no_spawn_locations - 0,0-1000,1000 -> x,y-x,y range in pixels in which enemies should not spawn,
-    Can have multiple values separated by \_\_
-  - exits --
-    - Format: 5,3->0-1@0,0 (tile 5,3 goes to level-area 0-1 at position 0,0)
-    - separator "\_\_" (as we can have multiple exists per area)
-  - mon_per_tile -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
+  - playerStartPos -- When level is loaded, where does the player start
+  - spawnableEnemies -- Array of separated IDs of spawnable monsters in the area
+  - noSpawnLocations - [{start: {col: number, row:number}, end: {col: number, row:number}}] Col/Row ranges in which enemies should not spawn.
+  - exits - map of {act,chapter ->  {act: number, chapter: number, exitTile: { col: number, row:number}}
+  - monsterDensity -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
 
-- #### characters.csv database
+- #### characters.json database
   - id - {string} one of Enum's CHARACTERS;
   - display_name -- {string}
   - dmg -- {number}

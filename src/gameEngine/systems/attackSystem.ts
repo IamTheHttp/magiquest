@@ -1,7 +1,7 @@
 import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import Character from 'gameEngine/entities/characters/Character';
 import {Entity, entityLoop} from 'game-platform';
 import {EnemyKilledEvent, PlayerIsAttacked} from '../classes/GameEvents';

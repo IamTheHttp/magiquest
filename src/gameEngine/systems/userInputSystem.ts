@@ -3,16 +3,17 @@ import performAction from '../utils/systemUtils/userInput/performAction';
 import buySkill from '../utils/systemUtils/userInput/buySkill';
 import buyAttr from '../utils/systemUtils/userInput/buyAttr';
 
-import {ISystemArguments} from '../../interfaces/gameloop.i';
-import {IAction} from '../../interfaces/interfaces';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
+import {IAction} from '../../interfaces/IGeneral';
 import {AllowedActions} from '../gameConstants';
+import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
 
-let actionMap = {
+let mapUserActionNameToAction = {
   [AllowedActions.MOVE_ACTION]: moveAction,
   [AllowedActions.PERFORM_ACTION]: performAction,
   [AllowedActions.BUY_SKILL]: buySkill,
   [AllowedActions.BUY_ATTR]: buyAttr
-};
+} as Record<AllowedActions, (sysArgs: ISystemArguments, action: IAction) => void>;
 
 // store our actions, singleton
 let actions: IAction[] = [];
@@ -20,8 +21,8 @@ let actions: IAction[] = [];
 function userInputSystem(systemArguments: ISystemArguments) {
   // loop over all actions
   actions.forEach((action) => {
-    if (actionMap[action.name]) {
-      actionMap[action.name](systemArguments, action);
+    if (mapUserActionNameToAction[action.name]) {
+      mapUserActionNameToAction[action.name](systemArguments, action);
     }
   });
   // reset actions when we're done

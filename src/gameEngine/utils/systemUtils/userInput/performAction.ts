@@ -3,7 +3,7 @@ import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTile
 import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
-import {ISystemArguments} from '../../../../interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
 import {IEntityMap} from 'game-platform/dist/lib/interfaces';
 import FamNPC from '../../../entities/characters/FamNPC';
@@ -11,6 +11,7 @@ import {BaseEntity} from '../../../BaseEntity';
 import IndexedTile from '../../../classes/IndexedTile';
 import {InteractWithNPC} from '../../../classes/GameEvents';
 import {isNonEmptyArray} from '../../../systems/portalSystem';
+import {IAction} from '../../../../interfaces/IGeneral';
 
 function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   targetTile: IndexedTile;
@@ -55,7 +56,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   };
 }
 
-function performAction(systemArguments: ISystemArguments) {
+function performAction(systemArguments: ISystemArguments, action: IAction) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
   let {Entity, zone, gameEvents} = systemArguments;
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];

@@ -1,4 +1,4 @@
-import Game from '../../Game/Game';
+import Game from '../../Game';
 import {BaseEntity} from '../../BaseEntity';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 

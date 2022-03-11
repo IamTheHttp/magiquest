@@ -1,8 +1,8 @@
 // store our triggers, singleton
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import Dialog from 'gameEngine/components/Dialog';
-import {IDialogTrigger, ITriggerLinesOfText, IPortalTrigger} from '../../interfaces/triggers.i';
-import {ISystemArguments} from '../../interfaces/gameloop.i';
+import {IDialogTrigger, ITriggerLinesOfText, IPortalTrigger} from '../../interfaces/ITriggers';
+import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';

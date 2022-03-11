@@ -1,11 +1,11 @@
 import createSystemArgs from '../../../../__TEST__UTILS__/createSystemArguments';
 import SpyFns from '../../../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../../../__TEST__UTILS__/createEnemy';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import updateMapTileIdx from '../../../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
-import {AllowedLevelLocationIDs, DIRECTIONS_OPTIONS} from '../../../../../src/gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, DIRECTIONS_OPTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';
 import {IS_ATTACKING_COMP} from '../../../../../src/gameEngine/components/ComponentNamesConfig';
@@ -22,11 +22,11 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('performs an action when there is no adjacent entity', () => {
-    performAction(systemArguments);
+    performAction(systemArguments, null);
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
-    let enemy = createNewEnemy(0, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
     updateMapTileIdx({
       entity: enemy,
       tileIdxMap: systemArguments.tileIdxMap,
@@ -42,7 +42,7 @@ describe('Tests the placeLevelEntities util', () => {
 
     player.setOrientation(DIRECTIONS_OPTIONS.DOWN);
 
-    performAction(systemArguments);
+    performAction(systemArguments, null);
 
     expect(player.hasComponents(IS_ATTACKING_COMP)).toBeTruthy();
     // expect action to attack

@@ -1,7 +1,7 @@
 import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createSystemArguments';
 
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
-import {ISystemArguments} from '../../../src/interfaces/gameloop.i';
+import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
@@ -9,7 +9,7 @@ import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/upd
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {AllowedLevelLocationIDs, bit} from '../../../src/gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
 import {HEALTH_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
@@ -28,7 +28,7 @@ describe('Tests for the AI system', () => {
 
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     aiSystem(systemArguments as ISystemArguments);
     moveSystem(systemArguments as ISystemArguments);
@@ -40,7 +40,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('doesnt move an already moving AI', () => {
-    let ent = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     ent.addComponent(new IsMoving());
 
@@ -63,7 +63,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(2, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(2, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -80,7 +80,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(x - playerX + y - playerY).toBe(bit);
+    expect(x - playerX + y - playerY).toBe(TILE_SIZE);
 
     // now that the enemy stopped moving, lets run the system again to attack
     aiSystem(systemArguments);
@@ -105,7 +105,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -122,7 +122,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
+    expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
   });
 
   it('Chase player down', () => {
@@ -135,7 +135,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 0, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(0, 0, 1, AllowedZoneLocationIDs.TOWN);
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -152,7 +152,7 @@ describe('Tests for the AI system', () => {
     let {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
-    expect(Math.abs(x - playerX + y - playerY)).toBe(bit);
+    expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
   });
 
   it('Should only attack adjacent tile (Non aligned entities)', () => {
@@ -168,7 +168,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(1, 1, 1, AllowedLevelLocationIDs.TOWN);
+    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);
