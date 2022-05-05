@@ -339,6 +339,18 @@ class Game {
     this.renderBackground = true; // for the first time
   }
 
+  /**
+   * This function allows the UI to send messages to the game, requesting certain actions
+   * This can be replaced in the future with a generic event bus that both the game and the UI will use.
+   * @param msg {string}
+   */
+  notifyGame(msg: string) {
+    // When the UI is ready, dispatch a player state event.
+    if (msg === 'UI_READY') {
+      this.dispatchGameEvent(this.getPlayerStateEvent());
+    }
+  }
+
   handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {
     // Trigger a level change, request a background change as all the scene is different
     this.setZoneByActAndChapter(act, chapter);

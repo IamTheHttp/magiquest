@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useLayoutEffect, useMemo} from 'react';
 import {ComponentProps} from 'react';
 import GameUI from '../GameUI/GameUI';
 import {IPlayerState, IPlayerUIState} from '../../../interfaces/IGeneral';
 import Game from '../../../gameEngine/Game';
-import {PlayerState} from '../../../gameEngine/classes/PlayerState';
+import {PlayerState, PlayerStateChangeEvent} from '../../../gameEngine/classes/PlayerState';
 import {AllowedAttributes} from '../../../data/attributesConfig';
 
 function getDefaultPlayerState(): IPlayerState {
@@ -51,6 +51,9 @@ export function MainOverlay(props: MainOverlayProps) {
 
       setPlayerState(newPlayerState);
     });
+
+    // After the registration for the game events is done, we can let the game know the UI is ready.
+    props.game.notifyGame('UI_READY');
   }, []);
 
   return (
