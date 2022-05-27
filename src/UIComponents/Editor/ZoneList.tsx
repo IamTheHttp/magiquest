@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useForm} from '../Components/__Shared/Form/useForm';
 import {createNewZoneRequest} from './editorRequests/createNewZoneRequest';
 import {getZones} from './editorRequests/getZones';
+import {createZone} from '../../data/zones/utils/createZone';
+import {populateGlobalZoneConfig} from '../../data/zones/zoneConfig';
 
 function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Record<string, string>) => void}) {
   const {submit, generateFields} = useForm();
@@ -88,6 +90,17 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
             numCols: +formState.numCols
           }).then((res) => {
             if (res.status === 'OK') {
+              // dynamically extend the game config to include the new zone
+              // this is usually done in build time, but when using the editor we must do it in runtime
+              const ZONE = createZone(
+                {
+                  id: res.data.zoneJSON.id,
+                  tileMap: res.data.mapJSON.tileMap
+                },
+                res.data.zoneJSON
+              );
+
+              populateGlobalZoneConfig(ZONE);
               setIsNewZoneFormOpen(false);
             }
           });

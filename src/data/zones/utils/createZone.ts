@@ -1,6 +1,5 @@
 import {ITileMap, IZone, PossibleTriggersArray} from '../../../interfaces/IZones';
 import IZoneData from '../../../interfaces/IZoneData';
-import zonesJSON from '../../json/zones.json';
 import {IPortalTrigger} from '../../../interfaces/ITriggers';
 import {validateZone} from './validateZone';
 
@@ -8,12 +7,9 @@ import {validateZone} from './validateZone';
  * This function creates a Zone object
  * It accepts an id and a tile map and returns ths JSON data of the level, merged with those properties
  * @param zone
+ * @param zoneJSONData
  */
-function createZone(zone: {id: string; tileMap: ITileMap}): IZone {
-  const zoneJSONData: IZoneData = zonesJSON.find((zoneRow: IZoneData) => {
-    return zoneRow.id === zone.id;
-  });
-
+function createZone(zone: {id: string; tileMap: ITileMap}, zoneJSONData: IZoneData): IZone {
   if (!zoneJSONData) {
     console.error(`Could not find a zone in the zone config for the map ${zone.id}`);
     return;

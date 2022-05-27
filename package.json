@@ -16,7 +16,7 @@
     "test:coverage": "npm run test -- --coverage",
     "prestart": "npm run formatcode",
     "start": "npm run bundle:watch & live-server ./dist",
-    "start:editor": "node Editor/index.js",
+    "start:editor": "cd Editor; npm start",
     "release": "release-it",
     "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"
   },

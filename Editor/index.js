@@ -60,21 +60,16 @@ app.post('/zones', (req, res) => {
   // Save the new TileMap
   const MAP_FILE_NAME = path.resolve(DATA_BASE_PATH, `json/maps/${act}-${chapter}.map.json`);
 
-  fs.writeFileSync(
-    MAP_FILE_NAME,
-    JSON.stringify(
-      {
-        act: act,
-        chapter: chapter,
-        tileMap: zoneTileMap
-      },
-      null,
-      '\t'
-    )
-  );
+  const mapJSON = {
+    act: act,
+    chapter: chapter,
+    tileMap: zoneTileMap
+  };
+
+  fs.writeFileSync(MAP_FILE_NAME, JSON.stringify(mapJSON, null, '\t'));
 
   // Create the new level
-  zones.push({
+  const zoneJSON = {
     id: `${act}-${chapter}`,
     act: act,
     chapter: chapter,
@@ -94,14 +89,19 @@ app.post('/zones', (req, res) => {
       move: {}
     },
     locations: []
-  });
+  };
+  zones.push(zoneJSON);
 
   // Save the new zones
   fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones, null, '\t'));
 
   res.send({
     status: 'OK',
-    message: 'Zone created successfully'
+    message: 'Zone created successfully',
+    data: {
+      zoneJSON: zoneJSON,
+      mapJSON: mapJSON
+    }
   });
 });
 

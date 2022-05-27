@@ -1,6 +1,14 @@
-import Game from '../../../gameEngine/Game';
+import {ITileMap} from '../../../interfaces/IZones';
+import IZoneData from '../../../interfaces/IZoneData';
 
-export function createNewZoneRequest(input: {act: number; chapter: number; numRows: number; numCols: number}) {
+export function createNewZoneRequest(input: {act: number; chapter: number; numRows: number; numCols: number}): Promise<{
+  status: 'OK' | string;
+  message: 'Zone created successfully' | string;
+  data: {
+    zoneJSON: IZoneData;
+    mapJSON: {tileMap: ITileMap};
+  };
+}> {
   return fetch('http://localhost:3000/zones', {
     method: 'POST',
     headers: {

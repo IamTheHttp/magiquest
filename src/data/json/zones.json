@@ -279,5 +279,47 @@
       "move": {}
     },
     "locations": []
+  },
+  {
+    "id": "3-12",
+    "act": 3,
+    "chapter": 12,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  },
+  {
+    "id": "22-22",
+    "act": 22,
+    "chapter": 22,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
   }
 ]
