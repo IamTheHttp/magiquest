@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const fs = require('fs');
+const DATA_BASE_PATH = path.resolve(__dirname, '..', 'src/data');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -35,13 +36,7 @@ app.post('/zones', (req, res) => {
 
     return;
   }
-
-  // TODO
-  //   Create a new map file
-  //   Extend the Zone Array
-
   // Read the existing zonesData JSON array
-  const DATA_BASE_PATH = path.resolve(__dirname, '..', 'src/data');
   const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
   const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
 
@@ -107,6 +102,16 @@ app.post('/zones', (req, res) => {
   res.send({
     status: 'OK',
     message: 'Zone created successfully'
+  });
+});
+
+app.get('/zones', (req, res) => {
+  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
+  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+
+  res.send({
+    status: 'OK',
+    data: zones
   });
 });
 

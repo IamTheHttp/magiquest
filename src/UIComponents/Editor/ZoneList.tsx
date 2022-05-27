@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import zonesJSONData from '../../data/json/zones.json';
+import React, {useEffect, useState} from 'react';
 import {useForm} from '../Components/__Shared/Form/useForm';
 import {createNewZoneRequest} from './editorRequests/createNewZoneRequest';
+import {getZones} from './editorRequests/getZones';
 
 function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Record<string, string>) => void}) {
   const {submit, generateFields} = useForm();
@@ -49,8 +49,15 @@ function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Reco
  */
 export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => void; onCreateNewZone: () => void}) {
   const [isNewZoneFormOpen, setIsNewZoneFormOpen] = useState(false);
+  const [zones, setZones] = useState([]);
 
-  const trs = zonesJSONData.map((zone: {act: number; chapter: number; description: string; id: string}) => {
+  useEffect(() => {
+    getZones().then((zones) => {
+      setZones(zones);
+    });
+  }, [isNewZoneFormOpen]);
+
+  const trs = zones.map((zone: {act: number; chapter: number; description: string; id: string}) => {
     return (
       <tr>
         <td>{zone.description}</td>
@@ -79,6 +86,10 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
             chapter: +formState.chapter,
             numRows: +formState.numRows,
             numCols: +formState.numCols
+          }).then((res) => {
+            if (res.status === 'OK') {
+              setIsNewZoneFormOpen(false);
+            }
           });
         }}
         onClose={() => {

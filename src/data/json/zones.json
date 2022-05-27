@@ -195,5 +195,89 @@
       "move": {}
     },
     "locations": []
+  },
+  {
+    "id": "5-1",
+    "act": 5,
+    "chapter": 1,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  },
+  {
+    "id": "10-10",
+    "act": 10,
+    "chapter": 10,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  },
+  {
+    "id": "11-11",
+    "act": 11,
+    "chapter": 11,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  },
+  {
+    "id": "12-12",
+    "act": 12,
+    "chapter": 12,
+    "description": "New Chapter",
+    "playerStartPos": {
+      "col": 0,
+      "row": 0
+    },
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
   }
 ]
