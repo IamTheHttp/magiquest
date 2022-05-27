@@ -4,6 +4,7 @@ import {createNewZoneRequest} from './editorRequests/createNewZoneRequest';
 import {getZones} from './editorRequests/getZones';
 import {createZone} from '../../data/zones/utils/createZone';
 import {populateGlobalZoneConfig} from '../../data/zones/zoneConfig';
+import {deleteZone} from './editorRequests/deleteZone';
 
 function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Record<string, string>) => void}) {
   const {submit, generateFields} = useForm();
@@ -52,12 +53,13 @@ function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Reco
 export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => void; onCreateNewZone: () => void}) {
   const [isNewZoneFormOpen, setIsNewZoneFormOpen] = useState(false);
   const [zones, setZones] = useState([]);
+  const [fetchCount, setFetchCount] = useState(0);
 
   useEffect(() => {
     getZones().then((zones) => {
       setZones(zones);
     });
-  }, [isNewZoneFormOpen]);
+  }, [isNewZoneFormOpen, fetchCount]);
 
   const trs = zones.map((zone: {act: number; chapter: number; description: string; id: string}) => {
     return (
@@ -73,6 +75,24 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
             }}
           >
             Go
+          </button>
+        </td>
+        <td>
+          <button
+            onClick={() => {
+              if (confirm(`Are you sure you want to delete ${zone.id}?`)) {
+                deleteZone(zone.id).then((res) => {
+                  if (res.status === 'OK') {
+                    alert(`deleted successfully ${zone.id}`);
+                    setFetchCount(fetchCount + 1);
+                  } else {
+                    alert(`Could not delete ${zone.id}`);
+                  }
+                });
+              }
+            }}
+          >
+            &times;
           </button>
         </td>
       </tr>
@@ -120,6 +140,7 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
             <th>Act</th>
             <th>Chapter</th>
             <th>Nav</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>{trs}</tbody>

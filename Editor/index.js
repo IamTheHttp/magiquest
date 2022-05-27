@@ -115,4 +115,33 @@ app.get('/zones', (req, res) => {
   });
 });
 
+app.delete('/zones/:id', (req, res) => {
+  // Delete entry from the zones.json file!
+  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
+  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+
+  const newZones = zones.filter((zone) => {
+    return zone.id !== req.params.id;
+  });
+  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(newZones, null, '\t'));
+
+  // Delete map file
+  const MAP_FILE_NAME = path.resolve(DATA_BASE_PATH, `json/maps/${req.params.id}.map.json`);
+  try {
+    fs.unlinkSync(MAP_FILE_NAME);
+  } catch (e) {
+    // Respond
+    return res.send({
+      status: 'ERROR',
+      message: `Could not delete ${req.params.id}.map.json - ${e.message}`
+    });
+  }
+
+  // Respond
+  res.send({
+    status: 'OK',
+    message: `zone deleted ${req.params.id}`
+  });
+});
+
 app.listen(port, () => console.log(`Editor app listening on port ${port}!`));
