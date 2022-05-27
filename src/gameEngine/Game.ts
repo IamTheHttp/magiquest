@@ -346,7 +346,8 @@ class Game {
    */
   notifyGame(msg: string) {
     // When the UI is ready, dispatch a player state event.
-    if (msg === 'UI_READY') {
+    // Do not dispatch this event in editor mode
+    if (msg === 'UI_READY' && this.mode === 'playing') {
       this.dispatchGameEvent(this.getPlayerStateEvent());
     }
   }
