@@ -1,7 +1,7 @@
 import Game from '../../../gameEngine/Game';
 
 export function createNewZoneRequest(input: {act: number; chapter: number; numRows: number; numCols: number}) {
-  fetch('http://localhost:3000/zones', {
+  return fetch('http://localhost:3000/zones', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -13,5 +13,12 @@ export function createNewZoneRequest(input: {act: number; chapter: number; numRo
       numRows: input.numRows,
       numCols: input.numCols
     })
-  });
+  })
+    .then((data) => {
+      return data.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
 }

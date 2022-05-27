@@ -9,24 +9,26 @@ function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Reco
   return (
     <div>
       <form>
-        {generateFields([
-          {
-            name: 'act',
-            type: 'number'
-          },
-          {
-            name: 'chapter',
-            type: 'number'
-          },
-          {
-            name: 'numCols',
-            type: 'number'
-          },
-          {
-            name: 'numRows',
-            type: 'number'
-          }
-        ])}
+        {generateFields({
+          fields: [
+            {
+              name: 'act',
+              type: 'number'
+            },
+            {
+              name: 'chapter',
+              type: 'number'
+            },
+            {
+              name: 'numCols',
+              type: 'number'
+            },
+            {
+              name: 'numRows',
+              type: 'number'
+            }
+          ]
+        })}
         <button {...submit(props.handleSubmit)}>Submit</button>
       </form>
       <button

@@ -12,7 +12,7 @@
     "exits": {
       "5,5": {
         "act": 0,
-        "chapter": 1,
+        "chapter": 0,
         "exitTile": {
           "col": 4,
           "row": 95
@@ -20,7 +20,7 @@
       },
       "10,10": {
         "act": 0,
-        "chapter": 1,
+        "chapter": 0,
         "exitTile": {
           "col": 5,
           "row": 5
@@ -158,55 +158,27 @@
     "id": "0-1",
     "act": 0,
     "chapter": 1,
-    "description": "Sewers",
+    "description": "New Chapter",
     "playerStartPos": {
-      "col": 5,
-      "row": 95
+      "col": 0,
+      "row": 0
     },
-    "spawnableEnemies": ["VAMPIRE", "IMP"],
-    "exits": {
-      "5,95": {
-        "act": 0,
-        "chapter": 0,
-        "exitTile": {
-          "col": 12,
-          "row": 12
-        }
-      },
-      "10,10": {
-        "act": 0,
-        "chapter": 1,
-        "exitTile": {
-          "col": 5,
-          "row": 5
-        }
-      }
-    },
-    "locations": [],
+    "spawnableEnemies": [],
+    "exits": {},
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
     "triggers": {
       "levelStart": [],
       "actOnEntity": {},
       "move": {}
     },
-    "monsterDensity": 0.15,
-    "noSpawnLocations": [
-      {
-        "start": {
-          "col": 0,
-          "row": 0
-        },
-        "end": {
-          "col": 20,
-          "row": 20
-        }
-      }
-    ],
-    "entitiesToPlace": []
+    "locations": []
   },
   {
-    "id": "5-5",
-    "act": 5,
-    "chapter": 5,
+    "id": "2-2",
+    "act": 2,
+    "chapter": 2,
     "description": "New Chapter",
     "playerStartPos": {
       "col": 0,

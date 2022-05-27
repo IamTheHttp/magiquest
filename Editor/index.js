@@ -28,7 +28,7 @@ app.post('/', (req, res) => {
 app.post('/zones', (req, res) => {
   const {act, chapter, numRows, numCols} = req.body;
 
-  if (act <= 0 || chapter <= 0 || numRows <= 0 || numCols <= 0) {
+  if (act < 0 || chapter < 0 || numRows <= 0 || numCols <= 0) {
     res.send({
       error: `invalid Input: ${JSON.stringify(req.body)}`
     });
@@ -41,7 +41,8 @@ app.post('/zones', (req, res) => {
   //   Extend the Zone Array
 
   // Read the existing zonesData JSON array
-  const ZONES_FILE_NAME = `../src/data/json/zones.json`;
+  const DATA_BASE_PATH = path.resolve(__dirname, '..', 'src/data');
+  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
   const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
 
   // Validate that we can't overwrite an existing act/chapter
@@ -49,7 +50,8 @@ app.post('/zones', (req, res) => {
     const zone = zones[i];
     if (zone.act === act && zone.chapter === chapter) {
       res.send({
-        error: 'Cannot overwrite existing act-chapter zone, please delete first, then create new'
+        status: 'error',
+        message: 'Cannot overwrite existing act-chapter zone, please delete first, then create new'
       });
       // Stop here!
       return;
@@ -61,14 +63,19 @@ app.post('/zones', (req, res) => {
   const zoneTileMap = [...new Array(numRows)].map(() => col);
 
   // Save the new TileMap
-  const MAP_FILE_NAME = `../src/data/json/maps/${act}-${chapter}.map.json`;
+  const MAP_FILE_NAME = path.resolve(DATA_BASE_PATH, `json/maps/${act}-${chapter}.map.json`);
+
   fs.writeFileSync(
     MAP_FILE_NAME,
-    JSON.stringify({
-      act: act,
-      chapter: chapter,
-      tileMap: zoneTileMap
-    })
+    JSON.stringify(
+      {
+        act: act,
+        chapter: chapter,
+        tileMap: zoneTileMap
+      },
+      null,
+      '\t'
+    )
   );
 
   // Create the new level
@@ -95,9 +102,12 @@ app.post('/zones', (req, res) => {
   });
 
   // Save the new zones
-  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones));
+  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones, null, '\t'));
 
-  res.send('OK');
+  res.send({
+    status: 'OK',
+    message: 'Zone created successfully'
+  });
 });
 
 app.listen(port, () => console.log(`Editor app listening on port ${port}!`));

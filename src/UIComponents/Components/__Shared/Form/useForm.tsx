@@ -48,9 +48,20 @@ export function useForm() {
    * @example  <form> {generateFields([{name:string, type:number|text}]) </form>
    * @param fields
    */
-  function generateFields(fields: {name: string; type: string}[]) {
+  function generateFields({
+    fields,
+    formControlClassName = 'form-control'
+  }: {
+    fields: {name: string; type: string}[];
+    formControlClassName?: string;
+  }) {
     return fields.map(({name, type}) => {
-      return <input name={name} type={type} {...register(name)} />;
+      return (
+        <div className={formControlClassName}>
+          <label>{name}</label>
+          <input name={name} type={type} {...register(name)} />
+        </div>
+      );
     });
   }
 

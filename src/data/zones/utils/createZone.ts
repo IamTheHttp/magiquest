@@ -14,6 +14,11 @@ function createZone(zone: {id: string; tileMap: ITileMap}): IZone {
     return zoneRow.id === zone.id;
   });
 
+  if (!zoneJSONData) {
+    console.error(`Could not find a zone in the zone config for the map ${zone.id}`);
+    return;
+  }
+
   let NEW_ZONE = Object.assign<Partial<IZone>, IZoneData>(zone, zoneJSONData) as IZone;
 
   NEW_ZONE.tileMap = zone.tileMap;
