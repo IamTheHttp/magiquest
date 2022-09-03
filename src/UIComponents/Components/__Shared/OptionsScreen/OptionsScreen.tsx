@@ -1,12 +1,13 @@
 import * as React from 'react';
 import './OptionsScreen.scss';
+import {PropsWithChildren} from 'react';
 
 interface IOptionsScreenOptions {
   onClose: () => void;
   className: string;
 }
 
-class OptionsScreen extends React.Component<IOptionsScreenOptions> {
+class OptionsScreen extends React.Component<PropsWithChildren<IOptionsScreenOptions>> {
   render() {
     let children = React.Children.toArray(this.props.children);
     return (
