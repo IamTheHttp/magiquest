@@ -26,7 +26,6 @@ export function createNewZoneRequest(input: {act: number; chapter: number; numRo
       return data.json();
     })
     .then((data) => {
-      console.log(data);
       return data;
     });
 }

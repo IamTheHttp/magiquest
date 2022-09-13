@@ -54,9 +54,7 @@ export class App extends React.Component<any, AppState> {
 
   createCanvasManager() {
     this.gameCanvasManager = new GameCanvas({
-      onViewMapClick(e) {
-        console.log(e);
-      },
+      onViewMapClick(e) {},
       mapHeight: 0,
       mapWidth: 0,
       viewHeight: RESOLUTION.height,
@@ -94,7 +92,6 @@ export class App extends React.Component<any, AppState> {
         isEditorOpen: false
       },
       () => {
-        console.log('Resizing after state change');
         this.resize();
       }
     );
@@ -125,7 +122,6 @@ export class App extends React.Component<any, AppState> {
         isGameRunning: false
       },
       () => {
-        console.log('Resizing after state change');
         this.resize();
       }
     );

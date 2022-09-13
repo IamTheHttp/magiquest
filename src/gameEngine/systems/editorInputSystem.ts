@@ -13,6 +13,11 @@ let actions: IAction[] = [];
 
 let cameraMapIntervalID = 0;
 
+/**
+ * Actions done in the Editor related to interacting with the game (Such as panning the camera)
+ * This file DOES NOT contain events related to performing changes on the server (such as changing tiles)
+ * @param systemArguments
+ */
 function editorInputSystem(systemArguments: ISystemArguments) {
   // loop over all actions
   for (let i = 0; i < actions.length; i++) {

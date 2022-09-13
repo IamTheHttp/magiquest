@@ -5,6 +5,7 @@ import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
 import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/ComponentNamesConfig';
+import {WALKABLE_TILE_TYPES} from '../createEntitySprites';
 
 interface ITileConstructor {
   x: number;
@@ -30,8 +31,7 @@ class Tile extends BaseEntity {
 
     // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)
-    // TODO reuse in setTileType
-    if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
+    if (WALKABLE_TILE_TYPES.includes(tileType)) {
       this.addComponent(new TraversableComponent());
       this.addComponent(new CanSpawn(tileLocationID, tileCharacterLevel));
     }
@@ -49,9 +49,9 @@ class Tile extends BaseEntity {
     );
   }
 
-  // TODO for Editor mode only, change the tile type
+  // TODO for Editor mode only, allows change the tile type in the editor mode
   setTileType(tileType: number) {
-    if (tileType === 1 || tileType === 7 || tileType === 100 || tileType === 13) {
+    if (WALKABLE_TILE_TYPES.includes(tileType)) {
       this.addComponent(new TraversableComponent());
     } else {
       this.removeComponent(TRAVERSABLE_COMP);

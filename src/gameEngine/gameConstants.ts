@@ -78,8 +78,8 @@ export const ATTACK_SPEEDS = {
 };
 
 export const RESOLUTION = {
-  width: 400 * 2,
-  height: 240 * 2
+  width: 400 * 2, // 25 tiles
+  height: 240 * 2 // 15 tiles
 };
 
 export const ATTACK_CONFIG = {

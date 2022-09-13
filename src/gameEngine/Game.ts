@@ -238,7 +238,6 @@ class Game {
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
-    console.log('Setting player position', col, row);
     let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
     player.setPos({
       x: TILE_SIZE / 2 + col * TILE_SIZE,
@@ -274,8 +273,6 @@ class Game {
     if (!this.mapAPI) {
       throw 'Cannot load the current zone without a mapAPI instance';
     }
-    // New level means new background
-    this.requestBackgroundRender();
 
     let mapAPI = this.mapAPI;
 
@@ -322,6 +319,10 @@ class Game {
           }
         });
       }
+
+      // Reset panning
+      this.mapAPI.panCamera(0, 0);
+
       centerCameraOnEntity(
         player,
         mapAPI,
@@ -332,6 +333,9 @@ class Game {
         mapHeight,
         true
       );
+
+      // New level means new background
+      this.requestBackgroundRender();
     }
     this.renderBackground = true; // for the first time
   }

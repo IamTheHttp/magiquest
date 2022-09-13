@@ -3,30 +3,43 @@
     "id": "0-0",
     "act": 0,
     "chapter": 0,
+    "description": "A bleak beginning",
+    "playerStartPos": {
+      "col": 3,
+      "row": 6
+    },
+    "spawnableEnemies": [],
+    "exits": {
+      "39,6": {
+        "act": 0,
+        "chapter": 1,
+        "exitTile": {
+          "col": 10,
+          "row": 10
+        }
+      }
+    },
+    "monsterDensity": 0,
+    "noSpawnLocations": [],
+    "entitiesToPlace": [],
+    "triggers": {
+      "levelStart": [],
+      "actOnEntity": {},
+      "move": {}
+    },
+    "locations": []
+  },
+  {
+    "id": "0-1",
+    "act": 0,
+    "chapter": 1,
     "description": "Elvenar",
     "playerStartPos": {
       "col": 4,
       "row": 4
     },
     "spawnableEnemies": ["IMP", "VAMPIRE"],
-    "exits": {
-      "5,5": {
-        "act": 0,
-        "chapter": 0,
-        "exitTile": {
-          "col": 4,
-          "row": 95
-        }
-      },
-      "10,10": {
-        "act": 0,
-        "chapter": 0,
-        "exitTile": {
-          "col": 5,
-          "row": 5
-        }
-      }
-    },
+    "exits": {},
     "monsterDensity": 0.05,
     "noSpawnLocations": [
       {
@@ -97,18 +110,7 @@
       }
     ],
     "triggers": {
-      "levelStart": [
-        {
-          "oneOff": true,
-          "type": "dialog",
-          "lines": [
-            {
-              "text": "I haven't heard from my aunt in a while\nI should go check on her\nMaybe John has seen her?",
-              "speaker": 0
-            }
-          ]
-        }
-      ],
+      "levelStart": [],
       "actOnEntity": {},
       "move": {
         "-1,-2": [
