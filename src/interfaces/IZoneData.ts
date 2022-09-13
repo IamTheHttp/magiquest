@@ -1,11 +1,9 @@
 import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, ITileMap, PossibleTriggersArray} from './IZones';
-import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import {CHARACTERS} from '../gameEngine/gameConstants';
 import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
 
 export interface IExits {
   [key: string]: {
-    // key in the form of "x,y"
     act: number;
     chapter: number;
     exitTile: ITileCoordinate;

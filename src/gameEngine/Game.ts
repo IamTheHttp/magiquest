@@ -68,10 +68,7 @@ class Game {
   isRunning: boolean;
   gameEvents: GameEvents;
   gameEventListener: IGameEventListener;
-
-  // Player's current area TODO this is a placeholder
   currentChapter: number;
-  // Player's current level TODO this is a placeholder
   currentAct: number;
 
   constructor({onZoneChange, mode = 'editing'}: IGameConstructor) {

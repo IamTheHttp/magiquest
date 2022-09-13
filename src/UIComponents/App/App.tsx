@@ -106,7 +106,7 @@ export class App extends React.Component<any, AppState> {
       onZoneChange: (act, chapter, newPlayerPosition) => {}
     });
 
-    // Game always starts at level 0, area 0
+    // Game always starts at act 0, chapter 0
     // TODO we can use this to implement saving - the saved data can be level and area
     this.game.setZoneByActAndChapter(0, 0);
 
