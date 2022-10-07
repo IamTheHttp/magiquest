@@ -48,10 +48,26 @@ export function Editor(props: IProps) {
     // Update the map in the server
     // This will also save the changes you make
     // TODO add server-error handling?
-    updateEditorServerTile(game, col, row, selectedTileType);
 
-    // Client side update (optimistic update that the server worked)
-    game.tileIdxMap[`${col},${row}`].tile.setTileType(selectedTileType);
+    let colOffset = 0;
+    let rowOffset = 0;
+
+    while (rowOffset < currentBrushSize || colOffset < currentBrushSize) {
+      updateEditorServerTile(game, col + colOffset, row + rowOffset, selectedTileType);
+      game.tileIdxMap[`${col + colOffset},${row + rowOffset}`].tile.setTileType(selectedTileType);
+
+      colOffset++;
+
+      if (colOffset === currentBrushSize && rowOffset === currentBrushSize - 1) {
+        break;
+      }
+
+      if (colOffset === currentBrushSize) {
+        colOffset = 0;
+        rowOffset++;
+      }
+    }
+
     game.renderBackground = true;
   }
 
