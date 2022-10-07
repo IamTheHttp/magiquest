@@ -27,12 +27,12 @@ interface IShockWaveConstructor {
   color?: string;
 }
 
-class ShockWave {
+class ShockWave extends BaseEntity {
   constructor({x, y, radius = 16, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
-    let entity = new BaseEntity(ShockWave);
+    super();
 
-    entity.addComponent(new PositionComponent({x, y, radius}));
-    entity.addComponent(new UIComponent([]));
+    this.addComponent(new PositionComponent({x, y, radius}));
+    this.addComponent(new UIComponent([]));
 
     let origin = getCenterPosOfTile(fromTileIdx);
     let target = getCenterPosOfTile(toTileIdx);
@@ -70,7 +70,7 @@ class ShockWave {
       i++;
     }
 
-    entity.addComponent(
+    this.addComponent(
       new AnimationComp({
         SHOCKWAVE: {
           animationDuration, // each 'frame' takes this many
@@ -81,9 +81,7 @@ class ShockWave {
       })
     );
 
-    entity.addAnimation(entity.getAnimationTypes().SHOCKWAVE);
-
-    return entity;
+    this.addAnimation(this.getAnimationTypes().SHOCKWAVE);
   }
 }
 

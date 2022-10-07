@@ -1,6 +1,23 @@
 #editor-wrapper {
   display: flex;
 
+  .editor-table {
+    border-collapse: collapse;
+    tr {
+      border-bottom: 1px solid grey;
+    }
+    tbody {
+      tr:hover {
+        background-color: grey;
+      }
+    }
+
+    td {
+      border-right: 1px solid grey;
+      padding: 0px 10px 0px 5px;
+    }
+  }
+
   #editor-tile-selector {
     background-color: black;
     width: 200px;

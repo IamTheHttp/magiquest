@@ -51,7 +51,7 @@ const template = async ({attributes, files, meta, publicPath, title}) => {
 export default [
   {
     watch: {
-      exclude: './src/data/**/*'
+      exclude: './src/data/**/*.json'
     },
     input: 'src/index.tsx',
     output: [

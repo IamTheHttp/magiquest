@@ -41,7 +41,7 @@ export function MonsterList() {
   });
 
   return (
-    <table>
+    <table className={'editor-table'}>
       <thead>
         <tr>
           <th>id</th>

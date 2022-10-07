@@ -17,7 +17,7 @@ class Character extends BaseEntity {
   [SPAWNED_COMP]: SpawnedComponent;
   [LEVEL_COMP]: LevelComp;
   constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
-    super(Character);
+    super();
     let {col, row, characterLevel} = instanceAttributes;
     let {speed, health, radius, dmg, attackSpeed, vision, animationTypes, id, displayName} = charConfig;
 

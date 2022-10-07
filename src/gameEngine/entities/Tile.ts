@@ -25,7 +25,7 @@ interface ITileConstructor {
 class Tile extends BaseEntity {
   tileIdx: string;
   constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileCharacterLevel}: ITileConstructor) {
-    super(Tile);
+    super();
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));
 

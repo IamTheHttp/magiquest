@@ -17,6 +17,7 @@ import renderDialog from 'gameEngine/utils/systemUtils/render/renderDialog';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../BaseEntity';
+import {renderRect} from './renderRect';
 
 function renderMainLayer(
   systemArguments: ISystemArguments,
@@ -51,6 +52,10 @@ function renderMainLayer(
 
       if (section.shape === AllowedUIShapes.HEALTH_BAR_SHAPE) {
         renderHealthBar(systemArguments, entity);
+      }
+
+      if (section.shape === AllowedUIShapes.RECT_SHAPE) {
+        renderRect(systemArguments, entity);
       }
 
       if (section.shape === AllowedUIShapes.CHEST_SHAPE) {

@@ -59,10 +59,6 @@ class BaseEntity extends Entity {
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]: SpawnedComponent;
 
-  constructor(entity: any) {
-    super(entity);
-  }
-
   addAnimation(animation: IAnimationVariantArguments) {
     this[ANIMATION_COMP].addAnimationVariant(animation);
   }

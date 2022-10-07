@@ -132,7 +132,7 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
     );
   } else {
     return (
-      <table>
+      <table className={'editor-table'}>
         <thead>
           <tr>
             <th>Description</th>

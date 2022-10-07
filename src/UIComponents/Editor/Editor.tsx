@@ -1,6 +1,6 @@
 import * as React from 'react';
 import tileSet from '../../assets/tileSet.png';
-import {CSSProperties, useEffect, useRef, useState} from 'react';
+import {CSSProperties, useEffect, useState} from 'react';
 import {TILE_TYPES} from '../../gameEngine/createEntitySprites';
 import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
@@ -11,6 +11,7 @@ import {ZoneList} from './ZoneList';
 import {TILE_SIZE} from '../../gameEngine/gameConstants';
 import {MonsterList} from './MonsterList';
 import {updateEditorServerTile} from './editorRequests/updateEditorServerTile';
+import {getBrushSizeEntity} from './editorEntities/brushSizeEntity';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -22,11 +23,17 @@ type IProps = {
   gameCanvasManager: GameCanvas;
 };
 
+/**
+ * Editor Component, wraps the managed canvas instance
+ * @param props
+ * @constructor
+ */
 export function Editor(props: IProps) {
   const {game, gameCanvasManager} = props;
   const [currentColHover, setCurrentCol] = useState(0);
   const [currentRowHover, setCurrentRow] = useState(0);
   const [selectedTileType, setSelectedTileType] = useState(null);
+  const [currentBrushSize, setBrushSize] = useState(1);
 
   const [isZonesListOpen, setIsZoneListOpen] = useState(false);
   const [isMonsterListOpen, setIsMonsterListOpen] = useState(false);
@@ -50,10 +57,28 @@ export function Editor(props: IProps) {
 
   gameCanvasManager.onViewMapMove = (e) => {
     const {col, row} = getGridIdxFromPos(e.x, e.y);
+
+    // Do nothing in case the cols/rows haven't changed
+    if (col === currentColHover && row === currentRowHover) {
+      return null;
+    }
+
+    // gets ot creates a brush size entity
+    let brushSizeEnt = getBrushSizeEntity();
+
+    brushSizeEnt.setBrushSize({currentBrushSize, col, row});
+
+    // Set new state as needed.
     setCurrentCol(col);
     setCurrentRow(row);
+
+    gameCanvasManager.mapAPI.drawAllShapesInLayer();
   };
 
+  /**
+   * Draw the selected tile on the background.
+   * @param e
+   */
   function doStuff(e: any) {
     const KEY_PRESSED = e.key;
     if (KEY_PRESSED === 'f') {
@@ -166,6 +191,20 @@ export function Editor(props: IProps) {
         >
           Go to start position
         </button>
+        <label>Brush Size</label>
+        <input
+          type={'number'}
+          placeholder={'Brush Size'}
+          onChange={(e) => {
+            const newBrushSize = +e.target.value;
+
+            if (newBrushSize <= 0) {
+              setBrushSize(1);
+            } else {
+              setBrushSize(Math.min(10, newBrushSize));
+            }
+          }}
+        />
       </div>
       <div className="canvas-main-container">
         <ManagedCanvasMemo game={game} gameCanvasManager={gameCanvasManager} />

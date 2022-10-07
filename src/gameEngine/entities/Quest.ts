@@ -7,7 +7,7 @@ import {AllowedQuestIDs} from '../gameConstants';
 class Quest extends BaseEntity {
   [QUEST_DATA_COMP]: QuestDataComponent;
   constructor(questID: AllowedQuestIDs) {
-    super(Quest);
+    super();
     this.addComponent(new QuestDataComponent(questID, questsDataConfig[questID]));
   }
 

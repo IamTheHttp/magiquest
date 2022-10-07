@@ -156,7 +156,7 @@ class Game {
       throw 'Calling highlightStartPosition from outside the editor is not allowed';
     }
 
-    const startPosEntity = new BaseEntity(null);
+    const startPosEntity = new BaseEntity();
 
     const {x, y} = this.getZoneStartXY();
     startPosEntity.addComponent(
