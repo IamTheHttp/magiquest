@@ -3,7 +3,7 @@ import tileSet from '../../assets/tileSet.png';
 import {CSSProperties, useEffect, useState} from 'react';
 import {TILE_TYPES} from '../../gameEngine/createEntitySprites';
 import Game from '../../gameEngine/Game';
-import {GameCanvas} from 'game-platform';
+import {Entity, GameCanvas} from 'game-platform';
 import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
 import {getGridIdxFromPos} from '../../gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {EditorPopup} from './EditorPopup';
@@ -12,6 +12,9 @@ import {TILE_SIZE} from '../../gameEngine/gameConstants';
 import {MonsterList} from './MonsterList';
 import {updateEditorServerTile} from './editorRequests/updateEditorServerTile';
 import {getBrushSizeEntity} from './editorEntities/brushSizeEntity';
+import {updateEditorStartPos} from './editorRequests/updateStartPosition';
+import PositionComponent from '../../gameEngine/components/PositionComponent';
+import {BaseEntity} from '../../gameEngine/BaseEntity';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -33,6 +36,7 @@ export function Editor(props: IProps) {
   const [currentColHover, setCurrentCol] = useState(0);
   const [currentRowHover, setCurrentRow] = useState(0);
   const [selectedTileType, setSelectedTileType] = useState(null);
+  const [selectedEditorEntity, setSelectedEditorEntity] = useState(null);
   const [currentBrushSize, setBrushSize] = useState(1);
 
   const [isZonesListOpen, setIsZoneListOpen] = useState(false);
@@ -112,7 +116,23 @@ export function Editor(props: IProps) {
 
   // When clicking on the canvas, change the tile type where the cursor stands
   gameCanvasManager.onViewMapClick = (e) => {
-    modifyBackgroundTile();
+    if (selectedTileType) {
+      modifyBackgroundTile();
+    }
+
+    if (selectedEditorEntity) {
+      updateEditorStartPos(game, currentColHover, currentRowHover);
+
+      const startPosEntity = Entity.getByComp<BaseEntity>('START_POS')[0];
+
+      startPosEntity.addComponent(
+        new PositionComponent({
+          x: currentColHover * TILE_SIZE + 0.5 * TILE_SIZE,
+          y: currentRowHover * TILE_SIZE + 0.5 * TILE_SIZE,
+          radius: 0.5 * TILE_SIZE
+        })
+      );
+    }
   };
 
   return (
@@ -170,7 +190,7 @@ export function Editor(props: IProps) {
         <h3>
           Current Tile: {currentColHover}-{currentRowHover}
         </h3>
-        <div id="editor-tiles">
+        <div className="editor-tiles">
           {Object.keys(TILE_TYPES).map((key) => {
             let {cropStartX, cropStartY, cropSizeX, cropSizeY} = TILE_TYPES[+key];
 
@@ -193,10 +213,36 @@ export function Editor(props: IProps) {
                 style={style}
                 onClick={() => {
                   setSelectedTileType(key);
+                  setSelectedEditorEntity(null);
                 }}
               />
             );
           })}
+        </div>
+
+        <div className="editor-tiles">
+          {(() => {
+            let extraStyles = selectedEditorEntity === 'start-pos' ? 'active' : '';
+            let style: CSSProperties = {
+              flexBasis: '32px',
+              width: `${TILE_SIZE}px`,
+              height: `${TILE_SIZE}px`,
+              boxSizing: 'border-box',
+              backgroundColor: 'lime',
+              borderRadius: 100
+            };
+
+            return (
+              <div
+                className={`${extraStyles} editor-tile`}
+                style={style}
+                onClick={() => {
+                  setSelectedTileType(null);
+                  setSelectedEditorEntity('start-pos');
+                }}
+              />
+            );
+          })()}
         </div>
         <button
           onClick={() => {

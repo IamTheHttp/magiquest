@@ -144,4 +144,29 @@ app.delete('/zones/:id', (req, res) => {
   });
 });
 
+app.put('/zones/:id/startPos', (req, res) => {
+  let {col, row} = req.body;
+
+  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
+  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+
+  const idx = zones.findIndex((zone) => {
+    return zone.id === req.params.id;
+  });
+
+  zones[idx].playerStartPos = {
+    col: col,
+    row: row
+  };
+
+  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones, null, '\t'));
+
+  console.log(zones[idx]);
+  // Respond
+  res.send({
+    status: 'OK',
+    message: `Updated start position for ${req.params.id}`
+  });
+});
+
 app.listen(port, () => console.log(`Editor app listening on port ${port}!`));

@@ -158,6 +158,8 @@ class Game {
 
     const startPosEntity = new BaseEntity();
 
+    startPosEntity.addComponent({name: 'START_POS'});
+
     const {x, y} = this.getZoneStartXY();
     startPosEntity.addComponent(
       new PositionComponent({
