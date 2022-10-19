@@ -8,7 +8,9 @@
     "esModuleInterop": true,
     "baseUrl": "src/",
     "outDir": "dist",
-    "noEmit": true
+    "sourceMap": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["./src/**/*", "./__tests__"]
 }

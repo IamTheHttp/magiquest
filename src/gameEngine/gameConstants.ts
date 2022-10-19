@@ -1,5 +1,8 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
+import CHAR_SPRITE_URL from '../assets/tileSet.png';
+import TILESET_IMAGE_URL from '../assets/tileSet.png';
 
+export {CHAR_SPRITE_URL, TILESET_IMAGE_URL};
 export enum AllowedZoneLocationIDs {
   TOWN = 'TOWN',
   SPAWNABLE_1 = 'SPAWNABLE_1'
@@ -85,8 +88,5 @@ export const RESOLUTION = {
 export const ATTACK_CONFIG = {
   lineWidth: 3
 };
-
-export const CHAR_SPRITE_URL = 'src/assets/characters.png';
-export const TILESET_IMAGE_URL = 'src/assets/tileSet.png';
 
 export const XP_TO_FIRST_LEVEL = 500;

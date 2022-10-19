@@ -2,13 +2,13 @@
 import '../.polyfills/rAF.ts';
 
 import * as React from 'react';
-import {render} from 'react-dom';
 import tiles from './assets/tileSet.png';
 import charSpriteURL from './assets/characters.png';
 import sentrySpriteURL from './assets/sentry.png';
 import miscURL from './assets/misc.png';
 import {assetLoader} from 'utils/assetLoader';
 import {App} from './UIComponents/App/App';
+import {createRoot} from 'react-dom/client';
 
 if (!document.getElementById('app')) {
   let div = document.createElement('div');
@@ -17,9 +17,11 @@ if (!document.getElementById('app')) {
 }
 
 if (!document.getElementById('progress')) {
+  console.log('Adding stuff');
   let div = document.createElement('div');
   div.id = 'progress';
   document.body.appendChild(div);
+  console.log(document.body);
 }
 
 document.title = 'MAGIQUEST!';
@@ -52,7 +54,10 @@ assetLoader.load(
     }
   ],
   () => {
+    const root = createRoot(document.getElementById('app'));
+    root.render(<App />);
+
+    console.log(document.body);
     document.body.removeChild(document.getElementById('progress'));
-    render(<App />, document.getElementById('app'));
   }
 );

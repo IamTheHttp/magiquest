@@ -1,8 +1,15 @@
 import {IZone} from '../../interfaces/IZones';
 import {createZone} from './utils/createZone';
-// This glob is needed because we can't "require" a json file dynamically once the game is running
-// This will pre-require everything and put it into "maps"
-import * as maps from 'glob:../json/maps/*.map.json';
+
+// @ts-ignore
+function requireAll(r: any) {
+  return r.keys().map(r);
+}
+
+// @ts-ignore
+// Get all maps.json files
+const maps = requireAll(require.context('../json/maps/', true, /\.json$/));
+
 import IZoneData from '../../interfaces/IZoneData';
 import zonesJSON from '../json/zones.json';
 
