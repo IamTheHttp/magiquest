@@ -2,7 +2,7 @@ import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/Compo
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {pushTrigger, Trigger} from 'gameEngine/systems/triggerSystem';
+import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
 import {IEntityMap} from 'game-platform/dist/lib/interfaces';
@@ -81,8 +81,9 @@ function performAction(systemArguments: ISystemArguments, action: IAction) {
 
           if (trigger.type === 'dialog') {
             pushTrigger(
-              new Trigger({
+              new DialogTrigger({
                 type: 'dialog',
+                oneOff: trigger.oneOff,
                 lines: trigger.lines,
                 actedOnEntity: targetEnt
               })

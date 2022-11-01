@@ -13,7 +13,7 @@ import Quest, {KillQuest} from '../entities/Quest';
 import {BaseEntity} from '../BaseEntity';
 import {AllowedQuestState} from '../components/QuestDataComponent';
 import {isNonEmptyArray} from './portalSystem';
-import {pushTrigger, Trigger} from './triggerSystem';
+import {DialogTrigger, pushTrigger} from './triggerSystem';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 
@@ -69,12 +69,12 @@ function questSystem(systemArguments: ISystemArguments) {
         quest.setState(AllowedQuestState.REWARDED);
 
         pushTrigger(
-          new Trigger({
+          new DialogTrigger({
             type: 'dialog',
+            oneOff: true,
             lines: [
               {
-                text: quest.getFinishedText(),
-                speaker: 1
+                text: quest.getFinishedText()
               }
             ],
             actedOnEntity: NPCEntity
@@ -88,12 +88,12 @@ function questSystem(systemArguments: ISystemArguments) {
         quest.setState(AllowedQuestState.IN_PROGRESS);
 
         pushTrigger(
-          new Trigger({
+          new DialogTrigger({
             type: 'dialog',
+            oneOff: true,
             lines: [
               {
-                text: quest.getDescription(),
-                speaker: 1
+                text: quest.getDescription()
               }
             ],
             actedOnEntity: NPCEntity

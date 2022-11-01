@@ -8,7 +8,7 @@ import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import triggerSystem, {pushTrigger} from '../../../src/gameEngine/systems/triggerSystem';
 import {DIALOG_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 
-describe('Tests for the AI system', () => {
+describe('Tests for the trigger system', () => {
   let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
 
   beforeEach(() => {
@@ -30,23 +30,22 @@ describe('Tests for the AI system', () => {
       type: 'dialog',
       lines: [
         {
-          text: 'foo',
-          speaker: 0 // when speaker is 0, that means the player is speaking
+          text: 'foo'
         },
         {
-          text: 'bar',
-          speaker: 1 // when speaker is 0, that means the player is speaking
+          text: 'bar'
         }
       ],
       actedOnEntity: NPC
     });
 
     triggerSystem(systemArguments);
-    expect(player[DIALOG_COMP].text).toContain('foo');
+    expect(NPC[DIALOG_COMP].text).toContain('foo');
 
     // since we have a multi line dialog, at the end of the tick is new pushTrigger is called
     Promise.resolve().then(() => {
       triggerSystem(systemArguments);
+
       expect(NPC[DIALOG_COMP].text).toContain('bar');
       done();
     });
@@ -63,7 +62,7 @@ describe('Tests for the AI system', () => {
     triggerSystem(systemArguments);
   });
 
-  it("Default line given to entity who's acted upon but has no lines", () => {
+  it('Dialog event without text should throw an exception', () => {
     pushTrigger({
       oneOff: false,
       type: 'dialog',
@@ -71,8 +70,8 @@ describe('Tests for the AI system', () => {
       actedOnEntity: NPC
     });
 
-    triggerSystem(systemArguments);
-
-    expect(NPC[DIALOG_COMP].text).not.toBeUndefined();
+    expect(() => {
+      triggerSystem(systemArguments);
+    }).toThrow();
   });
 });

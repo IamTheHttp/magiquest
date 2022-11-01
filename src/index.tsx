@@ -57,7 +57,6 @@ assetLoader.load(
     const root = createRoot(document.getElementById('app'));
     root.render(<App />);
 
-    console.log(document.body);
     document.body.removeChild(document.getElementById('progress'));
   }
 );

@@ -23,9 +23,36 @@
     "noSpawnLocations": [],
     "entitiesToPlace": [],
     "triggers": {
-      "levelStart": [],
+      "levelStart": [
+        {
+          "oneOff": true,
+          "type": "dialog",
+          "lines": [
+            {
+              "text": "I recognize this place but I don't know how\nI got here!\n\nI need to get back home!"
+            },
+            {
+              "text": "Press W A S D to move around",
+              "speaker": "Hint"
+            }
+          ]
+        }
+      ],
       "actOnEntity": {},
-      "move": {}
+      "move": {
+        "23,7": [
+          {
+            "id": "TRIGGER_ID_1",
+            "oneOff": true,
+            "type": "dialog",
+            "lines": [
+              {
+                "text": "Something should happen now"
+              }
+            ]
+          }
+        ]
+      }
     },
     "locations": []
   },
@@ -119,8 +146,7 @@
             "type": "dialog",
             "lines": [
               {
-                "text": "I should collect my sword\n(hit space to open chests)",
-                "speaker": 0
+                "text": "I should collect my sword\n(hit space to open chests)"
               }
             ]
           }

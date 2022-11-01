@@ -24,6 +24,7 @@ class Player extends Character {
   constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
     super(instanceAttributes, charConfig);
 
+    this.name = 'You';
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new CharacterAttributesComponent());
     this.addComponent(new PlayerControlledComponent());

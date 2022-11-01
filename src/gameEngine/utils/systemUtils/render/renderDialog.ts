@@ -14,7 +14,7 @@ function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
     id: 'someText',
     x,
     y,
-    text: `${entity.name}:\n${entity[DIALOG_COMP].text}`,
+    text: `${entity[DIALOG_COMP].speaker}:\n${entity[DIALOG_COMP].text}`,
     backgroundColor: '#b78846',
     borderColor: '#FFFFFF',
     borderWidth: 1,

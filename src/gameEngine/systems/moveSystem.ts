@@ -8,7 +8,7 @@ import isNum from 'gameEngine/utils/isNum';
 import assertType from 'gameEngine/utils/assertType';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import {Trigger, pushTrigger} from 'gameEngine/systems/triggerSystem';
+import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
@@ -100,20 +100,24 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     let {col, row} = getGridIdxFromPos(x, y);
     let tileIdx = getTileIdxByPos(x, y);
 
-    let triggers = zone.triggers.move[tileIdx];
+    if (entity.isPlayer()) {
+      let triggers = zone.triggers.move[tileIdx];
 
-    if (isNonEmptyArray(triggers)) {
-      triggers.forEach((trigger) => {
-        if (trigger.type === 'dialog') {
-          pushTrigger(
-            new Trigger({
-              type: 'dialog',
-              lines: trigger.lines,
-              actedOnEntity: null
-            })
-          );
-        }
-      });
+      if (isNonEmptyArray(triggers)) {
+        triggers.forEach((trigger) => {
+          if (trigger.type === 'dialog') {
+            pushTrigger(
+              new DialogTrigger({
+                id: trigger.id,
+                type: 'dialog',
+                oneOff: trigger.oneOff,
+                lines: trigger.lines,
+                actedOnEntity: entity
+              })
+            );
+          }
+        });
+      }
     }
 
     return;

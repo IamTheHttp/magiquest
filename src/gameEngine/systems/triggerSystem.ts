@@ -13,30 +13,32 @@ function pushTrigger(trigger: IDialogTrigger) {
   triggers.push(trigger);
 }
 
-interface ITriggerConstructor {
-  type: 'dialog' | 'portal';
-  lines: ITriggerLinesOfText;
-  actedOnEntity: BaseEntity;
-}
-
-class Trigger implements IDialogTrigger {
+class DialogTrigger implements IDialogTrigger {
+  id: string;
   type: any; // TODO this should not be any
   lines: any; // TODO this should not be any
   actedOnEntity: any; // TODO this should not be any
   oneOff: boolean;
-  constructor({type, lines, actedOnEntity = null}: ITriggerConstructor) {
+  constructor({type, lines, actedOnEntity, oneOff, id = ''}: IDialogTrigger) {
+    this.id = id || global.crypto.randomUUID();
     this.type = type;
     this.lines = lines;
     this.actedOnEntity = actedOnEntity;
+    this.oneOff = oneOff;
   }
 }
 
-function triggerSystem(systemArguments: ISystemArguments) {
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+const usedUpTriggers: Record<string, boolean> = {};
 
-  // loop over all actions
+function triggerSystem(systemArguments: ISystemArguments) {
+  // loop over all triggers
   if (isNonEmptyArray(triggers)) {
     triggers.forEach((trigger) => {
+      console.log(trigger);
+      if (trigger.oneOff && usedUpTriggers[trigger.id]) {
+        return; // do nothing
+      }
+
       if (trigger.type === 'dialog') {
         // get lines of the dialog
         let lines = trigger.lines;
@@ -44,10 +46,10 @@ function triggerSystem(systemArguments: ISystemArguments) {
         let nextLine = lines[1];
 
         if (line) {
-          line.speaker && trigger.actedOnEntity.addComponent(new Dialog(line.text));
-          !line.speaker && player.addComponent(new Dialog(line.text));
+          const speaker = line.speaker || trigger.actedOnEntity.name;
+          trigger.actedOnEntity.addComponent(new Dialog(line.text, speaker));
         } else {
-          trigger.actedOnEntity.addComponent(new Dialog('I have nothing to say'));
+          throw 'No line provided to a dialog trigger';
         }
 
         if (nextLine) {
@@ -56,14 +58,20 @@ function triggerSystem(systemArguments: ISystemArguments) {
           lines.shift();
           Promise.resolve().then(() => {
             pushTrigger(
-              new Trigger({
+              new DialogTrigger({
                 type: 'dialog',
+                oneOff: trigger.oneOff,
                 lines,
                 actedOnEntity: trigger.actedOnEntity
               })
             );
           });
         }
+      }
+
+      if (trigger.oneOff && !usedUpTriggers[trigger.id]) {
+        // Mark this trigger as used, so it won't be triggered again
+        usedUpTriggers[trigger.id] = true;
       }
     });
   }
@@ -76,4 +84,4 @@ function triggerSystem(systemArguments: ISystemArguments) {
 
 export default triggerSystem;
 
-export {pushTrigger, Trigger};
+export {pushTrigger, DialogTrigger};

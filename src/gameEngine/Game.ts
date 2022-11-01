@@ -13,7 +13,7 @@ import {
 } from './components/ComponentNamesConfig';
 import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
-import triggerSystem, {pushTrigger, Trigger} from './systems/triggerSystem';
+import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
 import renderSystem from './systems/renderSystem';
 import Player from './entities/characters/Player';
 import GameEvents, {
@@ -312,8 +312,9 @@ class Game {
           // activateTrigger ...
           if (configuredTrigger.type === 'dialog') {
             pushTrigger(
-              new Trigger({
+              new DialogTrigger({
                 type: 'dialog',
+                oneOff: configuredTrigger.oneOff,
                 lines: configuredTrigger.lines,
                 actedOnEntity: player
               })
@@ -384,10 +385,6 @@ class Game {
   stop() {
     this.isRunning = false;
     this.engine.stop();
-  }
-
-  activateTrigger(trigger: Trigger) {
-    pushTrigger(trigger);
   }
 
   getPlayerStateEvent(): PlayerStateChangeEvent {
