@@ -1,6 +1,6 @@
 import LevelComp from '../../components/LevelComp';
 import {AllowedUIShapes, ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
-import {ICharacterConfig, ICharacterInstanceAttr} from './ICharacterConfig';
+import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import Health from '../../components/Health';
 import PositionComponent from '../../components/PositionComponent';
 import {BaseEntity} from '../../BaseEntity';
@@ -13,13 +13,13 @@ import MoveComponent from '../../components/MoveComponent';
 import AnimationComp from '../../components/AnimationComp';
 import AttackComponent from '../../components/AttackComponent';
 
-class Character extends BaseEntity {
+class PlaceableEntity extends BaseEntity {
   [SPAWNED_COMP]: SpawnedComponent;
   [LEVEL_COMP]: LevelComp;
-  constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super();
     let {col, row, characterLevel} = instanceAttributes;
-    let {speed, health, radius, dmg, attackSpeed, vision, animationTypes, id, displayName} = charConfig;
+    let {speed, health, radius, dmg, attackSpeed, vision, animationTypes, id, displayName} = placeableEntityData;
 
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
@@ -68,4 +68,4 @@ class Character extends BaseEntity {
   }
 }
 
-export default Character;
+export default PlaceableEntity;

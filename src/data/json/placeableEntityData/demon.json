@@ -1,0 +1,11 @@
+{
+  "id": "DEMON",
+  "displayName": "'A Demon'",
+  "dmg": 20,
+  "health": 100,
+  "speed": 1,
+  "vision": 200,
+  "attackSpeed": "FAST",
+  "radius": 16,
+  "animationTypes": "ENEMY_ANIMATION"
+}

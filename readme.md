@@ -45,7 +45,7 @@
   - exits - map of {act,chapter ->  {act: number, chapter: number, exitTile: { col: number, row:number}}
   - monsterDensity -- 0 < {number} < 1, the chance for a tile to contain a monster (0.2 -> 20% -> 20% of all tiles have enemies)
 
-- #### characters.json database
+- #### ENTITIES.json database
   - id - {string} one of Enum's CHARACTERS;
   - display_name -- {string}
   - dmg -- {number}

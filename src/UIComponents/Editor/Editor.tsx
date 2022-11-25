@@ -9,7 +9,7 @@ import {getGridIdxFromPos} from '../../gameEngine/utils/componentUtils/positionU
 import {EditorPopup} from './EditorPopup';
 import {ZoneList} from './ZoneList';
 import {TILE_SIZE} from '../../gameEngine/gameConstants';
-import {MonsterList} from './MonsterList';
+import {PlaceableEntitiesList} from './PlaceableEntitiesList';
 import {updateEditorServerTile} from './editorRequests/updateEditorServerTile';
 import {getBrushSizeEntity} from './editorEntities/brushSizeEntity';
 import {updateEditorStartPos} from './editorRequests/updateStartPosition';
@@ -162,7 +162,7 @@ export function Editor(props: IProps) {
             setIsMonsterListOpen(false);
           }}
         >
-          <MonsterList />
+          <PlaceableEntitiesList />
         </EditorPopup>
       )}
 
@@ -181,7 +181,7 @@ export function Editor(props: IProps) {
           }}
           style={{width: '50%'}}
         >
-          Monsters
+          Placeable Entities
         </button>
 
         <h3>

@@ -20,7 +20,17 @@
   },
   "monsterDensity": 0,
   "noSpawnLocations": [],
-  "entitiesToPlace": [],
+  "entitiesToPlace": [
+    {
+      "pos": {
+        "col": 2,
+        "row": 2
+      },
+      "characterType": "CHEST",
+      "characterLevel": 1,
+      "name": "Chest 1"
+    }
+  ],
   "triggers": {
     "levelStart": [
       {

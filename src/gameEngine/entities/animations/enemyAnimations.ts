@@ -1,4 +1,4 @@
-import charImageURL from '../../../assets/sentry.png';
+import charImageURL from '../../../assets/generic_enemy.png';
 import commonAnimations from './characterAnimations';
 
 const enemyAnimations = {

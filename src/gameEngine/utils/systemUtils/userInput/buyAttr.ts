@@ -5,7 +5,7 @@ import {
   PLAYER_CONTROLLED_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
-import Player from '../../../entities/characters/Player';
+import Player from '../../../entities/placeableEntities/Player';
 import {IAction} from '../../../../interfaces/IGeneral';
 import {AllowedAttributes} from '../../../../data/attributesConfig';
 import {BaseEntity} from '../../../BaseEntity';

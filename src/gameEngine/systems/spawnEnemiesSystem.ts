@@ -1,9 +1,9 @@
 import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
-import {charactersDataConfig} from '../../data/charactersDataConfig';
+import {placeableEntityMap} from '../../data/placeableEntityMap';
 import {entityLoop} from 'game-platform';
-import Enemy from '../entities/characters/Enemy';
+import Enemy from '../entities/placeableEntities/Enemy';
 import {BaseEntity} from '../BaseEntity';
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
@@ -22,7 +22,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
       if (Math.random() < monsterDensity) {
         // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
-        let characterConfig = charactersDataConfig[enemyToSpawn];
+        let characterConfig = placeableEntityMap[enemyToSpawn];
 
         if (characterConfig) {
           new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);

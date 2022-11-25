@@ -9,6 +9,7 @@ import {AllowedActions} from '../gameConstants';
 import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
 
 let mapUserActionNameToAction = {
+  [AllowedActions.OPEN_INVENTORY]: moveAction,
   [AllowedActions.MOVE_ACTION]: moveAction,
   [AllowedActions.PERFORM_ACTION]: performAction,
   [AllowedActions.BUY_SKILL]: buySkill,

@@ -1,6 +1,6 @@
-import Player from '../entities/characters/Player';
-import Character from '../entities/characters/Character';
+import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
+import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
 export interface IGameEvent {
   readEvent(): {
@@ -17,10 +17,10 @@ class GameEvent implements IGameEvent {
 }
 
 export class EnemyKilledEvent extends GameEvent {
-  constructor(public entity: Character) {
+  constructor(public entity: PlaceableEntity) {
     super();
   }
-  readEvent(): {entity: Character} {
+  readEvent(): {entity: PlaceableEntity} {
     return {
       entity: this.entity
     };

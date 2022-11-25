@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState, useLayoutEffect, useMemo} from 'react';
+import React, {useEffect, useRef, useState, useLayoutEffect, useMemo, ReactElement} from 'react';
 import {ComponentProps} from 'react';
 import GameUI from '../GameUI/GameUI';
 import {IPlayerState, IPlayerUIState} from '../../../interfaces/IGeneral';
 import Game from '../../../gameEngine/Game';
 import {PlayerState, PlayerStateChangeEvent} from '../../../gameEngine/classes/PlayerState';
 import {AllowedAttributes} from '../../../data/attributesConfig';
+import {PlayerInventory} from '../PlayerInventory/PlayerInventory';
 
 function getDefaultPlayerState(): IPlayerState {
   return {
@@ -36,6 +37,8 @@ interface MainOverlayProps extends ComponentProps<any> {
 export function MainOverlay(props: MainOverlayProps) {
   const [playerState, setPlayerState] = useState<PlayerState>(getDefaultPlayerState());
 
+  const [isInventoryOpen, setIsInventoryOpen] = useState(false);
+
   useEffect(() => {
     props.game.setGameEventListener((event) => {
       let newPlayerState: PlayerState = {
@@ -57,15 +60,25 @@ export function MainOverlay(props: MainOverlayProps) {
   }, []);
 
   return (
-    <div>
+    <div className={'main-overlay'}>
+      <PlayerInventory
+        isInventoryOpen={isInventoryOpen}
+        onClose={() => {
+          setIsInventoryOpen(false);
+        }}
+      ></PlayerInventory>
+
       {props.game.mode === 'playing' && (
         <GameUI
           {...playerState}
+          onOpenInventory={() => {
+            setIsInventoryOpen(true);
+          }}
           onShowSkillsClicked={() => {
-            this.toggleUIPlayerState('showSkillTree');
+            // this.toggleUIPlayerState('showSkillTree');
           }}
           onShowAttributes={() => {
-            this.toggleUIPlayerState('showAttributes');
+            // this.toggleUIPlayerState('showAttributes');
           }}
         />
       )}

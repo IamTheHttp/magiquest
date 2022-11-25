@@ -15,7 +15,7 @@ import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfac
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
 import renderSystem from './systems/renderSystem';
-import Player from './entities/characters/Player';
+import Player from './entities/placeableEntities/Player';
 import GameEvents, {
   EnemyKilledEvent,
   PlayerAttributesChangeEvent,

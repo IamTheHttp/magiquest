@@ -6,7 +6,7 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {AllowedSkills} from '../../../src/data/skillConfig';
 import {Entity} from 'game-platform';
-import Player from '../../../src/gameEngine/entities/characters/Player';
+import Player from '../../../src/gameEngine/entities/placeableEntities/Player';
 import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 import {PlayerSkillsChangeEvent} from '../../../src/gameEngine/classes/GameEvents';
 

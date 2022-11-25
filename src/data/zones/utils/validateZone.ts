@@ -1,5 +1,5 @@
 import hasValue from '../../../gameEngine/utils/hasValue';
-import {AllowedZoneLocationIDs, CHARACTERS} from '../../../gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, PLACEABLE_ENTITIES} from '../../../gameEngine/gameConstants';
 import {IZone} from '../../../interfaces/IZones';
 
 /**
@@ -46,18 +46,18 @@ export function validateZone(zone: IZone) {
   });
 
   zone.spawnableEnemies.forEach((enemyID) => {
-    if (!CHARACTERS[enemyID]) {
-      throw `${ERROR_PREFIX} - Invalid character - id "${enemyID}" does not appear in ${Object.keys(
-        CHARACTERS
-      )} of CHARACTERS`;
+    if (!PLACEABLE_ENTITIES[enemyID]) {
+      throw `${ERROR_PREFIX} - Invalid entity - id "${enemyID}" does not appear in ${Object.keys(
+        PLACEABLE_ENTITIES
+      )} of ENTITIES`;
     }
   });
 
   zone.entitiesToPlace.forEach((ent) => {
-    if (!CHARACTERS[ent.characterType]) {
-      throw `${ERROR_PREFIX} - Invalid character - id "${ent.characterType}" does not appear in ${Object.keys(
-        CHARACTERS
-      )} of CHARACTERS`;
+    if (!PLACEABLE_ENTITIES[ent.characterType]) {
+      throw `${ERROR_PREFIX} - Invalid entity - id "${ent.characterType}" does not appear in ${Object.keys(
+        PLACEABLE_ENTITIES
+      )} of ENTITIES`;
     }
   });
 }

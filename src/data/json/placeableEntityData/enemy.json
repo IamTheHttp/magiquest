@@ -1,0 +1,11 @@
+{
+  "id": "ENEMY",
+  "displayName": "'The Generic Enemy",
+  "dmg": 20,
+  "health": 1000,
+  "speed": 4,
+  "vision": 200,
+  "attackSpeed": "FAST",
+  "radius": 16,
+  "animationTypes": "ENEMY_ANIMATION"
+}

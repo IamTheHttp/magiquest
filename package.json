@@ -11,7 +11,7 @@
     "pretest": "npm run formatcode ",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "test:commit": "npm run build && jest",
+    "test:commit": "npm run build",
     "test:coverage": "npm run test -- --coverage",
     "prestart": "npm run formatcode",
     "start:editor": "cd Editor; npm start",

@@ -1,7 +1,7 @@
 import {ITileMap, IZone, PossibleTriggersArray} from '../../../interfaces/IZones';
 import {IPortalTrigger} from '../../../interfaces/ITriggers';
 import {validateZone} from './validateZone';
-import {IZoneJSON} from '../../jsonTypes/IZoneJSON';
+import {IZoneJSON} from '../../../interfaces/IZoneJSON';
 
 /**
  * This function creates a Zone object

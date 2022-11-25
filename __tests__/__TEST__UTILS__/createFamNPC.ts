@@ -1,6 +1,6 @@
-import FamNPC from '../../src/gameEngine/entities/characters/FamNPC';
-import {charactersDataConfig} from '../../src/data/charactersDataConfig';
-import {CHARACTERS} from '../../src/gameEngine/gameConstants';
+import FamNPC from '../../src/gameEngine/entities/placeableEntities/FamNPC';
+import {placeableEntityMap} from '../../src/data/placeableEntityMap';
+import {PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
 
 function createFamNPC(col: number, row: number) {
   return new FamNPC(
@@ -10,7 +10,7 @@ function createFamNPC(col: number, row: number) {
       characterLevel: 1,
       spawningTileLocationID: null
     },
-    charactersDataConfig[CHARACTERS.FAM_NPC]
+    placeableEntityMap[PLACEABLE_ENTITIES.FAM_NPC]
   );
 }
 

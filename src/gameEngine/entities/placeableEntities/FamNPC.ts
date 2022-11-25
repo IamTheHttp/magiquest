@@ -1,13 +1,13 @@
-import {ICharacterConfig, ICharacterInstanceAttr} from './ICharacterConfig';
+import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import {AllowedQuestIDs, AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
-import Character from './Character';
+import PlaceableEntity from './PlaceableEntity';
 import {KillQuest} from '../Quest';
 import UIComponent from '../../components/UIComponent';
 import CanAssignQuestsComponent from '../../components/CanAssignQuestsComponent';
 
-class FamNPC extends Character {
-  constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
-    super(instanceAttributes, charConfig);
+class FamNPC extends PlaceableEntity {
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
+    super(instanceAttributes, placeableEntityData);
 
     this.addComponent(new CanAssignQuestsComponent([new KillQuest(AllowedQuestIDs.CLEAR_CAMP)]));
 

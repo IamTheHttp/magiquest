@@ -1,4 +1,4 @@
-import charImageURL from '../../../assets/characters.png';
+import charImageURL from '../../../assets/player.png';
 import commonAnimations from './characterAnimations';
 
 const playerAnimations = {

@@ -1,5 +1,5 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import {AllowedZoneLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
+import {AllowedZoneLocationIDs, PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
@@ -54,7 +54,7 @@ function createSystemArgs({
       exits: {},
       noSpawnLocations: [],
       monsterDensity: 0.01,
-      spawnableEnemies: [CHARACTERS.IMP],
+      spawnableEnemies: [PLACEABLE_ENTITIES.IMP],
       id: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],

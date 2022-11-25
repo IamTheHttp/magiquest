@@ -6,6 +6,7 @@ import {PlayerState} from '../../../gameEngine/classes/PlayerState';
 interface IGameUIProps {
   onShowSkillsClicked: () => void;
   onShowAttributes: () => void;
+  onOpenInventory: () => void;
 }
 
 function GameUI(props: IGameUIProps & PlayerState) {
@@ -28,7 +29,9 @@ function GameUI(props: IGameUIProps & PlayerState) {
       {/*<div className='game-options'>*/}
       {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Skills</button>*/}
       {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Quests</button>*/}
-      {/*  <button className='game-option' onClick={props.onShowSkillsClicked}>Inventory</button>*/}
+      <button className="game-option" onClick={props.onOpenInventory}>
+        Inventory
+      </button>
       {/*  <button className={`game-option ${canAssignAttrsClass}`} onClick={props.onShowAttributes}>Attributes</button>*/}
       {/*</div>*/}
     </div>

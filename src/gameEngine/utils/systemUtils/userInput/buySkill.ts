@@ -6,7 +6,7 @@ import {
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
 import {AllowedSkills, skillsConfig} from '../../../../data/skillConfig';
-import Player from '../../../entities/characters/Player';
+import Player from '../../../entities/placeableEntities/Player';
 import {BaseEntity} from '../../../BaseEntity';
 import {PlayerSkillsChangeEvent} from '../../../classes/GameEvents';
 

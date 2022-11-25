@@ -8,7 +8,7 @@ import {
 import {AllowedUIShapes, TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
-import char from '../../../../assets/characters.png';
+import char from '../../../../assets/player.png';
 import misc from '../../../../assets/misc.png';
 import {getSpriteCrop} from 'gameEngine/utils/getSpriteCrop';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';

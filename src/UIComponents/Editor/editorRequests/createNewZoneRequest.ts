@@ -1,5 +1,5 @@
 import {ITileMap} from '../../../interfaces/IZones';
-import {IZoneJSON} from '../../../data/jsonTypes/IZoneJSON';
+import {IZoneJSON} from '../../../interfaces/IZoneJSON';
 
 export function createNewZoneRequest(input: {act: number; chapter: number; numRows: number; numCols: number}): Promise<{
   status: 'OK' | string;

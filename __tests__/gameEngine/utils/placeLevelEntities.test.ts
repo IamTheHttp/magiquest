@@ -5,7 +5,7 @@ import {Entity} from 'game-platform';
 import placeLevelEntities from '../../../src/gameEngine/utils/placeLevelEntities';
 import {LEVEL_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
-import {CHARACTERS} from '../../../src/gameEngine/gameConstants';
+import {PLACEABLE_ENTITIES} from '../../../src/gameEngine/gameConstants';
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('Tests the placeLevelEntities util', () => {
         },
         entitiesToPlace: [
           {
-            characterType: CHARACTERS.FAM_NPC,
+            characterType: PLACEABLE_ENTITIES.FAM_NPC,
             characterLevel: 1,
             name: 'NPC_1',
             pos: {
@@ -47,7 +47,7 @@ describe('Tests the placeLevelEntities util', () => {
             }
           },
           {
-            characterType: CHARACTERS.IMP,
+            characterType: PLACEABLE_ENTITIES.IMP,
             characterLevel: 1,
             name: 'ENEMY_1',
             pos: {

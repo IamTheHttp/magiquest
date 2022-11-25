@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, CHARACTERS, AllowedUIShapes, AllowedZoneLocationIDs} from '../gameConstants';
+import {CANVAS_OUTPUT, PLACEABLE_ENTITIES, AllowedUIShapes, AllowedZoneLocationIDs} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';

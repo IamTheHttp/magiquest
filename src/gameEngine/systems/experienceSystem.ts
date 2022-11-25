@@ -1,6 +1,6 @@
 import {Entity} from 'game-platform';
 import {EnemyKilledEvent} from '../classes/GameEvents';
-import Player from '../entities/characters/Player';
+import Player from '../entities/placeableEntities/Player';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   EXPERIENCE_COMP,

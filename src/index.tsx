@@ -3,8 +3,8 @@ import '../.polyfills/rAF.ts';
 
 import * as React from 'react';
 import tiles from './assets/tileSet.png';
-import charSpriteURL from './assets/characters.png';
-import sentrySpriteURL from './assets/sentry.png';
+import charSpriteURL from './assets/player.png';
+import sentrySpriteURL from './assets/generic_enemy.png';
 import miscURL from './assets/misc.png';
 import {assetLoader} from 'utils/assetLoader';
 import {App} from './UIComponents/App/App';

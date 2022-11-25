@@ -3,7 +3,7 @@ import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
 import {AI_CONTROLLED_COMP, CAN_SPAWN_COMP, SPAWNED_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
-import Character from 'gameEngine/entities/characters/Character';
+import PlaceableEntity from 'gameEngine/entities/placeableEntities/PlaceableEntity';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
@@ -46,7 +46,7 @@ describe('Tests for the AI system', () => {
   it('Spawns an enemy that gets the right SpawnedComponent', () => {
     spawnEnemiesSystem(systemArguments);
 
-    let ents = Entity.getByComp<BaseEntity>(SPAWNED_COMP) as Character[];
+    let ents = Entity.getByComp<BaseEntity>(SPAWNED_COMP) as PlaceableEntity[];
     ents.forEach((ent) => {
       expect(typeof ent[SPAWNED_COMP].spawningTileLocationID).toBe('string');
     });

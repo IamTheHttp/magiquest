@@ -23,14 +23,19 @@ export enum AllowedActions {
   MOVE_ACTION = 'MOVE_ACTION',
   DRAG_PAN_MAP = 'DRAG_PAN_MAP',
   BUY_SKILL = 'BUY_SKILL',
-  BUY_ATTR = 'BUY_ATTR'
+  BUY_ATTR = 'BUY_ATTR',
+  OPEN_INVENTORY = 'OPEN_INVENTORY',
+  SHOW_HELP_SCREEN = 'SHOW_HELP_SCREEN'
 }
 
 export enum AllowedQuestIDs {
   CLEAR_CAMP = 'CLEAR_CAMP'
 }
 
-export enum CHARACTERS {
+/**
+ * Most of our entities are placed here, some entities aren't here such as Tile or SHOCKWAVE
+ */
+export enum PLACEABLE_ENTITIES {
   ENEMY = 'ENEMY',
   FAM_NPC = 'FAM_NPC',
   CHEST = 'CHEST',

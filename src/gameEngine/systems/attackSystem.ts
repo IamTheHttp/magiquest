@@ -2,11 +2,11 @@ import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} fro
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
-import Character from 'gameEngine/entities/characters/Character';
 import {Entity, entityLoop} from 'game-platform';
 import {EnemyKilledEvent, PlayerIsAttacked} from '../classes/GameEvents';
-import Player from '../entities/characters/Player';
+import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
+import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
 function attackSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
@@ -38,7 +38,7 @@ function attackSystem(systemArguments: ISystemArguments) {
           continue; // cannot attack self.
         }
 
-        let entTarget = targetTile.entities[entID] as Character;
+        let entTarget = targetTile.entities[entID] as PlaceableEntity;
 
         // do the attack, ensure health is >= 0
         entTarget[HEALTH_COMP].current -= dmg;

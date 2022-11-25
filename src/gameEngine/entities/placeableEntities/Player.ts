@@ -1,8 +1,8 @@
 import LevelComp from '../../components/LevelComp';
 import playerAnimations from '../animations/playerAnimations';
 import {AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
-import {ICharacterConfig, ICharacterInstanceAttr} from './ICharacterConfig';
-import Character from './Character';
+import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
+import PlaceableEntity from './PlaceableEntity';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
@@ -16,13 +16,13 @@ import PlayerControlledComponent from '../../components/PlayerControlledComponen
 import ExperienceComp from '../../components/ExperienceComp';
 import AnimationComp from '../../components/AnimationComp';
 
-class Player extends Character {
+class Player extends PlaceableEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
   [LEVEL_COMP]: LevelComp;
   [CHARACTER_SKILLS_COMP]: CharacterSkillsComponent;
   [CHARACTER_ATTRIBUTES_COMP]: CharacterAttributesComponent;
-  constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
-    super(instanceAttributes, charConfig);
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
+    super(instanceAttributes, placeableEntityData);
 
     this.name = 'You';
     this.addComponent(new CharacterSkillsComponent());

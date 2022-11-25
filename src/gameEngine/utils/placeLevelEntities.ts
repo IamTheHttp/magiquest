@@ -1,15 +1,14 @@
-import Character from 'gameEngine/entities/characters/Character';
 import assertType from 'gameEngine/utils/assertType';
 import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {AllowedZoneLocationIDs, CHARACTERS} from 'gameEngine/gameConstants';
+import {PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {IZone} from '../../interfaces/IZones';
 import {ITileIndexMap} from '../../interfaces/IGeneral';
-import {charactersDataConfig} from '../../data/charactersDataConfig';
+import {placeableEntityMap} from '../../data/placeableEntityMap';
 import createFamNPC from '../../../__tests__/__TEST__UTILS__/createFamNPC';
-import Chest from '../entities/characters/Chest';
-import FamNPC from '../entities/characters/FamNPC';
-import Enemy from '../entities/characters/Enemy';
+import Chest from '../entities/placeableEntities/Chest';
+import FamNPC from '../entities/placeableEntities/FamNPC';
+import Enemy from '../entities/placeableEntities/Enemy';
 
 /**
  * @description Place entities in a given levelArea.
@@ -28,15 +27,15 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap) {
     let characterLevel = entityToPlace.characterLevel;
 
     // Fetch what to spawn from config!
-    let characterConfig = charactersDataConfig[entityToPlace.characterType];
+    let characterConfig = placeableEntityMap[entityToPlace.characterType];
 
     if (characterConfig) {
       switch (entityToPlace.characterType) {
-        case CHARACTERS.CHEST: {
+        case PLACEABLE_ENTITIES.CHEST: {
           entity = new Chest({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
           break;
         }
-        case CHARACTERS.FAM_NPC: {
+        case PLACEABLE_ENTITIES.FAM_NPC: {
           entity = new FamNPC({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
           break;
         }

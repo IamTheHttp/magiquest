@@ -1,6 +1,6 @@
 import enemyAnimations from '../../src/gameEngine/entities/animations/enemyAnimations';
-import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, CHARACTERS} from '../../src/gameEngine/gameConstants';
-import Enemy from '../../src/gameEngine/entities/characters/Enemy';
+import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
+import Enemy from '../../src/gameEngine/entities/placeableEntities/Enemy';
 
 function createNewEnemy(
   col: number,
@@ -23,7 +23,7 @@ function createNewEnemy(
       speed: 2,
       attackSpeed: ATTACK_SPEEDS_OPTIONS.FAST,
       displayName: 'test',
-      id: CHARACTERS.IMP,
+      id: PLACEABLE_ENTITIES.IMP,
       animationTypes: enemyAnimations
     }
   );

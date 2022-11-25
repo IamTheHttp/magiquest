@@ -6,7 +6,7 @@ import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
 import {IEntityMap} from 'game-platform/dist/lib/interfaces';
-import FamNPC from '../../../entities/characters/FamNPC';
+import FamNPC from '../../../entities/placeableEntities/FamNPC';
 import {BaseEntity} from '../../../BaseEntity';
 import IndexedTile from '../../../classes/IndexedTile';
 import {InteractWithNPC} from '../../../classes/GameEvents';

@@ -1,10 +1,10 @@
-import {ICharacterConfig, ICharacterInstanceAttr} from './ICharacterConfig';
+import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import {AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
-import Character from './Character';
 import UIComponent from '../../components/UIComponent';
+import PlaceableEntity from './PlaceableEntity';
 
-class Chest extends Character {
-  constructor(instanceAttributes: ICharacterInstanceAttr, charConfig: ICharacterConfig) {
+class Chest extends PlaceableEntity {
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, charConfig: IPlaceableEntityData) {
     super(instanceAttributes, charConfig);
 
     this.addComponent(

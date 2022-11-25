@@ -104,6 +104,7 @@ export interface IPlayerState {
 export interface IPlayerUIState extends IPlayerState {
   showSkillTree: boolean;
   showAttributes: boolean;
+  showInventory: boolean;
 }
 
 /**

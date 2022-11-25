@@ -3,11 +3,11 @@ import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {IZone, ITileCoordinate} from '../../interfaces/IZones';
 import {ITileIndexMap} from '../../interfaces/IGeneral';
-import {charactersDataConfig} from '../../data/charactersDataConfig';
+import {placeableEntityMap} from '../../data/placeableEntityMap';
 import {Entity} from 'game-platform';
-import Player from '../entities/characters/Player';
+import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
-import {CHARACTERS} from '../gameConstants';
+import {PLACEABLE_ENTITIES} from '../gameConstants';
 
 function placePlayerInLevel(zone: IZone, tileIdxMap: ITileIndexMap, targetTile: ITileCoordinate = null) {
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
@@ -16,7 +16,7 @@ function placePlayerInLevel(zone: IZone, tileIdxMap: ITileIndexMap, targetTile: 
   let {x, y} = getCenterPosOfGridIdx(col, row);
 
   if (!player) {
-    let playerConfig = charactersDataConfig[CHARACTERS.PLAYER];
+    let playerConfig = placeableEntityMap[PLACEABLE_ENTITIES.PLAYER];
     // TODO - when Saving progress, this has to be taken into consideration (characterLevel 1)
     player = new Player({col, row, characterLevel: 1, spawningTileLocationID: null}, playerConfig);
   } else {
