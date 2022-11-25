@@ -1,12 +1,12 @@
 import {ITileMap} from '../../../interfaces/IZones';
-import IZoneData from '../../../interfaces/IZoneData';
+import {IZoneJSON} from '../../../data/jsonTypes/IZoneJSON';
 
 export function createNewZoneRequest(input: {act: number; chapter: number; numRows: number; numCols: number}): Promise<{
   status: 'OK' | string;
   message: 'Zone created successfully' | string;
   data: {
-    zoneJSON: IZoneData;
-    mapJSON: {tileMap: ITileMap};
+    zoneJSON: IZoneJSON;
+    tileMapJSON: {act: number; chapter: number; tileMap: ITileMap};
   };
 }> {
   return fetch('http://localhost:3000/zones', {

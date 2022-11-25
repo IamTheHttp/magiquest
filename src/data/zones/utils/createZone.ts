@@ -1,32 +1,35 @@
 import {ITileMap, IZone, PossibleTriggersArray} from '../../../interfaces/IZones';
-import IZoneData from '../../../interfaces/IZoneData';
 import {IPortalTrigger} from '../../../interfaces/ITriggers';
 import {validateZone} from './validateZone';
+import {IZoneJSON} from '../../jsonTypes/IZoneJSON';
 
 /**
  * This function creates a Zone object
- * It accepts an id and a tile map and returns ths JSON data of the level, merged with those properties
- * @param zone
- * @param zoneJSONData
+ * it accepts JSON data and other arguments, and generates a model object of the zone (IZone)
+ * @param id
+ * @param tileMap
+ * @param zoneJSON
  */
-function createZone(zone: {id: string; tileMap: ITileMap}, zoneJSONData: IZoneData): IZone {
-  if (!zoneJSONData) {
-    console.error(`Could not find a zone in the zone config for the map ${zone.id}`);
+function createZone(id: string, tileMap: ITileMap, zoneJSON: IZoneJSON): IZone {
+  if (!zoneJSON) {
+    console.error(`Could not find a zone in the zone config for the map ${id}`);
     return;
   }
 
-  let NEW_ZONE = Object.assign<Partial<IZone>, IZoneData>(zone, zoneJSONData) as IZone;
-
-  NEW_ZONE.tileMap = zone.tileMap;
+  let NEW_ZONE: IZone = {
+    ...zoneJSON,
+    id,
+    tileMap
+  };
 
   // Dynamically add portal triggers based on the exits in the JSON
-  Object.keys(zoneJSONData.exits).forEach((tileCoordinate) => {
+  Object.keys(zoneJSON.exits).forEach((tileCoordinate) => {
     const trigger = {
       oneOff: false,
       type: 'portal',
-      act: zoneJSONData.exits[tileCoordinate].act,
-      chapter: zoneJSONData.exits[tileCoordinate].chapter,
-      exitTile: zoneJSONData.exits[tileCoordinate].exitTile
+      act: zoneJSON.exits[tileCoordinate].act,
+      chapter: zoneJSON.exits[tileCoordinate].chapter,
+      exitTile: zoneJSON.exits[tileCoordinate].exitTile
     } as IPortalTrigger;
 
     // If the move triggers is not yet set as an array, create it

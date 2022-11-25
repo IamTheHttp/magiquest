@@ -16,8 +16,6 @@ export function useForm() {
       onChange(e: ChangeEvent<HTMLInputElement>) {
         // @ts-ignore
         formState.current[name] = e.target.value;
-
-        console.log(formState.current);
       }
     };
   }

@@ -1,8 +1,21 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
+import * as path from 'path';
+import * as url from 'url';
+import {getAllZoneJSONFiles} from './utils/zones/getAllZoneJSONFiles.js';
+import {getTileMapJSON} from './utils/tileMaps/getTileMapJSON.js';
+import {setTileMapJSON} from './utils/tileMaps/setTileMapJSON.js';
+import {setZoneJSON} from './utils/zones/setZoneJSON.js';
+import {deleteTileMapJSON} from './utils/tileMaps/deleteTileMapJSON.js';
+import {deleteZoneJSON} from './utils/zones/deleteZoneJSON.js';
+import {getZoneJSON} from './utils/zones/getZoneJSON.js';
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
 const app = express();
 const port = 3000;
-const path = require('path');
-const fs = require('fs');
+
 const DATA_BASE_PATH = path.resolve(__dirname, '..', 'src/data');
 
 app.use(express.json());
@@ -17,12 +30,9 @@ app.use((req, res, next) => {
 
 app.post('/', (req, res) => {
   let {act, chapter, col, row, tileType} = req.body;
-
-  const MAP_FILE_NAME = `../src/data/json/maps/${act}-${chapter}.map.json`;
-  const zoneTileMap = JSON.parse(fs.readFileSync(MAP_FILE_NAME, 'utf-8'));
-  zoneTileMap.tileMap[row][col] = +tileType; // must be int type!
-
-  fs.writeFileSync(MAP_FILE_NAME, JSON.stringify(zoneTileMap));
+  const tileMapJSON = getTileMapJSON(act, chapter);
+  tileMapJSON.tileMap[row][col] = +tileType; // must be int type!
+  setTileMapJSON(act, chapter, tileMapJSON);
   res.send('OK');
 });
 
@@ -36,9 +46,9 @@ app.post('/zones', (req, res) => {
 
     return;
   }
+
   // Read the existing zonesData JSON array
-  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
-  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+  const zones = getAllZoneJSONFiles(DATA_BASE_PATH);
 
   // Validate that we can't overwrite an existing act/chapter
   for (let i = 0; i < zones.length; i++) {
@@ -46,29 +56,27 @@ app.post('/zones', (req, res) => {
     if (zone.act === act && zone.chapter === chapter) {
       res.send({
         status: 'error',
-        message: 'Cannot overwrite existing act-chapter zone, please delete first, then create new'
+        message: 'Cannot overwrite existing act-chapter zone, please delete first, then create a new one'
       });
       // Stop here!
       return;
     }
   }
 
-  // Create a new ZoneTileMap
+  // Create a new tileMap
   const col = [...new Array(numCols)].map(() => 0);
-  const zoneTileMap = [...new Array(numRows)].map(() => col);
+  const tileMap = [...new Array(numRows)].map(() => col);
 
-  // Save the new TileMap
-  const MAP_FILE_NAME = path.resolve(DATA_BASE_PATH, `json/maps/${act}-${chapter}.map.json`);
-
-  const mapJSON = {
-    act: act,
-    chapter: chapter,
-    tileMap: zoneTileMap
+  const tileMapJSON = {
+    act,
+    chapter,
+    tileMap
   };
 
-  fs.writeFileSync(MAP_FILE_NAME, JSON.stringify(mapJSON, null, '\t'));
+  // Save the new TileMapJSON
+  setTileMapJSON(act, chapter, tileMapJSON);
 
-  // Create the new level
+  // Create the new zone
   const zoneJSON = {
     id: `${act}-${chapter}`,
     act: act,
@@ -90,24 +98,22 @@ app.post('/zones', (req, res) => {
     },
     locations: []
   };
-  zones.push(zoneJSON);
 
   // Save the new zones
-  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones, null, '\t'));
+  setZoneJSON(act, chapter, zoneJSON);
 
   res.send({
     status: 'OK',
     message: 'Zone created successfully',
     data: {
       zoneJSON: zoneJSON,
-      mapJSON: mapJSON
+      tileMapJSON: tileMapJSON
     }
   });
 });
 
 app.get('/zones', (req, res) => {
-  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
-  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+  const zones = getAllZoneJSONFiles(DATA_BASE_PATH);
 
   res.send({
     status: 'OK',
@@ -117,25 +123,10 @@ app.get('/zones', (req, res) => {
 
 app.delete('/zones/:id', (req, res) => {
   // Delete entry from the zones.json file!
-  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
-  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+  const [act, chapter] = req.params.id.split('-');
 
-  const newZones = zones.filter((zone) => {
-    return zone.id !== req.params.id;
-  });
-  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(newZones, null, '\t'));
-
-  // Delete map file
-  const MAP_FILE_NAME = path.resolve(DATA_BASE_PATH, `json/maps/${req.params.id}.map.json`);
-  try {
-    fs.unlinkSync(MAP_FILE_NAME);
-  } catch (e) {
-    // Respond
-    return res.send({
-      status: 'ERROR',
-      message: `Could not delete ${req.params.id}.map.json - ${e.message}`
-    });
-  }
+  deleteTileMapJSON(act, chapter);
+  deleteZoneJSON(act, chapter);
 
   // Respond
   res.send({
@@ -146,22 +137,17 @@ app.delete('/zones/:id', (req, res) => {
 
 app.put('/zones/:id/startPos', (req, res) => {
   let {col, row} = req.body;
+  const [act, chapter] = req.params.id.split('-');
 
-  const ZONES_FILE_NAME = path.resolve(DATA_BASE_PATH, 'json/zones.json');
-  const zones = JSON.parse(fs.readFileSync(ZONES_FILE_NAME, 'utf-8'));
+  const zone = getZoneJSON(act, chapter);
 
-  const idx = zones.findIndex((zone) => {
-    return zone.id === req.params.id;
-  });
-
-  zones[idx].playerStartPos = {
+  zone.playerStartPos = {
     col: col,
     row: row
   };
 
-  fs.writeFileSync(ZONES_FILE_NAME, JSON.stringify(zones, null, '\t'));
+  setZoneJSON(act, chapter, zone);
 
-  console.log(zones[idx]);
   // Respond
   res.send({
     status: 'OK',

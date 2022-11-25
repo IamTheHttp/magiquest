@@ -9,7 +9,6 @@ export function deleteZone(id: string): Promise<{
       return data.json();
     })
     .then((data) => {
-      console.log(data);
       return data;
     });
 }

@@ -1,0 +1,126 @@
+{
+  "id": "0-1",
+  "act": 0,
+  "chapter": 1,
+  "description": "Elvenar",
+  "playerStartPos": {
+    "col": 3,
+    "row": 8
+  },
+  "spawnableEnemies": ["IMP", "VAMPIRE"],
+  "exits": {},
+  "monsterDensity": 0.001,
+  "noSpawnLocations": [
+    {
+      "start": {
+        "col": 0,
+        "row": 0
+      },
+      "end": {
+        "col": 30,
+        "row": 30
+      }
+    }
+  ],
+  "entitiesToPlace": [
+    {
+      "pos": {
+        "col": 6,
+        "row": 6
+      },
+      "characterType": "CHEST",
+      "characterLevel": 1,
+      "name": "Chest 1"
+    },
+    {
+      "pos": {
+        "col": 8,
+        "row": 4
+      },
+      "characterType": "FAM_NPC",
+      "characterLevel": 1,
+      "name": "NPC_1"
+    },
+    {
+      "pos": {
+        "col": 13,
+        "row": 7
+      },
+      "characterType": "FAM_NPC",
+      "characterLevel": 1,
+      "name": "NPC_2"
+    },
+    {
+      "pos": {
+        "col": 18,
+        "row": 10
+      },
+      "characterType": "FAM_NPC",
+      "characterLevel": 1,
+      "name": "NPC_3"
+    },
+    {
+      "pos": {
+        "col": 5,
+        "row": 9
+      },
+      "characterType": "FAM_NPC",
+      "characterLevel": 1,
+      "name": "NPC_4"
+    },
+    {
+      "pos": {
+        "col": 62,
+        "row": 42
+      },
+      "characterType": "FAM_NPC",
+      "characterLevel": 1,
+      "name": "NPC_5"
+    }
+  ],
+  "triggers": {
+    "levelStart": [],
+    "actOnEntity": {},
+    "move": {
+      "-1,-2": [
+        {
+          "oneOff": true,
+          "type": "dialog",
+          "lines": [
+            {
+              "text": "I should collect my sword\n(hit space to open chests)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "locations": [
+    {
+      "id": "TOWN",
+      "name": "town",
+      "locationCharacterLevel": 1,
+      "start": {
+        "col": 0,
+        "row": 0
+      },
+      "end": {
+        "col": 32,
+        "row": 18
+      }
+    },
+    {
+      "id": "SPAWNABLE_1",
+      "name": "JUST_LOCATION_NAME",
+      "start": {
+        "col": 33,
+        "row": 0
+      },
+      "end": {
+        "col": 100,
+        "row": 18
+      },
+      "locationCharacterLevel": 50
+    }
+  ]
+}

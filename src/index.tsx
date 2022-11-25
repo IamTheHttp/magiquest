@@ -17,11 +17,9 @@ if (!document.getElementById('app')) {
 }
 
 if (!document.getElementById('progress')) {
-  console.log('Adding stuff');
   let div = document.createElement('div');
   div.id = 'progress';
   document.body.appendChild(div);
-  console.log(document.body);
 }
 
 document.title = 'MAGIQUEST!';

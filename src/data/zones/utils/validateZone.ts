@@ -1,43 +1,43 @@
-import IZoneData from '../../../interfaces/IZoneData';
 import hasValue from '../../../gameEngine/utils/hasValue';
 import {AllowedZoneLocationIDs, CHARACTERS} from '../../../gameEngine/gameConstants';
+import {IZone} from '../../../interfaces/IZones';
 
 /**
  * validates the properties of the zone, throws for any violation
- * @param zoneData
+ * @param zone
  */
-export function validateZone(zoneData: IZoneData) {
-  const ERROR_PREFIX = `Invalid ZoneData/${zoneData.act}-${zoneData.chapter}`;
+export function validateZone(zone: IZone) {
+  const ERROR_PREFIX = `Invalid ZoneJSON/${zone.act}-${zone.chapter}`;
 
-  if (!hasValue(zoneData.chapter)) {
-    throw `Invalid ZoneData - Missing zone.chapter`;
+  if (!hasValue(zone.chapter)) {
+    throw `Invalid ZoneJSON - Missing zone.chapter`;
   }
 
-  if (!hasValue(zoneData.act)) {
-    throw `Invalid ZoneData - Missing zone.act`;
+  if (!hasValue(zone.act)) {
+    throw `Invalid ZoneJSON - Missing zone.act`;
   }
 
-  if (!hasValue(zoneData.triggers)) {
+  if (!hasValue(zone.triggers)) {
     throw `${ERROR_PREFIX} - Missing zone.triggers`;
   }
 
-  if (!hasValue(zoneData.triggers.move)) {
+  if (!hasValue(zone.triggers.move)) {
     throw `${ERROR_PREFIX} - Missing zone.triggers.move`;
   }
 
-  if (!hasValue(zoneData.triggers.levelStart)) {
+  if (!hasValue(zone.triggers.levelStart)) {
     throw `${ERROR_PREFIX} - Missing zone.triggers.levelStart`;
   }
 
-  if (!hasValue(zoneData.locations)) {
+  if (!hasValue(zone.locations)) {
     throw `${ERROR_PREFIX} - Missing zone.locations`;
   }
 
-  if (!hasValue(zoneData.spawnableEnemies)) {
+  if (!hasValue(zone.spawnableEnemies)) {
     throw `${ERROR_PREFIX} - Missing zone.spawnableEnemies`;
   }
 
-  zoneData.locations.forEach((location) => {
+  zone.locations.forEach((location) => {
     if (!AllowedZoneLocationIDs[location.id]) {
       throw `${ERROR_PREFIX} - Invalid location - id "${location.id}" does not appear in ${Object.keys(
         AllowedZoneLocationIDs
@@ -45,7 +45,7 @@ export function validateZone(zoneData: IZoneData) {
     }
   });
 
-  zoneData.spawnableEnemies.forEach((enemyID) => {
+  zone.spawnableEnemies.forEach((enemyID) => {
     if (!CHARACTERS[enemyID]) {
       throw `${ERROR_PREFIX} - Invalid character - id "${enemyID}" does not appear in ${Object.keys(
         CHARACTERS
@@ -53,7 +53,7 @@ export function validateZone(zoneData: IZoneData) {
     }
   });
 
-  zoneData.entitiesToPlace.forEach((ent) => {
+  zone.entitiesToPlace.forEach((ent) => {
     if (!CHARACTERS[ent.characterType]) {
       throw `${ERROR_PREFIX} - Invalid character - id "${ent.characterType}" does not appear in ${Object.keys(
         CHARACTERS

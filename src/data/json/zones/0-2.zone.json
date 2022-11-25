@@ -1,0 +1,21 @@
+{
+  "id": "0-2",
+  "act": 0,
+  "chapter": 2,
+  "description": "The old passage",
+  "playerStartPos": {
+    "col": 5,
+    "row": 77
+  },
+  "spawnableEnemies": [],
+  "exits": {},
+  "monsterDensity": 0,
+  "noSpawnLocations": [],
+  "entitiesToPlace": [],
+  "triggers": {
+    "levelStart": [],
+    "actOnEntity": {},
+    "move": {}
+  },
+  "locations": []
+}

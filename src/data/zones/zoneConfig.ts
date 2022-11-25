@@ -1,26 +1,26 @@
 import {IZone} from '../../interfaces/IZones';
 import {createZone} from './utils/createZone';
+import {IZoneJSON} from '../jsonTypes/IZoneJSON';
+import {IMapJSON} from '../jsonTypes/IMapJSON';
 
 // @ts-ignore
 function requireAll(r: any) {
   return r.keys().map(r);
 }
 
-// @ts-ignore
-// Get all maps.json files
-const maps = requireAll(require.context('../json/maps/', true, /\.json$/));
-
-import IZoneData from '../../interfaces/IZoneData';
-import zonesJSON from '../json/zones.json';
-
-// TODO this should be some interface
-let zoneConfig = {} as {
+let zoneConfig: {
   [numAct: number]: {
     chapters: {
       [numChapter: number]: IZone;
     };
   };
-};
+} = {};
+
+// @ts-ignore
+// Get all maps.json files
+const maps: IMapJSON[] = requireAll(require.context('../json/maps/', true, /\.json$/));
+// @ts-ignore
+const zones: IZoneJSON[] = requireAll(require.context('../json/zones/', true, /\.json$/));
 
 function populateGlobalZoneConfig(zone: IZone) {
   let numAct = +zone.act;
@@ -31,17 +31,16 @@ function populateGlobalZoneConfig(zone: IZone) {
 }
 
 function populateZoneConfig() {
-  for (let file in maps) {
-    const mapFile = maps[file];
+  for (let mapNumber in maps) {
+    const mapFile = maps[mapNumber];
     const {act, chapter, tileMap} = mapFile;
 
     const ZONE_ID = `${act}-${chapter}`;
 
-    const zoneJSONData: IZoneData = zonesJSON.find((zoneRow: IZoneData) => {
+    const zoneJSON: IZoneJSON = zones.find((zoneRow: IZoneJSON) => {
       return zoneRow.id === ZONE_ID;
     });
-
-    populateGlobalZoneConfig(createZone({id: ZONE_ID, tileMap: tileMap}, zoneJSONData));
+    populateGlobalZoneConfig(createZone(ZONE_ID, tileMap, zoneJSON));
   }
 }
 

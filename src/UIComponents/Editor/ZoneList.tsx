@@ -63,7 +63,7 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
 
   const trs = zones.map((zone: {act: number; chapter: number; description: string; id: string}) => {
     return (
-      <tr>
+      <tr key={`${zone.act}-${zone.chapter}`}>
         <td>{zone.description}</td>
         <td>{zone.id}</td>
         <td>{zone.act}</td>
@@ -112,14 +112,7 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
             if (res.status === 'OK') {
               // dynamically extend the game config to include the new zone
               // this is usually done in build time, but when using the editor we must do it in runtime
-              const ZONE = createZone(
-                {
-                  id: res.data.zoneJSON.id,
-                  tileMap: res.data.mapJSON.tileMap
-                },
-                res.data.zoneJSON
-              );
-
+              const ZONE = createZone(res.data.zoneJSON.id, res.data.tileMapJSON.tileMap, res.data.zoneJSON);
               populateGlobalZoneConfig(ZONE);
               setIsNewZoneFormOpen(false);
             }
@@ -132,19 +125,20 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
     );
   } else {
     return (
-      <table className={'editor-table'}>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Zone ID</th>
-            <th>Act</th>
-            <th>Chapter</th>
-            <th>Nav</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>{trs}</tbody>
-
+      <div>
+        <table className={'editor-table'}>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Zone ID</th>
+              <th>Act</th>
+              <th>Chapter</th>
+              <th>Nav</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>{trs}</tbody>
+        </table>
         <button
           onClick={() => {
             setIsNewZoneFormOpen(true);
@@ -152,7 +146,7 @@ export function ZoneList(props: {onZoneNav: (act: number, chapter: number) => vo
         >
           Create new zone
         </button>
-      </table>
+      </div>
     );
   }
 }

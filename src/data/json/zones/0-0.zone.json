@@ -1,0 +1,57 @@
+{
+  "id": "0-0",
+  "act": 0,
+  "chapter": 0,
+  "description": "A dark cave",
+  "playerStartPos": {
+    "col": 4,
+    "row": 6
+  },
+  "spawnableEnemies": [],
+  "exits": {
+    "39,6": {
+      "act": 0,
+      "chapter": 1,
+      "exitTile": {
+        "col": 10,
+        "row": 10
+      }
+    }
+  },
+  "monsterDensity": 0,
+  "noSpawnLocations": [],
+  "entitiesToPlace": [],
+  "triggers": {
+    "levelStart": [
+      {
+        "oneOff": true,
+        "type": "dialog",
+        "lines": [
+          {
+            "text": "I recognize this place but I don't know how\nI got here!\n\nI need to get back home!"
+          },
+          {
+            "text": "Press W A S D to move around",
+            "speaker": "Hint"
+          }
+        ]
+      }
+    ],
+    "actOnEntity": {},
+    "move": {
+      "23,7": [
+        {
+          "id": "TRIGGER_ID_1",
+          "oneOff": true,
+          "type": "dialog",
+          "lines": [
+            {
+              "text": "Something should happen now"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "locations": []
+}

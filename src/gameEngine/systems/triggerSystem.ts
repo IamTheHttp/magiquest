@@ -34,7 +34,6 @@ function triggerSystem(systemArguments: ISystemArguments) {
   // loop over all triggers
   if (isNonEmptyArray(triggers)) {
     triggers.forEach((trigger) => {
-      console.log(trigger);
       if (trigger.oneOff && usedUpTriggers[trigger.id]) {
         return; // do nothing
       }

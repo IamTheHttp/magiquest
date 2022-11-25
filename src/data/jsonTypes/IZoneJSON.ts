@@ -1,8 +1,14 @@
-import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, ITileMap, PossibleTriggersArray} from './IZones';
-import {CHARACTERS} from '../gameEngine/gameConstants';
-import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
+import {
+  IEntitiesToPlace,
+  IZoneLocation,
+  ITileCoordinate,
+  ITileMap,
+  PossibleTriggersArray
+} from '../../interfaces/IZones';
+import {CHARACTERS} from '../../gameEngine/gameConstants';
+import {ActOnEntityTriggers, MoveTriggers} from '../../interfaces/ITriggers';
 
-export interface IExits {
+interface IExits {
   [key: string]: {
     act: number;
     chapter: number;
@@ -10,7 +16,7 @@ export interface IExits {
   };
 }
 
-export interface INoSpawnLocation {
+interface INoSpawnLocation {
   start: {
     row: number;
     col: number;
@@ -24,7 +30,7 @@ export interface INoSpawnLocation {
 /**
  * This is a JSON representation os a zone
  */
-interface IZoneData {
+export interface IZoneJSON {
   act: number;
   chapter: number;
   id: string;
@@ -43,5 +49,3 @@ interface IZoneData {
   description: string;
   exits: IExits;
 }
-
-export default IZoneData;
