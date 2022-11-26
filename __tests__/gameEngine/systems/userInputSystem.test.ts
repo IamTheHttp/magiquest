@@ -1,4 +1,4 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
 import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';

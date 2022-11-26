@@ -1,7 +1,7 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import {Entity} from 'game-platform';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
-import createFamNPC from '../../__TEST__UTILS__/createFamNPC';
+import createTestFamNPC from '../../__TEST__UTILS__/createTestFamNPC';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
@@ -15,7 +15,7 @@ describe('Tests for the trigger system', () => {
     Entity.reset();
     spyPan = jest.fn();
     player = createTestPlayer(0, 0);
-    NPC = createFamNPC(1, 1);
+    NPC = createTestFamNPC(1, 1);
 
     systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
   });

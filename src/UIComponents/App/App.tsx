@@ -12,12 +12,16 @@ import {resizeGameElements} from '../utils/resizeGameElements';
 import registerUserInputEvents from '../../utils/registerUserInputEvents';
 import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
 import {Editor} from '../Editor/Editor';
+import {IPlaceableEntityDataMap} from '../../interfaces/IPlaceableEntityData';
 
-export class App extends React.Component<any, AppState> {
+type AppProps = {placeableEntityDataMap: IPlaceableEntityDataMap};
+
+export class App extends React.Component<AppProps, AppState> {
   game: Game;
   gameCanvasManager: GameCanvas;
+  placeableEntityDataMap: IPlaceableEntityDataMap;
 
-  constructor(props: object) {
+  constructor(props: AppProps) {
     super(props);
 
     this.onEscPress = this.onEscPress.bind(this);
@@ -72,6 +76,7 @@ export class App extends React.Component<any, AppState> {
 
     this.game = new Game({
       mode: 'playing',
+      placeableEntityDataMap: this.props.placeableEntityDataMap,
       onZoneChange: (act, chapter, newPlayerPosition) => {}
     });
 
@@ -100,6 +105,7 @@ export class App extends React.Component<any, AppState> {
   startEditor() {
     this.game = new Game({
       mode: 'editing',
+      placeableEntityDataMap: this.props.placeableEntityDataMap,
       onZoneChange: (act, chapter, newPlayerPosition) => {}
     });
 

@@ -7,6 +7,7 @@ import GameEvents from '../../src/gameEngine/classes/GameEvents';
 import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
+import {createTestPlaceableEntity} from './createTestPlaceableEntity';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {
   mapAPI: Partial<Painter>;
@@ -41,6 +42,9 @@ function createSystemArgs({
   };
 
   return {
+    placeableEntityDataMap: {
+      [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})
+    },
     gameEvents: new GameEvents(),
     characterSprite: undefined,
     minimapAPI: undefined,

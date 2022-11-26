@@ -1,4 +1,4 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';

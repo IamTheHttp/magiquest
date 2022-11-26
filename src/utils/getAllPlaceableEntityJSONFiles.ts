@@ -9,7 +9,7 @@ function requireAll(r: any) {
 export function getAllPlaceableEntityJSONFiles() {
   const placeableEntitiesJSON: IPlaceableEntityJSON[] = requireAll(
     // @ts-ignore
-    require.context('../data/json/placeableEntityData', true, /\.json$/)
+    require.context('../data/json/placeableEntity', true, /\.json$/)
   );
   return placeableEntitiesJSON;
 }

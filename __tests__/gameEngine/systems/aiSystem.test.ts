@@ -1,8 +1,8 @@
-import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createTestSystemArguments';
 
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
-import createNewEnemy from '../../__TEST__UTILS__/createEnemy';
+import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';

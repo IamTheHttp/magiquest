@@ -1,4 +1,4 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';

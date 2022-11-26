@@ -47,13 +47,15 @@ import {
   RESOLUTION,
   TILESET_IMAGE_URL,
   CANVAS_OUTPUT,
-  AllowedUIShapes
+  AllowedUIShapes,
+  PLACEABLE_ENTITIES
 } from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
 import PositionComponent from './components/PositionComponent';
 import UIComponent from './components/UIComponent';
+import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 
 class Game {
   engine: Engine;
@@ -70,9 +72,11 @@ class Game {
   gameEventListener: IGameEventListener;
   currentChapter: number;
   currentAct: number;
+  placeableEntityDataMap: IPlaceableEntityDataMap;
 
-  constructor({onZoneChange, mode = 'editing'}: IGameConstructor) {
+  constructor({onZoneChange, mode = 'editing', placeableEntityDataMap}: IGameConstructor) {
     Entity.reset();
+    this.placeableEntityDataMap = placeableEntityDataMap; // @data source for placeable entities
     this.dispatchAction = this.dispatchAction.bind(this);
 
     let engine = new Engine();
@@ -234,7 +238,8 @@ class Game {
       game: this,
       mapAPI: mapAPI,
       minimapAPI: miniMapAPI,
-      gameEvents: this.gameEvents
+      gameEvents: this.gameEvents,
+      placeableEntityDataMap: this.placeableEntityDataMap
     };
   }
 
@@ -302,8 +307,9 @@ class Game {
 
     // only out of editor mode, when playing
     if (this.mode === 'playing') {
-      let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile);
-      placeLevelEntities(zone, this.tileIdxMap);
+      const playerData = this.placeableEntityDataMap[PLACEABLE_ENTITIES.PLAYER];
+      let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile, playerData);
+      placeLevelEntities(zone, this.tileIdxMap, this.placeableEntityDataMap);
 
       // set triggers
       // For editor, skip triggers

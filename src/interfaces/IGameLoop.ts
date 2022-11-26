@@ -4,6 +4,7 @@ import GameEvents from '../gameEngine/classes/GameEvents';
 import {IZone} from './IZones';
 import {ITileIndexMap, IViewSize} from './IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
+import {IPlaceableEntityDataMap} from './IPlaceableEntityData';
 
 export interface ISystemArguments {
   tileIdxMap: ITileIndexMap;
@@ -17,4 +18,5 @@ export interface ISystemArguments {
   tileSetSprite: HTMLImageElement;
   characterSprite: HTMLImageElement;
   gameEvents: GameEvents;
+  placeableEntityDataMap: IPlaceableEntityDataMap;
 }

@@ -1,5 +1,5 @@
 import animationSystem from '../../../src/gameEngine/systems/animationSystem';
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';

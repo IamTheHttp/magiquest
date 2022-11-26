@@ -1,4 +1,4 @@
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import portalSystem from 'gameEngine/systems/portalSystem';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';

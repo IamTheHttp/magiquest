@@ -1,11 +1,12 @@
 import React from 'react';
-import createSystemArgs from '../../__TEST__UTILS__/createSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {Entity} from 'game-platform';
 import placeLevelEntities from '../../../src/gameEngine/utils/placeLevelEntities';
 import {LEVEL_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import {PLACEABLE_ENTITIES} from '../../../src/gameEngine/gameConstants';
+import {createTestPlaceableEntity} from '../../__TEST__UTILS__/createTestPlaceableEntity';
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
@@ -66,7 +67,11 @@ describe('Tests the placeLevelEntities util', () => {
           }
         ]
       },
-      tileIdxMap
+      tileIdxMap,
+      {
+        [PLACEABLE_ENTITIES.FAM_NPC]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.FAM_NPC}),
+        [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})
+      }
     );
 
     // Expected an assertion error in this test, as we have an UNKNOWN_TYPE

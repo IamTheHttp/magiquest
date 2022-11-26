@@ -10,6 +10,13 @@ import {assetLoader} from 'utils/assetLoader';
 import {App} from './UIComponents/App/App';
 import {createRoot} from 'react-dom/client';
 
+/**
+ * Get and parse all JSON files from data/placeableEntity and create a memory object to be passed into App and Game
+ */
+import {parsePlaceableEntityJSON} from './utils/parsePlaceableEntitiyJSON';
+import {getAllPlaceableEntityJSONFiles} from './utils/getAllPlaceableEntityJSONFiles';
+const placeableEntityDataMap = parsePlaceableEntityJSON(getAllPlaceableEntityJSONFiles());
+
 if (!document.getElementById('app')) {
   let div = document.createElement('div');
   div.id = 'app';
@@ -53,7 +60,7 @@ assetLoader.load(
   ],
   () => {
     const root = createRoot(document.getElementById('app'));
-    root.render(<App />);
+    root.render(<App placeableEntityDataMap={placeableEntityDataMap} />);
 
     document.body.removeChild(document.getElementById('progress'));
   }
