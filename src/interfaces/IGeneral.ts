@@ -2,7 +2,7 @@
  * Represents the resolution properties of the game
  * "view" - represents the main view (player view), main screen.
  * "map" - represents the the entire map, so viewWidth <= mapWidth
- */ import {AllowedActions, AllowedUIShapes, DIRECTIONS_OPTIONS} from '../gameEngine/gameConstants';
+ */ import {AllowedActions, AllowedUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
 import {AllowedSkills} from '../data/skillConfig';
@@ -23,12 +23,12 @@ export interface ITileIndexMap {
  * Incoming user actions
  */
 export interface IAction {
-  name: AllowedActions;
+  name: keyof typeof AllowedActions;
   data?: {
     // todo move direction into data
     [key: string]: any;
   };
-  direction?: DIRECTIONS_OPTIONS;
+  direction?: keyof typeof DIRECTIONS;
 }
 
 /**
@@ -54,7 +54,7 @@ export interface IAnimationFrame {
   cropStartY?: number;
   cropSizeX?: number;
   cropSizeY?: number;
-  shape?: AllowedUIShapes;
+  shape?: keyof typeof AllowedUIShapes;
   direction?: number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
   size?: number;
   radius?: number;
@@ -79,7 +79,7 @@ export interface IAnimation {
  */
 export interface IUISection {
   name: string;
-  shape: AllowedUIShapes;
+  shape: keyof typeof AllowedUIShapes;
   data: {
     [key: string]: any; // TODO can we narrow it down?
   };
@@ -94,7 +94,7 @@ export interface IPlayerState {
   maxHealth: number;
   currentHealth: number;
   percentHealth: number;
-  skills: AllowedSkills[];
+  skills: (keyof typeof AllowedSkills)[];
   spendableXP: number;
   levelProgress: number;
   attributes: IAssignedCharacterAttributes;

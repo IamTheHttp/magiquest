@@ -11,10 +11,10 @@ interface IRenderSkills extends ComponentProps<any> {
 }
 
 function RenderSkills(props: {
-  activeSkillID: AllowedSkills;
+  activeSkillID: keyof typeof AllowedSkills;
   skillsToRender: ISkill[];
   currentPlayerState: IPlayerUIState;
-  onSkillClick: (skillID: AllowedSkills) => void;
+  onSkillClick: (skillID: keyof typeof AllowedSkills) => void;
 }) {
   let {skillsToRender} = props;
 

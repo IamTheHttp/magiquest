@@ -5,7 +5,7 @@ import {
   POSITION_COMP,
   UI_COMP
 } from 'gameEngine/components/ComponentNamesConfig';
-import {AllowedUIShapes, TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../../../gameConstants';
+import {AllowedUIShapes, TILE_SIZE, DIRECTIONS} from '../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import char from '../../../../assets/player.png';
@@ -82,10 +82,10 @@ function renderMainLayer(
 
       if (section.shape === AllowedUIShapes.PLAYER_CHAR) {
         let spriteCrop = {
-          [DIRECTIONS_OPTIONS.LEFT]: getSpriteCrop(1, 1),
-          [DIRECTIONS_OPTIONS.RIGHT]: getSpriteCrop(1, 0),
-          [DIRECTIONS_OPTIONS.UP]: getSpriteCrop(1, 3),
-          [DIRECTIONS_OPTIONS.DOWN]: getSpriteCrop(1, 2)
+          [DIRECTIONS.LEFT]: getSpriteCrop(1, 1),
+          [DIRECTIONS.RIGHT]: getSpriteCrop(1, 0),
+          [DIRECTIONS.UP]: getSpriteCrop(1, 3),
+          [DIRECTIONS.DOWN]: getSpriteCrop(1, 2)
         };
 
         let crops = spriteCrop[entity.getOrientation()] || {

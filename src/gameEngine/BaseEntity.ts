@@ -25,7 +25,7 @@ import BackgroundComponent from './components/BackgroundComponent';
 import PlayerControlledComponent from './components/PlayerControlledComponent';
 import Dialog from './components/Dialog';
 import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
-import {TILE_SIZE, DIRECTIONS_OPTIONS} from './gameConstants';
+import {TILE_SIZE, DIRECTIONS} from './gameConstants';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import MoveComponent from './components/MoveComponent';
 import SpawnedComponent from './components/SpawnedComponent';
@@ -75,17 +75,17 @@ class BaseEntity extends Entity {
     this[ANIMATION_COMP].animations = {};
   }
 
-  calcOrientation(destX: number, destY: number): DIRECTIONS_OPTIONS {
+  calcOrientation(destX: number, destY: number): keyof typeof DIRECTIONS {
     let {x, y} = this.getPos();
 
     if (destX > x) {
-      return DIRECTIONS_OPTIONS.RIGHT;
+      return DIRECTIONS.RIGHT;
     } else if (destX < x) {
-      return DIRECTIONS_OPTIONS.LEFT;
+      return DIRECTIONS.LEFT;
     } else if (destY > y) {
-      return DIRECTIONS_OPTIONS.DOWN;
+      return DIRECTIONS.DOWN;
     } else if (destY < y) {
-      return DIRECTIONS_OPTIONS.UP;
+      return DIRECTIONS.UP;
     } else {
       return this.getOrientation(); // by default, get current one
     }
@@ -133,7 +133,7 @@ class BaseEntity extends Entity {
     }
   }
 
-  setMoveDirection(dir: DIRECTIONS_OPTIONS) {
+  setMoveDirection(dir: keyof typeof DIRECTIONS) {
     if (!this[IS_MOVING_COMP]) {
       this.addComponent(new IsMoving());
     }
@@ -168,7 +168,7 @@ class BaseEntity extends Entity {
     return this[IS_MOVING_COMP] && this[IS_MOVING_COMP].direction;
   }
 
-  setOrientation(direction: DIRECTIONS_OPTIONS) {
+  setOrientation(direction: keyof typeof DIRECTIONS) {
     this[POSITION_COMP].orientation = direction;
   }
 
@@ -217,31 +217,31 @@ class BaseEntity extends Entity {
   }
 
   // TODO ensure this works QA
-  getDestFromDirection(dir: DIRECTIONS_OPTIONS) {
+  getDestFromDirection(dir: keyof typeof DIRECTIONS) {
     let {x, y} = this.getPos();
 
-    if (dir === DIRECTIONS_OPTIONS.UP) {
+    if (dir === DIRECTIONS.UP) {
       return {
         x,
         y: y - TILE_SIZE
       };
     }
 
-    if (dir === DIRECTIONS_OPTIONS.DOWN) {
+    if (dir === DIRECTIONS.DOWN) {
       return {
         x,
         y: y + TILE_SIZE
       };
     }
 
-    if (dir === DIRECTIONS_OPTIONS.LEFT) {
+    if (dir === DIRECTIONS.LEFT) {
       return {
         x: x - TILE_SIZE,
         y
       };
     }
 
-    if (dir === DIRECTIONS_OPTIONS.RIGHT) {
+    if (dir === DIRECTIONS.RIGHT) {
       return {
         x: x + TILE_SIZE,
         y
@@ -249,33 +249,33 @@ class BaseEntity extends Entity {
     }
   }
 
-  setDestTo(dir: DIRECTIONS_OPTIONS) {
+  setDestTo(dir: keyof typeof DIRECTIONS) {
     let {x, y} = this.getPos();
     this[POSITION_COMP].originX = x;
     this[POSITION_COMP].originY = y;
 
-    if (dir === DIRECTIONS_OPTIONS.UP) {
+    if (dir === DIRECTIONS.UP) {
       this.setDest({
         x,
         y: y - TILE_SIZE
       });
     }
 
-    if (dir === DIRECTIONS_OPTIONS.DOWN) {
+    if (dir === DIRECTIONS.DOWN) {
       this.setDest({
         x,
         y: y + TILE_SIZE
       });
     }
 
-    if (dir === DIRECTIONS_OPTIONS.LEFT) {
+    if (dir === DIRECTIONS.LEFT) {
       this.setDest({
         x: x - TILE_SIZE,
         y
       });
     }
 
-    if (dir === DIRECTIONS_OPTIONS.RIGHT) {
+    if (dir === DIRECTIONS.RIGHT) {
       this.setDest({
         x: x + TILE_SIZE,
         y

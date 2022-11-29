@@ -6,7 +6,7 @@ class PlayerState implements IPlayerState {
   public maxHealth: number;
   public currentHealth: number;
   public percentHealth: number;
-  public skills: AllowedSkills[];
+  public skills: (keyof typeof AllowedSkills)[];
   public spendableXP: number;
   public levelProgress: number;
   public attributes: IAssignedCharacterAttributes;

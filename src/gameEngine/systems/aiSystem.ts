@@ -6,7 +6,7 @@ import {
 } from '../components/ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
-import {TILE_SIZE, DIRECTIONS, DIRECTIONS_OPTIONS} from '../gameConstants';
+import {TILE_SIZE, DIRECTIONS} from '../gameConstants';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -36,19 +36,19 @@ function aiSystem(systemArguments: ISystemArguments) {
       if (visionRange > dist) {
         // go towards the player!
         if (x < playerX) {
-          chaseDirections.push(DIRECTIONS_OPTIONS.RIGHT);
+          chaseDirections.push(DIRECTIONS.RIGHT);
         }
 
         if (x > playerX) {
-          chaseDirections.push(DIRECTIONS_OPTIONS.LEFT);
+          chaseDirections.push(DIRECTIONS.LEFT);
         }
 
         if (y < playerY) {
-          chaseDirections.push(DIRECTIONS_OPTIONS.DOWN);
+          chaseDirections.push(DIRECTIONS.DOWN);
         }
 
         if (y > playerY) {
-          chaseDirections.push(DIRECTIONS_OPTIONS.UP);
+          chaseDirections.push(DIRECTIONS.UP);
         }
       }
 
@@ -73,12 +73,7 @@ function aiSystem(systemArguments: ISystemArguments) {
 
     if (chaseDirections.length === 0) {
       // TODO - Could we implement break this list dynamically instead of listing it all?
-      chaseDirections = [
-        DIRECTIONS_OPTIONS.UP,
-        DIRECTIONS_OPTIONS.DOWN,
-        DIRECTIONS_OPTIONS.LEFT,
-        DIRECTIONS_OPTIONS.RIGHT
-      ];
+      chaseDirections = [DIRECTIONS.UP, DIRECTIONS.DOWN, DIRECTIONS.LEFT, DIRECTIONS.RIGHT];
     }
 
     let dir = oneOf(chaseDirections);

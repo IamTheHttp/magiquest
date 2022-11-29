@@ -6,8 +6,8 @@ type IPlaceableEntityData = {
   health: number;
   speed: number;
   vision: number;
-  attackSpeed: ATTACK_SPEEDS_OPTIONS;
-  id: PLACEABLE_ENTITIES;
+  attackSpeed: keyof typeof ATTACK_SPEEDS_OPTIONS;
+  id: keyof typeof PLACEABLE_ENTITIES;
   displayName: string;
   radius: number; // for now everyone uses 16
 

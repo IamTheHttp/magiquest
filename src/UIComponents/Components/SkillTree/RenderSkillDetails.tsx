@@ -6,8 +6,8 @@ import {ComponentProps} from 'react';
 interface IRenderSkillDetails extends ComponentProps<any> {
   currentPlayerState: IPlayerUIState;
   skill: ISkill;
-  activeSkillID: AllowedSkills;
-  onBuySkillClick: (skillID: AllowedSkills) => void;
+  activeSkillID: keyof typeof AllowedSkills;
+  onBuySkillClick: (skillID: keyof typeof AllowedSkills) => void;
 }
 
 function RenderSkillDetails(props: IRenderSkillDetails) {

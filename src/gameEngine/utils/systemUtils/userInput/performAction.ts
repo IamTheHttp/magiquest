@@ -1,6 +1,6 @@
 import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
+import {DIRECTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -27,19 +27,19 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   let col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
   let row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
 
-  if (curOrientation === DIRECTIONS_OPTIONS.LEFT) {
+  if (curOrientation === DIRECTIONS.LEFT) {
     col -= 1;
   }
 
-  if (curOrientation === DIRECTIONS_OPTIONS.RIGHT) {
+  if (curOrientation === DIRECTIONS.RIGHT) {
     col += 1;
   }
 
-  if (curOrientation === DIRECTIONS_OPTIONS.UP) {
+  if (curOrientation === DIRECTIONS.UP) {
     row -= 1;
   }
 
-  if (curOrientation === DIRECTIONS_OPTIONS.DOWN) {
+  if (curOrientation === DIRECTIONS.DOWN) {
     row += 1;
   }
 

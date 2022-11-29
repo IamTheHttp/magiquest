@@ -1,5 +1,5 @@
 import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {DIRECTIONS_OPTIONS} from '../gameConstants';
+import {DIRECTIONS} from '../gameConstants';
 
 interface IPositionComponentConstructor {
   x: number;
@@ -20,7 +20,7 @@ class PositionComponent {
   destX: number;
   originX: number;
   originY: number;
-  orientation: DIRECTIONS_OPTIONS;
+  orientation: keyof typeof DIRECTIONS;
 
   constructor({x, y, radius = -1, height = -1, width = -1}: IPositionComponentConstructor) {
     this.name = POSITION_COMP;

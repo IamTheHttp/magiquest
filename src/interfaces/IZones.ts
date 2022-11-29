@@ -10,7 +10,7 @@ export interface ITileCoordinate {
 }
 
 export type IEntitiesToPlace = {
-  characterType: PLACEABLE_ENTITIES;
+  characterType: keyof typeof PLACEABLE_ENTITIES;
   characterLevel: number;
   pos: ITileCoordinate;
   name: string;

@@ -5,7 +5,7 @@ import {Entity} from 'game-platform';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
 import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
-import {DIRECTIONS_OPTIONS} from '../../../src/gameEngine/gameConstants';
+import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
@@ -28,7 +28,7 @@ describe('move system tests', () => {
   it('moves an entity', () => {
     player.addComponent(new IsMoving());
 
-    player.setDestTo(DIRECTIONS_OPTIONS.DOWN);
+    player.setDestTo(DIRECTIONS.DOWN);
 
     moveSystem(systemArguments);
 
@@ -49,7 +49,7 @@ describe('move system tests', () => {
   it('Test trying to move out of screen', () => {
     player.addComponent(new IsMoving());
 
-    player.setDestTo(DIRECTIONS_OPTIONS.LEFT);
+    player.setDestTo(DIRECTIONS.LEFT);
 
     moveSystem(systemArguments);
 
@@ -61,7 +61,7 @@ describe('move system tests', () => {
   });
 
   it('Test movement with a direction instead of X,Y', () => {
-    player.setMoveDirection(DIRECTIONS_OPTIONS.DOWN);
+    player.setMoveDirection(DIRECTIONS.DOWN);
     expect(player.getDest().y).toBe(null);
     moveSystem(systemArguments);
     expect(player.getDest().y).toBe(48); // since we start at 16 16 and go one tile down
@@ -84,7 +84,7 @@ describe('move system tests', () => {
 
   it('Test moving over a mountain (two steps down in our mock data)', () => {
     player.addComponent(new IsMoving());
-    player.setDestTo(DIRECTIONS_OPTIONS.DOWN);
+    player.setDestTo(DIRECTIONS.DOWN);
 
     // move one tile down
     while (player.getDest().y) {
@@ -92,7 +92,7 @@ describe('move system tests', () => {
     }
 
     player.addComponent(new IsMoving());
-    player.setDestTo(DIRECTIONS_OPTIONS.DOWN);
+    player.setDestTo(DIRECTIONS.DOWN);
 
     // move two tiles down
     while (player.getDest().y) {
@@ -101,7 +101,7 @@ describe('move system tests', () => {
 
     // try a third move down (we can't, there's a mountain there)
     player.addComponent(new IsMoving());
-    player.setDestTo(DIRECTIONS_OPTIONS.DOWN);
+    player.setDestTo(DIRECTIONS.DOWN);
 
     let currY = player.getPos().y;
     // move two tiles down

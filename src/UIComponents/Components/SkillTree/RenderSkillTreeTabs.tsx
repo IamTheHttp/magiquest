@@ -4,8 +4,8 @@ import {ComponentProps} from 'react';
 import skillConfigToArray from './utils/skillConfigToArray';
 
 interface IRenderSkillTreeTabs extends ComponentProps<any> {
-  setActiveSkillTree(a: AllowedTrees): void;
-  activeTreeID: AllowedTrees;
+  setActiveSkillTree(a: keyof typeof AllowedTrees): void;
+  activeTreeID: keyof typeof AllowedTrees;
 }
 
 function RenderSkillTreeTabs(props: IRenderSkillTreeTabs) {

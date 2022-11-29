@@ -17,8 +17,8 @@ export interface ISkillTreeProps {
 }
 
 function SkillTree(props: ISkillTreeProps) {
-  const [activeTreeID, setActiveSkillTree] = useState('') as unknown as [AllowedTrees, (a: AllowedTrees) => {}];
-  const [activeSkillID, setActiveSkill] = useState('') as unknown as [AllowedSkills, (a: AllowedSkills) => {}];
+  const [activeTreeID, setActiveSkillTree] = useState<keyof typeof AllowedTrees>(null);
+  const [activeSkillID, setActiveSkill] = useState<keyof typeof AllowedSkills>(null);
 
   const skillsToRender = getSkillsToRender(skillTreesConfig[activeTreeID]);
   const currentPlayerState = props.currentPlayerState;

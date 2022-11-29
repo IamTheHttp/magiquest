@@ -1,4 +1,4 @@
-import {AllowedActions, DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
+import {AllowedActions, DIRECTIONS} from 'gameEngine/gameConstants';
 import Game from '../gameEngine/Game';
 
 class Glob {
@@ -87,16 +87,16 @@ function registerUserInputEvents(game: Game) {
     // Support arrow keys and WASD
 
     let map = {
-      [KEY_TO_CODE_MAP.W]: DIRECTIONS_OPTIONS.UP,
-      [KEY_TO_CODE_MAP.A]: DIRECTIONS_OPTIONS.LEFT,
-      [KEY_TO_CODE_MAP.S]: DIRECTIONS_OPTIONS.DOWN,
-      [KEY_TO_CODE_MAP.D]: DIRECTIONS_OPTIONS.RIGHT,
-      [KEY_TO_CODE_MAP.ARROW_UP]: DIRECTIONS_OPTIONS.UP,
-      [KEY_TO_CODE_MAP.ARROW_LEFT]: DIRECTIONS_OPTIONS.LEFT,
-      [KEY_TO_CODE_MAP.ARROW_DOWN]: DIRECTIONS_OPTIONS.DOWN,
-      [KEY_TO_CODE_MAP.ARROW_RIGHT]: DIRECTIONS_OPTIONS.RIGHT
+      [KEY_TO_CODE_MAP.W]: DIRECTIONS.UP,
+      [KEY_TO_CODE_MAP.A]: DIRECTIONS.LEFT,
+      [KEY_TO_CODE_MAP.S]: DIRECTIONS.DOWN,
+      [KEY_TO_CODE_MAP.D]: DIRECTIONS.RIGHT,
+      [KEY_TO_CODE_MAP.ARROW_UP]: DIRECTIONS.UP,
+      [KEY_TO_CODE_MAP.ARROW_LEFT]: DIRECTIONS.LEFT,
+      [KEY_TO_CODE_MAP.ARROW_DOWN]: DIRECTIONS.DOWN,
+      [KEY_TO_CODE_MAP.ARROW_RIGHT]: DIRECTIONS.RIGHT
     } as {
-      [key: number]: DIRECTIONS_OPTIONS;
+      [key: number]: keyof typeof DIRECTIONS;
     };
 
     if (code === KEY_TO_CODE_MAP.SPACE_BAR) {

@@ -1,6 +1,6 @@
 import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
-import {DIRECTIONS_OPTIONS} from 'gameEngine/gameConstants';
+import {DIRECTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';

@@ -6,14 +6,14 @@ export enum AllowedTrees {
 }
 
 export interface ISkill {
-  id: AllowedSkills;
+  id: keyof typeof AllowedSkills;
   name: string;
   cost: number;
   description: string;
 }
 
 export interface ISkillTree {
-  id: AllowedTrees;
+  id: keyof typeof AllowedTrees;
   name: string;
   skills: ISkill[];
 }

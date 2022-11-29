@@ -38,7 +38,7 @@ export interface IZoneJSON {
     move: MoveTriggers;
   };
   entitiesToPlace: IEntitiesToPlace;
-  spawnableEnemies: PLACEABLE_ENTITIES[];
+  spawnableEnemies: (keyof typeof PLACEABLE_ENTITIES)[];
 
   description: string;
   exits: IExits;

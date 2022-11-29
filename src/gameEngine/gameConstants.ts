@@ -47,7 +47,7 @@ export enum PLACEABLE_ENTITIES {
 }
 
 // TODO can these two be combined?
-export enum DIRECTIONS_OPTIONS {
+export enum DIRECTIONS {
   UP = 'UP',
   DOWN = 'DOWN',
   LEFT = 'LEFT',
@@ -55,12 +55,12 @@ export enum DIRECTIONS_OPTIONS {
 }
 
 // TODO can these two be combined?
-export let DIRECTIONS = {
-  [DIRECTIONS_OPTIONS.UP]: 'UP',
-  [DIRECTIONS_OPTIONS.DOWN]: 'DOWN',
-  [DIRECTIONS_OPTIONS.LEFT]: 'LEFT',
-  [DIRECTIONS_OPTIONS.RIGHT]: 'RIGHT'
-};
+// export let DIRECTIONS = {
+//   [DIRECTIONS.UP]: 'UP',
+//   [DIRECTIONS.DOWN]: 'DOWN',
+//   [DIRECTIONS.LEFT]: 'LEFT',
+//   [DIRECTIONS.RIGHT]: 'RIGHT'
+// };
 
 export const ANIMATIONS = {
   MOVE_LEFT: 'MOVE_LEFT',
