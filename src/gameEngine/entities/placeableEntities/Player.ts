@@ -1,12 +1,12 @@
 import LevelComp from '../../components/LevelComp';
-import playerAnimations from '../animations/playerAnimations';
-import {AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import PlaceableEntity from './PlaceableEntity';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
+  INVENTORY_COMP,
   LEVEL_COMP
 } from '../../components/ComponentNamesConfig';
 import UIComponent from '../../components/UIComponent';
@@ -14,10 +14,11 @@ import CharacterAttributesComponent from '../../components/CharacterAttributesCo
 import CharacterSkillsComponent from '../../components/CharacterSkillsComponent';
 import PlayerControlledComponent from '../../components/PlayerControlledComponent';
 import ExperienceComp from '../../components/ExperienceComp';
-import AnimationComp from '../../components/AnimationComp';
+import {InventoryComponent} from '../../components/Inventory';
 
 class Player extends PlaceableEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
+  [INVENTORY_COMP]: InventoryComponent;
   [LEVEL_COMP]: LevelComp;
   [CHARACTER_SKILLS_COMP]: CharacterSkillsComponent;
   [CHARACTER_ATTRIBUTES_COMP]: CharacterAttributesComponent;
@@ -25,6 +26,15 @@ class Player extends PlaceableEntity {
     super(instanceAttributes, placeableEntityData);
 
     this.name = 'You';
+    this.addComponent(new InventoryComponent());
+
+    // TODO remove from here.
+    this[INVENTORY_COMP].addWeapon({minDmg: 5, maxDmg: 25});
+    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
+    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
+    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
+    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
+
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new CharacterAttributesComponent());
     this.addComponent(new PlayerControlledComponent());
@@ -33,13 +43,11 @@ class Player extends PlaceableEntity {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: AllowedUIShapes.PLAYER_CHAR,
+          shape: PossibleUIShapes.PLAYER_CHAR,
           data: {}
         }
       ])
     );
-
-    this.addComponent(new AnimationComp(playerAnimations));
   }
 }
 

@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {AllowedQuestIDs, AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {AllowedQuestIDs, PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
 import PlaceableEntity from './PlaceableEntity';
 import {KillQuest} from '../Quest';
 import UIComponent from '../../components/UIComponent';
@@ -15,7 +15,7 @@ class FamNPC extends PlaceableEntity {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: AllowedUIShapes.PLAYER_CHAR,
+          shape: PossibleUIShapes.PLAYER_CHAR,
           data: {}
         }
       ])

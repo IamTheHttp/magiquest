@@ -8,7 +8,7 @@ export enum AllowedZoneLocationIDs {
   SPAWNABLE_1 = 'SPAWNABLE_1'
 }
 
-export enum AllowedUIShapes {
+export enum PossibleUIShapes {
   CIRCLE_SHAPE = 'CIRCLE_SHAPE',
   ARC_SHAPE = 'ARC_SHAPE',
   MAP_TILE_SHAPE = 'MAP_TILE_SHAPE',
@@ -90,6 +90,7 @@ export const RESOLUTION = {
   height: 240 * 2 // 15 tiles
 };
 
+// Animation for the attacking arc
 export const ATTACK_CONFIG = {
   lineWidth: 3
 };

@@ -21,7 +21,7 @@ let caveFloor = getSpriteCrop(22, 1);
 let caveWall = getSpriteCrop(19, 1);
 
 export const WALKABLE_TILE_TYPES = [1, 7, 100, 13, 11];
-export const TILE_TYPES = {
+export const TILE_TYPES_CROP_DATA: ITileTypes = {
   0: mountainTile,
   1: grassTile,
   2: riverTiles,
@@ -39,4 +39,4 @@ export const TILE_TYPES = {
   14: caveWall,
   100: sand,
   1000: sea
-} as ITileTypes;
+};

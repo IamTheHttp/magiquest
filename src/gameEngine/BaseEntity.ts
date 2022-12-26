@@ -38,6 +38,7 @@ import Quest from './entities/Quest';
 import IsAttackingComp from './components/IsAttacking';
 import AIVisionComponent from './components/AIVisionComponent';
 import AttackComponent from './components/AttackComponent';
+import Player from './entities/placeableEntities/Player';
 
 class BaseEntity extends Entity {
   id: number;
@@ -63,7 +64,7 @@ class BaseEntity extends Entity {
     this[ANIMATION_COMP].addAnimationVariant(animation);
   }
 
-  isPlayer() {
+  isPlayer(): this is Player {
     return !!this[PLAYER_CONTROLLED_COMP];
   }
 

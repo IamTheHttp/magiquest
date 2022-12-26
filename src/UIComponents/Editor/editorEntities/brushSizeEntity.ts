@@ -1,7 +1,7 @@
 import {BaseEntity} from '../../../gameEngine/BaseEntity';
 import {Entity} from 'game-platform';
 import PositionComponent from '../../../gameEngine/components/PositionComponent';
-import {AllowedUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../../gameEngine/gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../../gameEngine/gameConstants';
 import UIComponent from '../../../gameEngine/components/UIComponent';
 
 class BrushSizeEntity extends BaseEntity {
@@ -26,7 +26,7 @@ class BrushSizeEntity extends BaseEntity {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: AllowedUIShapes.RECT_SHAPE,
+          shape: PossibleUIShapes.RECT_SHAPE,
           data: {}
         }
       ])

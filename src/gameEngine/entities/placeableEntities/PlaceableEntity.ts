@@ -1,5 +1,5 @@
 import LevelComp from '../../components/LevelComp';
-import {AllowedUIShapes, ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
+import {PossibleUIShapes, ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import Health from '../../components/Health';
 import PositionComponent from '../../components/PositionComponent';
@@ -38,7 +38,7 @@ class PlaceableEntity extends BaseEntity {
         new UIComponent([
           {
             name: CANVAS_OUTPUT,
-            shape: AllowedUIShapes.HEALTH_BAR_SHAPE,
+            shape: PossibleUIShapes.HEALTH_BAR_SHAPE,
             data: {}
           }
         ])

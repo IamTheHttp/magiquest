@@ -1,10 +1,10 @@
 import {HEALTH_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {AllowedUIShapes} from 'gameEngine/gameConstants';
+import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
-function renderRect(systemArguments: ISystemArguments, entity: BaseEntity) {
+function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI} = systemArguments;
 
   let rectWidth = entity[POSITION_COMP].width;
@@ -13,7 +13,7 @@ function renderRect(systemArguments: ISystemArguments, entity: BaseEntity) {
   let posY = entity[POSITION_COMP].y;
 
   mapAPI.drawRect({
-    id: `${entity.id}-${AllowedUIShapes.RECT_SHAPE}-`,
+    id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
     x: posX,
     y: posY,
     width: rectWidth,
@@ -23,4 +23,4 @@ function renderRect(systemArguments: ISystemArguments, entity: BaseEntity) {
   });
 }
 
-export {renderRect};
+export {renderRectOnEntity};

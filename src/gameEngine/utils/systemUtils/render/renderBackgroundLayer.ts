@@ -1,9 +1,9 @@
 import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
 import filterOutFarEntities from '../filterOutFarEntities';
-import {AllowedUIShapes} from 'gameEngine/gameConstants';
+import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
-import {TILE_TYPES} from '../../../createEntitySprites';
+import {TILE_TYPES_CROP_DATA} from '../../../createEntitySprites';
 
 function renderBackgroundLayer(systemArguments: ISystemArguments) {
   let {mapAPI, tileSetSprite, Entity} = systemArguments;
@@ -13,7 +13,7 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     let entity = closeBackgroundEnts[i];
     entity[BACKGROUND_COMP].sections.forEach((section) => {
-      if (section.shape === AllowedUIShapes.MAP_TILE_SHAPE) {
+      if (section.shape === PossibleUIShapes.MAP_TILE_SHAPE) {
         // tile type
         mapAPI.drawImage({
           id: `${entity.id}-${i}`,
@@ -22,7 +22,7 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
           y: entity[POSITION_COMP].y,
           height: entity[POSITION_COMP].height,
           width: entity[POSITION_COMP].width,
-          ...TILE_TYPES[section.data.tileType],
+          ...TILE_TYPES_CROP_DATA[section.data.tileType],
           rotation: 0, // in radians
           layerName: 'background'
         });

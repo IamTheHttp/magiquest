@@ -1,7 +1,7 @@
 import * as React from 'react';
 import tileSet from '../../assets/tileSet.png';
 import {CSSProperties, useEffect, useState} from 'react';
-import {TILE_TYPES} from '../../gameEngine/createEntitySprites';
+import {TILE_TYPES_CROP_DATA} from '../../gameEngine/createEntitySprites';
 import Game from '../../gameEngine/Game';
 import {Entity, GameCanvas} from 'game-platform';
 import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
@@ -191,8 +191,8 @@ export function Editor(props: IProps) {
           Current Tile: {currentColHover}-{currentRowHover}
         </h3>
         <div className="editor-tiles">
-          {Object.keys(TILE_TYPES).map((key) => {
-            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = TILE_TYPES[+key];
+          {Object.keys(TILE_TYPES_CROP_DATA).map((key) => {
+            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = TILE_TYPES_CROP_DATA[+key];
 
             let style: CSSProperties = {
               backgroundImage: `url("${tileSet}")`,

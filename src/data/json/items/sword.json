@@ -1,0 +1,6 @@
+{
+  "minDmg": 5,
+  "maxDmg": 10,
+  "attackSpeed": "FAST",
+  "modifiers": []
+}

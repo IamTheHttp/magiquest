@@ -47,7 +47,7 @@ import {
   RESOLUTION,
   TILESET_IMAGE_URL,
   CANVAS_OUTPUT,
-  AllowedUIShapes,
+  PossibleUIShapes,
   PLACEABLE_ENTITIES
 } from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
@@ -177,7 +177,7 @@ class Game {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: AllowedUIShapes.CIRCLE_SHAPE,
+          shape: PossibleUIShapes.CIRCLE_SHAPE,
           data: {
             fillColor: 'lime'
           }

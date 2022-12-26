@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {AllowedUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
 import UIComponent from '../../components/UIComponent';
 import PlaceableEntity from './PlaceableEntity';
 
@@ -11,7 +11,7 @@ class Chest extends PlaceableEntity {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: AllowedUIShapes.CHEST_SHAPE,
+          shape: PossibleUIShapes.CHEST_SHAPE,
           data: {}
         }
       ])

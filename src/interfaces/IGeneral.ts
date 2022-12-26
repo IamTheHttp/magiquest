@@ -1,8 +1,8 @@
 /**
  * Represents the resolution properties of the game
  * "view" - represents the main view (player view), main screen.
- * "map" - represents the the entire map, so viewWidth <= mapWidth
- */ import {AllowedActions, AllowedUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
+ * "map" - represents the entire map, so viewWidth <= mapWidth
+ */ import {AllowedActions, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
 import {AllowedSkills} from '../data/skillConfig';
@@ -54,7 +54,7 @@ export interface IAnimationFrame {
   cropStartY?: number;
   cropSizeX?: number;
   cropSizeY?: number;
-  shape?: keyof typeof AllowedUIShapes;
+  shape?: keyof typeof PossibleUIShapes;
   direction?: number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
   size?: number;
   radius?: number;
@@ -79,7 +79,7 @@ export interface IAnimation {
  */
 export interface IUISection {
   name: string;
-  shape: keyof typeof AllowedUIShapes;
+  shape: keyof typeof PossibleUIShapes;
   data: {
     [key: string]: any; // TODO can we narrow it down?
   };
