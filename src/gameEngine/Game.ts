@@ -43,9 +43,10 @@ import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
 import {
   TILE_SIZE,
-  CHAR_SPRITE_URL,
+  PLAYER_SPRITE_URL,
   RESOLUTION,
   TILESET_IMAGE_URL,
+  ITEMS_SPRITE_URL,
   CANVAS_OUTPUT,
   PossibleUIShapes,
   PLACEABLE_ENTITIES
@@ -56,6 +57,7 @@ import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
 import PositionComponent from './components/PositionComponent';
 import UIComponent from './components/UIComponent';
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
+import {getSprites} from './getSprites';
 
 class Game {
   engine: Engine;
@@ -230,8 +232,7 @@ class Game {
     return {
       tileIdxMap: this.tileIdxMap,
       zone: this.zone,
-      tileSetSprite: assetLoader.getAsset(TILESET_IMAGE_URL),
-      characterSprite: assetLoader.getAsset(CHAR_SPRITE_URL),
+      SPRITES: getSprites(),
       Entity,
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,

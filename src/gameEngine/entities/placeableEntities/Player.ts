@@ -15,6 +15,7 @@ import CharacterSkillsComponent from '../../components/CharacterSkillsComponent'
 import PlayerControlledComponent from '../../components/PlayerControlledComponent';
 import ExperienceComp from '../../components/ExperienceComp';
 import {InventoryComponent} from '../../components/Inventory';
+import {MySword} from '../../classes/Item';
 
 class Player extends PlaceableEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
@@ -29,11 +30,8 @@ class Player extends PlaceableEntity {
     this.addComponent(new InventoryComponent());
 
     // TODO remove from here.
-    this[INVENTORY_COMP].addWeapon({minDmg: 5, maxDmg: 25});
-    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
-    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
-    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
-    this[INVENTORY_COMP].addWeapon({minDmg: 2, maxDmg: 500});
+    this[INVENTORY_COMP].equipWeapon(new MySword());
+    this[INVENTORY_COMP].addItemToBackpack(new MySword());
 
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new CharacterAttributesComponent());

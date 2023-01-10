@@ -42,6 +42,22 @@ class AssetLoader {
   }
 
   getAsset(name: string) {
+    /**
+     * This is a hacky fix to address that any test running assetLoader.getAsset() will fail, we're not loading
+     * the assets first in tests, and the URLs coming from the import statements are empty
+     * (Since webpack is responsible for filling those)
+     *
+     * When running the actual app, Loading the assets happens in the index file
+     * Tests skip this file, causing a cache miss that results in an exception.
+     *
+     * The real fix here is to somehow pass getAssets as a dependency and not letting any underlying system or util access
+     * this function directly (only through the dependecy injection)
+     */
+    if (global.process && process?.env?.NODE_ENV === 'test' && typeof name !== 'string') {
+      return new Image();
+    }
+
+    // TODO can we optimize this? it seems like we're calling this a lot...
     const ASSET_NAME = name.replace('src/assets/', '').replace('./', '');
     if (!this.cache[ASSET_NAME]) {
       throw Error(`Cannot get asset that was not loaded before hand, assetName attempted: ${ASSET_NAME}`);

@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react';
 import './PlayerInventory.scss';
 
+// TODO remove this after we implement it through Canvas
 export function PlayerInventory(props: {isInventoryOpen: boolean; onClose: () => void}): ReactElement {
   if (props.isInventoryOpen) {
     return (

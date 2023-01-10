@@ -1,8 +1,11 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
-import CHAR_SPRITE_URL from '../assets/tileSet.png';
+import PLAYER_SPRITE_URL from '../assets/tileSet.png';
 import TILESET_IMAGE_URL from '../assets/tileSet.png';
+import ITEMS_SPRITE_URL from '../assets/misc.png';
 
-export {CHAR_SPRITE_URL, TILESET_IMAGE_URL};
+export const WALKABLE_TILE_TYPES = [1, 7, 100, 13, 11];
+export {PLAYER_SPRITE_URL, TILESET_IMAGE_URL, ITEMS_SPRITE_URL};
+
 export enum AllowedZoneLocationIDs {
   TOWN = 'TOWN',
   SPAWNABLE_1 = 'SPAWNABLE_1'

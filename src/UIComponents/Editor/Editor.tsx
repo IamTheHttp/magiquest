@@ -1,7 +1,5 @@
 import * as React from 'react';
-import tileSet from '../../assets/tileSet.png';
 import {CSSProperties, useEffect, useState} from 'react';
-import {TILE_TYPES_CROP_DATA} from '../../gameEngine/createEntitySprites';
 import Game from '../../gameEngine/Game';
 import {Entity, GameCanvas} from 'game-platform';
 import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
@@ -15,6 +13,7 @@ import {getBrushSizeEntity} from './editorEntities/brushSizeEntity';
 import {updateEditorStartPos} from './editorRequests/updateStartPosition';
 import PositionComponent from '../../gameEngine/components/PositionComponent';
 import {BaseEntity} from '../../gameEngine/BaseEntity';
+import {getSprites, mapTileNameToTileType} from '../../gameEngine/getSprites';
 
 type IProps = {
   onTileSelect?: (key: number) => void;
@@ -191,33 +190,41 @@ export function Editor(props: IProps) {
           Current Tile: {currentColHover}-{currentRowHover}
         </h3>
         <div className="editor-tiles">
-          {Object.keys(TILE_TYPES_CROP_DATA).map((key) => {
-            let {cropStartX, cropStartY, cropSizeX, cropSizeY} = TILE_TYPES_CROP_DATA[+key];
+          {Object.keys(getSprites())
+            .filter((spriteName) => spriteName.startsWith('TILE'))
+            .map((spriteName: keyof ReturnType<typeof getSprites>) => {
+              let {cropStartX, cropStartY, cropSizeX, cropSizeY, image} = getSprites()[spriteName];
 
-            let style: CSSProperties = {
-              backgroundImage: `url("${tileSet}")`,
-              flexBasis: '32px',
-              color: 'black',
-              backgroundPosition: `-${cropStartX}px -${cropStartY}px`,
-              width: `${cropSizeX}px`,
-              height: `${cropSizeY}px`,
-              boxSizing: 'border-box'
-            };
+              const tileType = mapTileNameToTileType(spriteName);
 
-            let extraStyles = selectedTileType === key ? 'active' : '';
+              if (tileType === undefined) {
+                console.log(spriteName);
+              }
 
-            return (
-              <div
-                key={key}
-                className={`${extraStyles} editor-tile`}
-                style={style}
-                onClick={() => {
-                  setSelectedTileType(key);
-                  setSelectedEditorEntity(null);
-                }}
-              />
-            );
-          })}
+              let style: CSSProperties = {
+                backgroundImage: `url("${image.src}")`,
+                flexBasis: '32px',
+                color: 'black',
+                backgroundPosition: `-${cropStartX}px -${cropStartY}px`,
+                width: `${cropSizeX}px`,
+                height: `${cropSizeY}px`,
+                boxSizing: 'border-box'
+              };
+
+              let extraStyles = selectedTileType === tileType ? 'active' : '';
+
+              return (
+                <div
+                  key={tileType}
+                  className={`${extraStyles} editor-tile`}
+                  style={style}
+                  onClick={() => {
+                    setSelectedTileType(tileType);
+                    setSelectedEditorEntity(null);
+                  }}
+                />
+              );
+            })}
         </div>
 
         <div className="editor-tiles">

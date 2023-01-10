@@ -1,11 +1,10 @@
-import {CANVAS_OUTPUT, PLACEABLE_ENTITIES, PossibleUIShapes, AllowedZoneLocationIDs} from '../gameConstants';
+import {CANVAS_OUTPUT, PossibleUIShapes, AllowedZoneLocationIDs, WALKABLE_TILE_TYPES} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
 import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
 import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/ComponentNamesConfig';
-import {WALKABLE_TILE_TYPES} from '../createEntitySprites';
 
 interface ITileConstructor {
   x: number;

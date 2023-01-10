@@ -33,6 +33,7 @@ class PositionComponent {
     this.destX = null;
     this.originX = null;
     this.originY = null;
+    this.orientation = 'DOWN'; // starts with DOWN by default
   }
 }
 

@@ -46,9 +46,17 @@ function createSystemArgs({
       [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})
     },
     gameEvents: new GameEvents(),
-    characterSprite: undefined,
+    // @ts-ignore we'll only define one type here
+    SPRITES: {
+      TILE_GRASS: {
+        cropStartX: 0,
+        cropSizeX: 0,
+        cropSizeY: 0,
+        cropStartY: 0,
+        image: new Image()
+      }
+    },
     minimapAPI: undefined,
-    tileSetSprite: undefined,
     Entity,
     shouldRenderBackground: true,
     zone: {

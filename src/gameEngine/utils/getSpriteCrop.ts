@@ -1,7 +1,6 @@
 import {TILE_SIZE} from '../gameConstants';
-import {ISprite} from '../../interfaces/IGeneral';
 
-function getSpriteCrop(col: number, row: number): ISprite {
+function getSpriteCrop(col: number, row: number) {
   return {
     cropStartX: TILE_SIZE * col,
     cropStartY: TILE_SIZE * row,

@@ -1,33 +1,27 @@
 import {INVENTORY_COMP} from './ComponentNamesConfig';
+import {IItem, IWeapon} from '../classes/Item';
 
-interface Weapon {
-  minDmg: number;
-  maxDmg: number;
-  // "attackSpeed": 30, // What is this number?
-  // "modifiers"?: []
-}
-
-class MySword implements Weapon {
-  minDmg: number;
-  maxDmg: number;
-  // sprite: string;
-  constructor() {
-    this.minDmg = 5;
-    this.maxDmg = 10;
-    // this.sprite: '';
-  }
-}
-
+/**
+ * This component allows an entity to have a few things
+ * - Equipped inventory
+ * - Backpack inventory
+ *
+ */
 export class InventoryComponent {
   name: string;
-  equipped: Weapon[];
-  backpack: any[];
+  equipped: IWeapon[];
+  backpack: IItem[];
   constructor() {
     this.name = INVENTORY_COMP;
     this.equipped = [];
+    this.backpack = [];
   }
 
-  addWeapon(weapon: Weapon) {
+  addItemToBackpack(item: IItem) {
+    this.backpack.push(item);
+  }
+
+  equipWeapon(weapon: IWeapon) {
     this.equipped.push(weapon);
   }
 }

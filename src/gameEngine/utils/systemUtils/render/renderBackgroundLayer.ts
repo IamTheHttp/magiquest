@@ -3,10 +3,11 @@ import filterOutFarEntities from '../filterOutFarEntities';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
-import {TILE_TYPES_CROP_DATA} from '../../../createEntitySprites';
+
+import {mapTileTypeToSprite} from '../../../getSprites';
 
 function renderBackgroundLayer(systemArguments: ISystemArguments) {
-  let {mapAPI, tileSetSprite, Entity} = systemArguments;
+  let {mapAPI, Entity, SPRITES} = systemArguments;
   let allBackgroundEnts = Entity.getByComps<BaseEntity>([BACKGROUND_COMP]);
   let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
 
@@ -17,12 +18,11 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
         // tile type
         mapAPI.drawImage({
           id: `${entity.id}-${i}`,
-          image: tileSetSprite,
           x: entity[POSITION_COMP].x,
           y: entity[POSITION_COMP].y,
           height: entity[POSITION_COMP].height,
           width: entity[POSITION_COMP].width,
-          ...TILE_TYPES_CROP_DATA[section.data.tileType],
+          ...mapTileTypeToSprite(section.data.tileType, SPRITES),
           rotation: 0, // in radians
           layerName: 'background'
         });

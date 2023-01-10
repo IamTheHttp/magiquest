@@ -1,13 +1,14 @@
-/**
- * Represents the resolution properties of the game
- * "view" - represents the main view (player view), main screen.
- * "map" - represents the entire map, so viewWidth <= mapWidth
- */ import {AllowedActions, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
+import {AllowedActions, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
 import {AllowedSkills} from '../data/skillConfig';
 import {IAssignedCharacterAttributes} from '../gameEngine/components/CharacterAttributesComponent';
 
+/**
+ * Represents the resolution properties of the game
+ * "view" - represents the main view (player view), main screen.
+ * "map" - represents the entire map, so viewWidth <= mapWidth
+ */
 export interface IViewSize {
   viewHeight: number;
   viewWidth: number;
@@ -41,8 +42,7 @@ export interface IAnimationMap {
 
 /**
  * TODO -- Two different functionalities are encapsulated here - which?
- * TODO cropStart X/y should extend from {ISprite}
- * TODO this is ALL optional, which means we did something wrong!
+ * TODO - We've moved away to use getSprites() for all the sprites in the game, we should consolidate these as well.
  * The animation frame can work on two different levels
  * 1. Pass spriteURL
  * 2. Pass a shape, with information regarding it
@@ -111,14 +111,3 @@ export interface IPlayerUIState extends IPlayerState {
  * FUNCTION TYPES
  */
 export type IGameEventListener = (event: PlayerStateChangeEvent) => void;
-
-export interface ISprite {
-  cropStartX: number;
-  cropStartY: number;
-  cropSizeX: number;
-  cropSizeY: number;
-}
-
-export interface ITileTypes {
-  [key: number]: ISprite;
-}
