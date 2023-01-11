@@ -15,10 +15,10 @@
 ### Character Levels (NPCs, enemies, monsters etc.)
 
 - LevelLocations have a LevelCharacterLocation property
-- LevelCharacterLocation property is then used when an Character is created, passed characterLevel to new Character();
+- LevelCharacterLocation property is then used when an Character is created, passed entityLevel to new Character();
 - Manually placed enemies (enemiesToPlace) always have a fixed level based on their configuration, this is  
   relevant for bosses, town NPCs etc. - this happens in placeLevelEntities();
-- When creating a new character (Enemy or player), the characterLevels affects the damage and health.
+- When creating a new character (Enemy or player), the entityLevels affects the damage and health.
   This is not updated when the character levels up, but only upon creation.
   Enemies don't level up, and we're not yet certain we want this behaviour on the player
 

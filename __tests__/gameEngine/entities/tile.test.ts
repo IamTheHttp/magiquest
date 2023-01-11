@@ -17,7 +17,7 @@ describe('Tile tests', () => {
 
   it('Should populate tileLocationID correctly in CAN_SPAWN_COMP', () => {
     let tileLocationID = AllowedZoneLocationIDs.TOWN;
-    let tileCharacterLevel = 1;
+    let tileEntityLevel = 1;
 
     // TODO move to util to abstract the comma (the 0,0)
     let tileArgs = {
@@ -28,7 +28,7 @@ describe('Tile tests', () => {
       width: 16,
       tileType: 1,
       tileLocationID,
-      tileCharacterLevel
+      tileEntityLevel
     };
     let tile = new Tile(tileArgs);
 

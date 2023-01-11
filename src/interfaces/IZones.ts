@@ -11,7 +11,7 @@ export interface ITileCoordinate {
 
 export type IEntitiesToPlace = {
   characterType: keyof typeof PLACEABLE_ENTITIES;
-  characterLevel: number;
+  entityLevel: number;
   pos: ITileCoordinate;
   name: string;
 }[];
@@ -23,7 +23,7 @@ export interface IZoneLocation {
   id: AllowedZoneLocationIDs;
   start: ITileCoordinate;
   end: ITileCoordinate;
-  locationCharacterLevel: number;
+  locationEntityLevel: number;
 }
 
 /**

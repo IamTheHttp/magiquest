@@ -14,7 +14,7 @@ interface ITileConstructor {
   width: number;
   tileType: number;
   tileLocationID: AllowedZoneLocationIDs;
-  tileCharacterLevel: number;
+  tileEntityLevel: number;
 }
 
 /**
@@ -23,7 +23,7 @@ interface ITileConstructor {
  */
 class Tile extends BaseEntity {
   tileIdx: string;
-  constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileCharacterLevel}: ITileConstructor) {
+  constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileEntityLevel}: ITileConstructor) {
     super();
     this.tileIdx = tileIdx;
     this.addComponent(new PositionComponent({x, y, height, width}));
@@ -32,7 +32,7 @@ class Tile extends BaseEntity {
     // REFACTOR - Seems strange here.. (if type === 1?)
     if (WALKABLE_TILE_TYPES.includes(tileType)) {
       this.addComponent(new TraversableComponent());
-      this.addComponent(new CanSpawn(tileLocationID, tileCharacterLevel));
+      this.addComponent(new CanSpawn(tileLocationID, tileEntityLevel));
     }
 
     this.addComponent(

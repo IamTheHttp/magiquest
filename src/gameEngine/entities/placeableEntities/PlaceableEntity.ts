@@ -18,12 +18,12 @@ class PlaceableEntity extends BaseEntity {
   [LEVEL_COMP]: LevelComp;
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super();
-    let {col, row, characterLevel} = instanceAttributes;
+    let {col, row, entityLevel} = instanceAttributes;
     let {speed, health, radius, dmg, attackSpeed, vision, animationTypes, id, displayName} = placeableEntityData;
 
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
-    this.addComponent(new LevelComp(characterLevel));
+    this.addComponent(new LevelComp(entityLevel));
     this.addComponent(new PositionComponent({x, y, radius}));
 
     if (speed) {
@@ -31,7 +31,7 @@ class PlaceableEntity extends BaseEntity {
     }
 
     if (health) {
-      let adjustedHealth = this.getLevelAdjustedHealth(health, characterLevel);
+      let adjustedHealth = this.getLevelAdjustedHealth(health, entityLevel);
       this.addComponent(new Health(adjustedHealth, radius * 2, radius));
       // the UI component can be completely overwritten by the extending class (like Player)
       this.addComponent(
@@ -50,7 +50,7 @@ class PlaceableEntity extends BaseEntity {
     }
 
     if (dmg) {
-      let adjustedDmg = this.getLevelAdjustedDamage(dmg, characterLevel);
+      let adjustedDmg = this.getLevelAdjustedDamage(dmg, entityLevel);
       this.addComponent(new AttackComponent(adjustedDmg, ATTACK_SPEEDS[attackSpeed]));
     }
 

@@ -13,12 +13,28 @@ export enum AllowedZoneLocationIDs {
 
 export enum PossibleUIShapes {
   CIRCLE_SHAPE = 'CIRCLE_SHAPE',
+  DROPPED_ITEM_SHAPE = 'DROPPED_ITEM_SHAPE',
   ARC_SHAPE = 'ARC_SHAPE',
   MAP_TILE_SHAPE = 'MAP_TILE_SHAPE',
   RECT_SHAPE = 'RECT_SHAPE',
   HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
   CHEST_SHAPE = 'CHEST_SHAPE',
   PLAYER_CHAR = 'PLAYER_CHAR'
+}
+
+/**
+ * Most of our entities are placed here, some entities aren't here such as Tile or SHOCKWAVE
+ */
+export enum PLACEABLE_ENTITIES {
+  ENEMY = 'ENEMY',
+  FAM_NPC = 'FAM_NPC',
+  ITEM = 'ITEM',
+  CHEST = 'CHEST',
+  IMP = 'IMP',
+  GARGOYLE = 'GARGOYLE',
+  DEMON = 'DEMON',
+  VAMPIRE = 'VAMPIRE',
+  PLAYER = 'PLAYER'
 }
 
 export enum AllowedActions {
@@ -33,20 +49,6 @@ export enum AllowedActions {
 
 export enum AllowedQuestIDs {
   CLEAR_CAMP = 'CLEAR_CAMP'
-}
-
-/**
- * Most of our entities are placed here, some entities aren't here such as Tile or SHOCKWAVE
- */
-export enum PLACEABLE_ENTITIES {
-  ENEMY = 'ENEMY',
-  FAM_NPC = 'FAM_NPC',
-  CHEST = 'CHEST',
-  IMP = 'IMP',
-  GARGOYLE = 'GARGOYLE',
-  DEMON = 'DEMON',
-  VAMPIRE = 'VAMPIRE',
-  PLAYER = 'PLAYER'
 }
 
 // TODO can these two be combined?

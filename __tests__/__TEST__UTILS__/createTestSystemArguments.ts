@@ -115,7 +115,7 @@ function createSystemArgs({
         locations: [
           {
             id: AllowedZoneLocationIDs.TOWN,
-            locationCharacterLevel: 1,
+            locationEntityLevel: 1,
             name: 'test',
             start: {
               col: 0,

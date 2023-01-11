@@ -12,7 +12,7 @@ import {IPlaceableEntityDataMap} from '../../interfaces/IPlaceableEntityData';
 /**
  * @description Place entities in a given levelArea.
  *              Used to place Enemies as well as Friendly NPCs
- *              enemies placed here are configured in levelArea.entitiesToPlace, including their characterLevel
+ *              enemies placed here are configured in levelArea.entitiesToPlace, including their entityLevel
  */
 function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap, placeableEntityDataMap: IPlaceableEntityDataMap) {
   for (let i = 0; i < zone.entitiesToPlace.length; i++) {
@@ -21,23 +21,23 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap, placeableEnt
 
     let {col, row} = entityToPlace.pos;
     let {x, y} = getCenterPosOfGridIdx(col, row);
-    let characterLevel = entityToPlace.characterLevel;
+    let entityLevel = entityToPlace.entityLevel;
 
     // Fetch what to spawn from config!
-    let characterConfig = placeableEntityDataMap[entityToPlace.characterType];
+    let placeableEntityConfig = placeableEntityDataMap[entityToPlace.characterType];
 
-    if (characterConfig) {
+    if (placeableEntityConfig) {
       switch (entityToPlace.characterType) {
         case PLACEABLE_ENTITIES.CHEST: {
-          entity = new Chest({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          entity = new Chest({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
           break;
         }
         case PLACEABLE_ENTITIES.FAM_NPC: {
-          entity = new FamNPC({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          entity = new FamNPC({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
           break;
         }
         default: {
-          entity = new Enemy({col, row, characterLevel, spawningTileLocationID: null}, characterConfig);
+          entity = new Enemy({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
         }
       }
     }

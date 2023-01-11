@@ -27,7 +27,7 @@
         "row": 2
       },
       "characterType": "CHEST",
-      "characterLevel": 1,
+      "entityLevel": 1,
       "name": "Chest 1"
     }
   ],

@@ -18,7 +18,7 @@ type IPlaceableEntityData = {
 type IPlacedEntityInstanceAttr = {
   col: number;
   row: number;
-  characterLevel: number;
+  entityLevel: number;
   spawningTileLocationID: AllowedZoneLocationIDs;
 };
 

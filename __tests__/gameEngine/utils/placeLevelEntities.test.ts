@@ -40,7 +40,7 @@ describe('Tests the placeLevelEntities util', () => {
         entitiesToPlace: [
           {
             characterType: PLACEABLE_ENTITIES.FAM_NPC,
-            characterLevel: 1,
+            entityLevel: 1,
             name: 'NPC_1',
             pos: {
               col: 2,
@@ -49,7 +49,7 @@ describe('Tests the placeLevelEntities util', () => {
           },
           {
             characterType: PLACEABLE_ENTITIES.IMP,
-            characterLevel: 1,
+            entityLevel: 1,
             name: 'ENEMY_1',
             pos: {
               col: 2,
@@ -58,7 +58,7 @@ describe('Tests the placeLevelEntities util', () => {
           },
           {
             characterType: 'UNKNOWN_TYPE_OMG' as any, // Force a wrong type for the test
-            characterLevel: 1,
+            entityLevel: 1,
             name: 'ENEMY_1',
             pos: {
               col: 2,

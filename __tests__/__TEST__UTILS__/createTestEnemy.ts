@@ -2,17 +2,12 @@ import enemyAnimations from '../../src/gameEngine/entities/animations/enemyAnima
 import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
 import Enemy from '../../src/gameEngine/entities/placeableEntities/Enemy';
 
-function createNewEnemy(
-  col: number,
-  row: number,
-  characterLevel: number,
-  spawningTileLocationID: AllowedZoneLocationIDs
-) {
+function createNewEnemy(col: number, row: number, entityLevel: number, spawningTileLocationID: AllowedZoneLocationIDs) {
   return new Enemy(
     {
       col,
       row,
-      characterLevel,
+      entityLevel,
       spawningTileLocationID
     },
     {

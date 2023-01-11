@@ -16,8 +16,7 @@ function experienceSystem(systemArguments: ISystemArguments) {
   gameEvents.getEvents().forEach((event) => {
     if (event instanceof EnemyKilledEvent) {
       let currentXP = player[EXPERIENCE_COMP].XP;
-      let newXP = event.entity[LEVEL_COMP].characterLevel; // we currently give a certain XP boost per character level
-
+      let newXP = event.entity[LEVEL_COMP].entityLEvel; // we currently give a certain XP boost per character level
       player[EXPERIENCE_COMP].XP = currentXP + newXP;
     }
   });

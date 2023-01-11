@@ -59,6 +59,23 @@ function renderMainLayer(
         });
       }
 
+      // Draw a dropped item
+      if (section.shape === PossibleUIShapes.DROPPED_ITEM_SHAPE) {
+        let {radius, x, y} = entity[POSITION_COMP];
+
+        mapAPI.drawImage({
+          id: `${entity.id}`,
+          // TODO add a check and log errors if spriteName doesn't exist in SPRITES
+          // @ts-ignore Skip type checks of these dynamics
+          ...SPRITES[section.data.spriteName],
+          x: x - radius,
+          y: y - radius,
+          height: TILE_SIZE,
+          width: TILE_SIZE,
+          rotation: 0 // in radians
+        });
+      }
+
       // Draw a Player on the screen
       if (section.shape === PossibleUIShapes.PLAYER_CHAR) {
         let spriteCrop = {

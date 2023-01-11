@@ -44,7 +44,7 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
       let tileHeight = mapHeight / numOfRows;
 
       let tileLocationID: AllowedZoneLocationIDs = null;
-      let tileCharacterLevel: number = 1;
+      let tileEntityLevel: number = 1;
       let locationsFoundForTile = 0;
       locations.forEach((levelLocation: IZoneLocation) => {
         let colStart = levelLocation.start.col;
@@ -57,12 +57,12 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
 
         if (inColRange && inRowRange) {
           tileLocationID = levelLocation.id;
-          tileCharacterLevel = levelLocation.locationCharacterLevel;
+          tileEntityLevel = levelLocation.locationEntityLevel;
           // if spawnable, it MUST have a levelLocationID
-          if (tileLocationID === null || tileCharacterLevel <= 0) {
-            throw `Invalid tileLocationID or tileCharacterLevel provided in location ${{
+          if (tileLocationID === null || tileEntityLevel <= 0) {
+            throw `Invalid tileLocationID or tileEntityLevel provided in location ${{
               tileLocationID,
-              tileCharacterLevel
+              tileEntityLevel
             }}`;
           } else {
             locationsFoundForTile++;
@@ -82,7 +82,7 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
         height: tileHeight,
         tileType: tileMap[rowNumber][colNumber],
         tileLocationID,
-        tileCharacterLevel
+        tileEntityLevel
       });
 
       // Is the tile location within a safe spot?

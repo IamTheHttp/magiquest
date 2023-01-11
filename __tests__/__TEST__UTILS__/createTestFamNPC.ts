@@ -7,7 +7,7 @@ function createTestFamNPC(col: number, row: number) {
     {
       col,
       row,
-      characterLevel: 1,
+      entityLevel: 1,
       spawningTileLocationID: null
     },
     {

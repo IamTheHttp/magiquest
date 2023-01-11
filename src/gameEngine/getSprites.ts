@@ -20,7 +20,7 @@ import {getSpriteCrop} from './utils/getSpriteCrop';
  */
 export function getSprites() {
   return {
-    ITEM_SWORD: {
+    GENERIC_ITEM: {
       image: assetLoader.getAsset(ITEMS_SPRITE_URL),
       ...getSpriteCrop(1, 4)
     },

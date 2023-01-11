@@ -14,17 +14,17 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
     const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
     const {col, row} = getGridIdxFromPos(x, y);
     const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
-    const characterLevel = spawningEntity[CAN_SPAWN_COMP].tileCharacterLevel;
+    const entityLevel = spawningEntity[CAN_SPAWN_COMP].tileEntityLevel;
     const spawnableEnemies = systemArguments.zone.spawnableEnemies;
 
     spawnableEnemies.forEach((enemyToSpawn) => {
       if (Math.random() < monsterDensity) {
         // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
-        let characterConfig = placeableEntityDataMap[enemyToSpawn];
+        let placeableEntityConfig = placeableEntityDataMap[enemyToSpawn];
 
-        if (characterConfig) {
-          new Enemy({col, row, characterLevel, spawningTileLocationID}, characterConfig);
+        if (placeableEntityConfig) {
+          new Enemy({col, row, entityLevel, spawningTileLocationID}, placeableEntityConfig);
           return;
         }
       }

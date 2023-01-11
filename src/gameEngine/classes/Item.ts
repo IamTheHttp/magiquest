@@ -11,7 +11,7 @@ export interface IWeapon extends IItem {
   // "modifiers"?: []
 }
 
-export class MySword implements IWeapon {
+export class GENERIC_WEAPON implements IWeapon {
   minDmg: number;
   maxDmg: number;
   spriteName: keyof ReturnType<typeof getSprites>;
@@ -19,6 +19,6 @@ export class MySword implements IWeapon {
   constructor() {
     this.minDmg = 5;
     this.maxDmg = 10;
-    this.spriteName = 'ITEM_SWORD';
+    this.spriteName = 'GENERIC_ITEM';
   }
 }

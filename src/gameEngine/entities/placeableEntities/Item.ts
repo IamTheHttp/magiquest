@@ -3,7 +3,10 @@ import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
 import UIComponent from '../../components/UIComponent';
 import PlaceableEntity from './PlaceableEntity';
 
-class Chest extends PlaceableEntity {
+/**
+ * An entity that represents a weapon that can be found on the ground
+ */
+export class ItemEntity extends PlaceableEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityConfig: IPlaceableEntityData) {
     super(instanceAttributes, placeableEntityConfig);
 
@@ -11,12 +14,13 @@ class Chest extends PlaceableEntity {
       new UIComponent([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.CHEST_SHAPE,
-          data: {}
+          // Hardcoded weapon shape, but in the future we can easily
+          shape: PossibleUIShapes.DROPPED_ITEM_SHAPE,
+          data: {
+            spriteName: 'GENERIC_ITEM' // TODO
+          }
         }
       ])
     );
   }
 }
-
-export default Chest;

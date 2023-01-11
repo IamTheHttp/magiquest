@@ -20,8 +20,8 @@ function placePlayerInLevel(
   let {x, y} = getCenterPosOfGridIdx(col, row);
 
   if (!player) {
-    // TODO - when Saving progress, this has to be taken into consideration (characterLevel 1)
-    player = new Player({col, row, characterLevel: 1, spawningTileLocationID: null}, playerData);
+    // TODO - when Saving progress, this has to be taken into consideration (entityLevel 1)
+    player = new Player({col, row, entityLevel: 1, spawningTileLocationID: null}, playerData);
   } else {
     player.setPos({x, y});
     player.stop();

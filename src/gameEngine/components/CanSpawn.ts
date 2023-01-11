@@ -4,11 +4,11 @@ import {AllowedZoneLocationIDs} from '../gameConstants';
 class CanSpawn {
   name: string;
   tileLocationID: AllowedZoneLocationIDs;
-  tileCharacterLevel: number;
-  constructor(tileLocation: AllowedZoneLocationIDs, tileCharacterLevel: number) {
+  tileEntityLevel: number;
+  constructor(tileLocation: AllowedZoneLocationIDs, tileEntityLevel: number) {
     this.name = CAN_SPAWN_COMP;
     this.tileLocationID = tileLocation;
-    this.tileCharacterLevel = tileCharacterLevel;
+    this.tileEntityLevel = tileEntityLevel;
   }
 }
 
