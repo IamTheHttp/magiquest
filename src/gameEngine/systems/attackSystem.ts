@@ -1,9 +1,9 @@
 import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
-import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
-import {EnemyKilledEvent, PlayerIsAttacked} from '../classes/GameEvents';
+import {PlayerIsAttacked} from '../classes/GameEvents';
 import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
 import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
@@ -59,7 +59,10 @@ function attackSystem(systemArguments: ISystemArguments) {
         if (entTarget[HEALTH_COMP].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
-          gameEvents.pushEvent(new EnemyKilledEvent(entTarget));
+
+          // We can't destroy the entity here, because we need the information in following systems (Like experience)
+          // What we'll do is store the would-be-destroyed entities in memory to be processed later in the same tick
+          systemArguments.destroyedPlaceableEntities.push(entTarget);
         }
       }
 

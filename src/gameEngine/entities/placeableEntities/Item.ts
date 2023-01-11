@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs} from '../../gameConstants';
 import UIComponent from '../../components/UIComponent';
 import PlaceableEntity from './PlaceableEntity';
 
@@ -23,4 +23,26 @@ export class ItemEntity extends PlaceableEntity {
       ])
     );
   }
+}
+
+export function dropNewItem({col, row}: {col: number; row: number}) {
+  new ItemEntity(
+    {
+      col,
+      row,
+      entityLevel: 1,
+      spawningTileLocationID: null
+    },
+    {
+      radius: 16,
+      health: 0,
+      displayName: 'wtf',
+      attackSpeed: 'SLOW',
+      dmg: 1,
+      animationTypes: null,
+      speed: null,
+      vision: 0,
+      id: 'ITEM'
+    }
+  );
 }

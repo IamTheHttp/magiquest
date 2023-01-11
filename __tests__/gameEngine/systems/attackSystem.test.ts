@@ -8,7 +8,6 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import {EnemyKilledEvent, IGameEvent} from '../../../src/gameEngine/classes/GameEvents';
 import {AllowedZoneLocationIDs} from '../../../src/gameEngine/gameConstants';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
@@ -108,15 +107,8 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    let eventsForNextTick: IGameEvent[] = gameEvents.nextEvents;
-
-    let firstEvent = eventsForNextTick[0];
-
-    expect(firstEvent instanceof EnemyKilledEvent).toBe(true);
-
-    if (firstEvent instanceof EnemyKilledEvent) {
-      expect(firstEvent.readEvent().entity).toBe(enemy);
-    }
+    expect(systemArguments.destroyedPlaceableEntities.length).toBe(1);
+    expect(systemArguments.destroyedPlaceableEntities[0]).toBe(enemy);
   });
 
   it('No longer attacks once the attack frames are done', () => {

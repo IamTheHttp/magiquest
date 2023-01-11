@@ -7,7 +7,7 @@
     "col": 4,
     "row": 6
   },
-  "spawnableEnemies": [],
+  "spawnableEnemies": ["IMP", "VAMPIRE"],
   "exits": {
     "39,6": {
       "act": 0,
@@ -18,7 +18,7 @@
       }
     }
   },
-  "monsterDensity": 0,
+  "monsterDensity": 0.01,
   "noSpawnLocations": [],
   "entitiesToPlace": [
     {
@@ -63,5 +63,19 @@
       ]
     }
   },
-  "locations": []
+  "locations": [
+    {
+      "id": "SPAWNABLE_1",
+      "name": "JUST_LOCATION_NAME",
+      "start": {
+        "col": 0,
+        "row": 0
+      },
+      "end": {
+        "col": 20,
+        "row": 20
+      },
+      "locationEntityLevel": 1
+    }
+  ]
 }

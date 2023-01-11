@@ -2,13 +2,11 @@ import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
 import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
-export interface IGameEvent {
-  readEvent(): {
-    entity: BaseEntity;
-  };
-}
-
-class GameEvent implements IGameEvent {
+export class GameEvent {
+  protected readonly entity: PlaceableEntity;
+  constructor(entity: PlaceableEntity) {
+    this.entity = entity;
+  }
   readEvent(): {entity: BaseEntity} {
     return {
       entity: null
@@ -16,20 +14,21 @@ class GameEvent implements IGameEvent {
   }
 }
 
-export class EnemyKilledEvent extends GameEvent {
-  constructor(public entity: PlaceableEntity) {
-    super();
-  }
-  readEvent(): {entity: PlaceableEntity} {
-    return {
-      entity: this.entity
-    };
-  }
-}
+// TODO To remove!
+// export class EnemyKilledEvent extends GameEvent {
+//   constructor(entity: PlaceableEntity) {
+//     super(entity);
+//   }
+//   readEvent(): {entity: PlaceableEntity} {
+//     return {
+//       entity: this.entity
+//     };
+//   }
+// }
 
 export class InteractWithNPC extends GameEvent {
-  constructor(public entity: BaseEntity) {
-    super();
+  constructor(entity: PlaceableEntity) {
+    super(entity);
   }
   readEvent() {
     return {
@@ -39,8 +38,8 @@ export class InteractWithNPC extends GameEvent {
 }
 
 export class PlayerIsAttacked extends GameEvent {
-  constructor(public entity: Player) {
-    super();
+  constructor(entity: Player) {
+    super(entity);
   }
   readEvent() {
     return {
@@ -50,8 +49,8 @@ export class PlayerIsAttacked extends GameEvent {
 }
 
 export class PlayerSkillsChangeEvent extends GameEvent {
-  constructor(public entity: Player) {
-    super();
+  constructor(entity: Player) {
+    super(entity);
   }
   readEvent() {
     return {
@@ -61,8 +60,8 @@ export class PlayerSkillsChangeEvent extends GameEvent {
 }
 
 export class PlayerAttributesChangeEvent extends GameEvent {
-  constructor(public entity: Player) {
-    super();
+  constructor(entity: Player) {
+    super(entity);
   }
   readEvent() {
     return {

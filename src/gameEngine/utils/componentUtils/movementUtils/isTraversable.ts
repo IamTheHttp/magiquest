@@ -1,5 +1,5 @@
 import {TRAVERSABLE_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {getTileIdxByPos} from '../tileUtils/getTileIdx';
+import {getTileIdxByPos} from '../tileUtils/tileIdxUtils';
 import {ITileIndexMap} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';
 

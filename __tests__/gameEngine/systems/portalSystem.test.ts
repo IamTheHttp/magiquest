@@ -1,6 +1,6 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import portalSystem from 'gameEngine/systems/portalSystem';
-import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';

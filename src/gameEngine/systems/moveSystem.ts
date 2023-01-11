@@ -7,7 +7,7 @@ import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'gameEngine/utils/isNum';
 import assertType from 'gameEngine/utils/assertType';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {getTileIdxByPos} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';

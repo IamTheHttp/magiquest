@@ -7,7 +7,7 @@ import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
 import AnimationComp from 'gameEngine/components/AnimationComp';
 import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
-import getColRowByTileIdx from '../utils/getColRowByTileIdx';
+import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
 function getCenterPosOfTile(tileIdx: string) {
   let {col, row} = getColRowByTileIdx(tileIdx);

@@ -16,19 +16,12 @@ import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
 import renderSystem from './systems/renderSystem';
 import Player from './entities/placeableEntities/Player';
-import GameEvents, {
-  EnemyKilledEvent,
-  PlayerAttributesChangeEvent,
-  PlayerIsAttacked,
-  PlayerSkillsChangeEvent
-} from './classes/GameEvents';
-import {assetLoader} from '../utils/assetLoader';
+import GameEvents from './classes/GameEvents';
 import placePlayerInLevel from './utils/placePlayerInLevel';
 import animationSystem from './systems/animationSystem';
 import aiSystem from './systems/aiSystem';
 import portalSystem, {isNonEmptyArray} from './systems/portalSystem';
 import throttle from './utils/throttle';
-import getColRowByTileIdx from './utils/getColRowByTileIdx';
 import centerCameraOnEntity from './utils/systemUtils/centerCameraOnEntity';
 import questSystem from './systems/questSystem';
 import destroyAllButPlayer from './utils/destroyAllButPlayer';
@@ -58,6 +51,9 @@ import PositionComponent from './components/PositionComponent';
 import UIComponent from './components/UIComponent';
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {getSprites} from './getSprites';
+import {destroyEntitiesSystem} from './systems/destroyEntitySystem';
+import {endTickSystem} from './systems/endTickSystem';
+import {dropItemSystem} from './systems/dropItemSystem';
 
 class Game {
   engine: Engine;
@@ -106,51 +102,17 @@ class Game {
       engine.addSystem(moveSystem);
       engine.addSystem(attackSystem);
       engine.addSystem(questSystem);
-      engine.addSystem(experienceSystem);
+      engine.addSystem(experienceSystem); // process destroyedEntities and do things
+      engine.addSystem(dropItemSystem); // process destroyedEntities and do things
     }
 
+    // Destroy all entities before rendering
+    engine.addSystem(destroyEntitiesSystem);
+    // Render game
     engine.addSystem(renderSystem);
 
-    // DestroyEntity system
-    // TODO export to a system file
-    engine.addSystem((systemArguments: ISystemArguments) => {
-      let {gameEvents} = systemArguments;
-      let hasEvents = gameEvents.getEvents().length > 0;
-      gameEvents.getEvents().forEach((event) => {
-        if (event instanceof EnemyKilledEvent) {
-          event.readEvent().entity.destroy();
-        }
-      });
-
-      if (hasEvents) {
-        this.dispatchGameEvent(this.getPlayerStateEvent());
-      }
-    });
-
     // End Tick system
-    // TODO export to a system file
-    engine.addSystem((systemArguments: ISystemArguments) => {
-      let {gameEvents} = systemArguments;
-      //notify UI (App.tsx) of certain events
-
-      gameEvents.getEvents().forEach((event) => {
-        // TODO, do we want a more general 'NotifyUISystem' event?
-        // TODO this feels too specific :)
-        // TODO rename PlayerIsAttacked to PlayerIsAttackedEvent
-        if (
-          event instanceof PlayerIsAttacked ||
-          event instanceof PlayerSkillsChangeEvent ||
-          event instanceof PlayerAttributesChangeEvent
-        ) {
-          this.dispatchGameEvent(this.getPlayerStateEvent());
-        }
-      });
-
-      // throw away old events, create a new empty list
-      this.gameEvents.endTick();
-    });
-
-    // this.dispatchGameEvent(this.getPlayerStateEvent());
+    engine.addSystem(endTickSystem);
   }
 
   /**
@@ -240,7 +202,8 @@ class Game {
       mapAPI: mapAPI,
       minimapAPI: miniMapAPI,
       gameEvents: this.gameEvents,
-      placeableEntityDataMap: this.placeableEntityDataMap
+      placeableEntityDataMap: this.placeableEntityDataMap,
+      destroyedPlaceableEntities: [] // An array containing entities that were destroyed, gets reset every tick after processing is done
     };
   }
 

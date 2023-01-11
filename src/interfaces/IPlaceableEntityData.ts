@@ -19,7 +19,7 @@ type IPlacedEntityInstanceAttr = {
   col: number;
   row: number;
   entityLevel: number;
-  spawningTileLocationID: AllowedZoneLocationIDs;
+  spawningTileLocationID: AllowedZoneLocationIDs; // Used in the Quest system for "Kill all enemies in a location"
 };
 
 type IPlaceableEntityDataMap = {

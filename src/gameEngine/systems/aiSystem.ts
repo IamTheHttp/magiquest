@@ -7,7 +7,7 @@ import {
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
 import {TILE_SIZE, DIRECTIONS} from '../gameConstants';
-import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/getTileIdx';
+import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';

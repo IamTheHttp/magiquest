@@ -1,4 +1,4 @@
-import {EnemyKilledEvent, IGameEvent, InteractWithNPC} from '../classes/GameEvents';
+import {GameEvent, InteractWithNPC} from '../classes/GameEvents';
 import {
   CAN_ASSIGN_QUESTS_COMP,
   HAS_ACTION_SIGN_COMP,
@@ -6,7 +6,6 @@ import {
   PLAYER_CONTROLLED_COMP,
   POSITION_COMP,
   QUEST_DATA_COMP,
-  SPAWNED_COMP,
   UI_COMP
 } from '../components/ComponentNamesConfig';
 import Quest, {KillQuest} from '../entities/Quest';
@@ -33,30 +32,31 @@ function questSystem(systemArguments: ISystemArguments) {
    */
 
   let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA_COMP]) as KillQuest[];
-  let eventsToProcess: IGameEvent[] = gameEvents.getEvents();
+  let eventsToProcess: GameEvent[] = gameEvents.getEvents();
 
   // 1. process events
-  eventsToProcess.forEach((gameEvent: IGameEvent) => {
+  eventsToProcess.forEach((gameEvent: GameEvent) => {
     // killing enemies affects some quests
-    if (gameEvent instanceof EnemyKilledEvent) {
-      let {entity} = gameEvent.readEvent();
-
-      killQuests.forEach((quest) => {
-        if (entity.hasComponents(SPAWNED_COMP)) {
-          let locationID = entity[SPAWNED_COMP].spawningTileLocationID;
-
-          if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
-            if (locationID === quest[KILL_QUEST_DATA_COMP].data.kill.location) {
-              quest[KILL_QUEST_DATA_COMP].data.kill.killed++;
-
-              if (quest.isPostReqComplete()) {
-                quest.setState(AllowedQuestState.DONE);
-              }
-            }
-          }
-        }
-      });
-    }
+    // TODO This is commented out for reference for when we'll re-implement these features.
+    // if (gameEvent instanceof EnemyKilledEvent) {
+    //   let {entity} = gameEvent.readEvent();
+    //
+    //   killQuests.forEach((quest) => {
+    //     if (entity.hasComponents(SPAWNED_COMP)) {
+    //       let locationID = entity[SPAWNED_COMP].spawningTileLocationID;
+    //
+    //       if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
+    //         if (locationID === quest[KILL_QUEST_DATA_COMP].data.kill.location) {
+    //           quest[KILL_QUEST_DATA_COMP].data.kill.killed++;
+    //
+    //           if (quest.isPostReqComplete()) {
+    //             quest.setState(AllowedQuestState.DONE);
+    //           }
+    //         }
+    //       }
+    //     }
+    //   });
+    // }
 
     if (gameEvent instanceof InteractWithNPC) {
       let NPCEntity = gameEvent.readEvent().entity;

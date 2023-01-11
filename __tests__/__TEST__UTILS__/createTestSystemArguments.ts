@@ -8,6 +8,7 @@ import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {createTestPlaceableEntity} from './createTestPlaceableEntity';
+import PlaceableEntity from '../../src/gameEngine/entities/placeableEntities/PlaceableEntity';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {
   mapAPI: Partial<Painter>;
@@ -56,6 +57,7 @@ function createSystemArgs({
         image: new Image()
       }
     },
+    destroyedPlaceableEntities: [],
     minimapAPI: undefined,
     Entity,
     shouldRenderBackground: true,
