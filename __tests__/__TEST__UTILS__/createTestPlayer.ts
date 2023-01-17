@@ -1,9 +1,10 @@
 import Player from '../../src/gameEngine/entities/placeableEntities/Player';
 import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
 import playerAnimations from '../../src/gameEngine/entities/animations/playerAnimations';
+import {INVENTORY_COMP} from '../../src/gameEngine/components/ComponentNamesConfig';
 
 function createTestPlayer(col: number, row: number) {
-  return new Player(
+  const player = new Player(
     {
       col,
       row,
@@ -22,6 +23,10 @@ function createTestPlayer(col: number, row: number) {
       animationTypes: playerAnimations
     }
   );
+
+  player[INVENTORY_COMP].resetInventory();
+
+  return player;
 }
 
 export default createTestPlayer;

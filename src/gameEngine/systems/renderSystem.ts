@@ -1,10 +1,11 @@
 import filterOutFarEntities from '../utils/systemUtils/filterOutFarEntities';
-import {ANIMATION_COMP, BACKGROUND_COMP, UI_COMP} from '../components/ComponentNamesConfig';
+import {ANIMATION_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP, UI_COMP} from '../components/ComponentNamesConfig';
 import renderBackgroundLayer from '../utils/systemUtils/render/renderBackgroundLayer';
 import renderMainLayer from '../utils/systemUtils/render/renderMainLayer';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
+import Player from '../entities/placeableEntities/Player';
 
 function renderSystem(systemArguments: ISystemArguments) {
   let {mapAPI, shouldRenderBackground, game} = systemArguments;
@@ -19,13 +20,22 @@ function renderSystem(systemArguments: ISystemArguments) {
     mapAPI.drawAllShapesInLayer('background');
   }
 
-  let allEntsToDraw = Entity.getByComps<BaseEntity>([UI_COMP]); // O1 fetching
-  let closeEnts = filterOutFarEntities(systemArguments, allEntsToDraw);
+  let entitiesWithUI = Entity.getByComps<BaseEntity>([UI_COMP]); // O1 fetching
+  let closeEntitiesWithUI = filterOutFarEntities(systemArguments, entitiesWithUI);
 
-  let allAnimationsToDraw = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
-  let closeAnimations = filterOutFarEntities(systemArguments, allAnimationsToDraw);
+  let entitiesWithAnimations = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
+  let closeEntitiesWithAnimations = filterOutFarEntities(systemArguments, entitiesWithAnimations);
 
-  renderMainLayer(systemArguments, closeEnts, closeAnimations);
+  // Just in case we pan out from the player, somehow, skip the rendering of the player.
+  const player = filterOutFarEntities(systemArguments, Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP))[0] as Player;
+
+  const mainLayerData = {
+    closeEntitiesWithUI,
+    closeEntitiesWithAnimations,
+    player
+  };
+
+  renderMainLayer(systemArguments, mainLayerData);
 
   mapAPI.drawAllShapesInLayer();
 }

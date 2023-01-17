@@ -1,6 +1,6 @@
 import {DIALOG_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/IGameLoop';
-import {BaseEntity} from '../../../BaseEntity';
+import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
+import {BaseEntity} from '../../../../BaseEntity';
 
 function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI, viewSize} = systemArguments;

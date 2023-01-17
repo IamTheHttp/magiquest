@@ -1,7 +1,7 @@
-import {POSITION_COMP, UI_COMP} from '../../../components/ComponentNamesConfig';
-import {ISystemArguments} from '../../../../interfaces/IGameLoop';
-import {BaseEntity} from '../../../BaseEntity';
-import {IUISection} from '../../../../interfaces/IGeneral';
+import {POSITION_COMP, UI_COMP} from '../../../../components/ComponentNamesConfig';
+import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
+import {BaseEntity} from '../../../../BaseEntity';
+import {IUISection} from '../../../../../interfaces/IGeneral';
 
 function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity, section: IUISection) {
   let {mapAPI} = systemArguments;

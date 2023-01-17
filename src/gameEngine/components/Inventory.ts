@@ -24,4 +24,9 @@ export class InventoryComponent {
   equipWeapon(weapon: IWeapon) {
     this.equipped.push(weapon);
   }
+
+  resetInventory() {
+    this.equipped = [];
+    this.backpack = [];
+  }
 }

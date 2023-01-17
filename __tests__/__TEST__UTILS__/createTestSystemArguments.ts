@@ -21,6 +21,7 @@ interface ICreateSystemArgsArguments {
   spyAddImage: fn;
   spyDraw: fn;
   spyHandleAreaChange: fn;
+  spyDrawRect: fn;
 }
 
 function createSystemArgs({
@@ -28,7 +29,8 @@ function createSystemArgs({
   spyClear,
   spyAddImage,
   spyDraw,
-  spyHandleAreaChange
+  spyHandleAreaChange,
+  spyDrawRect
 }: ICreateSystemArgsArguments): MockedSystemArguments {
   let tileMap = [
     [1, 1, 1],
@@ -88,6 +90,7 @@ function createSystemArgs({
       drawImage: spyAddImage,
       drawAllShapesInLayer: spyDraw,
       clearAllShapesInLayer: spyClear,
+      drawRect: spyDrawRect,
       getCurrentPanValue: () => {
         return {
           panX: 0,

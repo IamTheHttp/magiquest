@@ -11,6 +11,7 @@ describe('Tests for the Render system', () => {
   let spyClear: fn;
   let spyAddImage: fn;
   let spyDraw: fn;
+  let spyDrawRect: fn;
 
   beforeEach(() => {
     Entity.reset();
@@ -18,7 +19,10 @@ describe('Tests for the Render system', () => {
     spyClear = jest.fn();
     spyAddImage = jest.fn();
     spyDraw = jest.fn();
-    systemArguments = createSystemArgs(new SpyFns(spyPan, spyClear, spyAddImage, spyDraw)) as ISystemArguments;
+    spyDrawRect = jest.fn();
+    systemArguments = createSystemArgs(
+      new SpyFns(spyPan, spyClear, spyAddImage, spyDraw, null, spyDrawRect)
+    ) as ISystemArguments;
   });
 
   it('doesnt break with no ents', () => {
