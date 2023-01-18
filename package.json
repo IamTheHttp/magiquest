@@ -33,7 +33,7 @@
     "core-js": "^3.25.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
-    "game-platform": "^3.0.1",
+    "game-platform": "^3.0.2",
     "generate-source-map": "0.0.5",
     "husky": "^8.0.1",
     "jest": "^29.0.1",

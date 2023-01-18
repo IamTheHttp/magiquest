@@ -55,6 +55,26 @@ class Player extends PlaceableEntity {
       }
     );
 
+    new ItemEntity(
+      {
+        col: instanceAttributes.col + 1,
+        row: instanceAttributes.row + 1,
+        entityLevel: 1,
+        spawningTileLocationID: null
+      },
+      {
+        dmg: 0,
+        animationTypes: null,
+        attackSpeed: null,
+        displayName: null,
+        health: null,
+        radius: 16,
+        speed: 0,
+        vision: 0,
+        id: 'ITEM'
+      }
+    );
+
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new CharacterAttributesComponent());
     this.addComponent(new PlayerControlledComponent());
