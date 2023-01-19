@@ -68,9 +68,6 @@ export interface IAnimation {
   frames: IAnimationFrame[];
   currentFrame: number;
   loops: boolean;
-  size: number;
-  speed: number;
-  // How many ticks has this animation been running for
   ticksRunning: number;
   animationDurationInTicks: number;
 }

@@ -49,8 +49,6 @@ class AnimationComp {
       frames,
       currentFrame: 0,
       loops,
-      size,
-      speed,
       ticksRunning: 0,
       animationDurationInTicks: animationDuration
     };
