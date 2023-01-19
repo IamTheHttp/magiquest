@@ -24,6 +24,12 @@ class Player extends PlaceableEntity {
   [LEVEL_COMP]: LevelComp;
   [CHARACTER_SKILLS_COMP]: CharacterSkillsComponent;
   [CHARACTER_ATTRIBUTES_COMP]: CharacterAttributesComponent;
+
+  /**
+   * See data/json files for placeableEntityData
+   * @param instanceAttributes
+   * @param placeableEntityData
+   */
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super(instanceAttributes, placeableEntityData);
 

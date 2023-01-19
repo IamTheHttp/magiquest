@@ -48,11 +48,6 @@ export class App extends React.Component<AppProps, AppState> {
     let isEscape = false;
     if ('key' in e) {
       isEscape = e.key === 'Escape' || e.key === 'Esc';
-    } else {
-      isEscape = e.keyCode === 27;
-    }
-
-    if (isEscape) {
     }
   }
 
