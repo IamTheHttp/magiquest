@@ -51,7 +51,7 @@ class AnimationComp {
       loops,
       size,
       speed,
-      animationTicks: 0,
+      ticksRunning: 0,
       animationDurationInTicks: animationDuration
     };
   }

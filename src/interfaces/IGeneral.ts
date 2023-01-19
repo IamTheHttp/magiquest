@@ -70,7 +70,8 @@ export interface IAnimation {
   loops: boolean;
   size: number;
   speed: number;
-  animationTicks: number;
+  // How many ticks has this animation been running for
+  ticksRunning: number;
   animationDurationInTicks: number;
 }
 

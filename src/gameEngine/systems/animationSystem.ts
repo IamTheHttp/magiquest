@@ -4,41 +4,57 @@ import {BaseEntity} from '../BaseEntity';
 import {TILE_SIZE} from '../gameConstants';
 
 function animationSystem(systemArguments: ISystemArguments) {
-  let {Entity} = systemArguments;
+  const {Entity} = systemArguments;
   // Animation system
-  let ents = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
+  const ents = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
 
   for (let i = 0; i < ents.length; i++) {
-    let entity = ents[i];
-    let animations = entity[ANIMATION_COMP].animations;
+    const entity = ents[i];
+    const animations = entity[ANIMATION_COMP].animations;
 
-    for (let anim in animations) {
-      let animation = animations[anim];
-      animation.animationTicks = animation.animationTicks || 0;
+    for (const anim in animations) {
+      const animation = animations[anim];
+      animation.ticksRunning = animation.ticksRunning || 0;
 
-      let numberOfFrames = animation.frames.length - 1;
-      let isOver = animation.currentFrame >= numberOfFrames;
+      // Example: An animation can be constructed from 4 images, length would be 4.
+      const animationFrameCount = animation.frames.length;
+
+      // the duration of the animation is the time it takes to cross a TILE_SIZE
+      const ticksToCrossTile = TILE_SIZE / entity.getMovementSpeed();
+
+      // animation duration in ticks, if not specified we use the time to cross a tile
+      // TODO this is to avoid specified animationDuration for movement, animationDurationInTicks should be set on the Entity
+      const durationInTicks = animation.animationDurationInTicks || ticksToCrossTile;
+      const singleFrameDurationInTicks = durationInTicks / animationFrameCount;
+
+      // ticksRunning starts at 0, if we're equal to the duration it means
+      // we're 1 tick over, so we're done.
+      const isOver = animation.ticksRunning === durationInTicks;
 
       if (isOver && animation.loops) {
+        // Reset the animation, start again
         animation.currentFrame = 0;
-        animation.animationTicks = 0;
+        // Reset the animation, start again
+        animation.ticksRunning = 0;
       } else if (isOver && !animation.loops) {
         entity.removeAnimation(animation.animationName);
       } else {
-        // TODO the below code is very specific to movement
-        // the duration of the animation is the time it takes to cross a TILE_SIZE
-        let animationDurationInTicks =
-          animation.animationDurationInTicks || TILE_SIZE / entity.getMovementSpeed() / numberOfFrames;
+        animation.currentFrame = Math.floor(animation.ticksRunning / singleFrameDurationInTicks);
+        // Debugging for animation
+        if (entity.isPlayer() && false) {
+          console.table({
+            animationTicks: `${animation.ticksRunning + 1} / ${durationInTicks}`,
+            ticksToCrossTile,
+            durationInTicks,
+            // Starting at 0, so adding one for a better display
+            numberOfAnimationFrames: animation.frames.length,
+            frameDuration: singleFrameDurationInTicks,
+            // adding 1 for a better display
+            currentAnimationFrame: animation.currentFrame + 1
+          });
+        }
 
-        animation.animationTicks++;
-        // the animation lasts for {animationDurationInTicks} frames (bigger = longer)
-        // the animation has {numberOfFrames}
-        // each frameDuration is {animationDurationInTicks / numberOfFrames}
-        // current frame is Math.min{animationTicks / frameDuration}
-
-        let frameDuration = animationDurationInTicks / numberOfFrames;
-
-        animation.currentFrame = Math.floor(animation.animationTicks / frameDuration);
+        animation.ticksRunning++;
       }
     }
   }
