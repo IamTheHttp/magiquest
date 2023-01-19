@@ -83,6 +83,14 @@ class ShockWave extends BaseEntity {
 
     this.addAnimation(this.getAnimationTypes().SHOCKWAVE);
   }
+
+  /**
+   * Shockwave is once-off animation, once the animation is done we remove the entire entity.
+   * @param animationName
+   */
+  removeAnimation(animationName: string) {
+    this.destroy();
+  }
 }
 
 export default ShockWave;

@@ -51,8 +51,8 @@ class AnimationComp {
       loops,
       size,
       speed,
-      realFrameCount: 0,
-      animationDuration
+      animationTicks: 0,
+      animationDurationInTicks: animationDuration
     };
   }
 }

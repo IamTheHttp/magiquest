@@ -36,10 +36,10 @@ describe('Tests for the Animation system', () => {
       loops: false
     });
 
-    expect(player.getAnimations()['TEST_ANIMATION'].realFrameCount).toBe(0);
+    expect(player.getAnimations()['TEST_ANIMATION'].animationTicks).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getAnimations()['TEST_ANIMATION'].realFrameCount).toBe(1);
+    expect(player.getAnimations()['TEST_ANIMATION'].animationTicks).toBe(1);
   });
 
   it('Advances a single frame when run', () => {
@@ -49,10 +49,10 @@ describe('Tests for the Animation system', () => {
     let player = createTestPlayer(0, 0);
 
     player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
-    expect(player.getAnimations()['MOVE_RIGHT'].realFrameCount).toBe(0);
+    expect(player.getAnimations()['MOVE_RIGHT'].animationTicks).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getAnimations()['MOVE_RIGHT'].realFrameCount).toBe(1);
+    expect(player.getAnimations()['MOVE_RIGHT'].animationTicks).toBe(1);
   });
 
   it('Animation will run its course successfully', () => {
@@ -64,7 +64,7 @@ describe('Tests for the Animation system', () => {
     let i = 0;
     while (player.getAnimations()['MOVE_RIGHT']) {
       let anim = player.getAnimations()['MOVE_RIGHT'];
-      expect(anim.realFrameCount).toBe(i);
+      expect(anim.animationTicks).toBe(i);
 
       animationSystem(systemArguments);
       i++;
@@ -87,6 +87,6 @@ describe('Tests for the Animation system', () => {
     animationSystem(systemArguments);
     animationSystem(systemArguments);
     let anim = player.getAnimations()['TEST_LOOP'];
-    expect(anim.realFrameCount).toBe(0);
+    expect(anim.animationTicks).toBe(0);
   });
 });

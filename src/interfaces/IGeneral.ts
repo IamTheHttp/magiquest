@@ -70,8 +70,8 @@ export interface IAnimation {
   loops: boolean;
   size: number;
   speed: number;
-  realFrameCount: number;
-  animationDuration: number;
+  animationTicks: number;
+  animationDurationInTicks: number;
 }
 
 /**
