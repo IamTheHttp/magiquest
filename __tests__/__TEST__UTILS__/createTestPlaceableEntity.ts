@@ -1,6 +1,6 @@
 import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
 import {IPlaceableEntityData} from '../../src/interfaces/IPlaceableEntityData';
-import playerAnimations from '../../src/gameEngine/entities/animations/playerAnimations';
+import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
 
 export function createTestPlaceableEntity(entityData?: Partial<IPlaceableEntityData>) {
   const dataToMerge = entityData ? entityData : {};
@@ -13,7 +13,7 @@ export function createTestPlaceableEntity(entityData?: Partial<IPlaceableEntityD
     vision: 0,
     attackSpeed: ATTACK_SPEEDS_OPTIONS.FASTEST,
     radius: 16,
-    animationTypes: playerAnimations,
+    animationTypes: createPlayerMoveAnimationDefinition(dataToMerge.speed || 1),
     ...dataToMerge
   };
 }

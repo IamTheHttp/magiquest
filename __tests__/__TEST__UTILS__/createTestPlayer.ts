@@ -1,6 +1,6 @@
 import Player from '../../src/gameEngine/entities/placeableEntities/Player';
 import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
-import playerAnimations from '../../src/gameEngine/entities/animations/playerAnimations';
+import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
 import {INVENTORY_COMP} from '../../src/gameEngine/components/ComponentNamesConfig';
 
 function createTestPlayer(col: number, row: number) {
@@ -20,7 +20,7 @@ function createTestPlayer(col: number, row: number) {
       vision: 0,
       attackSpeed: ATTACK_SPEEDS_OPTIONS.FASTEST,
       radius: 16,
-      animationTypes: playerAnimations
+      possibleAnimationsForEntity: createPlayerMoveAnimationDefinition(4) // 4 is arbitrarily chosen, not used in tests
     }
   );
 

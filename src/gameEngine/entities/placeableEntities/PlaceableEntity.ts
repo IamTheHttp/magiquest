@@ -10,7 +10,7 @@ import {LEVEL_COMP, SPAWNED_COMP} from '../../components/ComponentNamesConfig';
 import AIVisionComponent from '../../components/AIVisionComponent';
 import SpawnedComponent from '../../components/SpawnedComponent';
 import MoveComponent from '../../components/MoveComponent';
-import AnimationComp from '../../components/AnimationComp';
+import {AnimationComp} from '../../components/AnimationComp';
 import AttackComponent from '../../components/AttackComponent';
 
 class PlaceableEntity extends BaseEntity {
@@ -19,7 +19,8 @@ class PlaceableEntity extends BaseEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super();
     let {col, row, entityLevel} = instanceAttributes;
-    let {speed, health, radius, dmg, attackSpeed, vision, animationTypes, id, displayName} = placeableEntityData;
+    let {speed, health, radius, dmg, attackSpeed, vision, id, displayName, possibleAnimationsForEntity} =
+      placeableEntityData;
 
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
@@ -54,8 +55,8 @@ class PlaceableEntity extends BaseEntity {
       this.addComponent(new AttackComponent(adjustedDmg, ATTACK_SPEEDS[attackSpeed]));
     }
 
-    if (animationTypes) {
-      this.addComponent(new AnimationComp(animationTypes));
+    if (possibleAnimationsForEntity) {
+      this.addComponent(new AnimationComp(possibleAnimationsForEntity));
     }
   }
 

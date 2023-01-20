@@ -4,15 +4,23 @@
 // row 3 down
 // all animations have 4 frames
 
-import {ANIMATIONS} from '../../gameConstants';
+import {ANIMATIONS, TILE_SIZE} from '../../gameConstants';
 import {getSpriteCrop} from '../../utils/getSpriteCrop';
+import {IAnimationDefinitionMap} from '../../components/AnimationComp';
 
 /**
- * @param {string} charSpriteURL
+ * Create move animations based on a sprite URL.
+ * Requires movement speed to determine animation duration
+ * @param charSpriteURL
+ * @param movementSpeed
  */
-function commonAnimations(charSpriteURL: string) {
+export function commonMoveAnimations(charSpriteURL: string, movementSpeed: number): IAnimationDefinitionMap {
+  const ticksToCrossTile = TILE_SIZE / movementSpeed;
   return {
     [ANIMATIONS.MOVE_RIGHT]: {
+      animationName: ANIMATIONS.MOVE_RIGHT,
+      loops: false,
+      animationDurationInTicks: ticksToCrossTile,
       frames: [
         {
           spriteURL: charSpriteURL,
@@ -30,11 +38,12 @@ function commonAnimations(charSpriteURL: string) {
           spriteURL: charSpriteURL,
           ...getSpriteCrop(3, 0)
         }
-      ],
-      animationName: ANIMATIONS.MOVE_RIGHT,
-      loops: false
+      ]
     },
     [ANIMATIONS.MOVE_LEFT]: {
+      animationName: ANIMATIONS.MOVE_LEFT,
+      loops: false,
+      animationDurationInTicks: ticksToCrossTile,
       frames: [
         {
           spriteURL: charSpriteURL,
@@ -52,11 +61,12 @@ function commonAnimations(charSpriteURL: string) {
           spriteURL: charSpriteURL,
           ...getSpriteCrop(3, 1)
         }
-      ],
-      animationName: ANIMATIONS.MOVE_LEFT,
-      loops: false
+      ]
     },
     [ANIMATIONS.MOVE_UP]: {
+      animationName: ANIMATIONS.MOVE_UP,
+      loops: false,
+      animationDurationInTicks: ticksToCrossTile,
       frames: [
         {
           spriteURL: charSpriteURL,
@@ -74,11 +84,12 @@ function commonAnimations(charSpriteURL: string) {
           spriteURL: charSpriteURL,
           ...getSpriteCrop(3, 3)
         }
-      ],
-      animationName: ANIMATIONS.MOVE_UP,
-      loops: false
+      ]
     },
     [ANIMATIONS.MOVE_DOWN]: {
+      animationName: ANIMATIONS.MOVE_DOWN,
+      loops: false,
+      animationDurationInTicks: ticksToCrossTile,
       frames: [
         {
           spriteURL: charSpriteURL,
@@ -96,11 +107,7 @@ function commonAnimations(charSpriteURL: string) {
           spriteURL: charSpriteURL,
           ...getSpriteCrop(3, 2)
         }
-      ],
-      animationName: ANIMATIONS.MOVE_DOWN,
-      loops: false
+      ]
     }
   };
 }
-
-export default commonAnimations;

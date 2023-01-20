@@ -24,20 +24,20 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap, placeableEnt
     let entityLevel = entityToPlace.entityLevel;
 
     // Fetch what to spawn from config!
-    let placeableEntityConfig = placeableEntityDataMap[entityToPlace.characterType];
+    let placeableEntityData = placeableEntityDataMap[entityToPlace.characterType];
 
-    if (placeableEntityConfig) {
+    if (placeableEntityData) {
       switch (entityToPlace.characterType) {
         case PLACEABLE_ENTITIES.CHEST: {
-          entity = new Chest({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
+          entity = new Chest({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityData);
           break;
         }
         case PLACEABLE_ENTITIES.FAM_NPC: {
-          entity = new FamNPC({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
+          entity = new FamNPC({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityData);
           break;
         }
         default: {
-          entity = new Enemy({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityConfig);
+          entity = new Enemy({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityData);
         }
       }
     }

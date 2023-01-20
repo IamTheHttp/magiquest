@@ -4,8 +4,8 @@ import UIComponent from '../../components/UIComponent';
 import PlaceableEntity from './PlaceableEntity';
 
 class Chest extends PlaceableEntity {
-  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityConfig: IPlaceableEntityData) {
-    super(instanceAttributes, placeableEntityConfig);
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
+    super(instanceAttributes, placeableEntityData);
 
     this.addComponent(
       new UIComponent([

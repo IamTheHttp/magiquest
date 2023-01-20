@@ -50,7 +50,6 @@ class Player extends PlaceableEntity {
       },
       {
         dmg: 0,
-        animationTypes: null,
         attackSpeed: null,
         displayName: null,
         health: null,
@@ -70,7 +69,6 @@ class Player extends PlaceableEntity {
       },
       {
         dmg: 0,
-        animationTypes: null,
         attackSpeed: null,
         displayName: null,
         health: null,

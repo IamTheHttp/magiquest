@@ -17,14 +17,13 @@ import {
   SPAWNED_COMP,
   UI_COMP
 } from './components/ComponentNamesConfig';
-import {IAnimationMap} from '../interfaces/IGeneral';
 import HasActionSignComponent from './components/HasActionSignComponent';
 import {AllowedQuestState} from './components/QuestDataComponent';
 import CanSpawn from './components/CanSpawn';
 import BackgroundComponent from './components/BackgroundComponent';
 import PlayerControlledComponent from './components/PlayerControlledComponent';
 import Dialog from './components/Dialog';
-import AnimationComp, {IAnimationVariantArguments} from './components/AnimationComp';
+import {AnimationComp, IRunningAnimationMap, IAnimationDefinition} from './components/AnimationComp';
 import {TILE_SIZE, DIRECTIONS} from './gameConstants';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import MoveComponent from './components/MoveComponent';
@@ -60,8 +59,8 @@ class BaseEntity extends Entity {
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]: SpawnedComponent;
 
-  addAnimation(animation: IAnimationVariantArguments) {
-    this[ANIMATION_COMP].addAnimationVariant(animation);
+  addAnimation(animation: IAnimationDefinition) {
+    this[ANIMATION_COMP].addAnimationToRun(animation);
   }
 
   isPlayer(): this is Player {
@@ -73,7 +72,7 @@ class BaseEntity extends Entity {
       return;
     }
 
-    this[ANIMATION_COMP].animations = {};
+    this[ANIMATION_COMP].runningAnimations = {};
   }
 
   calcOrientation(destX: number, destY: number): keyof typeof DIRECTIONS {
@@ -92,12 +91,18 @@ class BaseEntity extends Entity {
     }
   }
 
-  getAnimations(): IAnimationMap {
-    return (this[ANIMATION_COMP] && this[ANIMATION_COMP].animations) || {};
+  /**
+   * Get the running animations of the entity, those that are in progress
+   */
+  getAnimations(): IRunningAnimationMap {
+    return (this[ANIMATION_COMP] && this[ANIMATION_COMP].runningAnimations) || {};
   }
 
-  getAnimationTypes() {
-    return this[ANIMATION_COMP] && this[ANIMATION_COMP].animationTypes;
+  /**
+   * Get the possible animations this entity can have
+   */
+  getPossibleAnimations() {
+    return this[ANIMATION_COMP] && this[ANIMATION_COMP].possibleAnimationsForEntity;
   }
 
   hasSpecificAnimation(name: string) {
@@ -108,11 +113,11 @@ class BaseEntity extends Entity {
     return this[MOVEMENT_COMP] && this[MOVEMENT_COMP].speed;
   }
 
-  removeAnimation(animationName: string) {
+  removeRunningAnimation(animationName: string) {
     if (!this[ANIMATION_COMP]) {
       return;
     }
-    delete this[ANIMATION_COMP].animations[animationName];
+    delete this[ANIMATION_COMP].runningAnimations[animationName];
   }
 
   getAIVisionRange() {

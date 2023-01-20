@@ -22,6 +22,7 @@ describe('Tests for the Animation system', () => {
   it('Adds a and runs a simple animation', () => {
     let player = createTestPlayer(0, 0);
     player.addAnimation({
+      animationDurationInTicks: 5, // arbitrary for tests
       frames: [
         {
           spriteURL: 'some_URL',
@@ -48,7 +49,7 @@ describe('Tests for the Animation system', () => {
 
     let player = createTestPlayer(0, 0);
 
-    player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
+    player.addAnimation(player.getPossibleAnimations()['MOVE_RIGHT']);
     expect(player.getAnimations()['MOVE_RIGHT'].ticksRunning).toBe(0);
 
     animationSystem(systemArguments);
@@ -57,7 +58,7 @@ describe('Tests for the Animation system', () => {
 
   it('Animation will run its course successfully', () => {
     let player = createTestPlayer(0, 0);
-    player.addAnimation(player.getAnimationTypes()['MOVE_RIGHT']);
+    player.addAnimation(player.getPossibleAnimations()['MOVE_RIGHT']);
 
     // animation duration (in frames) is related to the frame count it takes to move 32 pixels
     // run all the frames
@@ -77,7 +78,7 @@ describe('Tests for the Animation system', () => {
     player.addAnimation({
       loops: true,
       frames: [{}, {}],
-      animationDuration: 2,
+      animationDurationInTicks: 2,
       animationName: 'TEST_LOOP'
     });
 

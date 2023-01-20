@@ -8,8 +8,8 @@ import {StackableOnMapComponent} from '../../components/StackableOnMapComponent'
  * An entity that represents a weapon that can be found on the ground
  */
 export class ItemEntity extends PlaceableEntity {
-  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityConfig: IPlaceableEntityData) {
-    super(instanceAttributes, placeableEntityConfig);
+  constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
+    super(instanceAttributes, placeableEntityData);
 
     this.addComponent(new StackableOnMapComponent());
     this.addComponent(
@@ -41,7 +41,6 @@ export function dropNewItem({col, row}: {col: number; row: number}) {
       displayName: 'wtf',
       attackSpeed: 'SLOW',
       dmg: 1,
-      animationTypes: null,
       speed: null,
       vision: 0,
       id: 'ITEM'

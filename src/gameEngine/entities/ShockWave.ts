@@ -5,7 +5,7 @@
 import {BaseEntity} from 'gameEngine/BaseEntity';
 import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
-import AnimationComp from 'gameEngine/components/AnimationComp';
+import {AnimationComp} from 'gameEngine/components/AnimationComp';
 import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
@@ -50,7 +50,7 @@ class ShockWave extends BaseEntity {
 
     let frames = [];
     let frameCount = 15;
-    let animationDuration = 15;
+    let animationDurationInTicks = 15;
     let i = 0;
 
     let sizeToGrow = 0.1;
@@ -73,7 +73,7 @@ class ShockWave extends BaseEntity {
     this.addComponent(
       new AnimationComp({
         SHOCKWAVE: {
-          animationDuration, // each 'frame' takes this many
+          animationDurationInTicks, // each 'frame' takes this many
           frames,
           animationName: 'SHOCKWAVE',
           loops: false
@@ -81,14 +81,14 @@ class ShockWave extends BaseEntity {
       })
     );
 
-    this.addAnimation(this.getAnimationTypes().SHOCKWAVE);
+    this.addAnimation(this.getPossibleAnimations().SHOCKWAVE);
   }
 
   /**
    * Shockwave is once-off animation, once the animation is done we remove the entire entity.
    * @param animationName
    */
-  removeAnimation(animationName: string) {
+  removeRunningAnimation(animationName: string) {
     this.destroy();
   }
 }

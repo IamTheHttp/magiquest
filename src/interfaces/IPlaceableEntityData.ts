@@ -1,5 +1,5 @@
-import {IAnimationTypes} from '../gameEngine/components/AnimationComp';
 import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
+import {IAnimationDefinitionMap} from '../gameEngine/components/AnimationComp';
 
 type IPlaceableEntityData = {
   dmg: number;
@@ -10,9 +10,7 @@ type IPlaceableEntityData = {
   id: keyof typeof PLACEABLE_ENTITIES;
   displayName: string;
   radius: number; // for now everyone uses 16
-
-  // Note: in JSON, this is a string, but in this object type animationTypes is an object
-  animationTypes: IAnimationTypes;
+  possibleAnimationsForEntity?: IAnimationDefinitionMap;
 };
 
 type IPlacedEntityInstanceAttr = {

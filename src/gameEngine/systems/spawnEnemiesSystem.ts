@@ -21,10 +21,10 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
       if (Math.random() < monsterDensity) {
         // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
-        let placeableEntityConfig = placeableEntityDataMap[enemyToSpawn];
+        let placeableEntityData = placeableEntityDataMap[enemyToSpawn];
 
-        if (placeableEntityConfig) {
-          new Enemy({col, row, entityLevel, spawningTileLocationID}, placeableEntityConfig);
+        if (placeableEntityData) {
+          new Enemy({col, row, entityLevel, spawningTileLocationID}, placeableEntityData);
           return;
         }
       }

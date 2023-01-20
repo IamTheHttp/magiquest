@@ -55,12 +55,12 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   entity.setOrientation(entity.calcOrientation(modDestX, modDestY));
 
   let animationName = `MOVE_${entity.getOrientation()}`;
-  let animationToAdd = entity.getAnimationTypes()[animationName];
+  let animationToAdd = entity.getPossibleAnimations()[animationName];
 
   // Only add this animation if we don't have it already
   if (animationToAdd && !entity.hasSpecificAnimation(animationName)) {
     entity.clearAllAnimations();
-    entity.addAnimation(entity.getAnimationTypes()[animationName]);
+    entity.addAnimation(entity.getPossibleAnimations()[animationName]);
   }
 
   // set destination

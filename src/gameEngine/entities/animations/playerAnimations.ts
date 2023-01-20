@@ -1,8 +1,8 @@
 import charImageURL from '../../../assets/player.png';
-import commonAnimations from './characterAnimations';
+import {commonMoveAnimations} from './characterAnimations';
 
-const playerAnimations = {
-  ...commonAnimations(charImageURL)
-};
-
-export default playerAnimations;
+export function createPlayerMoveAnimationDefinition(movementSpeed: number) {
+  return {
+    ...commonMoveAnimations(charImageURL, movementSpeed)
+  };
+}

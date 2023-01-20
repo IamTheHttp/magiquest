@@ -8,7 +8,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
   let {mapAPI} = systemArguments;
 
   for (let anim in entity.getAnimations()) {
-    let {currentFrame, frames} = entity[ANIMATION_COMP].animations[anim];
+    let {currentFrame, frames} = entity[ANIMATION_COMP].runningAnimations[anim];
 
     let frame = frames[currentFrame];
 

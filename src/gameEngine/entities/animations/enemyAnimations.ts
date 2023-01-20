@@ -1,8 +1,13 @@
-import charImageURL from '../../../assets/generic_enemy.png';
-import commonAnimations from './characterAnimations';
+import enemyCharSpriteURL from '../../../assets/generic_enemy.png';
+import {commonMoveAnimations} from './characterAnimations';
 
-const enemyAnimations = {
-  ...commonAnimations(charImageURL)
-};
-
-export default enemyAnimations;
+/**
+ * Create a movement animation.
+ * Requires the speed of the entity sync the duration of the animation with the duration of movement
+ * @param movementSpeed
+ */
+export function createEnemyMoveAnimationDefinition(movementSpeed: number) {
+  return {
+    ...commonMoveAnimations(enemyCharSpriteURL, movementSpeed)
+  };
+}

@@ -1,6 +1,6 @@
 import FamNPC from '../../src/gameEngine/entities/placeableEntities/FamNPC';
 import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../../src/gameEngine/gameConstants';
-import playerAnimations from '../../src/gameEngine/entities/animations/playerAnimations';
+import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
 
 function createTestFamNPC(col: number, row: number) {
   return new FamNPC(
@@ -19,7 +19,7 @@ function createTestFamNPC(col: number, row: number) {
       vision: 0,
       attackSpeed: ATTACK_SPEEDS_OPTIONS.FASTEST,
       radius: 16,
-      animationTypes: playerAnimations
+      possibleAnimationsForEntity: createPlayerMoveAnimationDefinition(4) // arbitrarily chosen, not used
     }
   );
 }
