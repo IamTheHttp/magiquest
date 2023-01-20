@@ -1,5 +1,5 @@
 import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
-import {PossibleUIShapes, ANIMATIONS, ATTACK_CONFIG, TILE_SIZE} from '../../../gameConstants';
+import {PossibleUIShapes, ATTACK_CONFIG, TILE_SIZE, SPRITE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
@@ -22,8 +22,8 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
         width: TILE_SIZE,
         cropStartX: frame.cropStartX,
         cropStartY: frame.cropStartY,
-        cropSizeX: TILE_SIZE,
-        cropSizeY: TILE_SIZE,
+        cropSizeX: SPRITE_SIZE,
+        cropSizeY: SPRITE_SIZE,
         rotation: 0 // in radians
       });
     }

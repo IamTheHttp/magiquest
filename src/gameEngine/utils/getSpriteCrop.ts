@@ -1,4 +1,4 @@
-const SPRITE_SIZE = 32;
+import {SPRITE_SIZE} from '../gameConstants';
 
 function getSpriteCrop(col: number, row: number) {
   return {

@@ -75,6 +75,7 @@ export const ANIMATIONS = {
 };
 
 export const TILE_SIZE = 32;
+export const SPRITE_SIZE = 32; // The size of a sprite in our sprite sheets
 
 export enum ATTACK_SPEEDS_OPTIONS {
   SLOW = 'SLOW',
