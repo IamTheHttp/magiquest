@@ -10,7 +10,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
   const VIEW_WIDTH = systemArguments.viewSize.viewWidth;
   const VIEW_HEIGHT = systemArguments.viewSize.viewHeight;
 
-  if (action.name === AllowedActions.DRAG_PAN_MAP) {
+  if (action.name === AllowedActions.DRAG_PAN_MAP && action.data) {
     const pannedDistanceX = action.data.startDragCursorX - action.data.currentCursorX;
     const pannedDistanceY = action.data.startDragCursorY - action.data.currentCursorY;
 

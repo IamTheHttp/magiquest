@@ -28,7 +28,7 @@ interface IShockWaveConstructor {
 }
 
 class ShockWave extends BaseEntity {
-  constructor({x, y, radius = 16, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
+  constructor({x, y, radius = TILE_SIZE / 2, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
     super();
 
     this.addComponent(new PositionComponent({x, y, radius}));
@@ -61,7 +61,7 @@ class ShockWave extends BaseEntity {
         shape: PossibleUIShapes.ARC_SHAPE,
         direction,
         size: 0.2 + (i * sizeToGrow) / frameCount,
-        radius: 16 + (i * radiusToGrow) / frameCount,
+        radius: TILE_SIZE / 2 + (i * radiusToGrow) / frameCount,
         x: origin.x,
         y: origin.y,
         color

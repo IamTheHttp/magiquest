@@ -14,7 +14,7 @@ describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;
   let player: BaseEntity = null;
   beforeEach(() => {
-    // setup the test
+    // set up the test
     Entity.reset();
 
     player = createTestPlayer(0, 0);

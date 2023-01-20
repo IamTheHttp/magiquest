@@ -20,8 +20,8 @@ export function PlaceableEntitiesList() {
         <td>{placeableEntity.speed}</td>
         <td>{placeableEntity.vision}</td>
         <td>{placeableEntity.attackSpeed}</td>
-        <td>{placeableEntity.radius}</td>
-        <td>{placeableEntity.animationTypes}</td>
+        <td>{placeableEntity.sizeInTiles}</td>
+        <td>{placeableEntity.animationNames}</td>
       </tr>
     );
   });
@@ -37,8 +37,8 @@ export function PlaceableEntitiesList() {
           <th>speed</th>
           <th>vision</th>
           <th>attackSpeed</th>
-          <th>radius</th>
-          <th>animationTypes</th>
+          <th>sizeInTiles</th>
+          <th>animationNames</th>
         </tr>
       </thead>
       <tbody>{trs}</tbody>

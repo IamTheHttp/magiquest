@@ -9,7 +9,7 @@ type IPlaceableEntityData = {
   attackSpeed: keyof typeof ATTACK_SPEEDS_OPTIONS;
   id: keyof typeof PLACEABLE_ENTITIES;
   displayName: string;
-  radius: number; // for now everyone uses 16
+  radius: number;
   possibleAnimationsForEntity?: IAnimationDefinitionMap;
 };
 

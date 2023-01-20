@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs, TILE_SIZE} from '../../gameConstants';
 import UIComponent from '../../components/UIComponent';
 import PlaceableEntity from './PlaceableEntity';
 import {StackableOnMapComponent} from '../../components/StackableOnMapComponent';
@@ -36,7 +36,7 @@ export function dropNewItem({col, row}: {col: number; row: number}) {
       spawningTileLocationID: null
     },
     {
-      radius: 16,
+      radius: TILE_SIZE / 2,
       health: 0,
       displayName: 'wtf',
       attackSpeed: 'SLOW',

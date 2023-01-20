@@ -1,5 +1,5 @@
 import LevelComp from '../../components/LevelComp';
-import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import PlaceableEntity from './PlaceableEntity';
 import {
@@ -53,7 +53,7 @@ class Player extends PlaceableEntity {
         attackSpeed: null,
         displayName: null,
         health: null,
-        radius: 16,
+        radius: TILE_SIZE / 2,
         speed: 0,
         vision: 0,
         id: 'ITEM'
@@ -72,7 +72,7 @@ class Player extends PlaceableEntity {
         attackSpeed: null,
         displayName: null,
         health: null,
-        radius: 16,
+        radius: TILE_SIZE / 2,
         speed: 0,
         vision: 0,
         id: 'ITEM'

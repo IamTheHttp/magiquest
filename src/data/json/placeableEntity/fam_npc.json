@@ -6,6 +6,6 @@
   "speed": 0,
   "vision": 0,
   "attackSpeed": "null",
-  "radius": 16,
-  "animationTypes": "null"
+  "sizeInTiles": 0.5,
+  "animationNames": "null"
 }

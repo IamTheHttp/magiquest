@@ -88,8 +88,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     entity.stop();
 
     let {x, y} = entity.getPos();
-    assertType((x + 16) % TILE_SIZE === 0, `Entities should be on the grid ${x} ${y}`, true);
-    assertType((y + 16) % TILE_SIZE === 0, 'gameEngine/entities should be on the grid', true);
+    assertType((x + TILE_SIZE / 2) % TILE_SIZE === 0, `Entities should be on the grid ${x} ${y}`, true);
+    assertType((y + TILE_SIZE / 2) % TILE_SIZE === 0, 'gameEngine/entities should be on the grid', true);
     if (typeof direction !== 'undefined' && direction !== null) {
       entity.setMoveDirection(direction);
     }

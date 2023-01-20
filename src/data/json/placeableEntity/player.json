@@ -6,6 +6,6 @@
   "speed": 4,
   "vision": 0,
   "attackSpeed": "FASTEST",
-  "radius": 16,
-  "animationTypes": "PLAYER_ANIMATION"
+  "sizeInTiles": 0.5,
+  "animationNames": "PLAYER_ANIMATION"
 }
