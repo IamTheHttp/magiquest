@@ -7,7 +7,7 @@ import {BaseEntity} from '../../../BaseEntity';
 function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI} = systemArguments;
 
-  for (let anim in entity.getAnimations()) {
+  for (let anim in entity.getRunningAnimations()) {
     let {currentFrame, frames} = entity[ANIMATION_COMP].runningAnimations[anim];
 
     let frame = frames[currentFrame];

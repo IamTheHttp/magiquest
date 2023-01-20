@@ -128,7 +128,7 @@ export function Editor(props: IProps) {
         new PositionComponent({
           x: currentColHover * TILE_SIZE + 0.5 * TILE_SIZE,
           y: currentRowHover * TILE_SIZE + 0.5 * TILE_SIZE,
-          radius: 0.5 * TILE_SIZE
+          radius: TILE_SIZE / 2
         })
       );
     }

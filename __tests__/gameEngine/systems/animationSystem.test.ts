@@ -21,7 +21,7 @@ describe('Tests for the Animation system', () => {
 
   it('Adds a and runs a simple animation', () => {
     let player = createTestPlayer(0, 0);
-    player.addAnimation({
+    player.addAnimationToRun({
       animationDurationInTicks: 5, // arbitrary for tests
       frames: [
         {
@@ -37,10 +37,10 @@ describe('Tests for the Animation system', () => {
       loops: false
     });
 
-    expect(player.getAnimations()['TEST_ANIMATION'].ticksRunning).toBe(0);
+    expect(player.getRunningAnimations()['TEST_ANIMATION'].ticksRunning).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getAnimations()['TEST_ANIMATION'].ticksRunning).toBe(1);
+    expect(player.getRunningAnimations()['TEST_ANIMATION'].ticksRunning).toBe(1);
   });
 
   it('Advances a single frame when run', () => {
@@ -49,22 +49,22 @@ describe('Tests for the Animation system', () => {
 
     let player = createTestPlayer(0, 0);
 
-    player.addAnimation(player.getPossibleAnimations()['MOVE_RIGHT']);
-    expect(player.getAnimations()['MOVE_RIGHT'].ticksRunning).toBe(0);
+    player.addAnimationToRun(player.getPossibleAnimations()['MOVE_RIGHT']);
+    expect(player.getRunningAnimations()['MOVE_RIGHT'].ticksRunning).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getAnimations()['MOVE_RIGHT'].ticksRunning).toBe(1);
+    expect(player.getRunningAnimations()['MOVE_RIGHT'].ticksRunning).toBe(1);
   });
 
   it('Animation will run its course successfully', () => {
     let player = createTestPlayer(0, 0);
-    player.addAnimation(player.getPossibleAnimations()['MOVE_RIGHT']);
+    player.addAnimationToRun(player.getPossibleAnimations()['MOVE_RIGHT']);
 
     // animation duration (in frames) is related to the frame count it takes to move 32 pixels
     // run all the frames
     let i = 0;
-    while (player.getAnimations()['MOVE_RIGHT']) {
-      let anim = player.getAnimations()['MOVE_RIGHT'];
+    while (player.getRunningAnimations()['MOVE_RIGHT']) {
+      let anim = player.getRunningAnimations()['MOVE_RIGHT'];
       expect(anim.ticksRunning).toBe(i);
 
       animationSystem(systemArguments);
@@ -75,7 +75,7 @@ describe('Tests for the Animation system', () => {
   it('Animation will loop when over if so configured', () => {
     let player = createTestPlayer(0, 0);
 
-    player.addAnimation({
+    player.addAnimationToRun({
       loops: true,
       frames: [{}, {}],
       animationDurationInTicks: 2,
@@ -87,7 +87,7 @@ describe('Tests for the Animation system', () => {
     animationSystem(systemArguments);
     animationSystem(systemArguments);
     animationSystem(systemArguments);
-    let anim = player.getAnimations()['TEST_LOOP'];
+    let anim = player.getRunningAnimations()['TEST_LOOP'];
     expect(anim.ticksRunning).toBe(0);
   });
 });

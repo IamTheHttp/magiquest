@@ -58,9 +58,9 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   let animationToAdd = entity.getPossibleAnimations()[animationName];
 
   // Only add this animation if we don't have it already
-  if (animationToAdd && !entity.hasSpecificAnimation(animationName)) {
-    entity.clearAllAnimations();
-    entity.addAnimation(entity.getPossibleAnimations()[animationName]);
+  if (animationToAdd && !entity.isSpecificAnimationRunning(animationName)) {
+    entity.removeAllRunningAnimations();
+    entity.addAnimationToRun(entity.getPossibleAnimations()[animationName]);
   }
 
   // set destination

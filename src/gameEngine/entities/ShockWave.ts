@@ -81,7 +81,7 @@ class ShockWave extends BaseEntity {
       })
     );
 
-    this.addAnimation(this.getPossibleAnimations().SHOCKWAVE);
+    this.addAnimationToRun(this.getPossibleAnimations().SHOCKWAVE);
   }
 
   /**

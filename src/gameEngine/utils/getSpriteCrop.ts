@@ -1,11 +1,11 @@
-import {TILE_SIZE} from '../gameConstants';
+const SPRITE_SIZE = 32;
 
 function getSpriteCrop(col: number, row: number) {
   return {
-    cropStartX: TILE_SIZE * col,
-    cropStartY: TILE_SIZE * row,
-    cropSizeX: TILE_SIZE,
-    cropSizeY: TILE_SIZE
+    cropStartX: SPRITE_SIZE * col,
+    cropStartY: SPRITE_SIZE * row,
+    cropSizeX: SPRITE_SIZE,
+    cropSizeY: SPRITE_SIZE
   };
 }
 

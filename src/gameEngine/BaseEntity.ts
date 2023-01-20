@@ -59,7 +59,7 @@ class BaseEntity extends Entity {
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]: SpawnedComponent;
 
-  addAnimation(animation: IAnimationDefinition) {
+  addAnimationToRun(animation: IAnimationDefinition) {
     this[ANIMATION_COMP].addAnimationToRun(animation);
   }
 
@@ -67,7 +67,7 @@ class BaseEntity extends Entity {
     return !!this[PLAYER_CONTROLLED_COMP];
   }
 
-  clearAllAnimations() {
+  removeAllRunningAnimations() {
     if (!this[ANIMATION_COMP]) {
       return;
     }
@@ -94,7 +94,7 @@ class BaseEntity extends Entity {
   /**
    * Get the running animations of the entity, those that are in progress
    */
-  getAnimations(): IRunningAnimationMap {
+  getRunningAnimations(): IRunningAnimationMap {
     return (this[ANIMATION_COMP] && this[ANIMATION_COMP].runningAnimations) || {};
   }
 
@@ -105,8 +105,8 @@ class BaseEntity extends Entity {
     return this[ANIMATION_COMP] && this[ANIMATION_COMP].possibleAnimationsForEntity;
   }
 
-  hasSpecificAnimation(name: string) {
-    return !!this.getAnimations()[name];
+  isSpecificAnimationRunning(name: string) {
+    return !!this.getRunningAnimations()[name];
   }
 
   getMovementSpeed() {
@@ -198,7 +198,7 @@ class BaseEntity extends Entity {
   }
 
   setQuestActionSymbol(newSymbol: '!' | '?') {
-    if (!this.hasSpecificAnimation(HAS_ACTION_SIGN_COMP)) {
+    if (!this.isSpecificAnimationRunning(HAS_ACTION_SIGN_COMP)) {
       this.addComponent(new HasActionSignComponent(newSymbol));
     } else {
       this[HAS_ACTION_SIGN_COMP].symbol = newSymbol;
