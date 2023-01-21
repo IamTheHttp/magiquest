@@ -1,15 +1,12 @@
 import {IZone, ITileCoordinate} from '../interfaces/IZones';
 import {Engine, Entity} from 'game-platform';
-import assertType from './utils/assertType';
 import createTileIndexMap from './utils/createTileIndexMap';
 import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   HEALTH_COMP,
-  PLAYER_CONTROLLED_COMP,
-  POSITION_COMP,
-  UI_COMP
+  PLAYER_CONTROLLED_COMP
 } from './components/ComponentNamesConfig';
 import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
@@ -34,16 +31,7 @@ import {PlayerStateChangeEvent} from './classes/PlayerState';
 import experienceSystem from './systems/experienceSystem';
 import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
-import {
-  TILE_SIZE,
-  PLAYER_SPRITE_URL,
-  RESOLUTION,
-  TILESET_IMAGE_URL,
-  ITEMS_SPRITE_URL,
-  CANVAS_OUTPUT,
-  PossibleUIShapes,
-  PLACEABLE_ENTITIES
-} from './gameConstants';
+import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT, PossibleUIShapes, PLACEABLE_ENTITIES} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
@@ -74,6 +62,14 @@ class Game {
 
   constructor({onZoneChange, mode = 'editing', placeableEntityDataMap}: IGameConstructor) {
     Entity.reset();
+    Entity.onEntityDestroyed((entity) => {});
+
+    Entity.onEntityCreated((entity) => {});
+
+    Entity.onComponentAdded((entity, compName) => {});
+
+    Entity.onComponentRemoved((entity, compName) => {});
+
     this.placeableEntityDataMap = placeableEntityDataMap; // @data source for placeable entities
     this.dispatchAction = this.dispatchAction.bind(this);
 

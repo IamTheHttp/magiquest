@@ -3,7 +3,7 @@
 
 // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 // MIT license
-let windowCopy = window as any; // TODO this should not be any
+let windowCopy = window as any;
 (function () {
   let lastTime = 0;
   let vendors = ['ms', 'moz', 'webkit', 'o'];
