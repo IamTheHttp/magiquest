@@ -13,7 +13,6 @@ import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
-// TODO do this for all systems
 function aiSystem(systemArguments: ISystemArguments) {
   let entities = Entity.getByComps<BaseEntity>([AI_CONTROLLED_COMP, MOVEMENT_COMP, POSITION_COMP]);
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];

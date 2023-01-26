@@ -22,7 +22,6 @@ import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';
 import {TILE_SIZE} from '../gameConstants';
-import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 import Player from '../entities/placeableEntities/Player';
 import {ItemEntity} from '../entities/placeableEntities/Item';
 
