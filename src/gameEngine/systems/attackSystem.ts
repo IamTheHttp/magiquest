@@ -1,4 +1,4 @@
-import {CAN_ATTACK, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
+import {CAN_ATTACK, HAS_HEALTH, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -34,15 +34,15 @@ function attackSystem(systemArguments: ISystemArguments) {
       }
 
       for (let entID in targetTile.entities) {
-        if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HEALTH_COMP]) {
+        if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HAS_HEALTH]) {
           continue; // cannot attack self, or anything without health
         }
 
         let entTarget = targetTile.entities[entID] as PlaceableEntity;
 
         // do the attack, ensure health is >= 0
-        entTarget[HEALTH_COMP].current -= dmg;
-        entTarget[HEALTH_COMP].current = Math.max(entTarget[HEALTH_COMP].current, 0);
+        entTarget[HAS_HEALTH].current -= dmg;
+        entTarget[HAS_HEALTH].current = Math.max(entTarget[HAS_HEALTH].current, 0);
 
         if (entTarget[PLAYER_CONTROLLED_COMP]) {
           gameEvents.pushEvent(new PlayerIsAttacked(entTarget as Player));
@@ -56,7 +56,7 @@ function attackSystem(systemArguments: ISystemArguments) {
         });
 
         // remove dead entities
-        if (entTarget[HEALTH_COMP].current <= 0) {
+        if (entTarget[HAS_HEALTH].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
 

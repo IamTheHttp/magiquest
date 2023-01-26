@@ -1,6 +1,6 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs, TILE_SIZE} from '../../gameConstants';
-import UIComponent from '../../components/UIComponent';
+import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
 import {StackableOnMapComponent} from '../../components/StackableOnMapComponent';
 
@@ -13,7 +13,7 @@ export class ItemEntity extends PlaceableEntity {
 
     this.addComponent(new StackableOnMapComponent());
     this.addComponent(
-      new UIComponent([
+      new HasUI([
         {
           name: CANVAS_OUTPUT,
           // Hardcoded weapon shape, but in the future we can easily

@@ -1,10 +1,10 @@
 import LevelComp from '../../components/LevelComp';
 import {PossibleUIShapes, ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import Health from '../../components/Health';
-import PositionComponent from '../../components/PositionComponent';
+import HasHealth from '../../components/HasHealth';
+import HasPosition from '../../components/HasPosition';
 import {BaseEntity} from '../../BaseEntity';
-import UIComponent from '../../components/UIComponent';
+import HasUI from '../../components/HasUI';
 import {getCenterPosOfGridIdx} from '../../utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {LEVEL_COMP, SPAWNED_COMP} from '../../components/_ComponentNamesConfig';
 import HasAIVision from '../../components/HasAIVision';
@@ -25,7 +25,7 @@ class PlaceableEntity extends BaseEntity {
     let {x, y} = getCenterPosOfGridIdx(col, row);
 
     this.addComponent(new LevelComp(entityLevel));
-    this.addComponent(new PositionComponent({x, y, radius}));
+    this.addComponent(new HasPosition({x, y, radius}));
 
     if (speed) {
       this.addComponent(new MoveComponent(speed));
@@ -33,10 +33,10 @@ class PlaceableEntity extends BaseEntity {
 
     if (health) {
       let adjustedHealth = this.getLevelAdjustedHealth(health, entityLevel);
-      this.addComponent(new Health(adjustedHealth, radius * 2, radius));
+      this.addComponent(new HasHealth(adjustedHealth, radius * 2, radius));
       // the UI component can be completely overwritten by the extending class (like Player)
       this.addComponent(
-        new UIComponent([
+        new HasUI([
           {
             name: CANVAS_OUTPUT,
             shape: PossibleUIShapes.HEALTH_BAR_SHAPE,

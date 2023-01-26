@@ -1,7 +1,7 @@
 import {
   MOVEMENT_COMP,
   IS_CONTROLLED_BY_AI,
-  POSITION_COMP,
+  HAS_POSITION,
   PLAYER_CONTROLLED_COMP
 } from '../components/_ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
@@ -14,7 +14,7 @@ import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
 function aiSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([IS_CONTROLLED_BY_AI, MOVEMENT_COMP, POSITION_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([IS_CONTROLLED_BY_AI, MOVEMENT_COMP, HAS_POSITION]);
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   entityLoop(entities, (entity) => {

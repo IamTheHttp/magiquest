@@ -1,4 +1,4 @@
-import {INVENTORY_COMP, UI_COMP} from '../../../../components/_ComponentNamesConfig';
+import {HAS_INVENTORY, HAS_UI} from '../../../../components/_ComponentNamesConfig';
 import Player from '../../../../entities/placeableEntities/Player';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 
@@ -9,7 +9,7 @@ export function renderBackpackItems(player: Player, systemArguments: ISystemArgu
   // 20       []
   // 20+30    [] []
   // 20+30+30 [] [] []
-  player[INVENTORY_COMP].backpack.forEach((itemInBackpack, i) => {
+  player[HAS_INVENTORY].backpack.forEach((itemInBackpack, i) => {
     const {panX, panY} = mapAPI.getCurrentPanValue();
     // Draw rectangle in which to place the item
     mapAPI.drawRect({
@@ -24,7 +24,7 @@ export function renderBackpackItems(player: Player, systemArguments: ISystemArgu
     });
 
     // Draw the item using its UI Component
-    itemInBackpack[UI_COMP].sections.forEach((section) => {
+    itemInBackpack[HAS_UI].sections.forEach((section) => {
       const spriteName = section.data.spriteName;
       mapAPI.drawImage({
         id: `backpack-slot-${i}-sprite`,

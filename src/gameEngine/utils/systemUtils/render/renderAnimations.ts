@@ -1,4 +1,4 @@
-import {HAS_ANIMATIONS, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
+import {HAS_ANIMATIONS, HAS_POSITION} from '../../../components/_ComponentNamesConfig';
 import {PossibleUIShapes, ATTACK_CONFIG, TILE_SIZE, SPRITE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -16,8 +16,8 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
       mapAPI.drawImage({
         id: `${entity.id}`,
         image: assetLoader.getAsset(frame.spriteURL),
-        x: entity[POSITION_COMP].x - entity[POSITION_COMP].radius,
-        y: entity[POSITION_COMP].y - entity[POSITION_COMP].radius,
+        x: entity[HAS_POSITION].x - entity[HAS_POSITION].radius,
+        y: entity[HAS_POSITION].y - entity[HAS_POSITION].radius,
         height: TILE_SIZE,
         width: TILE_SIZE,
         cropStartX: frame.cropStartX,
@@ -33,8 +33,8 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
       let frameX = frame.x;
       let frameY = frame.y;
 
-      let entityX = entity[POSITION_COMP].x - entity[POSITION_COMP].radius;
-      let entityY = entity[POSITION_COMP].y - entity[POSITION_COMP].radius;
+      let entityX = entity[HAS_POSITION].x - entity[HAS_POSITION].radius;
+      let entityY = entity[HAS_POSITION].y - entity[HAS_POSITION].radius;
 
       mapAPI.drawArc({
         id: `${entity.id}`,

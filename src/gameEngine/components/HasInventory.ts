@@ -1,4 +1,4 @@
-import {INVENTORY_COMP} from './_ComponentNamesConfig';
+import {HAS_INVENTORY} from './_ComponentNamesConfig';
 import {ItemEntity} from '../entities/placeableEntities/Item';
 
 /**
@@ -7,12 +7,12 @@ import {ItemEntity} from '../entities/placeableEntities/Item';
  * - Backpack inventory
  *
  */
-export class InventoryComponent {
+export class HasInventory {
   name: string;
   equipped: ItemEntity[];
   backpack: ItemEntity[];
   constructor() {
-    this.name = INVENTORY_COMP;
+    this.name = HAS_INVENTORY;
     this.equipped = [];
     this.backpack = [];
   }

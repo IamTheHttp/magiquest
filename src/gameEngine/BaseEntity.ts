@@ -8,14 +8,14 @@ import {
   CAN_SPAWN,
   DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
-  HEALTH_COMP,
+  HAS_HEALTH,
   IS_ATTACKING_COMP,
   IS_MOVING_COMP,
   MOVEMENT_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP,
+  HAS_POSITION,
   SPAWNED_COMP,
-  UI_COMP
+  HAS_UI
 } from './components/_ComponentNamesConfig';
 import HasActionSignComponent from './components/HasActionSignComponent';
 import {AllowedQuestState} from './components/QuestDataComponent';
@@ -29,9 +29,9 @@ import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import MoveComponent from './components/MoveComponent';
 import SpawnedComponent from './components/SpawnedComponent';
 import IsMoving from './components/IsMoving';
-import Health from './components/Health';
-import PositionComponent from './components/PositionComponent';
-import UIComponent from './components/UIComponent';
+import HasHealth from './components/HasHealth';
+import HasPosition from './components/HasPosition';
+import HasUI from './components/HasUI';
 import CanAssignQuests from './components/CanAssignQuests';
 import Quest from './entities/Quest';
 import IsAttackingComp from './components/IsAttacking';
@@ -42,11 +42,11 @@ import Player from './entities/placeableEntities/Player';
 class BaseEntity extends Entity {
   id: number;
   name: string;
-  [HEALTH_COMP]: Health; // Rename to HealthComp?
+  [HAS_HEALTH]: HasHealth; // Rename to HealthComp?
   [HAS_ANIMATIONS]: HasAnimations;
   [PLAYER_CONTROLLED_COMP]: PlayerControlledComponent;
   [MOVEMENT_COMP]: MoveComponent;
-  [POSITION_COMP]: PositionComponent;
+  [HAS_POSITION]: HasPosition;
   [IS_MOVING_COMP]: IsMoving;
   [HAS_AI_VISION]: HasAIVision;
   [IS_ATTACKING_COMP]: IsAttackingComp;
@@ -54,7 +54,7 @@ class BaseEntity extends Entity {
   [DIALOG_COMP]: Dialog;
   [HAS_BACKGROUND_UI]: HasBackgroundUI;
   [CAN_SPAWN]: CanSpawn;
-  [UI_COMP]: UIComponent;
+  [HAS_UI]: HasUI;
   [CAN_ASSIGN_QUESTS]: CanAssignQuests;
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]: SpawnedComponent;
@@ -129,13 +129,13 @@ class BaseEntity extends Entity {
   }
 
   isAttackable() {
-    return !!this[HEALTH_COMP];
+    return !!this[HAS_HEALTH];
   }
 
   setDest({x, y}: ICoordinates) {
-    if (this[POSITION_COMP]) {
-      this[POSITION_COMP].destX = x;
-      this[POSITION_COMP].destY = y;
+    if (this[HAS_POSITION]) {
+      this[HAS_POSITION].destX = x;
+      this[HAS_POSITION].destY = y;
     }
   }
 
@@ -149,14 +149,14 @@ class BaseEntity extends Entity {
 
   getDest() {
     return {
-      x: this[POSITION_COMP].destX,
-      y: this[POSITION_COMP].destY
+      x: this[HAS_POSITION].destX,
+      y: this[HAS_POSITION].destY
     };
   }
 
   stop() {
-    this[POSITION_COMP].originX = null;
-    this[POSITION_COMP].originY = null;
+    this[HAS_POSITION].originX = null;
+    this[HAS_POSITION].originY = null;
     this.removeComponent(IS_MOVING_COMP);
     this.setDest({
       x: null,
@@ -175,11 +175,11 @@ class BaseEntity extends Entity {
   }
 
   setOrientation(direction: keyof typeof DIRECTIONS) {
-    this[POSITION_COMP].orientation = direction;
+    this[HAS_POSITION].orientation = direction;
   }
 
   getOrientation() {
-    return this[POSITION_COMP].orientation;
+    return this[HAS_POSITION].orientation;
   }
 
   isMoving(): boolean {
@@ -187,8 +187,8 @@ class BaseEntity extends Entity {
   }
 
   setPos({x, y}: ICoordinates) {
-    this[POSITION_COMP].x = x;
-    this[POSITION_COMP].y = y;
+    this[HAS_POSITION].x = x;
+    this[HAS_POSITION].y = y;
   }
 
   getQuestsByStatus(questState: AllowedQuestState) {
@@ -214,10 +214,10 @@ class BaseEntity extends Entity {
   }
 
   getPos() {
-    if (this[POSITION_COMP]) {
+    if (this[HAS_POSITION]) {
       return {
-        x: this[POSITION_COMP].x,
-        y: this[POSITION_COMP].y
+        x: this[HAS_POSITION].x,
+        y: this[HAS_POSITION].y
       };
     }
   }
@@ -257,8 +257,8 @@ class BaseEntity extends Entity {
 
   setDestTo(dir: keyof typeof DIRECTIONS) {
     let {x, y} = this.getPos();
-    this[POSITION_COMP].originX = x;
-    this[POSITION_COMP].originY = y;
+    this[HAS_POSITION].originX = x;
+    this[HAS_POSITION].originY = y;
 
     if (dir === DIRECTIONS.UP) {
       this.setDest({

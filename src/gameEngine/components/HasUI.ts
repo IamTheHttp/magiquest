@@ -1,4 +1,4 @@
-import {UI_COMP} from './_ComponentNamesConfig';
+import {HAS_UI} from './_ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
 import {IUISection} from '../../interfaces/IGeneral';
 
@@ -6,12 +6,12 @@ import {IUISection} from '../../interfaces/IGeneral';
  * This Component is required for an entity to be rendered.
  * Removing the UI Component is one way to make an entity transparent
  */
-class UIComponent {
+class HasUI {
   name: string;
   sections: IUISection[];
 
   constructor(sections: IUISection[] = []) {
-    this.name = UI_COMP;
+    this.name = HAS_UI;
 
     let sectionsArray = Array.isArray(sections) ? sections : [sections];
 
@@ -31,4 +31,4 @@ class UIComponent {
   }
 }
 
-export default UIComponent;
+export default HasUI;

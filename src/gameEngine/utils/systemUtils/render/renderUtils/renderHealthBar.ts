@@ -1,22 +1,22 @@
-import {HEALTH_COMP, POSITION_COMP} from '../../../../components/_ComponentNamesConfig';
+import {HAS_HEALTH, HAS_POSITION} from '../../../../components/_ComponentNamesConfig';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
 function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) {
-  assertType(entity[HEALTH_COMP], 'Health Component', 'object');
+  assertType(entity[HAS_HEALTH], 'Health Component', 'object');
   let {mapAPI} = systemArguments;
 
-  let healthWidth = entity[HEALTH_COMP].width;
-  let healthMargin = entity[HEALTH_COMP].height;
+  let healthWidth = entity[HAS_HEALTH].width;
+  let healthMargin = entity[HAS_HEALTH].height;
   let healthHeight = 2;
-  let healthPercent = entity[HEALTH_COMP].current / entity[HEALTH_COMP].max;
+  let healthPercent = entity[HAS_HEALTH].current / entity[HAS_HEALTH].max;
 
   mapAPI.drawRect({
     id: `${entity.id}-full-${PossibleUIShapes.HEALTH_BAR_SHAPE}-`,
-    x: entity[POSITION_COMP].x - healthWidth / 2,
-    y: entity[POSITION_COMP].y + healthMargin,
+    x: entity[HAS_POSITION].x - healthWidth / 2,
+    y: entity[HAS_POSITION].y + healthMargin,
     width: healthWidth,
     height: healthHeight,
     strokeStyle: 'black',
@@ -25,8 +25,8 @@ function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) 
 
   mapAPI.drawRect({
     id: `${entity.id}-damage-${PossibleUIShapes.HEALTH_BAR_SHAPE}`,
-    x: entity[POSITION_COMP].x - healthWidth / 2,
-    y: entity[POSITION_COMP].y + healthMargin,
+    x: entity[HAS_POSITION].x - healthWidth / 2,
+    y: entity[HAS_POSITION].y + healthMargin,
     width: healthWidth * healthPercent,
     height: healthHeight,
     strokeStyle: 'lime',

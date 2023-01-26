@@ -1,6 +1,6 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
-import UIComponent from '../../components/UIComponent';
+import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
 import {IsBlockingMovement} from '../../components/IsBlockingMovement';
 
@@ -10,7 +10,7 @@ class Chest extends PlaceableEntity {
 
     this.addComponent(new IsBlockingMovement());
     this.addComponent(
-      new UIComponent([
+      new HasUI([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.CHEST_SHAPE,

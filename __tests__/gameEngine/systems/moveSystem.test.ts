@@ -4,7 +4,7 @@ import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {POSITION_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {HAS_POSITION} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
@@ -35,15 +35,15 @@ describe('move system tests', () => {
     // Dest + move = Check position was changed.
     expect(player.getPos().y).toBeGreaterThan(16);
     // expect originX to still be 16 (where we started)
-    expect(player[POSITION_COMP].originX).toBe(16);
+    expect(player[HAS_POSITION].originX).toBe(16);
 
-    while (player[POSITION_COMP].originY) {
+    while (player[HAS_POSITION].originY) {
       moveSystem(systemArguments);
     }
 
     // dest reached
     expect(player.getPos().y).toBe(48);
-    expect(player[POSITION_COMP].originX).toBe(null);
+    expect(player[HAS_POSITION].originX).toBe(null);
   });
 
   it('Test trying to move out of screen', () => {
@@ -55,8 +55,8 @@ describe('move system tests', () => {
 
     // we can't move to the edge of screen, equal to edge of screen
     expect(spyPan.mock.calls.length).toBe(0);
-    expect(player[POSITION_COMP].originX).toBe(null);
-    expect(player[POSITION_COMP].originY).toBe(null);
+    expect(player[HAS_POSITION].originX).toBe(null);
+    expect(player[HAS_POSITION].originY).toBe(null);
     expect(player.getDest().y).toBe(null);
   });
 

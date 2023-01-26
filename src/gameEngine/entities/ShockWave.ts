@@ -3,8 +3,8 @@
 
  */
 import {BaseEntity} from 'gameEngine/BaseEntity';
-import PositionComponent from 'gameEngine/components/PositionComponent';
-import UIComponent from 'gameEngine/components/UIComponent';
+import HasPosition from 'gameEngine/components/HasPosition';
+import HasUI from 'gameEngine/components/HasUI';
 import {HasAnimations} from 'gameEngine/components/HasAnimations';
 import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
@@ -31,8 +31,8 @@ class ShockWave extends BaseEntity {
   constructor({x, y, radius = TILE_SIZE / 2, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
     super();
 
-    this.addComponent(new PositionComponent({x, y, radius}));
-    this.addComponent(new UIComponent([]));
+    this.addComponent(new HasPosition({x, y, radius}));
+    this.addComponent(new HasUI([]));
 
     let origin = getCenterPosOfTile(fromTileIdx);
     let target = getCenterPosOfTile(toTileIdx);

@@ -4,9 +4,9 @@ import {
   HAS_ACTION_SIGN_COMP,
   KILL_QUEST_DATA_COMP,
   PLAYER_CONTROLLED_COMP,
-  POSITION_COMP,
+  HAS_POSITION,
   QUEST_DATA_COMP,
-  UI_COMP
+  HAS_UI
 } from '../components/_ComponentNamesConfig';
 import Quest, {KillQuest} from '../entities/Quest';
 import {BaseEntity} from '../BaseEntity';
@@ -18,7 +18,7 @@ import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS, POSITION_COMP, UI_COMP]);
+  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS, HAS_POSITION, HAS_UI]);
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   // Quests are entities that inside a component

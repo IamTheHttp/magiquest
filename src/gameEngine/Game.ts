@@ -5,7 +5,7 @@ import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
-  HEALTH_COMP,
+  HAS_HEALTH,
   PLAYER_CONTROLLED_COMP
 } from './components/_ComponentNamesConfig';
 import {IAction, IGameEventListener, IIndexedTileMap, IViewSize} from '../interfaces/IGeneral';
@@ -35,8 +35,8 @@ import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT, PossibleUIShapes, PLACEABLE_ENTITI
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
-import PositionComponent from './components/PositionComponent';
-import UIComponent from './components/UIComponent';
+import HasPosition from './components/HasPosition';
+import HasUI from './components/HasUI';
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {getSprites} from './getSprites';
 import {destroyEntitiesSystem} from './systems/destroyEntitySystem';
@@ -126,7 +126,7 @@ class Game {
 
     const {x, y} = this.getZoneStartXY();
     startPosEntity.addComponent(
-      new PositionComponent({
+      new HasPosition({
         x,
         y,
         radius: 0.5 * TILE_SIZE
@@ -134,7 +134,7 @@ class Game {
     );
 
     startPosEntity.addComponent(
-      new UIComponent([
+      new HasUI([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.CIRCLE_SHAPE,
@@ -356,9 +356,9 @@ class Game {
   getPlayerStateEvent(): PlayerStateChangeEvent {
     const player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
     return new PlayerStateChangeEvent({
-      maxHealth: player[HEALTH_COMP].max,
-      currentHealth: player[HEALTH_COMP].current,
-      percentHealth: player[HEALTH_COMP].current / player[HEALTH_COMP].max,
+      maxHealth: player[HAS_HEALTH].max,
+      currentHealth: player[HAS_HEALTH].current,
+      percentHealth: player[HAS_HEALTH].current / player[HAS_HEALTH].max,
       skills: [...player[CHARACTER_SKILLS_COMP].skills],
       spendableXP: player[EXPERIENCE_COMP].XP,
       levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),

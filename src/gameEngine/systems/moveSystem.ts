@@ -1,11 +1,11 @@
 import {
   MOVEMENT_COMP,
   IS_MOVING_COMP,
-  POSITION_COMP,
+  HAS_POSITION,
   STACKABLE_ON_MAP,
   CAN_PICKUP_ITEMS,
-  INVENTORY_COMP,
-  UI_COMP
+  HAS_INVENTORY,
+  HAS_UI
 } from 'gameEngine/components/_ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
@@ -90,12 +90,12 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
       indexedTileMap,
       newX: entity.getDest().x,
       newY: entity.getDest().y,
-      oldX: entity[POSITION_COMP].originX,
-      oldY: entity[POSITION_COMP].originY
+      oldX: entity[HAS_POSITION].originX,
+      oldY: entity[HAS_POSITION].originY
     });
 
     // Are there any items in this tile?
-    if (entity.hasComponents(CAN_PICKUP_ITEMS) && entity.hasComponents(INVENTORY_COMP)) {
+    if (entity.hasComponents(CAN_PICKUP_ITEMS) && entity.hasComponents(HAS_INVENTORY)) {
       const indexedTile = indexedTileMap[getTileIdxByPos(entity.getPos().x, entity.getPos().y)];
 
       for (const entID in indexedTile.entities) {
@@ -103,8 +103,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
         // For all the items, collect them to backpack
         if (entInTile instanceof ItemEntity) {
           indexedTile.removeEnt(entInTile);
-          entInTile.removeComponent(POSITION_COMP);
-          (entity as Player)[INVENTORY_COMP].addItemToBackpack(entInTile);
+          entInTile.removeComponent(HAS_POSITION);
+          (entity as Player)[HAS_INVENTORY].addItemToBackpack(entInTile);
         }
       }
     }
@@ -202,7 +202,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
 }
 
 function moveSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, POSITION_COMP, IS_MOVING_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, HAS_POSITION, IS_MOVING_COMP]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity);

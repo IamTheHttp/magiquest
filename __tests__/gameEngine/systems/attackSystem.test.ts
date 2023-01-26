@@ -1,7 +1,7 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {IS_ATTACKING_COMP, HEALTH_COMP, CAN_ATTACK} from 'gameEngine/components/_ComponentNamesConfig';
+import {IS_ATTACKING_COMP, HAS_HEALTH, CAN_ATTACK} from 'gameEngine/components/_ComponentNamesConfig';
 import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
@@ -50,8 +50,8 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    let maxHealth = player[HEALTH_COMP].max;
-    let currentHealth = player[HEALTH_COMP].current;
+    let maxHealth = player[HAS_HEALTH].max;
+    let currentHealth = player[HAS_HEALTH].current;
 
     // expect no damage, as you can't attack yourself
     expect(maxHealth).toBeGreaterThan(0);
@@ -67,8 +67,8 @@ describe('attack system tests', () => {
     updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
     let playerDmg = player[CAN_ATTACK].damage;
-    let maxHealth = enemy[HEALTH_COMP].max;
-    let currentHealth = enemy[HEALTH_COMP].current;
+    let maxHealth = enemy[HAS_HEALTH].max;
+    let currentHealth = enemy[HAS_HEALTH].current;
 
     // Sanity, expect health to be defined and set correctly
     expect(maxHealth).toBe(currentHealth);
@@ -79,11 +79,11 @@ describe('attack system tests', () => {
     attackSystem(systemArguments);
 
     // expect damage equal to the playerDmg
-    expect(enemy[HEALTH_COMP].current).toBe(Math.max(maxHealth - playerDmg, 0));
+    expect(enemy[HAS_HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
 
     // running the attack system again will not attack, as the cooldown is not done
     attackSystem(systemArguments);
-    expect(enemy[HEALTH_COMP].current).toBe(Math.max(maxHealth - playerDmg, 0));
+    expect(enemy[HAS_HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
   });
 
   it('Can kill an enemy', () => {

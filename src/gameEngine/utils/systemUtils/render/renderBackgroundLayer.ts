@@ -1,4 +1,4 @@
-import {HAS_BACKGROUND_UI, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
+import {HAS_BACKGROUND_UI, HAS_POSITION} from '../../../components/_ComponentNamesConfig';
 import filterOutFarEntities from '../filterOutFarEntities';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -18,10 +18,10 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
         // tile type
         mapAPI.drawImage({
           id: `${entity.id}-${i}`,
-          x: entity[POSITION_COMP].x,
-          y: entity[POSITION_COMP].y,
-          height: entity[POSITION_COMP].height,
-          width: entity[POSITION_COMP].width,
+          x: entity[HAS_POSITION].x,
+          y: entity[HAS_POSITION].y,
+          height: entity[HAS_POSITION].height,
+          width: entity[HAS_POSITION].width,
           ...mapTileTypeToSprite(section.data.tileType, SPRITES),
           rotation: 0, // in radians
           layerName: 'background'

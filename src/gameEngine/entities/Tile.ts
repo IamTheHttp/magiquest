@@ -1,5 +1,5 @@
 import {CANVAS_OUTPUT, PossibleUIShapes, AllowedZoneLocationIDs, WALKABLE_TILE_TYPES} from '../gameConstants';
-import PositionComponent from '../components/PositionComponent';
+import HasPosition from '../components/HasPosition';
 import HasBackgroundUI from '../components/HasBackgroundUI';
 import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
@@ -26,7 +26,7 @@ class Tile extends BaseEntity {
   constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileEntityLevel}: ITileConstructor) {
     super();
     this.tileIdx = tileIdx;
-    this.addComponent(new PositionComponent({x, y, height, width}));
+    this.addComponent(new HasPosition({x, y, height, width}));
 
     // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)

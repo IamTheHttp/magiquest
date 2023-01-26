@@ -11,7 +11,7 @@ import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
 import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
-import {HEALTH_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {HAS_HEALTH} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -85,13 +85,13 @@ describe('Tests for the AI system', () => {
     // now that the enemy stopped moving, lets run the system again to attack
     aiSystem(systemArguments);
 
-    let currentHealth = player[HEALTH_COMP].current;
-    let max = player[HEALTH_COMP].max;
+    let currentHealth = player[HAS_HEALTH].current;
+    let max = player[HAS_HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick-in to attack the player
     attackSystem(systemArguments);
 
-    currentHealth = player[HEALTH_COMP].current;
+    currentHealth = player[HAS_HEALTH].current;
     expect(currentHealth).toBeLessThan(max);
   });
 
@@ -173,13 +173,13 @@ describe('Tests for the AI system', () => {
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);
 
-    let currentHealth = player[HEALTH_COMP].current;
-    let max = player[HEALTH_COMP].max;
+    let currentHealth = player[HAS_HEALTH].current;
+    let max = player[HAS_HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick in to attack the player
     attackSystem(systemArguments);
 
-    currentHealth = player[HEALTH_COMP].current;
+    currentHealth = player[HAS_HEALTH].current;
     expect(currentHealth).toBe(max);
   });
 });

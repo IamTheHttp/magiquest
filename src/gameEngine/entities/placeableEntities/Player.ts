@@ -6,21 +6,21 @@ import {
   CHARACTER_ATTRIBUTES_COMP,
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
-  INVENTORY_COMP,
+  HAS_INVENTORY,
   LEVEL_COMP
 } from '../../components/_ComponentNamesConfig';
-import UIComponent from '../../components/UIComponent';
+import HasUI from '../../components/HasUI';
 import CharacterAttributesComponent from '../../components/CharacterAttributesComponent';
 import CharacterSkillsComponent from '../../components/CharacterSkillsComponent';
 import PlayerControlledComponent from '../../components/PlayerControlledComponent';
 import ExperienceComp from '../../components/ExperienceComp';
-import {InventoryComponent} from '../../components/Inventory';
+import {HasInventory} from '../../components/HasInventory';
 import {IsBlockingMovement} from '../../components/IsBlockingMovement';
 import {CanPickupItems} from '../../components/CanPickupItems';
 
 class Player extends PlaceableEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
-  [INVENTORY_COMP]: InventoryComponent;
+  [HAS_INVENTORY]: HasInventory;
   [LEVEL_COMP]: LevelComp;
   [CHARACTER_SKILLS_COMP]: CharacterSkillsComponent;
   [CHARACTER_ATTRIBUTES_COMP]: CharacterAttributesComponent;
@@ -34,7 +34,7 @@ class Player extends PlaceableEntity {
     super(instanceAttributes, placeableEntityData);
 
     this.name = 'You';
-    this.addComponent(new InventoryComponent());
+    this.addComponent(new HasInventory());
     // Blocks movement on the map
     this.addComponent(new IsBlockingMovement());
     this.addComponent(new CanPickupItems());
@@ -43,7 +43,7 @@ class Player extends PlaceableEntity {
     this.addComponent(new PlayerControlledComponent());
     this.addComponent(new ExperienceComp(1, 0));
     this.addComponent(
-      new UIComponent([
+      new HasUI([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.PLAYER_CHAR,

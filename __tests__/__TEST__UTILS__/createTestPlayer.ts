@@ -1,7 +1,7 @@
 import Player from '../../src/gameEngine/entities/placeableEntities/Player';
 import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES, TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
-import {INVENTORY_COMP} from '../../src/gameEngine/components/_ComponentNamesConfig';
+import {HAS_INVENTORY} from '../../src/gameEngine/components/_ComponentNamesConfig';
 
 function createTestPlayer(col: number, row: number) {
   const player = new Player(
@@ -24,7 +24,7 @@ function createTestPlayer(col: number, row: number) {
     }
   );
 
-  player[INVENTORY_COMP].resetInventory();
+  player[HAS_INVENTORY].resetInventory();
 
   return player;
 }
