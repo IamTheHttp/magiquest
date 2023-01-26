@@ -4,11 +4,11 @@ import {ISystemArguments} from '../../../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import {updateMapTileIdx} from '../../../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateIndexedTileMap} from '../../../../../src/gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import {AllowedZoneLocationIDs, DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';
-import {IS_ATTACKING_COMP} from '../../../../../src/gameEngine/components/ComponentNamesConfig';
+import {IS_ATTACKING_COMP} from '../../../../../src/gameEngine/components/_ComponentNamesConfig';
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;
@@ -27,15 +27,15 @@ describe('Tests the placeLevelEntities util', () => {
 
   it('Performs an action on an enemy entity(attack)', () => {
     let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: enemy,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: enemy.getPos().x,
       newY: enemy.getPos().y
     });
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: player.getPos().x,
       newY: player.getPos().y
     });

@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {DIRECTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
@@ -17,7 +17,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   targetTile: IndexedTile;
   targetEntities: IEntityMap<BaseEntity>;
 } {
-  let {tileIdxMap, Entity, zone} = systemArguments;
+  let {indexedTileMap, Entity, zone} = systemArguments;
   let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   let curOrientation = entity[POSITION_COMP].orientation;
@@ -47,7 +47,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   /**
    * @type {IndexedTile}
    */
-  let targetTile = tileIdxMap[targetIdx];
+  let targetTile = indexedTileMap[targetIdx];
 
   let entities = (targetTile && targetTile.entities) || [];
   return {

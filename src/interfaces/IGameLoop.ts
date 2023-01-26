@@ -2,14 +2,14 @@ import {Entity} from 'game-platform';
 import Game from '../gameEngine/Game';
 import GameEvents from '../gameEngine/classes/GameEvents';
 import {IZone} from './IZones';
-import {ITileIndexMap, IViewSize} from './IGeneral';
+import {IIndexedTileMap, IViewSize} from './IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import {IPlaceableEntityDataMap} from './IPlaceableEntityData';
 import {getSprites} from '../gameEngine/getSprites';
 import PlaceableEntity from '../gameEngine/entities/placeableEntities/PlaceableEntity';
 
 export interface ISystemArguments {
-  tileIdxMap: ITileIndexMap;
+  indexedTileMap: IIndexedTileMap;
   Entity: typeof Entity; // The game-platform static Entity
   mapAPI: Painter;
   minimapAPI: Painter;

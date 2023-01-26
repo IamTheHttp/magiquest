@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../interfaces/IGameLoop';

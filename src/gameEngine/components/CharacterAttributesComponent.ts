@@ -1,4 +1,4 @@
-import {CHARACTER_ATTRIBUTES_COMP} from './ComponentNamesConfig';
+import {CHARACTER_ATTRIBUTES_COMP} from './_ComponentNamesConfig';
 import {AllowedAttributes} from '../../data/attributesConfig';
 
 export interface IAssignedCharacterAttributes {

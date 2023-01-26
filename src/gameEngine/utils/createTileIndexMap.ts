@@ -1,6 +1,6 @@
-import {ITileIndexMap, IViewSize} from '../../interfaces/IGeneral';
+import {IIndexedTileMap, IViewSize} from '../../interfaces/IGeneral';
 import {IZone, IZoneLocation} from '../../interfaces/IZones';
-import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
+import {CAN_SPAWN_COMP} from '../components/_ComponentNamesConfig';
 import {AllowedZoneLocationIDs} from '../gameConstants';
 import Tile from '../entities/Tile';
 import IndexedTile from '../classes/IndexedTile';
@@ -21,7 +21,7 @@ function inRange(a: number, x: number, b: number, inclusive = true) {
   }
 }
 
-function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
+function createTileIndexMap(zone: IZone, viewSize: IViewSize): IIndexedTileMap {
   let {mapHeight, mapWidth} = viewSize;
 
   let tileMap = zone.tileMap;
@@ -30,7 +30,7 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): ITileIndexMap {
   // take levelArea
   // If tile is in SAFE area, remove all "spawnable" from it.
 
-  let idx = {} as ITileIndexMap;
+  let idx = {} as IIndexedTileMap;
 
   for (let rowNumber = 0; rowNumber < tileMap.length; rowNumber++) {
     let row = tileMap[rowNumber];

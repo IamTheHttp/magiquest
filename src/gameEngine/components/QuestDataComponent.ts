@@ -1,4 +1,4 @@
-import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from './ComponentNamesConfig';
+import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from './_ComponentNamesConfig';
 import {AllowedQuestIDs} from '../gameConstants';
 
 export enum AllowedQuestState {

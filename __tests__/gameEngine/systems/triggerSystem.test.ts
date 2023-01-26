@@ -6,7 +6,7 @@ import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import triggerSystem, {pushTrigger} from '../../../src/gameEngine/systems/triggerSystem';
-import {DIALOG_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {DIALOG_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 
 describe('Tests for the trigger system', () => {
   let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;

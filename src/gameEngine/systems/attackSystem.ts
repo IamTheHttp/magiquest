@@ -1,4 +1,4 @@
-import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/ComponentNamesConfig';
+import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -34,8 +34,8 @@ function attackSystem(systemArguments: ISystemArguments) {
       }
 
       for (let entID in targetTile.entities) {
-        if (entity === targetTile.entities[entID]) {
-          continue; // cannot attack self.
+        if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HEALTH_COMP]) {
+          continue; // cannot attack self, or anything without health
         }
 
         let entTarget = targetTile.entities[entID] as PlaceableEntity;

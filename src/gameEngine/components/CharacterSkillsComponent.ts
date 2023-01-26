@@ -1,4 +1,4 @@
-import {CHARACTER_SKILLS_COMP} from './ComponentNamesConfig';
+import {CHARACTER_SKILLS_COMP} from './_ComponentNamesConfig';
 import {AllowedSkills} from '../../data/skillConfig';
 
 class CharacterSkillsComponent {

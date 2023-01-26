@@ -1,4 +1,4 @@
-import {STACKABLE_ON_MAP} from './ComponentNamesConfig';
+import {STACKABLE_ON_MAP} from './_ComponentNamesConfig';
 
 /**
  * This component determines if more than one item can be placed on the same tile

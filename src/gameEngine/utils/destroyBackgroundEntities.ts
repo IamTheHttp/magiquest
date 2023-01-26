@@ -1,4 +1,4 @@
-import {BACKGROUND_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {BACKGROUND_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 function destroyBackgroundEntities() {

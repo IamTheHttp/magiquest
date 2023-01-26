@@ -1,4 +1,4 @@
-import {SPAWNED_COMP} from './ComponentNamesConfig';
+import {SPAWNED_COMP} from './_ComponentNamesConfig';
 import {AllowedZoneLocationIDs} from '../gameConstants';
 
 class SpawnedComponent {

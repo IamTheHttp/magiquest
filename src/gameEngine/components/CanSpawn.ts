@@ -1,4 +1,4 @@
-import {CAN_SPAWN_COMP} from './ComponentNamesConfig';
+import {CAN_SPAWN_COMP} from './_ComponentNamesConfig';
 import {AllowedZoneLocationIDs} from '../gameConstants';
 
 class CanSpawn {

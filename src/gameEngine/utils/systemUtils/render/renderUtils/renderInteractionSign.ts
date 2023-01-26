@@ -1,4 +1,4 @@
-import {HAS_ACTION_SIGN_COMP, POSITION_COMP} from '../../../../components/ComponentNamesConfig';
+import {HAS_ACTION_SIGN_COMP, POSITION_COMP} from '../../../../components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 

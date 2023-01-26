@@ -4,7 +4,7 @@ import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {POSITION_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {POSITION_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';

@@ -1,4 +1,4 @@
-import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
+import {BACKGROUND_COMP, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
 import filterOutFarEntities from '../filterOutFarEntities';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';

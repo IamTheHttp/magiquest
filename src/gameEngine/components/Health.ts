@@ -1,4 +1,4 @@
-import {HEALTH_COMP} from './ComponentNamesConfig';
+import {HEALTH_COMP} from './_ComponentNamesConfig';
 
 class Health {
   name: string;

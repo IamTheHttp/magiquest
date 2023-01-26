@@ -1,4 +1,4 @@
-import {DIALOG_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {DIALOG_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 

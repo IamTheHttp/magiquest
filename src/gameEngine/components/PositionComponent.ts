@@ -1,4 +1,4 @@
-import {POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {POSITION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {DIRECTIONS} from '../gameConstants';
 
 interface IPositionComponentConstructor {

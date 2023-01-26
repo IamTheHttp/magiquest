@@ -1,4 +1,4 @@
-import {ATTACK_COMP} from './ComponentNamesConfig';
+import {ATTACK_COMP} from './_ComponentNamesConfig';
 
 class AttackComponent {
   name: string;

@@ -1,4 +1,4 @@
-import {MOVEMENT_COMP} from '../../components/ComponentNamesConfig';
+import {MOVEMENT_COMP} from '../../components/_ComponentNamesConfig';
 import assertType from '../assertType';
 import {BaseEntity} from '../../BaseEntity';
 

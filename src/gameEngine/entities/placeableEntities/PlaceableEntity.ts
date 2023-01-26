@@ -6,7 +6,7 @@ import PositionComponent from '../../components/PositionComponent';
 import {BaseEntity} from '../../BaseEntity';
 import UIComponent from '../../components/UIComponent';
 import {getCenterPosOfGridIdx} from '../../utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {LEVEL_COMP, SPAWNED_COMP} from '../../components/ComponentNamesConfig';
+import {LEVEL_COMP, SPAWNED_COMP} from '../../components/_ComponentNamesConfig';
 import AIVisionComponent from '../../components/AIVisionComponent';
 import SpawnedComponent from '../../components/SpawnedComponent';
 import MoveComponent from '../../components/MoveComponent';

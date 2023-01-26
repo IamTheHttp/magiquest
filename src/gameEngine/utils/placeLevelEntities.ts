@@ -1,9 +1,9 @@
 import assertType from 'gameEngine/utils/assertType';
-import {updateMapTileIdx} from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {IZone} from '../../interfaces/IZones';
-import {ITileIndexMap} from '../../interfaces/IGeneral';
+import {IIndexedTileMap} from '../../interfaces/IGeneral';
 import Chest from '../entities/placeableEntities/Chest';
 import FamNPC from '../entities/placeableEntities/FamNPC';
 import Enemy from '../entities/placeableEntities/Enemy';
@@ -14,7 +14,11 @@ import {IPlaceableEntityDataMap} from '../../interfaces/IPlaceableEntityData';
  *              Used to place Enemies as well as Friendly NPCs
  *              enemies placed here are configured in levelArea.entitiesToPlace, including their entityLevel
  */
-function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap, placeableEntityDataMap: IPlaceableEntityDataMap) {
+function placeLevelEntities(
+  zone: IZone,
+  indexedTileMap: IIndexedTileMap,
+  placeableEntityDataMap: IPlaceableEntityDataMap
+) {
   for (let i = 0; i < zone.entitiesToPlace.length; i++) {
     let entityToPlace = zone.entitiesToPlace[i];
     let entity = undefined;
@@ -47,9 +51,9 @@ function placeLevelEntities(zone: IZone, tileIdxMap: ITileIndexMap, placeableEnt
       return;
     }
 
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity,
-      tileIdxMap,
+      indexedTileMap: indexedTileMap,
       newX: entity.getPos().x,
       newY: entity.getPos().y
     });

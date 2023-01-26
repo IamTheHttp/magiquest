@@ -1,4 +1,4 @@
-import {IS_MOVING_COMP} from './ComponentNamesConfig';
+import {IS_MOVING_COMP} from './_ComponentNamesConfig';
 
 class IsMoving {
   name: string;

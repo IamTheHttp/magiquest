@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP} from './ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP} from './_ComponentNamesConfig';
 
 class PlayerControlledComponent {
   name: string;

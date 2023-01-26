@@ -16,7 +16,7 @@ import {
   POSITION_COMP,
   SPAWNED_COMP,
   UI_COMP
-} from './components/ComponentNamesConfig';
+} from './components/_ComponentNamesConfig';
 import HasActionSignComponent from './components/HasActionSignComponent';
 import {AllowedQuestState} from './components/QuestDataComponent';
 import CanSpawn from './components/CanSpawn';

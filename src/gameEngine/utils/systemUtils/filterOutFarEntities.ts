@@ -1,4 +1,4 @@
-import {POSITION_COMP} from '../../components/ComponentNamesConfig';
+import {POSITION_COMP} from '../../components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../BaseEntity';
 import {TILE_SIZE} from '../../gameConstants';

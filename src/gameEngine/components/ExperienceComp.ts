@@ -1,4 +1,4 @@
-import {EXPERIENCE_COMP} from './ComponentNamesConfig';
+import {EXPERIENCE_COMP} from './_ComponentNamesConfig';
 import {XP_TO_FIRST_LEVEL} from '../gameConstants';
 
 // TODO add memoization

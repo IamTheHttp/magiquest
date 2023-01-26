@@ -104,7 +104,7 @@ function createSystemArgs({
       notifyBackgroundWasRendered: () => {},
       handleZoneChange: spyHandleAreaChange
     },
-    tileIdxMap: createTileIndexMap(
+    indexedTileMap: createTileIndexMap(
       {
         chapter: 0,
         act: 0,

@@ -1,4 +1,4 @@
-import {AI_VISION_COMP} from './ComponentNamesConfig';
+import {AI_VISION_COMP} from './_ComponentNamesConfig';
 
 class AIVisionComponent {
   name: string;

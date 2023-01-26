@@ -1,4 +1,4 @@
-import {HEALTH_COMP, POSITION_COMP} from '../../../../components/ComponentNamesConfig';
+import {HEALTH_COMP, POSITION_COMP} from '../../../../components/_ComponentNamesConfig';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';

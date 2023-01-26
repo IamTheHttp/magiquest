@@ -2,7 +2,7 @@ import {
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
-} from 'gameEngine/components/ComponentNamesConfig';
+} from 'gameEngine/components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
 import {AllowedSkills, skillsConfig} from '../../../../data/skillConfig';

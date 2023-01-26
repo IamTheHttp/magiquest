@@ -1,4 +1,4 @@
-import {HAS_ACTION_SIGN_COMP} from './ComponentNamesConfig';
+import {HAS_ACTION_SIGN_COMP} from './_ComponentNamesConfig';
 
 class HasActionSignComponent {
   name: string;

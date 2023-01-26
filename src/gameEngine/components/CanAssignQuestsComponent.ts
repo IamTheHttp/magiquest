@@ -1,4 +1,4 @@
-import {CAN_ASSIGN_QUESTS_COMP} from './ComponentNamesConfig';
+import {CAN_ASSIGN_QUESTS_COMP} from './_ComponentNamesConfig';
 import Quest from '../entities/Quest';
 
 class CanAssignQuestsComponent {

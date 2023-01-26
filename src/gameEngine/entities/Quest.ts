@@ -1,7 +1,7 @@
 import {BaseEntity} from '../BaseEntity';
 import questsDataConfig from '../../data/questsDataConfig';
 import QuestDataComponent, {AllowedQuestState, KillQuestDataComponent} from '../components/QuestDataComponent';
-import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from '../components/ComponentNamesConfig';
+import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from '../components/_ComponentNamesConfig';
 import {AllowedQuestIDs} from '../gameConstants';
 
 class Quest extends BaseEntity {

@@ -3,7 +3,7 @@ import {
   AI_CONTROLLED_COMP,
   POSITION_COMP,
   PLAYER_CONTROLLED_COMP
-} from '../components/ComponentNamesConfig';
+} from '../components/_ComponentNamesConfig';
 import IsMoving from '../components/IsMoving';
 import oneOf from '../utils/oneOf';
 import {TILE_SIZE, DIRECTIONS} from '../gameConstants';
@@ -66,7 +66,7 @@ function aiSystem(systemArguments: ISystemArguments) {
       if (isNextToPlayer && !isCurrentlyAttacking) {
         let playerTileIdx = getTileIdxByEnt(player);
 
-        let tileToAttack = systemArguments.tileIdxMap[playerTileIdx];
+        let tileToAttack = systemArguments.indexedTileMap[playerTileIdx];
         entity.addComponent(new IsAttackingComp(tileToAttack));
       }
     }

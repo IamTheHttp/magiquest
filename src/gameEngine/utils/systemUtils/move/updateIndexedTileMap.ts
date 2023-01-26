@@ -1,32 +1,31 @@
 import {getTileIdxByPos} from '../../componentUtils/tileUtils/tileIdxUtils';
-import {ITileIndexMap} from '../../../../interfaces/IGeneral';
+import {IIndexedTileMap} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';
-import {HEALTH_COMP} from '../../../components/ComponentNamesConfig';
 
 interface updateMapTileIdxArguments {
   entity: BaseEntity;
-  tileIdxMap: ITileIndexMap;
+  indexedTileMap: IIndexedTileMap;
   oldX?: number;
   oldY?: number;
   newX?: number;
   newY?: number;
 }
 
-function updateMapTileIdx(updateArgs: updateMapTileIdxArguments) {
+function updateIndexedTileMap(updateArgs: updateMapTileIdxArguments) {
   const {
     entity,
-    tileIdxMap,
+    indexedTileMap,
     oldX = null, // Used to clear the old coordinates from existing entities
     oldY = null, // Used to clear the old coordinates from existing entities
     newX = null,
     newY = null
   } = updateArgs;
 
-  let oldIndexedTile = tileIdxMap[getTileIdxByPos(oldX, oldY)];
-  let newIndexedTile = tileIdxMap[getTileIdxByPos(newX, newY)];
+  const oldIndexedTile = indexedTileMap[getTileIdxByPos(oldX, oldY)];
+  const newIndexedTile = indexedTileMap[getTileIdxByPos(newX, newY)];
 
   oldIndexedTile && oldIndexedTile.removeEnt(entity);
   newIndexedTile && newIndexedTile.addEnt(entity);
 }
 
-export {updateMapTileIdx};
+export {updateIndexedTileMap};

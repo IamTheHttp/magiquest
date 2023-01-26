@@ -7,7 +7,7 @@ import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {AllowedSkills} from '../../../src/data/skillConfig';
 import {Entity} from 'game-platform';
 import Player from '../../../src/gameEngine/entities/placeableEntities/Player';
-import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 import {PlayerSkillsChangeEvent} from '../../../src/gameEngine/classes/GameEvents';
 
 describe('Tests for the User Input system', () => {

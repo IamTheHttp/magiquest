@@ -1,8 +1,8 @@
-import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {updateMapTileIdx} from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {IZone, ITileCoordinate} from '../../interfaces/IZones';
-import {ITileIndexMap} from '../../interfaces/IGeneral';
+import {IIndexedTileMap} from '../../interfaces/IGeneral';
 import {Entity} from 'game-platform';
 import Player from '../entities/placeableEntities/Player';
 import {BaseEntity} from '../BaseEntity';
@@ -10,7 +10,7 @@ import {IPlaceableEntityData} from '../../interfaces/IPlaceableEntityData';
 
 function placePlayerInLevel(
   zone: IZone,
-  tileIdxMap: ITileIndexMap,
+  indexedTileMap: IIndexedTileMap,
   targetTile: ITileCoordinate = null,
   playerData: IPlaceableEntityData
 ) {
@@ -26,7 +26,7 @@ function placePlayerInLevel(
     player.setPos({x, y});
     player.stop();
   }
-  updateMapTileIdx({entity: player, tileIdxMap, newX: x, newY: y});
+  updateIndexedTileMap({entity: player, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
   return player;
 }

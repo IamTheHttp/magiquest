@@ -28,7 +28,7 @@ export class ItemEntity extends PlaceableEntity {
 }
 
 export function dropNewItem({col, row}: {col: number; row: number}) {
-  new ItemEntity(
+  return new ItemEntity(
     {
       col,
       row,

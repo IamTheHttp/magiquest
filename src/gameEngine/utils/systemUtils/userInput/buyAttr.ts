@@ -3,7 +3,7 @@ import {
   CHARACTER_SKILLS_COMP,
   EXPERIENCE_COMP,
   PLAYER_CONTROLLED_COMP
-} from 'gameEngine/components/ComponentNamesConfig';
+} from 'gameEngine/components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import Player from '../../../entities/placeableEntities/Player';
 import {IAction} from '../../../../interfaces/IGeneral';

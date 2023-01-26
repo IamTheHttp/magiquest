@@ -1,4 +1,4 @@
-import {LEVEL_COMP} from './ComponentNamesConfig';
+import {LEVEL_COMP} from './_ComponentNamesConfig';
 
 class LevelComp {
   name: string;

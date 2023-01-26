@@ -1,4 +1,4 @@
-import {ANIMATION_COMP, POSITION_COMP} from '../../../components/ComponentNamesConfig';
+import {ANIMATION_COMP, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
 import {PossibleUIShapes, ATTACK_CONFIG, TILE_SIZE, SPRITE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';

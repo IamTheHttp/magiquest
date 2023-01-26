@@ -1,5 +1,5 @@
 // if an entity has this Component, players can walk over it
-import {TRAVERSABLE_COMP} from './ComponentNamesConfig';
+import {TRAVERSABLE_COMP} from './_ComponentNamesConfig';
 
 class TraversableComponent {
   name: string;

@@ -1,5 +1,5 @@
 import calcNewPosToMove from '../../../../../src/gameEngine/utils/systemUtils/calcNewPosToMove';
-import {MOVEMENT_COMP} from '../../../../../src/gameEngine/components/ComponentNamesConfig';
+import {MOVEMENT_COMP} from '../../../../../src/gameEngine/components/_ComponentNamesConfig';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 
 describe('calc new pos to movet tests', () => {

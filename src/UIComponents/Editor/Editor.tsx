@@ -57,7 +57,7 @@ export function Editor(props: IProps) {
 
     while (rowOffset < currentBrushSize || colOffset < currentBrushSize) {
       updateEditorServerTile(game, col + colOffset, row + rowOffset, selectedTileType);
-      game.tileIdxMap[`${col + colOffset},${row + rowOffset}`].tile.setTileType(selectedTileType);
+      game.indexedTileMap[`${col + colOffset},${row + rowOffset}`].tile.setTileType(selectedTileType);
 
       colOffset++;
 

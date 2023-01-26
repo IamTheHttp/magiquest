@@ -1,4 +1,4 @@
-import {MOVEMENT_COMP} from './ComponentNamesConfig';
+import {MOVEMENT_COMP} from './_ComponentNamesConfig';
 
 class MoveComponent {
   name: string;

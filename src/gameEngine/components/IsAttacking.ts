@@ -1,4 +1,4 @@
-import {IS_ATTACKING_COMP} from './ComponentNamesConfig';
+import {IS_ATTACKING_COMP} from './_ComponentNamesConfig';
 import IndexedTile from '../classes/IndexedTile';
 
 class IsAttackingComp {

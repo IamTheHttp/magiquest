@@ -7,8 +7,8 @@ import {
   EXPERIENCE_COMP,
   HEALTH_COMP,
   PLAYER_CONTROLLED_COMP
-} from './components/ComponentNamesConfig';
-import {IAction, IGameEventListener, ITileIndexMap, IViewSize} from '../interfaces/IGeneral';
+} from './components/_ComponentNamesConfig';
+import {IAction, IGameEventListener, IIndexedTileMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
 import renderSystem from './systems/renderSystem';
@@ -49,7 +49,7 @@ class Game {
   mapAPI: Painter;
   miniMapAPI: Painter;
   onZoneChange: onZoneChangeCallback;
-  tileIdxMap: ITileIndexMap;
+  indexedTileMap: IIndexedTileMap;
   viewSize: IViewSize;
   zone: IZone;
   renderBackground: boolean;
@@ -188,7 +188,7 @@ class Game {
 
   getSystemArguments(mapAPI: Painter, miniMapAPI: Painter): ISystemArguments {
     return {
-      tileIdxMap: this.tileIdxMap,
+      indexedTileMap: this.indexedTileMap,
       zone: this.zone,
       SPRITES: getSprites(),
       Entity,
@@ -259,7 +259,7 @@ class Game {
     };
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
-    this.tileIdxMap = createTileIndexMap(zone, this.viewSize);
+    this.indexedTileMap = createTileIndexMap(zone, this.viewSize);
 
     if (this.mode === 'editing') {
       this.highlightStartPosition();
@@ -268,8 +268,8 @@ class Game {
     // only out of editor mode, when playing
     if (this.mode === 'playing') {
       const playerData = this.placeableEntityDataMap[PLACEABLE_ENTITIES.PLAYER];
-      let player = placePlayerInLevel(zone, this.tileIdxMap, playerStartingTile, playerData);
-      placeLevelEntities(zone, this.tileIdxMap, this.placeableEntityDataMap);
+      let player = placePlayerInLevel(zone, this.indexedTileMap, playerStartingTile, playerData);
+      placeLevelEntities(zone, this.indexedTileMap, this.placeableEntityDataMap);
 
       // set triggers
       // For editor, skip triggers

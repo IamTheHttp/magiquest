@@ -5,7 +5,7 @@ import {
   EXPERIENCE_COMP,
   LEVEL_COMP,
   PLAYER_CONTROLLED_COMP
-} from '../components/ComponentNamesConfig';
+} from '../components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 
 /**

@@ -1,4 +1,4 @@
-import {BACKGROUND_COMP} from './ComponentNamesConfig';
+import {BACKGROUND_COMP} from './_ComponentNamesConfig';
 import {IUISection} from '../../interfaces/IGeneral';
 import UIComponent from './UIComponent';
 

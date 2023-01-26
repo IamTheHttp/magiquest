@@ -5,13 +5,13 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import {updateMapTileIdx} from '../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateIndexedTileMap} from '../../../src/gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';
 import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
-import {HEALTH_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {HEALTH_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -56,9 +56,9 @@ describe('Tests for the AI system', () => {
   it('Chases the player if within vision', () => {
     let player = createTestPlayer(0, 0);
 
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: player.getPos().x,
       newY: player.getPos().y
     });
@@ -98,9 +98,9 @@ describe('Tests for the AI system', () => {
   it('Chase player right', () => {
     let player = createTestPlayer(2, 1);
 
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: player.getPos().x,
       newY: player.getPos().y
     });
@@ -128,9 +128,9 @@ describe('Tests for the AI system', () => {
   it('Chase player down', () => {
     let player = createTestPlayer(0, 2);
 
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: player.getPos().x,
       newY: player.getPos().y
     });
@@ -161,9 +161,9 @@ describe('Tests for the AI system', () => {
      */
     let player = createTestPlayer(0, 0);
 
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: player.getPos().x,
       newY: player.getPos().y
     });

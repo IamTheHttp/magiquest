@@ -1,4 +1,4 @@
-import {ANIMATION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {ANIMATION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
 import {PossibleUIShapes} from '../gameConstants';
 

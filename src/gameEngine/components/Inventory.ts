@@ -1,5 +1,5 @@
-import {INVENTORY_COMP} from './ComponentNamesConfig';
-import {IItem, IWeapon} from '../classes/Item';
+import {INVENTORY_COMP} from './_ComponentNamesConfig';
+import {ItemEntity} from '../entities/placeableEntities/Item';
 
 /**
  * This component allows an entity to have a few things
@@ -9,20 +9,20 @@ import {IItem, IWeapon} from '../classes/Item';
  */
 export class InventoryComponent {
   name: string;
-  equipped: IWeapon[];
-  backpack: IItem[];
+  equipped: ItemEntity[];
+  backpack: ItemEntity[];
   constructor() {
     this.name = INVENTORY_COMP;
     this.equipped = [];
     this.backpack = [];
   }
 
-  addItemToBackpack(item: IItem) {
+  addItemToBackpack(item: ItemEntity) {
     this.backpack.push(item);
   }
 
-  equipWeapon(weapon: IWeapon) {
-    this.equipped.push(weapon);
+  equipItem(item: ItemEntity) {
+    this.equipped.push(item);
   }
 
   resetInventory() {

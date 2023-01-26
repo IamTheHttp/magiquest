@@ -1,5 +1,5 @@
 import filterOutFarEntities from '../utils/systemUtils/filterOutFarEntities';
-import {ANIMATION_COMP, BACKGROUND_COMP, PLAYER_CONTROLLED_COMP, UI_COMP} from '../components/ComponentNamesConfig';
+import {ANIMATION_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP, UI_COMP} from '../components/_ComponentNamesConfig';
 import renderBackgroundLayer from '../utils/systemUtils/render/renderBackgroundLayer';
 import renderMainLayer from '../utils/systemUtils/render/renderMainLayer';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -20,7 +20,7 @@ function renderSystem(systemArguments: ISystemArguments) {
     mapAPI.drawAllShapesInLayer('background');
   }
 
-  let entitiesWithUI = Entity.getByComps<BaseEntity>([UI_COMP]); // O1 fetching
+  let entitiesWithUI = Entity.getByComps<BaseEntity>([UI_COMP, POSITION_COMP]); // O1 fetching
   let closeEntitiesWithUI = filterOutFarEntities(systemArguments, entitiesWithUI);
 
   let entitiesWithAnimations = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);

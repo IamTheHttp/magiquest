@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {DIRECTIONS} from 'gameEngine/gameConstants';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';

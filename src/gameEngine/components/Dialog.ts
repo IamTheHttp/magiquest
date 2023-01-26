@@ -1,4 +1,4 @@
-import {DIALOG_COMP} from './ComponentNamesConfig';
+import {DIALOG_COMP} from './_ComponentNamesConfig';
 
 // Used within renderDialog
 class Dialog {

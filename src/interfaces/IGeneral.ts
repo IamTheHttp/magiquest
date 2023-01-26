@@ -16,7 +16,7 @@ export interface IViewSize {
   mapWidth: number;
 }
 
-export interface ITileIndexMap {
+export interface IIndexedTileMap {
   [key: string]: IndexedTile;
 }
 

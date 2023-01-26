@@ -1,8 +1,8 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import attackSystem from 'gameEngine/systems/attackSystem';
 import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import {updateMapTileIdx} from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {IS_ATTACKING_COMP, HEALTH_COMP, ATTACK_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
@@ -23,9 +23,9 @@ describe('attack system tests', () => {
     player = createTestPlayer(0, 0);
 
     let {x, y} = player.getPos();
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity: player,
-      tileIdxMap: systemArguments.tileIdxMap,
+      indexedTileMap: systemArguments.indexedTileMap,
       newX: x,
       newY: y
     });
@@ -36,7 +36,7 @@ describe('attack system tests', () => {
   });
 
   it('attacks an empty tile without errors', () => {
-    let targetTile = systemArguments.tileIdxMap['1,1']; // TODO move to util to abstract the comma
+    let targetTile = systemArguments.indexedTileMap['1,1']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
@@ -45,7 +45,7 @@ describe('attack system tests', () => {
   });
 
   it('Cannot attack self', () => {
-    let targetTile = systemArguments.tileIdxMap['0,0']; // TODO move to util to abstract the comma
+    let targetTile = systemArguments.indexedTileMap['0,0']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
@@ -59,12 +59,12 @@ describe('attack system tests', () => {
   });
 
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
-    let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
+    let {indexedTileMap} = systemArguments;
+    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
 
     let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
+    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
     let playerDmg = player[ATTACK_COMP].damage;
     let maxHealth = enemy[HEALTH_COMP].max;
@@ -87,11 +87,11 @@ describe('attack system tests', () => {
   });
 
   it('Can kill an enemy', () => {
-    let {tileIdxMap, gameEvents} = systemArguments;
-    let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
+    let {indexedTileMap, gameEvents} = systemArguments;
+    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
     let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
+    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
     // expect(enemy.hasComponents()).toBeFalsy();
 
@@ -112,11 +112,11 @@ describe('attack system tests', () => {
   });
 
   it('No longer attacks once the attack frames are done', () => {
-    let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
+    let {indexedTileMap} = systemArguments;
+    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
     let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let {x, y} = enemy.getPos();
-    updateMapTileIdx({entity: enemy, tileIdxMap, newX: x, newY: y});
+    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -133,8 +133,8 @@ describe('attack system tests', () => {
   });
 
   it('Higher level enemies have more damage', () => {
-    let {tileIdxMap} = systemArguments;
-    let targetTile = tileIdxMap['1,1']; // TODO move to util to abstract the comma
+    let {indexedTileMap} = systemArguments;
+    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
     let weak = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let strong = createNewEnemy(1, 1, 100, AllowedZoneLocationIDs.TOWN);
 

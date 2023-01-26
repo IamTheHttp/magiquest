@@ -7,7 +7,7 @@ import {
   POSITION_COMP,
   QUEST_DATA_COMP,
   UI_COMP
-} from '../components/ComponentNamesConfig';
+} from '../components/_ComponentNamesConfig';
 import Quest, {KillQuest} from '../entities/Quest';
 import {BaseEntity} from '../BaseEntity';
 import {AllowedQuestState} from '../components/QuestDataComponent';

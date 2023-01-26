@@ -1,4 +1,4 @@
-import {CAN_SPAWN_COMP} from '../components/ComponentNamesConfig';
+import {CAN_SPAWN_COMP} from '../components/_ComponentNamesConfig';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';

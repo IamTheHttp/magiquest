@@ -3,7 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {Entity} from 'game-platform';
 import placeLevelEntities from '../../../src/gameEngine/utils/placeLevelEntities';
-import {LEVEL_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {LEVEL_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import {PLACEABLE_ENTITIES} from '../../../src/gameEngine/gameConstants';
 import {createTestPlaceableEntity} from '../../__TEST__UTILS__/createTestPlaceableEntity';
@@ -15,7 +15,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('places some entities', () => {
-    let {tileIdxMap} = createSystemArgs(new SpyFns());
+    let {indexedTileMap} = createSystemArgs(new SpyFns());
     placeLevelEntities(
       {
         chapter: 0,
@@ -67,7 +67,7 @@ describe('Tests the placeLevelEntities util', () => {
           }
         ]
       },
-      tileIdxMap,
+      indexedTileMap,
       {
         [PLACEABLE_ENTITIES.FAM_NPC]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.FAM_NPC}),
         [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})

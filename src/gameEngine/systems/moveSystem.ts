@@ -1,7 +1,15 @@
-import {MOVEMENT_COMP, IS_MOVING_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
+import {
+  MOVEMENT_COMP,
+  IS_MOVING_COMP,
+  POSITION_COMP,
+  STACKABLE_ON_MAP,
+  CAN_PICKUP_ITEMS,
+  INVENTORY_COMP,
+  UI_COMP
+} from 'gameEngine/components/_ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
-import {updateMapTileIdx} from '../utils/systemUtils/move/updateMapTileIdx';
+import {updateIndexedTileMap} from '../utils/systemUtils/move/updateIndexedTileMap';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'gameEngine/utils/isNum';
@@ -14,6 +22,9 @@ import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';
 import {TILE_SIZE} from '../gameConstants';
+import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
+import Player from '../entities/placeableEntities/Player';
+import {ItemEntity} from '../entities/placeableEntities/Item';
 
 // TODO - Sort this mess :) -- ORIENTATION vs DIRECTION vs animation.direction
 
@@ -23,7 +34,7 @@ import {TILE_SIZE} from '../gameConstants';
  * @param {BaseEntity} entity
  */
 function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
-  let {mapAPI, game, tileIdxMap, viewSize, zone} = systemArguments;
+  let {mapAPI, game, indexedTileMap, viewSize, zone} = systemArguments;
   let {mapHeight, mapWidth, viewHeight, viewWidth} = viewSize;
   let {x: currX, y: currY} = entity.getPos();
   let {x: desiredDestX, y: desiredDestY} = entity.getDest();
@@ -75,14 +86,29 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   if (entity.isDestReached()) {
     // insert the entity as an occupant of the tile
     // since we're moving - make sure the entity leaves the origin tile
-    updateMapTileIdx({
+    updateIndexedTileMap({
       entity,
-      tileIdxMap,
+      indexedTileMap,
       newX: entity.getDest().x,
       newY: entity.getDest().y,
       oldX: entity[POSITION_COMP].originX,
       oldY: entity[POSITION_COMP].originY
     });
+
+    // Are there any items in this tile?
+    if (entity.hasComponents(CAN_PICKUP_ITEMS) && entity.hasComponents(INVENTORY_COMP)) {
+      const indexedTile = indexedTileMap[getTileIdxByPos(entity.getPos().x, entity.getPos().y)];
+
+      for (const entID in indexedTile.entities) {
+        const entInTile = indexedTile.entities[entID] as ItemEntity;
+        // For all the items, collect them to backpack
+        if (entInTile instanceof ItemEntity) {
+          indexedTile.removeEnt(entInTile);
+          entInTile.removeComponent(POSITION_COMP);
+          (entity as Player)[INVENTORY_COMP].addItemToBackpack(entInTile);
+        }
+      }
+    }
 
     // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
     entity.stop();
@@ -126,7 +152,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   /**
    * Stopping Point - Is our (modified) destination traversable? if not, we stop.
    */
-  if (!isTraversable(tileIdxMap, modDestX, modDestY, entity)) {
+  if (!isTraversable(indexedTileMap, modDestX, modDestY, entity)) {
     entity.stop();
     return;
   }
@@ -134,9 +160,9 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   /**
    * Prep before we move, occupy the target tile
    */
-  updateMapTileIdx({
+  updateIndexedTileMap({
     entity,
-    tileIdxMap,
+    indexedTileMap: indexedTileMap,
     newX: entity.getDest().x,
     newY: entity.getDest().y
   });
@@ -159,7 +185,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
    */
 
   Promise.resolve().then(() => {
-    updateMapTileIdx({entity, tileIdxMap, oldX: currX, oldY: currY});
+    updateIndexedTileMap({entity, indexedTileMap: indexedTileMap, oldX: currX, oldY: currY});
   });
 
   entity.setPos({

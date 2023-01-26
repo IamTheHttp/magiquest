@@ -1,4 +1,4 @@
-import {DIALOG_COMP, STACKABLE_ON_MAP} from 'gameEngine/components/ComponentNamesConfig';
+import {DIALOG_COMP, STACKABLE_ON_MAP} from 'gameEngine/components/_ComponentNamesConfig';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderUtils/renderDialog';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';

@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP} from '../../../components/ComponentNamesConfig';
+import {PLAYER_CONTROLLED_COMP} from '../../../components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';

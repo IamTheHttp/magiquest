@@ -4,7 +4,7 @@ import BackgroundComponent from '../components/BackgroundComponent';
 import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
-import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/ComponentNamesConfig';
+import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/_ComponentNamesConfig';
 
 interface ITileConstructor {
   x: number;

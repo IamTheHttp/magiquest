@@ -8,15 +8,15 @@ import {
   EXPERIENCE_COMP,
   INVENTORY_COMP,
   LEVEL_COMP
-} from '../../components/ComponentNamesConfig';
+} from '../../components/_ComponentNamesConfig';
 import UIComponent from '../../components/UIComponent';
 import CharacterAttributesComponent from '../../components/CharacterAttributesComponent';
 import CharacterSkillsComponent from '../../components/CharacterSkillsComponent';
 import PlayerControlledComponent from '../../components/PlayerControlledComponent';
 import ExperienceComp from '../../components/ExperienceComp';
 import {InventoryComponent} from '../../components/Inventory';
-import {GENERIC_WEAPON} from '../../classes/Item';
-import {ItemEntity} from './Item';
+import {IsBlockingMovement} from '../../components/IsBlockingMovement';
+import {CanPickupItems} from '../../components/CanPickupItems';
 
 class Player extends PlaceableEntity {
   [EXPERIENCE_COMP]: ExperienceComp;
@@ -35,50 +35,9 @@ class Player extends PlaceableEntity {
 
     this.name = 'You';
     this.addComponent(new InventoryComponent());
-
-    // TODO remove from here.
-    this[INVENTORY_COMP].equipWeapon(new GENERIC_WEAPON());
-    this[INVENTORY_COMP].addItemToBackpack(new GENERIC_WEAPON());
-
-    // TODO Remove this from here, this is for testing the dropped item mechanic
-    new ItemEntity(
-      {
-        col: instanceAttributes.col + 1,
-        row: instanceAttributes.row + 1,
-        entityLevel: 1,
-        spawningTileLocationID: null
-      },
-      {
-        dmg: 0,
-        attackSpeed: null,
-        displayName: null,
-        health: null,
-        radius: TILE_SIZE / 2,
-        speed: 0,
-        vision: 0,
-        id: 'ITEM'
-      }
-    );
-
-    new ItemEntity(
-      {
-        col: instanceAttributes.col + 1,
-        row: instanceAttributes.row + 1,
-        entityLevel: 1,
-        spawningTileLocationID: null
-      },
-      {
-        dmg: 0,
-        attackSpeed: null,
-        displayName: null,
-        health: null,
-        radius: TILE_SIZE / 2,
-        speed: 0,
-        vision: 0,
-        id: 'ITEM'
-      }
-    );
-
+    // Blocks movement on the map
+    this.addComponent(new IsBlockingMovement());
+    this.addComponent(new CanPickupItems());
     this.addComponent(new CharacterSkillsComponent());
     this.addComponent(new CharacterAttributesComponent());
     this.addComponent(new PlayerControlledComponent());

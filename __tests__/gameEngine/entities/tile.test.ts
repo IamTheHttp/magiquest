@@ -2,7 +2,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import {Entity} from 'game-platform';
-import {CAN_SPAWN_COMP} from '../../../src/gameEngine/components/ComponentNamesConfig';
+import {CAN_SPAWN_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
 import {AllowedZoneLocationIDs} from '../../../src/gameEngine/gameConstants';
 import Tile from '../../../src/gameEngine/entities/Tile';
 

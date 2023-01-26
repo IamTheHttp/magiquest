@@ -1,4 +1,4 @@
-import {UI_COMP} from './ComponentNamesConfig';
+import {UI_COMP} from './_ComponentNamesConfig';
 import assertType from 'gameEngine/utils/assertType';
 import {IUISection} from '../../interfaces/IGeneral';
 

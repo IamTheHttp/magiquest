@@ -1,4 +1,4 @@
-import {AI_CONTROLLED_COMP} from './ComponentNamesConfig';
+import {AI_CONTROLLED_COMP} from './_ComponentNamesConfig';
 
 class AIControlledComp {
   name: string;
