@@ -29,4 +29,4 @@ function updateMapTileIdx(updateArgs: updateMapTileIdxArguments) {
   newIndexedTile && newIndexedTile.addEnt(entity);
 }
 
-export default updateMapTileIdx;
+export {updateMapTileIdx};

@@ -1,7 +1,7 @@
 import {MOVEMENT_COMP, IS_MOVING_COMP, POSITION_COMP} from 'gameEngine/components/ComponentNamesConfig';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
-import updateMapTileIdx from '../utils/systemUtils/move/updateMapTileIdx';
+import {updateMapTileIdx} from '../utils/systemUtils/move/updateMapTileIdx';
 import calcNewPosToMove from '../utils/systemUtils/calcNewPosToMove';
 import centerCameraOnEntity from '../utils/systemUtils/centerCameraOnEntity';
 import isNum from 'gameEngine/utils/isNum';

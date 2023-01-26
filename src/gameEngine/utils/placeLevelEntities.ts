@@ -1,5 +1,5 @@
 import assertType from 'gameEngine/utils/assertType';
-import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateMapTileIdx} from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {IZone} from '../../interfaces/IZones';

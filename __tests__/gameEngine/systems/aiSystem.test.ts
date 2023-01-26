@@ -5,7 +5,7 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import updateMapTileIdx from '../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateMapTileIdx} from '../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import IsMoving from '../../../src/gameEngine/components/IsMoving';

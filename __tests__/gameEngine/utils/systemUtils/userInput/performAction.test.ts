@@ -4,7 +4,7 @@ import {ISystemArguments} from '../../../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import updateMapTileIdx from '../../../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateMapTileIdx} from '../../../../../src/gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {AllowedZoneLocationIDs, DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';

@@ -1,5 +1,5 @@
 import {PLAYER_CONTROLLED_COMP} from 'gameEngine/components/ComponentNamesConfig';
-import updateMapTileIdx from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
+import {updateMapTileIdx} from 'gameEngine/utils/systemUtils/move/updateMapTileIdx';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {IZone, ITileCoordinate} from '../../interfaces/IZones';
 import {ITileIndexMap} from '../../interfaces/IGeneral';
