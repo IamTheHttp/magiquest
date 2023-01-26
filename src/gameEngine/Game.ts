@@ -102,7 +102,7 @@ class Game {
       engine.addSystem(dropItemSystem); // process destroyedEntities and do things
     }
 
-    // Destroy all entities before rendering
+    // Destroy all entities that need to be destroyed before rendering
     engine.addSystem(destroyEntitiesSystem);
     // Render game
     engine.addSystem(renderSystem);

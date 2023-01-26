@@ -5,15 +5,12 @@ import {BaseEntity} from '../../../BaseEntity';
 
 // is an x, y traversable for an entity
 function isTraversable(tileIdxMap: ITileIndexMap, x: number, y: number, entity: BaseEntity) {
-  let tileIdx = getTileIdxByPos(x, y);
-  if (!tileIdxMap[tileIdx]) {
-    return;
-  }
+  const tileIdx = getTileIdxByPos(x, y);
+  const indexedTile = tileIdxMap[tileIdx];
 
-  let indexedTile = tileIdxMap[tileIdx];
-
+  // TODO ItemDrops - we should only be checking for blocking entities, an item is still traversable
   if (indexedTile.getEntCount() > 0) {
-    // someone is in this tile.. but it's me..
+    // someone is in this tile... but it's the {entity} that wants to move.
     if (indexedTile.entities[entity.id] && indexedTile.getEntCount() === 1) {
       // do nothing, this is okay
     } else {

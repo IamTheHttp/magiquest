@@ -9,6 +9,7 @@ import Tile from '../entities/Tile';
 class IndexedTile {
   idx: string;
   entities: IEntityMap<BaseEntity>;
+  // TODO ItemDrops - We can consider adding a utility variable "isTraversable"
   tile: Tile;
   entityCount: number;
 

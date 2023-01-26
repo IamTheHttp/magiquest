@@ -12,26 +12,16 @@ interface updateMapTileIdxArguments {
   newY?: number;
 }
 
-function updateMapTileIdx({
-  entity,
-  tileIdxMap,
-  oldX = null,
-  oldY = null,
-  newX = null,
-  newY = null
-}: updateMapTileIdxArguments) {
-  // This was due to a bug that caused dead entities
-  // that on the next tick needed to change tiles
-  // to still move after being dead (since death is async by a tick.
-  // TODO all systems actually operate on dead entities, they can still attack for example, this needs to be addressed
-  // TODO - A dead Entity should probably not survive the tick...
+function updateMapTileIdx(updateArgs: updateMapTileIdxArguments) {
+  const {
+    entity,
+    tileIdxMap,
+    oldX = null, // Used to clear the old coordinates from existing entities
+    oldY = null, // Used to clear the old coordinates from existing entities
+    newX = null,
+    newY = null
+  } = updateArgs;
 
-  if (entity.hasComponents(HEALTH_COMP) && entity[HEALTH_COMP].current === 0) {
-    return;
-  }
-  /**
-   * @type IndexedTile
-   */
   let oldIndexedTile = tileIdxMap[getTileIdxByPos(oldX, oldY)];
   let newIndexedTile = tileIdxMap[getTileIdxByPos(newX, newY)];
 
