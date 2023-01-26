@@ -1,5 +1,5 @@
 import {AllowedZoneLocationIDs, ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
-import {IAnimationDefinitionMap} from '../gameEngine/components/AnimationComp';
+import {IAnimationDefinitionMap} from '../gameEngine/components/HasAnimations';
 
 type IPlaceableEntityData = {
   dmg: number;

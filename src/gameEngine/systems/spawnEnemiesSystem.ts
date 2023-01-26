@@ -1,4 +1,4 @@
-import {CAN_SPAWN_COMP} from '../components/_ComponentNamesConfig';
+import {CAN_SPAWN} from '../components/_ComponentNamesConfig';
 import {getGridIdxFromPos} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
@@ -7,14 +7,14 @@ import {BaseEntity} from '../BaseEntity';
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
   let {Entity, placeableEntityDataMap} = systemArguments;
-  let spawningEntities = Entity.getByComps<BaseEntity>([CAN_SPAWN_COMP]);
+  let spawningEntities = Entity.getByComps<BaseEntity>([CAN_SPAWN]);
   const monsterDensity = systemArguments.zone.monsterDensity;
 
   entityLoop(spawningEntities, (spawningEntity) => {
     const {x, y} = spawningEntity.getPos(); // for example a tile that can spawn
     const {col, row} = getGridIdxFromPos(x, y);
-    const spawningTileLocationID = spawningEntity[CAN_SPAWN_COMP].tileLocationID;
-    const entityLevel = spawningEntity[CAN_SPAWN_COMP].tileEntityLevel;
+    const spawningTileLocationID = spawningEntity[CAN_SPAWN].tileLocationID;
+    const entityLevel = spawningEntity[CAN_SPAWN].tileEntityLevel;
     const spawnableEnemies = systemArguments.zone.spawnableEnemies;
 
     spawnableEnemies.forEach((enemyToSpawn) => {
@@ -29,7 +29,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
         }
       }
     });
-    spawningEntity.removeComponent(CAN_SPAWN_COMP);
+    spawningEntity.removeComponent(CAN_SPAWN);
   });
 }
 

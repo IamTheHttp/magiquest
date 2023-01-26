@@ -1,6 +1,6 @@
 import {IIndexedTileMap, IViewSize} from '../../interfaces/IGeneral';
 import {IZone, IZoneLocation} from '../../interfaces/IZones';
-import {CAN_SPAWN_COMP} from '../components/_ComponentNamesConfig';
+import {CAN_SPAWN} from '../components/_ComponentNamesConfig';
 import {AllowedZoneLocationIDs} from '../gameConstants';
 import Tile from '../entities/Tile';
 import IndexedTile from '../classes/IndexedTile';
@@ -92,7 +92,7 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): IIndexedTileMap {
         let withinY = inRange(safeLocation.start.row, rowNumber, safeLocation.end.row);
 
         if (withinX && withinY) {
-          tile.removeComponent(CAN_SPAWN_COMP);
+          tile.removeComponent(CAN_SPAWN);
         }
       });
 

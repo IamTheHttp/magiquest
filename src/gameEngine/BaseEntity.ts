@@ -1,11 +1,11 @@
 import {Entity} from 'game-platform';
 import {
-  AI_VISION_COMP,
-  ANIMATION_COMP,
-  ATTACK_COMP,
-  BACKGROUND_COMP,
-  CAN_ASSIGN_QUESTS_COMP,
-  CAN_SPAWN_COMP,
+  HAS_AI_VISION,
+  HAS_ANIMATIONS,
+  CAN_ATTACK,
+  HAS_BACKGROUND_UI,
+  CAN_ASSIGN_QUESTS,
+  CAN_SPAWN,
   DIALOG_COMP,
   HAS_ACTION_SIGN_COMP,
   HEALTH_COMP,
@@ -20,10 +20,10 @@ import {
 import HasActionSignComponent from './components/HasActionSignComponent';
 import {AllowedQuestState} from './components/QuestDataComponent';
 import CanSpawn from './components/CanSpawn';
-import BackgroundComponent from './components/BackgroundComponent';
+import HasBackgroundUI from './components/HasBackgroundUI';
 import PlayerControlledComponent from './components/PlayerControlledComponent';
 import Dialog from './components/Dialog';
-import {AnimationComp, IRunningAnimationMap, IAnimationDefinition} from './components/AnimationComp';
+import {HasAnimations, IRunningAnimationMap, IAnimationDefinition} from './components/HasAnimations';
 import {TILE_SIZE, DIRECTIONS} from './gameConstants';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import MoveComponent from './components/MoveComponent';
@@ -32,35 +32,35 @@ import IsMoving from './components/IsMoving';
 import Health from './components/Health';
 import PositionComponent from './components/PositionComponent';
 import UIComponent from './components/UIComponent';
-import CanAssignQuestsComponent from './components/CanAssignQuestsComponent';
+import CanAssignQuests from './components/CanAssignQuests';
 import Quest from './entities/Quest';
 import IsAttackingComp from './components/IsAttacking';
-import AIVisionComponent from './components/AIVisionComponent';
-import AttackComponent from './components/AttackComponent';
+import HasAIVision from './components/HasAIVision';
+import CanAttack from './components/CanAttack';
 import Player from './entities/placeableEntities/Player';
 
 class BaseEntity extends Entity {
   id: number;
   name: string;
   [HEALTH_COMP]: Health; // Rename to HealthComp?
-  [ANIMATION_COMP]: AnimationComp;
+  [HAS_ANIMATIONS]: HasAnimations;
   [PLAYER_CONTROLLED_COMP]: PlayerControlledComponent;
   [MOVEMENT_COMP]: MoveComponent;
   [POSITION_COMP]: PositionComponent;
   [IS_MOVING_COMP]: IsMoving;
-  [AI_VISION_COMP]: AIVisionComponent;
+  [HAS_AI_VISION]: HasAIVision;
   [IS_ATTACKING_COMP]: IsAttackingComp;
-  [ATTACK_COMP]: AttackComponent;
+  [CAN_ATTACK]: CanAttack;
   [DIALOG_COMP]: Dialog;
-  [BACKGROUND_COMP]: BackgroundComponent;
-  [CAN_SPAWN_COMP]: CanSpawn;
+  [HAS_BACKGROUND_UI]: HasBackgroundUI;
+  [CAN_SPAWN]: CanSpawn;
   [UI_COMP]: UIComponent;
-  [CAN_ASSIGN_QUESTS_COMP]: CanAssignQuestsComponent;
+  [CAN_ASSIGN_QUESTS]: CanAssignQuests;
   [HAS_ACTION_SIGN_COMP]: HasActionSignComponent;
   [SPAWNED_COMP]: SpawnedComponent;
 
   addAnimationToRun(animation: IAnimationDefinition) {
-    this[ANIMATION_COMP].addAnimationToRun(animation);
+    this[HAS_ANIMATIONS].addAnimationToRun(animation);
   }
 
   isPlayer(): this is Player {
@@ -68,11 +68,11 @@ class BaseEntity extends Entity {
   }
 
   removeAllRunningAnimations() {
-    if (!this[ANIMATION_COMP]) {
+    if (!this[HAS_ANIMATIONS]) {
       return;
     }
 
-    this[ANIMATION_COMP].runningAnimations = {};
+    this[HAS_ANIMATIONS].runningAnimations = {};
   }
 
   calcOrientation(destX: number, destY: number): keyof typeof DIRECTIONS {
@@ -95,14 +95,14 @@ class BaseEntity extends Entity {
    * Get the running animations of the entity, those that are in progress
    */
   getRunningAnimations(): IRunningAnimationMap {
-    return (this[ANIMATION_COMP] && this[ANIMATION_COMP].runningAnimations) || {};
+    return (this[HAS_ANIMATIONS] && this[HAS_ANIMATIONS].runningAnimations) || {};
   }
 
   /**
    * Get the possible animations this entity can have
    */
   getPossibleAnimations() {
-    return this[ANIMATION_COMP] && this[ANIMATION_COMP].possibleAnimationsForEntity;
+    return this[HAS_ANIMATIONS] && this[HAS_ANIMATIONS].possibleAnimationsForEntity;
   }
 
   isSpecificAnimationRunning(name: string) {
@@ -114,14 +114,14 @@ class BaseEntity extends Entity {
   }
 
   removeRunningAnimation(animationName: string) {
-    if (!this[ANIMATION_COMP]) {
+    if (!this[HAS_ANIMATIONS]) {
       return;
     }
-    delete this[ANIMATION_COMP].runningAnimations[animationName];
+    delete this[HAS_ANIMATIONS].runningAnimations[animationName];
   }
 
   getAIVisionRange() {
-    return this[AI_VISION_COMP] && this[AI_VISION_COMP].range;
+    return this[HAS_AI_VISION] && this[HAS_AI_VISION].range;
   }
 
   isAttacking() {
@@ -206,8 +206,8 @@ class BaseEntity extends Entity {
   }
 
   getQuests() {
-    if (this[CAN_ASSIGN_QUESTS_COMP]) {
-      return this[CAN_ASSIGN_QUESTS_COMP].quests;
+    if (this[CAN_ASSIGN_QUESTS]) {
+      return this[CAN_ASSIGN_QUESTS].quests;
     } else {
       return [];
     }

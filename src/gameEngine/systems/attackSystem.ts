@@ -1,4 +1,4 @@
-import {ATTACK_COMP, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
+import {CAN_ATTACK, HEALTH_COMP, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -10,11 +10,11 @@ import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
 function attackSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entities = Entity.getByComps<BaseEntity>([IS_ATTACKING_COMP, ATTACK_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([IS_ATTACKING_COMP, CAN_ATTACK]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
-      let dmg = entity[ATTACK_COMP].damage;
-      let coolDownFrames = entity[ATTACK_COMP].cooldownFrames;
+      let dmg = entity[CAN_ATTACK].damage;
+      let coolDownFrames = entity[CAN_ATTACK].cooldownFrames;
       let targetTile = entity[IS_ATTACKING_COMP].targetTile;
       let currentFrame = entity[IS_ATTACKING_COMP].currentFrame;
 

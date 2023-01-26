@@ -5,7 +5,7 @@
 import {BaseEntity} from 'gameEngine/BaseEntity';
 import PositionComponent from 'gameEngine/components/PositionComponent';
 import UIComponent from 'gameEngine/components/UIComponent';
-import {AnimationComp} from 'gameEngine/components/AnimationComp';
+import {HasAnimations} from 'gameEngine/components/HasAnimations';
 import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
@@ -71,7 +71,7 @@ class ShockWave extends BaseEntity {
     }
 
     this.addComponent(
-      new AnimationComp({
+      new HasAnimations({
         SHOCKWAVE: {
           animationDurationInTicks, // each 'frame' takes this many
           frames,

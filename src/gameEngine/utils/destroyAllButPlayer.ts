@@ -1,4 +1,4 @@
-import {AI_CONTROLLED_COMP, PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {IS_CONTROLLED_BY_AI, PLAYER_CONTROLLED_COMP, POSITION_COMP} from 'gameEngine/components/_ComponentNamesConfig';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 

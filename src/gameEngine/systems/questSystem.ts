@@ -1,6 +1,6 @@
 import {GameEvent, InteractWithNPC} from '../classes/GameEvents';
 import {
-  CAN_ASSIGN_QUESTS_COMP,
+  CAN_ASSIGN_QUESTS,
   HAS_ACTION_SIGN_COMP,
   KILL_QUEST_DATA_COMP,
   PLAYER_CONTROLLED_COMP,
@@ -18,7 +18,7 @@ import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP]);
+  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS, POSITION_COMP, UI_COMP]);
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
 
   // Quests are entities that inside a component

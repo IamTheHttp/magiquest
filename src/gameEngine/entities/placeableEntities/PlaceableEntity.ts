@@ -7,11 +7,11 @@ import {BaseEntity} from '../../BaseEntity';
 import UIComponent from '../../components/UIComponent';
 import {getCenterPosOfGridIdx} from '../../utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {LEVEL_COMP, SPAWNED_COMP} from '../../components/_ComponentNamesConfig';
-import AIVisionComponent from '../../components/AIVisionComponent';
+import HasAIVision from '../../components/HasAIVision';
 import SpawnedComponent from '../../components/SpawnedComponent';
 import MoveComponent from '../../components/MoveComponent';
-import {AnimationComp} from '../../components/AnimationComp';
-import AttackComponent from '../../components/AttackComponent';
+import {HasAnimations} from '../../components/HasAnimations';
+import CanAttack from '../../components/CanAttack';
 
 class PlaceableEntity extends BaseEntity {
   [SPAWNED_COMP]: SpawnedComponent;
@@ -47,16 +47,16 @@ class PlaceableEntity extends BaseEntity {
     }
 
     if (vision) {
-      this.addComponent(new AIVisionComponent(vision));
+      this.addComponent(new HasAIVision(vision));
     }
 
     if (dmg) {
       let adjustedDmg = this.getLevelAdjustedDamage(dmg, entityLevel);
-      this.addComponent(new AttackComponent(adjustedDmg, ATTACK_SPEEDS[attackSpeed]));
+      this.addComponent(new CanAttack(adjustedDmg, ATTACK_SPEEDS[attackSpeed]));
     }
 
     if (possibleAnimationsForEntity) {
-      this.addComponent(new AnimationComp(possibleAnimationsForEntity));
+      this.addComponent(new HasAnimations(possibleAnimationsForEntity));
     }
   }
 

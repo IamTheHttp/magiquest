@@ -1,10 +1,10 @@
 import {CANVAS_OUTPUT, PossibleUIShapes, AllowedZoneLocationIDs, WALKABLE_TILE_TYPES} from '../gameConstants';
 import PositionComponent from '../components/PositionComponent';
-import BackgroundComponent from '../components/BackgroundComponent';
+import HasBackgroundUI from '../components/HasBackgroundUI';
 import TraversableComponent from '../components/TraversableComponent';
 import {BaseEntity} from '../BaseEntity';
 import CanSpawn from 'gameEngine/components/CanSpawn';
-import {BACKGROUND_COMP, TRAVERSABLE_COMP} from '../components/_ComponentNamesConfig';
+import {HAS_BACKGROUND_UI, TRAVERSABLE_COMP} from '../components/_ComponentNamesConfig';
 
 interface ITileConstructor {
   x: number;
@@ -36,7 +36,7 @@ class Tile extends BaseEntity {
     }
 
     this.addComponent(
-      new BackgroundComponent([
+      new HasBackgroundUI([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.MAP_TILE_SHAPE,
@@ -56,9 +56,9 @@ class Tile extends BaseEntity {
       this.removeComponent(TRAVERSABLE_COMP);
     }
 
-    this.removeComponent(BACKGROUND_COMP);
+    this.removeComponent(HAS_BACKGROUND_UI);
     this.addComponent(
-      new BackgroundComponent([
+      new HasBackgroundUI([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.MAP_TILE_SHAPE,

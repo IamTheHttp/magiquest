@@ -1,14 +1,14 @@
-import {ANIMATION_COMP} from '../components/_ComponentNamesConfig';
+import {HAS_ANIMATIONS} from '../components/_ComponentNamesConfig';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {BaseEntity} from '../BaseEntity';
 
 function animationSystem(systemArguments: ISystemArguments) {
   const {Entity} = systemArguments;
-  const entities = Entity.getByComps<BaseEntity>([ANIMATION_COMP]);
+  const entities = Entity.getByComps<BaseEntity>([HAS_ANIMATIONS]);
 
   for (let i = 0; i < entities.length; i++) {
     const entity = entities[i];
-    const runningAnimations = entity[ANIMATION_COMP].runningAnimations;
+    const runningAnimations = entity[HAS_ANIMATIONS].runningAnimations;
 
     for (const animationName in runningAnimations) {
       const animation = runningAnimations[animationName];

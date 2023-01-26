@@ -1,4 +1,4 @@
-import {ANIMATION_COMP, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
+import {HAS_ANIMATIONS, POSITION_COMP} from '../../../components/_ComponentNamesConfig';
 import {PossibleUIShapes, ATTACK_CONFIG, TILE_SIZE, SPRITE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -8,7 +8,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
   let {mapAPI} = systemArguments;
 
   for (let anim in entity.getRunningAnimations()) {
-    let {currentFrame, frames} = entity[ANIMATION_COMP].runningAnimations[anim];
+    let {currentFrame, frames} = entity[HAS_ANIMATIONS].runningAnimations[anim];
 
     let frame = frames[currentFrame];
 

@@ -1,8 +1,8 @@
-import {AI_CONTROLLED_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {IS_CONTROLLED_BY_AI} from 'gameEngine/components/_ComponentNamesConfig';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 function destroyAIEntities() {
-  let oldEnemies = Entity.getByComp<BaseEntity>(AI_CONTROLLED_COMP);
+  let oldEnemies = Entity.getByComp<BaseEntity>(IS_CONTROLLED_BY_AI);
   entityLoop(oldEnemies, (entity) => {
     entity.destroy();
   });

@@ -1,7 +1,7 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import {LEVEL_COMP, SPAWNED_COMP} from '../../components/_ComponentNamesConfig';
 import LevelComp from '../../components/LevelComp';
-import AIControlledComp from '../../components/AIControlledComp';
+import {IsControlledByAI} from '../../components/IsControlledByAI';
 import PlaceableEntity from './PlaceableEntity';
 import SpawnedComponent from '../../components/SpawnedComponent';
 import {IsBlockingMovement} from '../../components/IsBlockingMovement';
@@ -16,7 +16,7 @@ class Enemy extends PlaceableEntity {
       placeableEntityData;
 
     this.addComponent(new SpawnedComponent(spawningTileLocationID));
-    this.addComponent(new AIControlledComp());
+    this.addComponent(new IsControlledByAI());
     // Blocks movement on the map
     this.addComponent(new IsBlockingMovement());
   }
