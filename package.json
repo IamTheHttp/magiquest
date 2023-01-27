@@ -6,13 +6,10 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development --hot",
     "build": "webpack --mode production",
-    "prebuild": "npm run formatcode",
-    "pretest": "npm run formatcode ",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
     "test:commit": "npm run build && npm run test",
     "test:coverage": "npm run test -- --coverage",
-    "prestart": "npm run formatcode",
     "start:editor": "cd Editor; npm start",
     "release": "release-it",
     "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"

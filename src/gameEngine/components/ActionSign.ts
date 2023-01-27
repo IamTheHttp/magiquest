@@ -1,6 +1,6 @@
 import {ACTION_SIGN} from './_ComponentNames';
 
-class ActionSign {
+class HasActionSignComponent {
   name: string;
   constructor(public symbol: '?' | '!') {
     this.name = ACTION_SIGN;
@@ -8,4 +8,4 @@ class ActionSign {
   }
 }
 
-export default ActionSign;
+export default HasActionSignComponent;
