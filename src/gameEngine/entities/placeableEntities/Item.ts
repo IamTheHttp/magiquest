@@ -2,7 +2,7 @@ import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfac
 import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs, TILE_SIZE} from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
-import {StackableOnMapComponent} from '../../components/StackableOnMapComponent';
+import {Stackable} from '../../components/Stackable';
 
 /**
  * An entity that represents a weapon that can be found on the ground
@@ -11,7 +11,7 @@ export class ItemEntity extends PlaceableEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super(instanceAttributes, placeableEntityData);
 
-    this.addComponent(new StackableOnMapComponent());
+    this.addComponent(new Stackable());
     this.addComponent(
       new HasUI([
         {

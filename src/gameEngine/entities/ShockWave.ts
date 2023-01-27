@@ -3,9 +3,9 @@
 
  */
 import {BaseEntity} from 'gameEngine/BaseEntity';
-import HasPosition from 'gameEngine/components/HasPosition';
+import Position from 'gameEngine/components/Position';
 import HasUI from 'gameEngine/components/HasUI';
-import {HasAnimations} from 'gameEngine/components/HasAnimations';
+import {Animations} from 'gameEngine/components/Animations';
 import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
@@ -31,7 +31,7 @@ class ShockWave extends BaseEntity {
   constructor({x, y, radius = TILE_SIZE / 2, fromTileIdx, toTileIdx, color = 'red'}: IShockWaveConstructor) {
     super();
 
-    this.addComponent(new HasPosition({x, y, radius}));
+    this.addComponent(new Position({x, y, radius}));
     this.addComponent(new HasUI([]));
 
     let origin = getCenterPosOfTile(fromTileIdx);
@@ -71,7 +71,7 @@ class ShockWave extends BaseEntity {
     }
 
     this.addComponent(
-      new HasAnimations({
+      new Animations({
         SHOCKWAVE: {
           animationDurationInTicks, // each 'frame' takes this many
           frames,

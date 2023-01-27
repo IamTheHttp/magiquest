@@ -1,4 +1,4 @@
-import {EXPERIENCE_COMP} from './_ComponentNamesConfig';
+import {EXPERIENCE} from './_ComponentNames';
 import {XP_TO_FIRST_LEVEL} from '../gameConstants';
 
 // TODO add memoization
@@ -13,14 +13,14 @@ function getXPToLevel(level: number): number {
   return 2 * getXPToLevel(level - 1);
 }
 
-class ExperienceComp {
+class Experience {
   name: string;
   XP: number;
   level: number;
   XPtoNextLevel: number;
 
   constructor(level: number = 1, XP = 0) {
-    this.name = EXPERIENCE_COMP;
+    this.name = EXPERIENCE;
     this.XP = XP;
     this.level = level;
   }
@@ -48,4 +48,4 @@ class ExperienceComp {
 }
 
 export {getXPToLevel};
-export default ExperienceComp;
+export default Experience;

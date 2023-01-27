@@ -1,11 +1,11 @@
-import {IS_BLOCKING_MOVEMENT} from './_ComponentNamesConfig';
+import {ITEM_PICKUP} from './_ComponentNames';
 
 /**
  * This component determines if movement is blocked on the map when this entity is on a tile
  */
-export class IsBlockingMovement {
+export class ItemPickup {
   name: string;
   constructor() {
-    this.name = IS_BLOCKING_MOVEMENT;
+    this.name = ITEM_PICKUP;
   }
 }

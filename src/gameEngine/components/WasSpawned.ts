@@ -1,13 +1,13 @@
-import {SPAWNED_COMP} from './_ComponentNamesConfig';
+import {WAS_SPAWNED} from './_ComponentNames';
 import {AllowedZoneLocationIDs} from '../gameConstants';
 
-class SpawnedComponent {
+class WasSpawned {
   name: string;
   spawningTileLocationID: AllowedZoneLocationIDs;
   constructor(spawningTileLocationID: AllowedZoneLocationIDs) {
-    this.name = SPAWNED_COMP;
+    this.name = WAS_SPAWNED;
     this.spawningTileLocationID = spawningTileLocationID;
   }
 }
 
-export default SpawnedComponent;
+export default WasSpawned;

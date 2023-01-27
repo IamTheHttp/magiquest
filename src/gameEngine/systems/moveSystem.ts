@@ -1,12 +1,4 @@
-import {
-  MOVEMENT_COMP,
-  IS_MOVING_COMP,
-  HAS_POSITION,
-  STACKABLE_ON_MAP,
-  CAN_PICKUP_ITEMS,
-  HAS_INVENTORY,
-  HAS_UI
-} from 'gameEngine/components/_ComponentNamesConfig';
+import {MOVEMENT, MOVING, POSITION, STACKABLE, ITEM_PICKUP, INVENTORY, UI} from 'gameEngine/components/_ComponentNames';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import {updateIndexedTileMap} from '../utils/systemUtils/move/updateIndexedTileMap';
@@ -90,12 +82,12 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
       indexedTileMap,
       newX: entity.getDest().x,
       newY: entity.getDest().y,
-      oldX: entity[HAS_POSITION].originX,
-      oldY: entity[HAS_POSITION].originY
+      oldX: entity[POSITION].originX,
+      oldY: entity[POSITION].originY
     });
 
     // Are there any items in this tile?
-    if (entity.hasComponents(CAN_PICKUP_ITEMS) && entity.hasComponents(HAS_INVENTORY)) {
+    if (entity.hasComponents(ITEM_PICKUP) && entity.hasComponents(INVENTORY)) {
       const indexedTile = indexedTileMap[getTileIdxByPos(entity.getPos().x, entity.getPos().y)];
 
       for (const entID in indexedTile.entities) {
@@ -103,8 +95,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
         // For all the items, collect them to backpack
         if (entInTile instanceof ItemEntity) {
           indexedTile.removeEnt(entInTile);
-          entInTile.removeComponent(HAS_POSITION);
-          (entity as Player)[HAS_INVENTORY].addItemToBackpack(entInTile);
+          entInTile.removeComponent(POSITION);
+          (entity as Player)[INVENTORY].addItemToBackpack(entInTile);
         }
       }
     }
@@ -202,7 +194,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
 }
 
 function moveSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([MOVEMENT_COMP, HAS_POSITION, IS_MOVING_COMP]);
+  let entities = Entity.getByComps<BaseEntity>([MOVEMENT, POSITION, MOVING]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity);

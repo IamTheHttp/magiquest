@@ -1,4 +1,4 @@
-import {HAS_ANIMATIONS} from 'gameEngine/components/_ComponentNamesConfig';
+import {ANIMATIONS} from 'gameEngine/components/_ComponentNames';
 import assertType from 'gameEngine/utils/assertType';
 import {PossibleUIShapes} from '../gameConstants';
 
@@ -44,13 +44,13 @@ export interface IRunningAnimation extends IAnimationDefinition {
 export type IAnimationDefinitionMap = Record<string, IAnimationDefinition>;
 export type IRunningAnimationMap = Record<string, IRunningAnimation>;
 
-export class HasAnimations {
+export class Animations {
   name: string;
   runningAnimations: IRunningAnimationMap;
   possibleAnimationsForEntity: IAnimationDefinitionMap;
 
   constructor(possibleAnimationsForEntity: IAnimationDefinitionMap) {
-    this.name = HAS_ANIMATIONS;
+    this.name = ANIMATIONS;
     this.runningAnimations = {};
     this.possibleAnimationsForEntity = possibleAnimationsForEntity;
   }

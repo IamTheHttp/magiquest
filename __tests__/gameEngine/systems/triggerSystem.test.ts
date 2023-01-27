@@ -6,7 +6,7 @@ import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import triggerSystem, {pushTrigger} from '../../../src/gameEngine/systems/triggerSystem';
-import {DIALOG_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {DIALOG} from '../../../src/gameEngine/components/_ComponentNames';
 
 describe('Tests for the trigger system', () => {
   let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
@@ -40,13 +40,13 @@ describe('Tests for the trigger system', () => {
     });
 
     triggerSystem(systemArguments);
-    expect(NPC[DIALOG_COMP].text).toContain('foo');
+    expect(NPC[DIALOG].text).toContain('foo');
 
     // since we have a multi line dialog, at the end of the tick is new pushTrigger is called
     Promise.resolve().then(() => {
       triggerSystem(systemArguments);
 
-      expect(NPC[DIALOG_COMP].text).toContain('bar');
+      expect(NPC[DIALOG].text).toContain('bar');
       done();
     });
   });

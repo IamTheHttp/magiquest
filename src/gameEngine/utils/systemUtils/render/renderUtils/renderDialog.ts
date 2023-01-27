@@ -1,4 +1,4 @@
-import {DIALOG_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {DIALOG} from 'gameEngine/components/_ComponentNames';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
@@ -14,7 +14,7 @@ function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
     id: 'someText',
     x,
     y,
-    text: `${entity[DIALOG_COMP].speaker}:\n${entity[DIALOG_COMP].text}`,
+    text: `${entity[DIALOG].speaker}:\n${entity[DIALOG].text}`,
     backgroundColor: '#b78846',
     borderColor: '#FFFFFF',
     borderWidth: 1,

@@ -1,5 +1,5 @@
 import filterOutFarEntities from '../utils/systemUtils/filterOutFarEntities';
-import {HAS_ANIMATIONS, PLAYER_CONTROLLED_COMP, HAS_POSITION, HAS_UI} from '../components/_ComponentNamesConfig';
+import {ANIMATIONS, PLAYER_CONTROLLED, POSITION, UI} from '../components/_ComponentNames';
 import renderBackgroundLayer from '../utils/systemUtils/render/renderBackgroundLayer';
 import renderMainLayer from '../utils/systemUtils/render/renderMainLayer';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -20,14 +20,14 @@ function renderSystem(systemArguments: ISystemArguments) {
     mapAPI.drawAllShapesInLayer('background');
   }
 
-  let entitiesWithUI = Entity.getByComps<BaseEntity>([HAS_UI, HAS_POSITION]); // O1 fetching
+  let entitiesWithUI = Entity.getByComps<BaseEntity>([UI, POSITION]); // O1 fetching
   let closeEntitiesWithUI = filterOutFarEntities(systemArguments, entitiesWithUI);
 
-  let entitiesWithAnimations = Entity.getByComps<BaseEntity>([HAS_ANIMATIONS]);
+  let entitiesWithAnimations = Entity.getByComps<BaseEntity>([ANIMATIONS]);
   let closeEntitiesWithAnimations = filterOutFarEntities(systemArguments, entitiesWithAnimations);
 
   // Just in case we pan out from the player, somehow, skip the rendering of the player.
-  const player = filterOutFarEntities(systemArguments, Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP))[0] as Player;
+  const player = filterOutFarEntities(systemArguments, Entity.getByComp<Player>(PLAYER_CONTROLLED))[0] as Player;
 
   const mainLayerData = {
     closeEntitiesWithUI,

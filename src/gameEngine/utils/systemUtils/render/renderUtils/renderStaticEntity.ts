@@ -1,6 +1,6 @@
 import {renderBackpackItems} from './renderBackpackItems';
 import {renderInteractionSign} from './renderInteractionSign';
-import {HAS_POSITION, HAS_UI} from '../../../../components/_ComponentNamesConfig';
+import {POSITION, UI} from '../../../../components/_ComponentNames';
 import {DIRECTIONS, PossibleUIShapes, TILE_SIZE} from '../../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
@@ -30,7 +30,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
   // Draw UI Components related to a specific entity
   // These usually are related to the position of the entity itself
-  entity[HAS_UI].sections.forEach((section) => {
+  entity[UI].sections.forEach((section) => {
     if (section.shape === PossibleUIShapes.CIRCLE_SHAPE) {
       renderCircle(systemArguments, entity, section);
     }
@@ -45,7 +45,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
     // Draw a chest
     if (section.shape === PossibleUIShapes.CHEST_SHAPE) {
-      let {radius, x, y} = entity[HAS_POSITION];
+      let {radius, x, y} = entity[POSITION];
       mapAPI.drawImage({
         id: `${entity.id}`,
         ...SPRITES.ENTITY_CHEST,
@@ -59,7 +59,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
     // Draw a dropped item
     if (section.shape === PossibleUIShapes.DROPPED_ITEM_SHAPE) {
-      let {radius, x, y} = entity[HAS_POSITION];
+      let {radius, x, y} = entity[POSITION];
 
       mapAPI.drawImage({
         id: `${entity.id}`,
@@ -85,7 +85,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
       let playerSprite = spriteCrop[entity.getOrientation()];
 
-      let {radius, x, y} = entity[HAS_POSITION];
+      let {radius, x, y} = entity[POSITION];
       // When the player is out of animation phase, this is what we show
       mapAPI.drawImage({
         id: `${entity.id}`,

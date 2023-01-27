@@ -8,10 +8,10 @@ import {Entity} from 'game-platform';
 import {updateIndexedTileMap} from '../../../src/gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
-import IsMoving from '../../../src/gameEngine/components/IsMoving';
+import Moving from '../../../src/gameEngine/components/Moving';
 import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
-import {HAS_HEALTH} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {HEALTH} from '../../../src/gameEngine/components/_ComponentNames';
 
 describe('Tests for the AI system', () => {
   let systemArguments: ISystemArguments, spyPan;
@@ -42,7 +42,7 @@ describe('Tests for the AI system', () => {
   it('doesnt move an already moving AI', () => {
     let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
 
-    ent.addComponent(new IsMoving());
+    ent.addComponent(new Moving());
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
@@ -85,13 +85,13 @@ describe('Tests for the AI system', () => {
     // now that the enemy stopped moving, lets run the system again to attack
     aiSystem(systemArguments);
 
-    let currentHealth = player[HAS_HEALTH].current;
-    let max = player[HAS_HEALTH].max;
+    let currentHealth = player[HEALTH].current;
+    let max = player[HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick-in to attack the player
     attackSystem(systemArguments);
 
-    currentHealth = player[HAS_HEALTH].current;
+    currentHealth = player[HEALTH].current;
     expect(currentHealth).toBeLessThan(max);
   });
 
@@ -173,13 +173,13 @@ describe('Tests for the AI system', () => {
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);
 
-    let currentHealth = player[HAS_HEALTH].current;
-    let max = player[HAS_HEALTH].max;
+    let currentHealth = player[HEALTH].current;
+    let max = player[HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick in to attack the player
     attackSystem(systemArguments);
 
-    currentHealth = player[HAS_HEALTH].current;
+    currentHealth = player[HEALTH].current;
     expect(currentHealth).toBe(max);
   });
 });

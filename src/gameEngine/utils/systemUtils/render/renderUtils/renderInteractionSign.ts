@@ -1,13 +1,13 @@
-import {HAS_ACTION_SIGN_COMP, HAS_POSITION} from '../../../../components/_ComponentNamesConfig';
+import {ACTION_SIGN, POSITION} from '../../../../components/_ComponentNames';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
 export function renderInteractionSign(entity: BaseEntity, systemArguments: ISystemArguments) {
   const {mapAPI} = systemArguments;
 
-  if (entity.hasComponents(HAS_ACTION_SIGN_COMP)) {
-    let {x, y, radius} = entity[HAS_POSITION];
-    let {symbol} = entity[HAS_ACTION_SIGN_COMP];
+  if (entity.hasComponents(ACTION_SIGN)) {
+    let {x, y, radius} = entity[POSITION];
+    let {symbol} = entity[ACTION_SIGN];
     mapAPI.drawText({
       id: `${entity.id}-assign-quest`,
       text: symbol,

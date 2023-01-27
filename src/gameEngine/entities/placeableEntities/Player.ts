@@ -1,29 +1,23 @@
-import LevelComp from '../../components/LevelComp';
+import Levels from '../../components/Levels';
 import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import PlaceableEntity from './PlaceableEntity';
-import {
-  CHARACTER_ATTRIBUTES_COMP,
-  CHARACTER_SKILLS_COMP,
-  EXPERIENCE_COMP,
-  HAS_INVENTORY,
-  LEVEL_COMP
-} from '../../components/_ComponentNamesConfig';
+import {ATTRIBUTES, SKILLS, EXPERIENCE, INVENTORY, LEVELS} from '../../components/_ComponentNames';
 import HasUI from '../../components/HasUI';
-import CharacterAttributesComponent from '../../components/CharacterAttributesComponent';
-import CharacterSkillsComponent from '../../components/CharacterSkillsComponent';
-import PlayerControlledComponent from '../../components/PlayerControlledComponent';
-import ExperienceComp from '../../components/ExperienceComp';
+import Attributes from '../../components/Attributes';
+import Skills from '../../components/Skills';
+import PlayerControlled from '../../components/PlayerControlled';
+import Experience from '../../components/Experience';
 import {HasInventory} from '../../components/HasInventory';
-import {IsBlockingMovement} from '../../components/IsBlockingMovement';
-import {CanPickupItems} from '../../components/CanPickupItems';
+import {Blocking} from '../../components/Blocking';
+import {ItemPickup} from '../../components/ItemPickup';
 
 class Player extends PlaceableEntity {
-  [EXPERIENCE_COMP]: ExperienceComp;
-  [HAS_INVENTORY]: HasInventory;
-  [LEVEL_COMP]: LevelComp;
-  [CHARACTER_SKILLS_COMP]: CharacterSkillsComponent;
-  [CHARACTER_ATTRIBUTES_COMP]: CharacterAttributesComponent;
+  [EXPERIENCE]: Experience;
+  [INVENTORY]: HasInventory;
+  [LEVELS]: Levels;
+  [SKILLS]: Skills;
+  [ATTRIBUTES]: Attributes;
 
   /**
    * See data/json files for placeableEntityData
@@ -36,12 +30,12 @@ class Player extends PlaceableEntity {
     this.name = 'You';
     this.addComponent(new HasInventory());
     // Blocks movement on the map
-    this.addComponent(new IsBlockingMovement());
-    this.addComponent(new CanPickupItems());
-    this.addComponent(new CharacterSkillsComponent());
-    this.addComponent(new CharacterAttributesComponent());
-    this.addComponent(new PlayerControlledComponent());
-    this.addComponent(new ExperienceComp(1, 0));
+    this.addComponent(new Blocking());
+    this.addComponent(new ItemPickup());
+    this.addComponent(new Skills());
+    this.addComponent(new Attributes());
+    this.addComponent(new PlayerControlled());
+    this.addComponent(new Experience(1, 0));
     this.addComponent(
       new HasUI([
         {

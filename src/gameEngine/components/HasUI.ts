@@ -1,4 +1,4 @@
-import {HAS_UI} from './_ComponentNamesConfig';
+import {UI} from './_ComponentNames';
 import assertType from 'gameEngine/utils/assertType';
 import {IUISection} from '../../interfaces/IGeneral';
 
@@ -11,7 +11,7 @@ class HasUI {
   sections: IUISection[];
 
   constructor(sections: IUISection[] = []) {
-    this.name = HAS_UI;
+    this.name = UI;
 
     let sectionsArray = Array.isArray(sections) ? sections : [sections];
 

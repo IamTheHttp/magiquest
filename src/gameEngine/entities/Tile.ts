@@ -1,10 +1,10 @@
 import {CANVAS_OUTPUT, PossibleUIShapes, AllowedZoneLocationIDs, WALKABLE_TILE_TYPES} from '../gameConstants';
-import HasPosition from '../components/HasPosition';
-import HasBackgroundUI from '../components/HasBackgroundUI';
-import TraversableComponent from '../components/TraversableComponent';
+import Position from '../components/Position';
+import Background from '../components/Background';
+import Traversable from '../components/Traversable';
 import {BaseEntity} from '../BaseEntity';
-import CanSpawn from 'gameEngine/components/CanSpawn';
-import {HAS_BACKGROUND_UI, TRAVERSABLE_COMP} from '../components/_ComponentNamesConfig';
+import Spawner from 'gameEngine/components/Spawner';
+import {BACKGROUND, TRAVERSABLE} from '../components/_ComponentNames';
 
 interface ITileConstructor {
   x: number;
@@ -26,17 +26,17 @@ class Tile extends BaseEntity {
   constructor({x, y, tileIdx, height, width, tileType, tileLocationID, tileEntityLevel}: ITileConstructor) {
     super();
     this.tileIdx = tileIdx;
-    this.addComponent(new HasPosition({x, y, height, width}));
+    this.addComponent(new Position({x, y, height, width}));
 
     // 1 is grass, 7 is road
     // REFACTOR - Seems strange here.. (if type === 1?)
     if (WALKABLE_TILE_TYPES.includes(tileType)) {
-      this.addComponent(new TraversableComponent());
-      this.addComponent(new CanSpawn(tileLocationID, tileEntityLevel));
+      this.addComponent(new Traversable());
+      this.addComponent(new Spawner(tileLocationID, tileEntityLevel));
     }
 
     this.addComponent(
-      new HasBackgroundUI([
+      new Background([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.MAP_TILE_SHAPE,
@@ -51,14 +51,14 @@ class Tile extends BaseEntity {
   // TODO for Editor mode only, allows change the tile type in the editor mode
   setTileType(tileType: number) {
     if (WALKABLE_TILE_TYPES.includes(tileType)) {
-      this.addComponent(new TraversableComponent());
+      this.addComponent(new Traversable());
     } else {
-      this.removeComponent(TRAVERSABLE_COMP);
+      this.removeComponent(TRAVERSABLE);
     }
 
-    this.removeComponent(HAS_BACKGROUND_UI);
+    this.removeComponent(BACKGROUND);
     this.addComponent(
-      new HasBackgroundUI([
+      new Background([
         {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.MAP_TILE_SHAPE,

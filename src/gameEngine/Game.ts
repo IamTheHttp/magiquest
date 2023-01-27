@@ -1,13 +1,7 @@
 import {IZone, ITileCoordinate} from '../interfaces/IZones';
 import {Engine, Entity} from 'game-platform';
 import createTileIndexMap from './utils/createTileIndexMap';
-import {
-  CHARACTER_ATTRIBUTES_COMP,
-  CHARACTER_SKILLS_COMP,
-  EXPERIENCE_COMP,
-  HAS_HEALTH,
-  PLAYER_CONTROLLED_COMP
-} from './components/_ComponentNamesConfig';
+import {ATTRIBUTES, SKILLS, EXPERIENCE, HEALTH, PLAYER_CONTROLLED} from './components/_ComponentNames';
 import {IAction, IGameEventListener, IIndexedTileMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
@@ -35,7 +29,7 @@ import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT, PossibleUIShapes, PLACEABLE_ENTITI
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
-import HasPosition from './components/HasPosition';
+import Position from './components/Position';
 import HasUI from './components/HasUI';
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {getSprites} from './getSprites';
@@ -126,7 +120,7 @@ class Game {
 
     const {x, y} = this.getZoneStartXY();
     startPosEntity.addComponent(
-      new HasPosition({
+      new Position({
         x,
         y,
         radius: 0.5 * TILE_SIZE
@@ -205,7 +199,7 @@ class Game {
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
-    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
     player.setPos({
       x: TILE_SIZE / 2 + col * TILE_SIZE,
       y: TILE_SIZE / 2 + row * TILE_SIZE
@@ -216,7 +210,7 @@ class Game {
 
   // TODO this is for development/ EDITOR mode only!
   centerOnPlayer() {
-    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
     this.renderBackground = true; // for the first time
 
@@ -354,16 +348,16 @@ class Game {
   }
 
   getPlayerStateEvent(): PlayerStateChangeEvent {
-    const player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
+    const player = Entity.getByComp<Player>(PLAYER_CONTROLLED)[0];
     return new PlayerStateChangeEvent({
-      maxHealth: player[HAS_HEALTH].max,
-      currentHealth: player[HAS_HEALTH].current,
-      percentHealth: player[HAS_HEALTH].current / player[HAS_HEALTH].max,
-      skills: [...player[CHARACTER_SKILLS_COMP].skills],
-      spendableXP: player[EXPERIENCE_COMP].XP,
-      levelProgress: player[EXPERIENCE_COMP].getLevelProgress(),
-      attributes: player[CHARACTER_ATTRIBUTES_COMP].attributes,
-      spendableAttributePoints: player[CHARACTER_ATTRIBUTES_COMP].spendableAttributePoints
+      maxHealth: player[HEALTH].max,
+      currentHealth: player[HEALTH].current,
+      percentHealth: player[HEALTH].current / player[HEALTH].max,
+      skills: [...player[SKILLS].skills],
+      spendableXP: player[EXPERIENCE].XP,
+      levelProgress: player[EXPERIENCE].getLevelProgress(),
+      attributes: player[ATTRIBUTES].attributes,
+      spendableAttributePoints: player[ATTRIBUTES].spendableAttributePoints
     });
   }
 

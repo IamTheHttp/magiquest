@@ -2,7 +2,7 @@ import {AllowedActions, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameCo
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
 import {AllowedSkills} from '../data/skillConfig';
-import {IAssignedCharacterAttributes} from '../gameEngine/components/CharacterAttributesComponent';
+import {IAssignedCharacterAttributes} from '../gameEngine/components/Attributes';
 
 /**
  * Represents the resolution properties of the game

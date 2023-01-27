@@ -1,13 +1,13 @@
-import {HAS_HEALTH} from './_ComponentNamesConfig';
+import {HEALTH} from './_ComponentNames';
 
-class HasHealth {
+class Health {
   name: string;
   max: number;
   current: number;
   width: number;
   height: number;
   constructor(maxHealth: number, width: number, height: number) {
-    this.name = HAS_HEALTH;
+    this.name = HEALTH;
     this.max = maxHealth;
     this.current = maxHealth;
     this.width = width;
@@ -15,4 +15,4 @@ class HasHealth {
   }
 }
 
-export default HasHealth;
+export default Health;

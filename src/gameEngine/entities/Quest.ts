@@ -1,29 +1,29 @@
 import {BaseEntity} from '../BaseEntity';
 import questsDataConfig from '../../data/questsDataConfig';
-import QuestDataComponent, {AllowedQuestState, KillQuestDataComponent} from '../components/QuestDataComponent';
-import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from '../components/_ComponentNamesConfig';
+import QuestData, {AllowedQuestState, KillQuestDataComponent} from '../components/QuestData';
+import {KILL_QUEST_DATA, QUEST_DATA} from '../components/_ComponentNames';
 import {AllowedQuestIDs} from '../gameConstants';
 
 class Quest extends BaseEntity {
-  [QUEST_DATA_COMP]: QuestDataComponent;
+  [QUEST_DATA]: QuestData;
   constructor(questID: AllowedQuestIDs) {
     super();
-    this.addComponent(new QuestDataComponent(questID, questsDataConfig[questID]));
+    this.addComponent(new QuestData(questID, questsDataConfig[questID]));
   }
 
   getFinishedText() {
-    return this[QUEST_DATA_COMP].data.finishedText;
+    return this[QUEST_DATA].data.finishedText;
   }
   getDescription() {
-    return this[QUEST_DATA_COMP].data.description;
+    return this[QUEST_DATA].data.description;
   }
 
   getState() {
-    return this[QUEST_DATA_COMP].data.state;
+    return this[QUEST_DATA].data.state;
   }
 
   setState(newState: AllowedQuestState) {
-    this[QUEST_DATA_COMP].data.state = newState;
+    this[QUEST_DATA].data.state = newState;
   }
 
   isPostReqComplete() {
@@ -32,7 +32,7 @@ class Quest extends BaseEntity {
 }
 
 export class KillQuest extends Quest {
-  [KILL_QUEST_DATA_COMP]: KillQuestDataComponent;
+  [KILL_QUEST_DATA]: KillQuestDataComponent;
   constructor(questID: AllowedQuestIDs) {
     super(questID);
     // This 'Any' is allowed, as technically all this DataConfig will be coming from a JSON in the future
@@ -41,7 +41,7 @@ export class KillQuest extends Quest {
   }
 
   isPostReqComplete() {
-    return this[KILL_QUEST_DATA_COMP].data.kill.killed >= this[KILL_QUEST_DATA_COMP].data.kill.killGoal;
+    return this[KILL_QUEST_DATA].data.kill.killed >= this[KILL_QUEST_DATA].data.kill.killGoal;
   }
 }
 

@@ -1,7 +1,7 @@
-import {PLAYER_CONTROLLED_COMP, HAS_POSITION} from 'gameEngine/components/_ComponentNamesConfig';
+import {PLAYER_CONTROLLED, POSITION} from 'gameEngine/components/_ComponentNames';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {DIRECTIONS} from 'gameEngine/gameConstants';
-import IsAttackingComp from 'gameEngine/components/IsAttacking';
+import IsAttackingComp from 'gameEngine/components/Attacking';
 import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {entityLoop} from 'game-platform';
@@ -18,9 +18,9 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   targetEntities: IEntityMap<BaseEntity>;
 } {
   let {indexedTileMap, Entity, zone} = systemArguments;
-  let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+  let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
-  let curOrientation = entity[HAS_POSITION].orientation;
+  let curOrientation = entity[POSITION].orientation;
 
   // tile to perform action on...
   let tileIdx = getTileIdxByEnt(entity);
@@ -59,7 +59,7 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
 function performAction(systemArguments: ISystemArguments, action: IAction) {
   let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
   let {Entity, zone, gameEvents} = systemArguments;
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   entityLoop(targetEntities, (targetEnt) => {
     // try to attack

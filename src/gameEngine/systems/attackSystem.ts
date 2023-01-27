@@ -1,4 +1,4 @@
-import {CAN_ATTACK, HAS_HEALTH, IS_ATTACKING_COMP, PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
+import {ATTACKER, HEALTH, ATTACKING, PLAYER_CONTROLLED} from '../components/_ComponentNames';
 import ShockWave from 'gameEngine/entities/ShockWave';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -10,41 +10,41 @@ import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
 function attackSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entities = Entity.getByComps<BaseEntity>([IS_ATTACKING_COMP, CAN_ATTACK]);
+  let entities = Entity.getByComps<BaseEntity>([ATTACKING, ATTACKER]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
-      let dmg = entity[CAN_ATTACK].damage;
-      let coolDownFrames = entity[CAN_ATTACK].cooldownFrames;
-      let targetTile = entity[IS_ATTACKING_COMP].targetTile;
-      let currentFrame = entity[IS_ATTACKING_COMP].currentFrame;
+      let dmg = entity[ATTACKER].damage;
+      let coolDownFrames = entity[ATTACKER].cooldownFrames;
+      let targetTile = entity[ATTACKING].targetTile;
+      let currentFrame = entity[ATTACKING].currentFrame;
 
       if (currentFrame === coolDownFrames) {
-        entity.removeComponent(IS_ATTACKING_COMP);
+        entity.removeComponent(ATTACKING);
         return;
       }
 
       if (currentFrame > 0) {
-        entity[IS_ATTACKING_COMP].currentFrame++;
+        entity[ATTACKING].currentFrame++;
         return;
       }
 
       if (targetTile.getEntCount() === 0) {
-        entity.removeComponent(IS_ATTACKING_COMP);
+        entity.removeComponent(ATTACKING);
         return;
       }
 
       for (let entID in targetTile.entities) {
-        if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HAS_HEALTH]) {
+        if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HEALTH]) {
           continue; // cannot attack self, or anything without health
         }
 
         let entTarget = targetTile.entities[entID] as PlaceableEntity;
 
         // do the attack, ensure health is >= 0
-        entTarget[HAS_HEALTH].current -= dmg;
-        entTarget[HAS_HEALTH].current = Math.max(entTarget[HAS_HEALTH].current, 0);
+        entTarget[HEALTH].current -= dmg;
+        entTarget[HEALTH].current = Math.max(entTarget[HEALTH].current, 0);
 
-        if (entTarget[PLAYER_CONTROLLED_COMP]) {
+        if (entTarget[PLAYER_CONTROLLED]) {
           gameEvents.pushEvent(new PlayerIsAttacked(entTarget as Player));
         }
 
@@ -56,7 +56,7 @@ function attackSystem(systemArguments: ISystemArguments) {
         });
 
         // remove dead entities
-        if (entTarget[HAS_HEALTH].current <= 0) {
+        if (entTarget[HEALTH].current <= 0) {
           // remove the entity from the tile...
           targetTile.removeEnt(entTarget);
 
@@ -66,7 +66,7 @@ function attackSystem(systemArguments: ISystemArguments) {
         }
       }
 
-      entity[IS_ATTACKING_COMP].currentFrame++;
+      entity[ATTACKING].currentFrame++;
     });
   }
 }

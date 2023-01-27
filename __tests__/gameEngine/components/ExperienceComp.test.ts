@@ -1,4 +1,4 @@
-import ExperienceComp, {getXPToLevel} from '../../../src/gameEngine/components/ExperienceComp';
+import Experience, {getXPToLevel} from '../../../src/gameEngine/components/Experience';
 import {XP_TO_FIRST_LEVEL} from '../../../src/gameEngine/gameConstants';
 
 describe('XP Component Tests', function () {
@@ -13,24 +13,24 @@ describe('XP Component Tests', function () {
   });
 
   it('it calcs net XP needed to next level correctly', () => {
-    let xpComp: ExperienceComp;
+    let xpComp: Experience;
 
-    xpComp = new ExperienceComp(1, 0);
+    xpComp = new Experience(1, 0);
     expect(xpComp.getLevelProgress()).toBe(0);
 
-    xpComp = new ExperienceComp(1, XP_TO_FIRST_LEVEL / 2);
+    xpComp = new Experience(1, XP_TO_FIRST_LEVEL / 2);
     expect(xpComp.getLevelProgress()).toBe(0.5);
 
-    xpComp = new ExperienceComp(2, XP_TO_FIRST_LEVEL + XP_TO_FIRST_LEVEL / 2);
+    xpComp = new Experience(2, XP_TO_FIRST_LEVEL + XP_TO_FIRST_LEVEL / 2);
     expect(xpComp.getLevelProgress()).toBe(0.5);
 
-    xpComp = new ExperienceComp(3, XP_TO_FIRST_LEVEL + XP_TO_FIRST_LEVEL / 2);
+    xpComp = new Experience(3, XP_TO_FIRST_LEVEL + XP_TO_FIRST_LEVEL / 2);
     expect(xpComp.getLevelProgress()).toBe(0);
 
     let xpToLevel4 = getXPToLevel(4);
     let xpToLevel5 = getXPToLevel(5);
 
-    xpComp = new ExperienceComp(4, xpToLevel5 - xpToLevel4 + (xpToLevel5 - xpToLevel4) / 5);
+    xpComp = new Experience(4, xpToLevel5 - xpToLevel4 + (xpToLevel5 - xpToLevel4) / 5);
     expect(xpComp.getLevelProgress()).toBe(0.2);
   });
 });

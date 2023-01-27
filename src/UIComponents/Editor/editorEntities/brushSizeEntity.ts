@@ -1,6 +1,6 @@
 import {BaseEntity} from '../../../gameEngine/BaseEntity';
 import {Entity} from 'game-platform';
-import HasPosition from '../../../gameEngine/components/HasPosition';
+import Position from '../../../gameEngine/components/Position';
 import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../../gameEngine/gameConstants';
 import HasUI from '../../../gameEngine/components/HasUI';
 
@@ -14,7 +14,7 @@ class BrushSizeEntity extends BaseEntity {
 
   setBrushSize({currentBrushSize, col, row}: {currentBrushSize: number; col: number; row: number}) {
     this.addComponent(
-      new HasPosition({
+      new Position({
         x: col * TILE_SIZE,
         y: row * TILE_SIZE,
         width: TILE_SIZE * currentBrushSize,

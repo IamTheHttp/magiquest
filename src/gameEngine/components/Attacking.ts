@@ -1,4 +1,4 @@
-import {IS_ATTACKING_COMP} from './_ComponentNamesConfig';
+import {ATTACKING} from './_ComponentNames';
 import IndexedTile from '../classes/IndexedTile';
 
 class IsAttackingComp {
@@ -7,7 +7,7 @@ class IsAttackingComp {
   currentFrame: number;
 
   constructor(targetTile: IndexedTile) {
-    this.name = IS_ATTACKING_COMP;
+    this.name = ATTACKING;
     this.targetTile = targetTile;
 
     /**

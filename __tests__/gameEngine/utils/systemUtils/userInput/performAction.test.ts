@@ -8,7 +8,7 @@ import {updateIndexedTileMap} from '../../../../../src/gameEngine/utils/systemUt
 import {AllowedZoneLocationIDs, DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';
-import {IS_ATTACKING_COMP} from '../../../../../src/gameEngine/components/_ComponentNamesConfig';
+import {ATTACKING} from '../../../../../src/gameEngine/components/_ComponentNames';
 
 describe('Tests the placeLevelEntities util', () => {
   let systemArguments: ISystemArguments = null;
@@ -44,7 +44,7 @@ describe('Tests the placeLevelEntities util', () => {
 
     performAction(systemArguments, null);
 
-    expect(player.hasComponents(IS_ATTACKING_COMP)).toBeTruthy();
+    expect(player.hasComponents(ATTACKING)).toBeTruthy();
     // expect action to attack
   });
 

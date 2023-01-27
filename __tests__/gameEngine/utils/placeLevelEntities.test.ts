@@ -3,7 +3,7 @@ import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {Entity} from 'game-platform';
 import placeLevelEntities from '../../../src/gameEngine/utils/placeLevelEntities';
-import {LEVEL_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {LEVELS} from '../../../src/gameEngine/components/_ComponentNames';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 import {PLACEABLE_ENTITIES} from '../../../src/gameEngine/gameConstants';
 import {createTestPlaceableEntity} from '../../__TEST__UTILS__/createTestPlaceableEntity';
@@ -75,7 +75,7 @@ describe('Tests the placeLevelEntities util', () => {
     );
 
     // Expected an assertion error in this test, as we have an UNKNOWN_TYPE
-    let entsPlaced = Entity.getByComp<BaseEntity>(LEVEL_COMP);
+    let entsPlaced = Entity.getByComp<BaseEntity>(LEVELS);
     expect(entsPlaced.length).toBe(2); // and not 3
   });
 });

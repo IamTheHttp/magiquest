@@ -1,7 +1,7 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import attackSystem from 'gameEngine/systems/attackSystem';
-import IsAttackingComp from 'gameEngine/components/IsAttacking';
-import {IS_ATTACKING_COMP, HAS_HEALTH, CAN_ATTACK} from 'gameEngine/components/_ComponentNamesConfig';
+import IsAttackingComp from 'gameEngine/components/Attacking';
+import {ATTACKING, HEALTH, ATTACKER} from 'gameEngine/components/_ComponentNames';
 import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
@@ -41,7 +41,7 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
     // expect the player not to be attacking anymore
-    expect(player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
+    expect(player.hasComponents(ATTACKING)).toBe(false);
   });
 
   it('Cannot attack self', () => {
@@ -50,8 +50,8 @@ describe('attack system tests', () => {
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    let maxHealth = player[HAS_HEALTH].max;
-    let currentHealth = player[HAS_HEALTH].current;
+    let maxHealth = player[HEALTH].max;
+    let currentHealth = player[HEALTH].current;
 
     // expect no damage, as you can't attack yourself
     expect(maxHealth).toBeGreaterThan(0);
@@ -66,9 +66,9 @@ describe('attack system tests', () => {
     let {x, y} = enemy.getPos();
     updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
 
-    let playerDmg = player[CAN_ATTACK].damage;
-    let maxHealth = enemy[HAS_HEALTH].max;
-    let currentHealth = enemy[HAS_HEALTH].current;
+    let playerDmg = player[ATTACKER].damage;
+    let maxHealth = enemy[HEALTH].max;
+    let currentHealth = enemy[HEALTH].current;
 
     // Sanity, expect health to be defined and set correctly
     expect(maxHealth).toBe(currentHealth);
@@ -79,11 +79,11 @@ describe('attack system tests', () => {
     attackSystem(systemArguments);
 
     // expect damage equal to the playerDmg
-    expect(enemy[HAS_HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
+    expect(enemy[HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
 
     // running the attack system again will not attack, as the cooldown is not done
     attackSystem(systemArguments);
-    expect(enemy[HAS_HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
+    expect(enemy[HEALTH].current).toBe(Math.max(maxHealth - playerDmg, 0));
   });
 
   it('Can kill an enemy', () => {
@@ -123,13 +123,13 @@ describe('attack system tests', () => {
 
     let i = 0;
 
-    while (i <= player[CAN_ATTACK].cooldownFrames) {
+    while (i <= player[ATTACKER].cooldownFrames) {
       attackSystem(systemArguments);
       i++;
     }
 
     // expect the enemy to have no components (as it is destroyed)
-    expect(player.hasComponents(IS_ATTACKING_COMP)).toBe(false);
+    expect(player.hasComponents(ATTACKING)).toBe(false);
   });
 
   it('Higher level enemies have more damage', () => {
@@ -138,6 +138,6 @@ describe('attack system tests', () => {
     let weak = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
     let strong = createNewEnemy(1, 1, 100, AllowedZoneLocationIDs.TOWN);
 
-    expect(strong[CAN_ATTACK].damage).toBeGreaterThan(weak[CAN_ATTACK].damage);
+    expect(strong[ATTACKER].damage).toBeGreaterThan(weak[ATTACKER].damage);
   });
 });

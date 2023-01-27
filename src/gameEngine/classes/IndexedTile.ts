@@ -1,8 +1,8 @@
 import {IEntityMap} from 'game-platform/dist/lib/interfaces';
 import {BaseEntity} from '../BaseEntity';
 import Tile from '../entities/Tile';
-import {IS_BLOCKING_MOVEMENT, TRAVERSABLE_COMP} from '../components/_ComponentNamesConfig';
-import TraversableComponent from '../components/TraversableComponent';
+import {BLOCKING, TRAVERSABLE} from '../components/_ComponentNames';
+import Traversable from '../components/Traversable';
 
 /**
  * An indexedTile is a wrapper around the Tile Entity.
@@ -29,8 +29,8 @@ class IndexedTile {
       this.entityCount++;
       this.entities[ent.id] = ent;
       // If the entity we add is blocking, the tile is now NOT traversable
-      if (ent.hasComponents(IS_BLOCKING_MOVEMENT)) {
-        this.tile.removeComponent(TRAVERSABLE_COMP);
+      if (ent.hasComponents(BLOCKING)) {
+        this.tile.removeComponent(TRAVERSABLE);
       }
     }
   }
@@ -41,8 +41,8 @@ class IndexedTile {
       this.entityCount = Math.max(this.entityCount - 1, 0);
 
       // If the entity we removed is blocking, the tile is now traversable
-      if (ent.hasComponents(IS_BLOCKING_MOVEMENT)) {
-        this.tile.addComponent(new TraversableComponent());
+      if (ent.hasComponents(BLOCKING)) {
+        this.tile.addComponent(new Traversable());
       }
       delete this.entities[ent.id];
     }
@@ -56,7 +56,7 @@ class IndexedTile {
 
     // If we're not on this tile, just return the tile current state
     if (!this.entities[entity.id]) {
-      return this.tile.hasComponents(TRAVERSABLE_COMP);
+      return this.tile.hasComponents(TRAVERSABLE);
     }
   }
 

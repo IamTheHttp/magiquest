@@ -1,6 +1,6 @@
-import {CAN_ATTACK} from './_ComponentNamesConfig';
+import {ATTACKER} from './_ComponentNames';
 
-class CanAttack {
+class Attacker {
   name: string;
   damage: number;
   cooldownFrames: number;
@@ -9,10 +9,10 @@ class CanAttack {
    * @param {number} damage
    */
   constructor(damage: number, cooldownFrames: number) {
-    this.name = CAN_ATTACK;
+    this.name = ATTACKER;
     this.damage = damage;
     this.cooldownFrames = cooldownFrames;
   }
 }
 
-export default CanAttack;
+export default Attacker;

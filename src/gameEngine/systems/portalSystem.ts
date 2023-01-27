@@ -1,4 +1,4 @@
-import {PLAYER_CONTROLLED_COMP} from '../components/_ComponentNamesConfig';
+import {PLAYER_CONTROLLED} from '../components/_ComponentNames';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
 import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -10,7 +10,7 @@ export function isNonEmptyArray(x: any) {
 
 function portalSystem(systemArguments: ISystemArguments) {
   let {zone, game, Entity} = systemArguments;
-  let player = Entity.getByComp<Player>(PLAYER_CONTROLLED_COMP)[0];
+  let player = Entity.getByComp<Player>(PLAYER_CONTROLLED)[0];
   let index = getTileIdxByEnt(player);
 
   assertType(index, 'level index', 'string');

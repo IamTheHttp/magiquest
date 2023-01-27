@@ -11,7 +11,7 @@ import {PlaceableEntitiesList} from './PlaceableEntitiesList';
 import {updateEditorServerTile} from './editorRequests/updateEditorServerTile';
 import {getBrushSizeEntity} from './editorEntities/brushSizeEntity';
 import {updateEditorStartPos} from './editorRequests/updateStartPosition';
-import HasPosition from '../../gameEngine/components/HasPosition';
+import Position from '../../gameEngine/components/Position';
 import {BaseEntity} from '../../gameEngine/BaseEntity';
 import {getSprites, mapTileNameToTileType} from '../../gameEngine/getSprites';
 
@@ -125,7 +125,7 @@ export function Editor(props: IProps) {
       const startPosEntity = Entity.getByComp<BaseEntity>('START_POS')[0];
 
       startPosEntity.addComponent(
-        new HasPosition({
+        new Position({
           x: currentColHover * TILE_SIZE + 0.5 * TILE_SIZE,
           y: currentRowHover * TILE_SIZE + 0.5 * TILE_SIZE,
           radius: TILE_SIZE / 2

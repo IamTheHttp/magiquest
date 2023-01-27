@@ -1,11 +1,11 @@
-import {HAS_POSITION, HAS_UI} from '../../../../components/_ComponentNamesConfig';
+import {POSITION, UI} from '../../../../components/_ComponentNames';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 import {IUISection} from '../../../../../interfaces/IGeneral';
 
 function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity, section: IUISection) {
   let {mapAPI} = systemArguments;
-  let {x: curX, y: curY, radius} = entity[HAS_POSITION];
+  let {x: curX, y: curY, radius} = entity[POSITION];
 
   const {data} = section;
   mapAPI.drawCircle({

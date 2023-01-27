@@ -1,15 +1,15 @@
-import {LEVEL_COMP} from './_ComponentNamesConfig';
+import {LEVELS} from './_ComponentNames';
 
-class LevelComp {
+class Levels {
   name: string;
   entityLevel: number;
   constructor(entityLevel: number) {
     if (entityLevel <= 0) {
       throw 'Entity level has to be larger than 0';
     }
-    this.name = LEVEL_COMP;
+    this.name = LEVELS;
     this.entityLevel = entityLevel;
   }
 }
 
-export default LevelComp;
+export default Levels;

@@ -3,13 +3,13 @@ import {AllowedQuestIDs, PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConsta
 import PlaceableEntity from './PlaceableEntity';
 import {KillQuest} from '../Quest';
 import HasUI from '../../components/HasUI';
-import CanAssignQuests from '../../components/CanAssignQuests';
+import AssignsQuests from '../../components/AssignsQuests';
 
 class FamNPC extends PlaceableEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super(instanceAttributes, placeableEntityData);
 
-    this.addComponent(new CanAssignQuests([new KillQuest(AllowedQuestIDs.CLEAR_CAMP)]));
+    this.addComponent(new AssignsQuests([new KillQuest(AllowedQuestIDs.CLEAR_CAMP)]));
 
     this.addComponent(
       new HasUI([

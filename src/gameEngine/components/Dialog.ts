@@ -1,4 +1,4 @@
-import {DIALOG_COMP} from './_ComponentNamesConfig';
+import {DIALOG} from './_ComponentNames';
 
 // Used within renderDialog
 class Dialog {
@@ -6,7 +6,7 @@ class Dialog {
   text: string;
   speaker: string;
   constructor(text: string, speaker: string) {
-    this.name = DIALOG_COMP;
+    this.name = DIALOG;
     this.speaker = speaker;
     this.text = `${text}\n\n\nPress space to continue ...`;
   }

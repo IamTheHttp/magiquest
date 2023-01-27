@@ -1,4 +1,4 @@
-import {TRAVERSABLE_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {TRAVERSABLE} from 'gameEngine/components/_ComponentNames';
 import {getTileIdxByPos} from '../tileUtils/tileIdxUtils';
 import {IIndexedTileMap} from '../../../../interfaces/IGeneral';
 import {BaseEntity} from '../../../BaseEntity';

@@ -1,5 +1,5 @@
 import {AllowedZoneLocationIDs, AllowedQuestIDs} from '../gameEngine/gameConstants';
-import {IKillQuestData, IQuestData} from '../gameEngine/components/QuestDataComponent';
+import {IKillQuestData, IQuestData} from '../gameEngine/components/QuestData';
 
 let questsDataConfig: {
   [key: string]: IQuestData | IKillQuestData;

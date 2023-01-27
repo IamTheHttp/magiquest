@@ -1,4 +1,4 @@
-import {HAS_POSITION} from '../../components/_ComponentNamesConfig';
+import {POSITION} from '../../components/_ComponentNames';
 import {ISystemArguments} from '../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../BaseEntity';
 import {TILE_SIZE} from '../../gameConstants';
@@ -12,7 +12,7 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
 
   for (let i = 0; i < entsToDraw.length; i++) {
     let entity = entsToDraw[i];
-    let {x, y, radius, height, width} = entity[HAS_POSITION];
+    let {x, y, radius, height, width} = entity[POSITION];
     let entWidth = radius * 2 || width;
     let entHeight = radius * 2 || height;
 

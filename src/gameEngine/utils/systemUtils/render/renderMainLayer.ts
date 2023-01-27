@@ -1,4 +1,4 @@
-import {DIALOG_COMP, STACKABLE_ON_MAP} from 'gameEngine/components/_ComponentNamesConfig';
+import {DIALOG, STACKABLE} from 'gameEngine/components/_ComponentNames';
 import renderAnimations from 'gameEngine/utils/systemUtils/render/renderAnimations';
 import renderDialog from 'gameEngine/utils/systemUtils/render/renderUtils/renderDialog';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -35,7 +35,7 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
     /**
      * Collect data to render the numbers on tiles that contain more than one element
      */
-    if (entity.hasComponents(STACKABLE_ON_MAP)) {
+    if (entity.hasComponents(STACKABLE)) {
       const entityCurrentTileIdx = getTileIdxByEnt(entity);
       if (!ENTITY_POSITIONS[entityCurrentTileIdx]) {
         ENTITY_POSITIONS[entityCurrentTileIdx] = {
@@ -87,11 +87,11 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
   }
 
   // one dialog at a time!
-  let entity = Entity.getByComp<BaseEntity>(DIALOG_COMP)[0];
+  let entity = Entity.getByComp<BaseEntity>(DIALOG)[0];
   if (entity) {
     renderDialog(systemArguments, entity);
     systemArguments.game.stop();
-    entity.removeComponent(DIALOG_COMP);
+    entity.removeComponent(DIALOG);
   }
 
   // Reset the POSITIONS map

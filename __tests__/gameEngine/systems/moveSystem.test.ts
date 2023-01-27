@@ -3,8 +3,8 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
-import IsMoving from '../../../src/gameEngine/components/IsMoving';
-import {HAS_POSITION} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import Moving from '../../../src/gameEngine/components/Moving';
+import {POSITION} from '../../../src/gameEngine/components/_ComponentNames';
 import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
@@ -26,7 +26,7 @@ describe('move system tests', () => {
   });
 
   it('moves an entity', () => {
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
 
     player.setDestTo(DIRECTIONS.DOWN);
 
@@ -35,19 +35,19 @@ describe('move system tests', () => {
     // Dest + move = Check position was changed.
     expect(player.getPos().y).toBeGreaterThan(16);
     // expect originX to still be 16 (where we started)
-    expect(player[HAS_POSITION].originX).toBe(16);
+    expect(player[POSITION].originX).toBe(16);
 
-    while (player[HAS_POSITION].originY) {
+    while (player[POSITION].originY) {
       moveSystem(systemArguments);
     }
 
     // dest reached
     expect(player.getPos().y).toBe(48);
-    expect(player[HAS_POSITION].originX).toBe(null);
+    expect(player[POSITION].originX).toBe(null);
   });
 
   it('Test trying to move out of screen', () => {
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
 
     player.setDestTo(DIRECTIONS.LEFT);
 
@@ -55,8 +55,8 @@ describe('move system tests', () => {
 
     // we can't move to the edge of screen, equal to edge of screen
     expect(spyPan.mock.calls.length).toBe(0);
-    expect(player[HAS_POSITION].originX).toBe(null);
-    expect(player[HAS_POSITION].originY).toBe(null);
+    expect(player[POSITION].originX).toBe(null);
+    expect(player[POSITION].originY).toBe(null);
     expect(player.getDest().y).toBe(null);
   });
 
@@ -74,7 +74,7 @@ describe('move system tests', () => {
   });
 
   it('Nothing breaks if no direction, and no destination', () => {
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
 
     moveSystem(systemArguments);
 
@@ -83,7 +83,7 @@ describe('move system tests', () => {
   });
 
   it('Test moving over a mountain (two steps down in our mock data)', () => {
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
     player.setDestTo(DIRECTIONS.DOWN);
 
     // move one tile down
@@ -91,7 +91,7 @@ describe('move system tests', () => {
       moveSystem(systemArguments);
     }
 
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
     player.setDestTo(DIRECTIONS.DOWN);
 
     // move two tiles down
@@ -100,7 +100,7 @@ describe('move system tests', () => {
     }
 
     // try a third move down (we can't, there's a mountain there)
-    player.addComponent(new IsMoving());
+    player.addComponent(new Moving());
     player.setDestTo(DIRECTIONS.DOWN);
 
     let currY = player.getPos().y;

@@ -6,7 +6,7 @@
 
 import {ANIMATIONS, TILE_SIZE} from '../../gameConstants';
 import {getSpriteCrop} from '../../utils/getSpriteCrop';
-import {IAnimationDefinitionMap} from '../../components/HasAnimations';
+import {IAnimationDefinitionMap} from '../../components/Animations';
 
 /**
  * Create move animations based on a sprite URL.

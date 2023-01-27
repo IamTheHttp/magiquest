@@ -1,6 +1,6 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
-import {IS_CONTROLLED_BY_AI, CAN_SPAWN, SPAWNED_COMP} from 'gameEngine/components/_ComponentNamesConfig';
+import {CONTROLLED_BY_AI, SPAWNER, WAS_SPAWNED} from 'gameEngine/components/_ComponentNames';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import PlaceableEntity from 'gameEngine/entities/placeableEntities/PlaceableEntity';
@@ -27,28 +27,28 @@ describe('Tests for the AI system', () => {
   });
 
   it('Attempts to spawn enemies on the map', () => {
-    expect(Entity.getByComp<BaseEntity>(IS_CONTROLLED_BY_AI).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(CONTROLLED_BY_AI).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComp<BaseEntity>(IS_CONTROLLED_BY_AI).length).toBeGreaterThan(0);
+    expect(Entity.getByComp<BaseEntity>(CONTROLLED_BY_AI).length).toBeGreaterThan(0);
   });
 
   it('Can safely not create any enemies', () => {
     global.Math.random = () => {
       return 1; // prevents all spawns from being created
     };
-    expect(Entity.getByComp<BaseEntity>(IS_CONTROLLED_BY_AI).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(CONTROLLED_BY_AI).length).toBe(0);
     spawnEnemiesSystem(systemArguments);
 
-    expect(Entity.getByComp<BaseEntity>(IS_CONTROLLED_BY_AI).length).toBe(0);
+    expect(Entity.getByComp<BaseEntity>(CONTROLLED_BY_AI).length).toBe(0);
   });
 
   it('Spawns an enemy that gets the right SpawnedComponent', () => {
     spawnEnemiesSystem(systemArguments);
 
-    let ents = Entity.getByComp<BaseEntity>(SPAWNED_COMP) as PlaceableEntity[];
+    let ents = Entity.getByComp<BaseEntity>(WAS_SPAWNED) as PlaceableEntity[];
     ents.forEach((ent) => {
-      expect(typeof ent[SPAWNED_COMP].spawningTileLocationID).toBe('string');
+      expect(typeof ent[WAS_SPAWNED].spawningTileLocationID).toBe('string');
     });
   });
 });

@@ -1,21 +1,16 @@
-import {
-  MOVEMENT_COMP,
-  IS_CONTROLLED_BY_AI,
-  HAS_POSITION,
-  PLAYER_CONTROLLED_COMP
-} from '../components/_ComponentNamesConfig';
-import IsMoving from '../components/IsMoving';
+import {MOVEMENT, CONTROLLED_BY_AI, POSITION, PLAYER_CONTROLLED} from '../components/_ComponentNames';
+import Moving from '../components/Moving';
 import oneOf from '../utils/oneOf';
 import {TILE_SIZE, DIRECTIONS} from '../gameConstants';
 import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
-import IsAttackingComp from 'gameEngine/components/IsAttacking';
+import IsAttackingComp from 'gameEngine/components/Attacking';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
 function aiSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([IS_CONTROLLED_BY_AI, MOVEMENT_COMP, HAS_POSITION]);
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+  let entities = Entity.getByComps<BaseEntity>([CONTROLLED_BY_AI, MOVEMENT, POSITION]);
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   entityLoop(entities, (entity) => {
     if (entity.isMoving()) {
@@ -78,7 +73,7 @@ function aiSystem(systemArguments: ISystemArguments) {
     let dir = oneOf(chaseDirections);
 
     entity.setDestTo(dir);
-    entity.addComponent(new IsMoving());
+    entity.addComponent(new Moving());
   });
 }
 

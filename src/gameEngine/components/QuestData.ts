@@ -1,4 +1,4 @@
-import {KILL_QUEST_DATA_COMP, QUEST_DATA_COMP} from './_ComponentNamesConfig';
+import {KILL_QUEST_DATA, QUEST_DATA} from './_ComponentNames';
 import {AllowedQuestIDs} from '../gameConstants';
 
 export enum AllowedQuestState {
@@ -27,12 +27,12 @@ export interface IKillQuestData extends IQuestData {
   };
 }
 
-class QuestDataComponent {
+class QuestData {
   name: string;
   data: IQuestData;
 
   constructor(questID: AllowedQuestIDs, data: IQuestData) {
-    this.name = QUEST_DATA_COMP; // component name
+    this.name = QUEST_DATA; // component name
     let {id, requiredLevel, preCondition, reward, description, finishedText} = data;
     this.data = {
       state: AllowedQuestState.AVAILABLE,
@@ -46,7 +46,7 @@ class QuestDataComponent {
   }
 }
 
-export class KillQuestDataComponent extends QuestDataComponent {
+export class KillQuestDataComponent extends QuestData {
   data: IKillQuestData;
   constructor(questID: AllowedQuestIDs, data: IKillQuestData) {
     super(questID, data);
@@ -56,8 +56,8 @@ export class KillQuestDataComponent extends QuestDataComponent {
       killed,
       location
     };
-    this.name = KILL_QUEST_DATA_COMP;
+    this.name = KILL_QUEST_DATA;
   }
 }
 
-export default QuestDataComponent;
+export default QuestData;

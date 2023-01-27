@@ -1,4 +1,4 @@
-import {CHARACTER_ATTRIBUTES_COMP} from './_ComponentNamesConfig';
+import {ATTRIBUTES} from './_ComponentNames';
 import {AllowedAttributes} from '../../data/attributesConfig';
 
 export interface IAssignedCharacterAttributes {
@@ -8,13 +8,13 @@ export interface IAssignedCharacterAttributes {
   [AllowedAttributes.ENDURANCE]: number;
 }
 
-class CharacterAttributesComponent {
+class Attributes {
   name: string;
   spendableAttributePoints: number;
   attributes: IAssignedCharacterAttributes;
 
   constructor() {
-    this.name = CHARACTER_ATTRIBUTES_COMP;
+    this.name = ATTRIBUTES;
     this.spendableAttributePoints = 0;
     this.attributes = {
       [AllowedAttributes.AGILITY]: 5,
@@ -25,4 +25,4 @@ class CharacterAttributesComponent {
   }
 }
 
-export default CharacterAttributesComponent;
+export default Attributes;

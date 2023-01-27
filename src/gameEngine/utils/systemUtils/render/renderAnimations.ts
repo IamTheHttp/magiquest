@@ -1,4 +1,4 @@
-import {HAS_ANIMATIONS, HAS_POSITION} from '../../../components/_ComponentNamesConfig';
+import {ANIMATIONS, POSITION} from '../../../components/_ComponentNames';
 import {PossibleUIShapes, ATTACK_CONFIG, TILE_SIZE, SPRITE_SIZE} from '../../../gameConstants';
 import {assetLoader} from 'utils/assetLoader';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
@@ -8,7 +8,7 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
   let {mapAPI} = systemArguments;
 
   for (let anim in entity.getRunningAnimations()) {
-    let {currentFrame, frames} = entity[HAS_ANIMATIONS].runningAnimations[anim];
+    let {currentFrame, frames} = entity[ANIMATIONS].runningAnimations[anim];
 
     let frame = frames[currentFrame];
 
@@ -16,8 +16,8 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
       mapAPI.drawImage({
         id: `${entity.id}`,
         image: assetLoader.getAsset(frame.spriteURL),
-        x: entity[HAS_POSITION].x - entity[HAS_POSITION].radius,
-        y: entity[HAS_POSITION].y - entity[HAS_POSITION].radius,
+        x: entity[POSITION].x - entity[POSITION].radius,
+        y: entity[POSITION].y - entity[POSITION].radius,
         height: TILE_SIZE,
         width: TILE_SIZE,
         cropStartX: frame.cropStartX,
@@ -33,8 +33,8 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
       let frameX = frame.x;
       let frameY = frame.y;
 
-      let entityX = entity[HAS_POSITION].x - entity[HAS_POSITION].radius;
-      let entityY = entity[HAS_POSITION].y - entity[HAS_POSITION].radius;
+      let entityX = entity[POSITION].x - entity[POSITION].radius;
+      let entityY = entity[POSITION].y - entity[POSITION].radius;
 
       mapAPI.drawArc({
         id: `${entity.id}`,

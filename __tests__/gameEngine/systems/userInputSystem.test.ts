@@ -7,7 +7,7 @@ import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {AllowedSkills} from '../../../src/data/skillConfig';
 import {Entity} from 'game-platform';
 import Player from '../../../src/gameEngine/entities/placeableEntities/Player';
-import {CHARACTER_SKILLS_COMP, EXPERIENCE_COMP} from '../../../src/gameEngine/components/_ComponentNamesConfig';
+import {SKILLS, EXPERIENCE} from '../../../src/gameEngine/components/_ComponentNames';
 import {PlayerSkillsChangeEvent} from '../../../src/gameEngine/classes/GameEvents';
 
 describe('Tests for the User Input system', () => {
@@ -53,10 +53,10 @@ describe('Tests for the User Input system', () => {
     });
 
     // ensure player has enough XP to buy skill
-    player[EXPERIENCE_COMP].XP = 10000000; // some very big number
+    player[EXPERIENCE].XP = 10000000; // some very big number
     userInputSystem(systemArguments);
 
-    expect(player[CHARACTER_SKILLS_COMP].skills).toContain(AllowedSkills.FIRE_BULLET);
+    expect(player[SKILLS].skills).toContain(AllowedSkills.FIRE_BULLET);
     expect(systemArguments.gameEvents.nextEvents[0]).toBeInstanceOf(PlayerSkillsChangeEvent);
   });
 });

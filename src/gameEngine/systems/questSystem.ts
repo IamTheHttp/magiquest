@@ -1,16 +1,16 @@
 import {GameEvent, InteractWithNPC} from '../classes/GameEvents';
 import {
-  CAN_ASSIGN_QUESTS,
-  HAS_ACTION_SIGN_COMP,
-  KILL_QUEST_DATA_COMP,
-  PLAYER_CONTROLLED_COMP,
-  HAS_POSITION,
-  QUEST_DATA_COMP,
-  HAS_UI
-} from '../components/_ComponentNamesConfig';
+  ASSIGNS_QUESTS,
+  ACTION_SIGN,
+  KILL_QUEST_DATA,
+  PLAYER_CONTROLLED,
+  POSITION,
+  QUEST_DATA,
+  UI
+} from '../components/_ComponentNames';
 import Quest, {KillQuest} from '../entities/Quest';
 import {BaseEntity} from '../BaseEntity';
-import {AllowedQuestState} from '../components/QuestDataComponent';
+import {AllowedQuestState} from '../components/QuestData';
 import {isNonEmptyArray} from './portalSystem';
 import {DialogTrigger, pushTrigger} from './triggerSystem';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -18,11 +18,11 @@ import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {
   let {gameEvents} = systemArguments;
-  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([CAN_ASSIGN_QUESTS, HAS_POSITION, HAS_UI]);
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED_COMP)[0];
+  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([ASSIGNS_QUESTS, POSITION, UI]);
+  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   // Quests are entities that inside a component
-  let quests = Entity.getByComps<BaseEntity>([QUEST_DATA_COMP]) as Quest[];
+  let quests = Entity.getByComps<BaseEntity>([QUEST_DATA]) as Quest[];
 
   /**
    * System does a few things...
@@ -31,7 +31,7 @@ function questSystem(systemArguments: ISystemArguments) {
    * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComp<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
    */
 
-  let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA_COMP]) as KillQuest[];
+  let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA]) as KillQuest[];
   let eventsToProcess: GameEvent[] = gameEvents.getEvents();
 
   // 1. process events
@@ -131,7 +131,7 @@ function questSystem(systemArguments: ISystemArguments) {
 
     let doneQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.DONE);
     let availableQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.AVAILABLE);
-    let hasActionSign = entityThatGivesQuest.hasComponents(HAS_ACTION_SIGN_COMP);
+    let hasActionSign = entityThatGivesQuest.hasComponents(ACTION_SIGN);
 
     if (isNonEmptyArray(availableQuests)) {
       entityThatGivesQuest.setQuestActionSymbol('?');
@@ -144,7 +144,7 @@ function questSystem(systemArguments: ISystemArguments) {
     }
 
     // default,
-    entityThatGivesQuest.removeComponent(HAS_ACTION_SIGN_COMP);
+    entityThatGivesQuest.removeComponent(ACTION_SIGN);
   });
 }
 

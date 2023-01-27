@@ -1,11 +1,11 @@
-import {CAN_PICKUP_ITEMS} from './_ComponentNamesConfig';
+import {BLOCKING} from './_ComponentNames';
 
 /**
  * This component determines if movement is blocked on the map when this entity is on a tile
  */
-export class CanPickupItems {
+export class Blocking {
   name: string;
   constructor() {
-    this.name = CAN_PICKUP_ITEMS;
+    this.name = BLOCKING;
   }
 }

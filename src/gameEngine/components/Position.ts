@@ -1,4 +1,4 @@
-import {HAS_POSITION} from 'gameEngine/components/_ComponentNamesConfig';
+import {POSITION} from 'gameEngine/components/_ComponentNames';
 import {DIRECTIONS} from '../gameConstants';
 
 interface IPositionComponentConstructor {
@@ -9,7 +9,7 @@ interface IPositionComponentConstructor {
   width?: number;
 }
 
-class HasPosition {
+class Position {
   name: string;
   x: number;
   y: number;
@@ -23,7 +23,7 @@ class HasPosition {
   orientation: keyof typeof DIRECTIONS;
 
   constructor({x, y, radius = -1, height = -1, width = -1}: IPositionComponentConstructor) {
-    this.name = HAS_POSITION;
+    this.name = POSITION;
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -37,4 +37,4 @@ class HasPosition {
   }
 }
 
-export default HasPosition;
+export default Position;
