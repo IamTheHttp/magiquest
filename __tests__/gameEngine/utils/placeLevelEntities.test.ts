@@ -10,7 +10,7 @@ import {createTestPlaceableEntity} from '../../__TEST__UTILS__/createTestPlaceab
 
 describe('Tests the placeLevelEntities util', () => {
   beforeEach(() => {
-    // setup the test
+    // set up the test
     Entity.reset();
   });
 

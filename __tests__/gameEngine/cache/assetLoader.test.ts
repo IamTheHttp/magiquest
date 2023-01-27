@@ -13,7 +13,7 @@ describe('Tests for the assetLoader', () => {
       constructor() {
         setTimeout(() => {
           this.onload();
-        }, 100);
+        }, 1);
       }
     };
   });
