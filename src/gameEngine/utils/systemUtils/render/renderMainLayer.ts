@@ -8,6 +8,7 @@ import Player from '../../../entities/placeableEntities/Player';
 import {renderStaticEntity} from './renderUtils/renderStaticEntity';
 import {getColRowByTileIdx, getTileIdxByEnt} from '../../componentUtils/tileUtils/tileIdxUtils';
 import {TILE_SIZE} from '../../../gameConstants';
+import {renderHUDPlayerHealth} from './renderUtils/renderHUDPlayerHealth';
 
 interface IMainLayerData {
   closeEntitiesWithUI: BaseEntity[];
@@ -26,7 +27,7 @@ let ENTITY_POSITIONS: {
 
 function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMainLayerData) {
   const {closeEntitiesWithUI, closeEntitiesWithAnimations, player} = mainLayerData;
-  const {mapAPI} = systemArguments;
+  const {mapAPI, viewSize} = systemArguments;
 
   // render static entities (Without animations)
   for (let i = 0; i < closeEntitiesWithUI.length; i++) {
@@ -59,6 +60,7 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
    */
   if (player) {
     renderStaticEntity({systemArguments, entity: player});
+    renderHUDPlayerHealth(systemArguments, player);
   }
 
   // render animations

@@ -1,4 +1,4 @@
-import {renderBackpackItems} from './renderBackpackItems';
+import {renderHUDBackpackItems} from './renderHUDBackpackItems';
 import {renderInteractionSign} from './renderInteractionSign';
 import {POSITION, UI} from '../../../../components/_ComponentNames';
 import {DIRECTIONS, PossibleUIShapes, TILE_SIZE} from '../../../../gameConstants';
@@ -22,7 +22,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
   const {mapAPI, SPRITES} = systemArguments;
 
   if (entity.isPlayer()) {
-    renderBackpackItems(entity, systemArguments);
+    renderHUDBackpackItems(entity, systemArguments);
   }
 
   // Draw the NPC interaction sign (Like a question mark)

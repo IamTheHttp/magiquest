@@ -4,6 +4,11 @@ import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
+/**
+ * Renders the health bar on the HUD, as a percent of the player's health
+ * @param systemArguments
+ * @param entity
+ */
 function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) {
   assertType(entity[HEALTH], 'Health Component', 'object');
   let {mapAPI} = systemArguments;

@@ -1,16 +1,18 @@
 import {INVENTORY, UI} from '../../../../components/_ComponentNames';
 import Player from '../../../../entities/placeableEntities/Player';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
+import {UI_HUD_BORDER_COLOR, UI_HUD_FILL_COLOR} from '../renderValues';
 
-export function renderBackpackItems(player: Player, systemArguments: ISystemArguments) {
+export function renderHUDBackpackItems(player: Player, systemArguments: ISystemArguments) {
   const {mapAPI, SPRITES} = systemArguments;
+
+  const {panX, panY} = mapAPI.getCurrentPanValue();
 
   // Ensure right spacing between equipment slots
   // 20       []
   // 20+30    [] []
   // 20+30+30 [] [] []
   player[INVENTORY].backpack.forEach((itemInBackpack, i) => {
-    const {panX, panY} = mapAPI.getCurrentPanValue();
     // Draw rectangle in which to place the item
     mapAPI.drawRect({
       id: `backpack-slot-${i}`,
@@ -18,9 +20,9 @@ export function renderBackpackItems(player: Player, systemArguments: ISystemArgu
       y: 20 - panY,
       width: 30,
       height: 30,
-      strokeStyle: 'lime',
+      strokeStyle: UI_HUD_BORDER_COLOR,
       lineWidth: 2,
-      fillColor: 'rgba(255,255,255,0.6)'
+      fillColor: UI_HUD_FILL_COLOR
     });
 
     // Draw the item using its UI Component
