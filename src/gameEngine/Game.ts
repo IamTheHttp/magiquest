@@ -267,9 +267,16 @@ class Game {
 
       // set triggers
       // For editor, skip triggers
-      if (isNonEmptyArray(zone.triggers.levelStart)) {
-        zone.triggers.levelStart.forEach((configuredTrigger) => {
+      if (isNonEmptyArray(zone.triggers.zoneStart)) {
+        zone.triggers.zoneStart.forEach((configuredTrigger) => {
           // activateTrigger ...
+
+          // TODO for development purposes, should be improved somehow
+          const SKIP_DIALOGS = window.location.origin.indexOf('localhost') > -1;
+          if (SKIP_DIALOGS) {
+            return;
+          }
+
           if (configuredTrigger.type === 'dialog') {
             pushTrigger(
               new DialogTrigger({

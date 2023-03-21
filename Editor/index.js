@@ -92,7 +92,7 @@ app.post('/zones', (req, res) => {
     noSpawnLocations: [],
     entitiesToPlace: [],
     triggers: {
-      levelStart: [],
+      zoneStart: [],
       actOnEntity: {},
       move: {}
     },

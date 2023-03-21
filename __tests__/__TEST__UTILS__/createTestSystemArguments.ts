@@ -81,7 +81,7 @@ function createSystemArgs({
       },
 
       triggers: {
-        levelStart: [],
+        zoneStart: [],
         actOnEntity: {},
         move: {}
       }
@@ -116,7 +116,7 @@ function createSystemArgs({
         entitiesToPlace: [],
         id: 'Test Level',
         playerStartPos: {col: 0, row: 0},
-        triggers: {actOnEntity: {}, levelStart: [], move: {}},
+        triggers: {actOnEntity: {}, zoneStart: [], move: {}},
         locations: [
           {
             id: AllowedZoneLocationIDs.TOWN,

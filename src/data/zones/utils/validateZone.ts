@@ -25,8 +25,8 @@ export function validateZone(zone: IZone) {
     throw `${ERROR_PREFIX} - Missing zone.triggers.move`;
   }
 
-  if (!hasValue(zone.triggers.levelStart)) {
-    throw `${ERROR_PREFIX} - Missing zone.triggers.levelStart`;
+  if (!hasValue(zone.triggers.zoneStart)) {
+    throw `${ERROR_PREFIX} - Missing zone.triggers.zoneStart`;
   }
 
   if (!hasValue(zone.locations)) {

@@ -33,7 +33,7 @@ describe('Tests the placeLevelEntities util', () => {
         },
         tileMap: [[1]],
         triggers: {
-          levelStart: [],
+          zoneStart: [],
           actOnEntity: {},
           move: {}
         },

@@ -79,7 +79,7 @@
     }
   ],
   "triggers": {
-    "levelStart": [],
+    "zoneStart": [],
     "actOnEntity": {},
     "move": {
       "-1,-2": [

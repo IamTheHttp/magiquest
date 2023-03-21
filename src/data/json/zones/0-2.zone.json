@@ -13,7 +13,7 @@
   "noSpawnLocations": [],
   "entitiesToPlace": [],
   "triggers": {
-    "levelStart": [],
+    "zoneStart": [],
     "actOnEntity": {},
     "move": {}
   },

@@ -32,7 +32,7 @@
     }
   ],
   "triggers": {
-    "levelStart": [
+    "zoneStart": [
       {
         "oneOff": true,
         "type": "dialog",

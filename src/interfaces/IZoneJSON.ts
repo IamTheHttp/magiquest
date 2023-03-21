@@ -33,7 +33,7 @@ export interface IZoneJSON {
   noSpawnLocations: INoSpawnLocation[];
   playerStartPos: ITileCoordinate;
   triggers: {
-    levelStart: PossibleTriggersArray;
+    zoneStart: PossibleTriggersArray;
     actOnEntity: ActOnEntityTriggers;
     move: MoveTriggers;
   };
