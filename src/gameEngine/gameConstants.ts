@@ -3,6 +3,18 @@ import PLAYER_SPRITE_URL from '../assets/tileSet.png';
 import TILESET_IMAGE_URL from '../assets/tileSet.png';
 import ITEMS_SPRITE_URL from '../assets/misc.png';
 
+/**
+ * Rendering constants
+ */
+export const HUD_PADDING_LEFT_RIGHT = 20;
+export const HUD_PADDING_TOP_BOTTOM = 20;
+export const UI_HUD_FILL_COLOR = 'rgba(255,255,255,0.6)';
+export const UI_HUD_BORDER_COLOR = 'green';
+
+/**
+ * Other constants
+ */
+
 export const WALKABLE_TILE_TYPES = [1, 7, 100, 13, 11];
 export {PLAYER_SPRITE_URL, TILESET_IMAGE_URL, ITEMS_SPRITE_URL};
 

@@ -1,6 +1,12 @@
 import Position from '../../components/Position';
 import {BaseEntity} from '../../BaseEntity';
-import {CANVAS_OUTPUT, PossibleUIShapes, TILE_SIZE} from '../../gameConstants';
+import {
+  CANVAS_OUTPUT,
+  HUD_PADDING_LEFT_RIGHT,
+  HUD_PADDING_TOP_BOTTOM,
+  PossibleUIShapes,
+  TILE_SIZE
+} from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 
 /**
@@ -9,7 +15,15 @@ import HasUI from '../../components/HasUI';
 export class HUDOpenInventoryIcon extends BaseEntity {
   constructor() {
     super();
-    this.addComponent(new Position({x: 50, y: 50, width: TILE_SIZE, height: TILE_SIZE, isFixedToViewPort: true}));
+    this.addComponent(
+      new Position({
+        x: -HUD_PADDING_LEFT_RIGHT,
+        y: HUD_PADDING_TOP_BOTTOM * 2,
+        width: TILE_SIZE,
+        height: TILE_SIZE,
+        isFixedToViewPort: true
+      })
+    );
 
     this.addComponent(
       new HasUI([

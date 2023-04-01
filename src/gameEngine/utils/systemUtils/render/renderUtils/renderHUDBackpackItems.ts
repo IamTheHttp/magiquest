@@ -1,25 +1,39 @@
 import {INVENTORY, UI} from '../../../../components/_ComponentNames';
 import Player from '../../../../entities/placeableEntities/Player';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
-import {UI_HUD_BORDER_COLOR, UI_HUD_FILL_COLOR} from '../renderValues';
+import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToViewport';
+import {
+  HUD_PADDING_LEFT_RIGHT,
+  HUD_PADDING_TOP_BOTTOM,
+  UI_HUD_BORDER_COLOR,
+  UI_HUD_FILL_COLOR
+} from '../../../../gameConstants';
 
 export function renderHUDBackpackItems(systemArguments: ISystemArguments, player: Player) {
   const {mapAPI, SPRITES} = systemArguments;
-
-  const {panX, panY} = mapAPI.getCurrentPanValue();
-
   // Ensure right spacing between equipment slots
   // 20       []
   // 20+30    [] []
   // 20+30+30 [] [] []
   player[INVENTORY].backpack.forEach((itemInBackpack, i) => {
+    const WIDTH = 30;
+    const HEIGHT = 30;
+    const PADDING_BETWEEN_ITEMS = 10;
+
+    const {viewportAbsX, viewportAbsY} = getFixedPositionRelativeToViewport(systemArguments, {
+      width: WIDTH,
+      height: HEIGHT,
+      x: HUD_PADDING_LEFT_RIGHT + (WIDTH + PADDING_BETWEEN_ITEMS) * i,
+      y: HUD_PADDING_TOP_BOTTOM
+    });
+
     // Draw rectangle in which to place the item
     mapAPI.drawRect({
       id: `backpack-slot-${i}`,
-      x: 20 + 50 * i - panX,
-      y: 20 - panY,
-      width: 30,
-      height: 30,
+      x: viewportAbsX,
+      y: viewportAbsY,
+      width: WIDTH,
+      height: HEIGHT,
       strokeStyle: UI_HUD_BORDER_COLOR,
       lineWidth: 2,
       fillColor: UI_HUD_FILL_COLOR
@@ -33,10 +47,10 @@ export function renderHUDBackpackItems(systemArguments: ISystemArguments, player
         // TODO add a check and log errors if spriteName doesn't exist in SPRITES
         // @ts-ignore Skip type checks of these dynamics
         ...SPRITES[spriteName],
-        x: 20 + 50 * i - panX,
-        y: 20 - panY,
-        height: 30,
-        width: 30,
+        x: viewportAbsX,
+        y: viewportAbsY,
+        height: WIDTH,
+        width: HEIGHT,
         rotation: 0 // in radians
       });
     });

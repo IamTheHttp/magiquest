@@ -24,15 +24,26 @@ class Position {
   orientation: keyof typeof DIRECTIONS;
   isFixedToViewPort: boolean; // Is the position relative to the screen or not. This is similar to CSS "Fixed position"
   constructor(posData: IPositionComponentConstructor) {
-    const {x, y, radius = -1, height = -1, width = -1, isFixedToViewPort = false} = posData;
+    const {x, y, radius = -0, height = 0, width = 0, isFixedToViewPort = false} = posData;
     this.name = POSITION;
+
+    if ((radius && width) || (radius && height)) {
+      throw 'Position Component - Use either Radius or Width/Height - Not both';
+    }
+
+    // If a radius was provided, calculate the width/height
+    if (radius > 0) {
+      this.width = radius * 2;
+      this.height = radius * 2;
+    } else {
+      this.width = width;
+      this.height = height;
+    }
 
     this.isFixedToViewPort = !!isFixedToViewPort;
     this.x = x; // when isFixedToViewPort is used, x can be a negative number
     this.y = y;
     this.radius = radius;
-    this.height = height;
-    this.width = width;
     this.destY = null;
     this.destX = null;
     this.originX = null;

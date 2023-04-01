@@ -42,7 +42,6 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
     // Draw static sprites like a dropped item, or a chest
     if (section.shape === PossibleUIShapes.SPRITE) {
-      console.log(section.data.spriteName);
       renderSprite(systemArguments, entity, section);
     }
 
