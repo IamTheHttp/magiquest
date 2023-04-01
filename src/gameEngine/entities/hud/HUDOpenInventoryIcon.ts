@@ -5,7 +5,9 @@ import {
   HUD_PADDING_LEFT_RIGHT,
   HUD_PADDING_TOP_BOTTOM,
   PossibleUIShapes,
-  TILE_SIZE
+  TILE_SIZE,
+  HUD_ITEM_BORDER_COLOR,
+  HUD_ITEM_FILL_COLOR
 } from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 
@@ -18,7 +20,7 @@ export class HUDOpenInventoryIcon extends BaseEntity {
     this.addComponent(
       new Position({
         x: -HUD_PADDING_LEFT_RIGHT,
-        y: HUD_PADDING_TOP_BOTTOM * 2,
+        y: HUD_PADDING_TOP_BOTTOM * 2 + 5, // magic number, get some distance from the top
         width: TILE_SIZE,
         height: TILE_SIZE,
         isFixedToViewPort: true
@@ -29,15 +31,19 @@ export class HUDOpenInventoryIcon extends BaseEntity {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.SPRITE,
+          shape: PossibleUIShapes.RECT_SHAPE,
           data: {
-            spriteName: 'CHEST_SPRITE'
+            backgroundColor: HUD_ITEM_FILL_COLOR,
+            borderColor: HUD_ITEM_BORDER_COLOR,
+            borderWidth: 1
           }
         },
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.RECT_SHAPE,
-          data: {}
+          shape: PossibleUIShapes.SPRITE,
+          data: {
+            spriteName: 'CHEST_SPRITE'
+          }
         }
       ])
     );

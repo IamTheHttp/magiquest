@@ -5,8 +5,8 @@ import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToVi
 import {
   HUD_PADDING_LEFT_RIGHT,
   HUD_PADDING_TOP_BOTTOM,
-  UI_HUD_BORDER_COLOR,
-  UI_HUD_FILL_COLOR
+  HUD_ITEM_BORDER_COLOR,
+  HUD_ITEM_FILL_COLOR
 } from '../../../../gameConstants';
 
 export function renderHUDBackpackItems(systemArguments: ISystemArguments, player: Player) {
@@ -34,9 +34,9 @@ export function renderHUDBackpackItems(systemArguments: ISystemArguments, player
       y: viewportAbsY,
       width: WIDTH,
       height: HEIGHT,
-      strokeStyle: UI_HUD_BORDER_COLOR,
+      strokeStyle: HUD_ITEM_BORDER_COLOR,
       lineWidth: 2,
-      fillColor: UI_HUD_FILL_COLOR
+      fillColor: HUD_ITEM_FILL_COLOR
     });
 
     // Draw the item using its UI Component

@@ -13,7 +13,7 @@ function renderCircle(systemArguments: ISystemArguments, entity: BaseEntity, sec
     x: curX,
     y: curY,
     radius,
-    fillColor: data.fillColor || 'red',
+    fillColor: data.backgroundColor || 'red',
     lineWidth: 1
   });
 }

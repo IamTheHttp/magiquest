@@ -1,28 +1,42 @@
-import {HEALTH, POSITION} from '../../../../components/_ComponentNames';
+import {POSITION} from '../../../../components/_ComponentNames';
 import {PossibleUIShapes} from 'gameEngine/gameConstants';
-import assertType from 'gameEngine/utils/assertType';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
+import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToViewport';
+import {IUISection} from '../../../../../interfaces/IGeneral';
 
-function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
+function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntity, section: IUISection) {
   let {mapAPI} = systemArguments;
-  let rectWidth = entity[POSITION].width;
-  let rectHeight = entity[POSITION].height;
-  let posX = entity[POSITION].x;
-  let posY = entity[POSITION].y;
-  let isFixedToViewPort = entity[POSITION].isFixedToViewPort;
+  let {x, y, radius, isFixedToViewPort, width, height} = entity[POSITION];
 
   if (isFixedToViewPort) {
     // TODO - Ensure we draw rects on relative entities
+    const {viewportAbsY, viewportAbsX} = getFixedPositionRelativeToViewport(systemArguments, {
+      x,
+      y,
+      width,
+      height
+    });
+
+    mapAPI.drawRect({
+      id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
+      x: viewportAbsX,
+      y: viewportAbsY,
+      width,
+      height,
+      fillColor: section.data.backgroundColor,
+      strokeStyle: section.data.borderColor,
+      lineWidth: section.data.borderWidth
+    });
   } else {
     mapAPI.drawRect({
       id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
-      x: posX,
-      y: posY,
-      width: rectWidth,
-      height: rectHeight,
-      strokeStyle: 'lime',
-      lineWidth: 2
+      x,
+      y,
+      width,
+      height,
+      strokeStyle: section.data.borderColor,
+      lineWidth: section.data.borderWidth
     });
   }
 }

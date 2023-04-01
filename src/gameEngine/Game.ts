@@ -133,7 +133,7 @@ class Game {
           name: CANVAS_OUTPUT,
           shape: PossibleUIShapes.CIRCLE_SHAPE,
           data: {
-            fillColor: 'lime'
+            backgroundColor: 'lime'
           }
         }
       ])

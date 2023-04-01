@@ -39,7 +39,11 @@ export interface IUISection {
   name: string;
   shape: keyof typeof PossibleUIShapes;
   data: {
-    [key: string]: any; // TODO can we narrow it down?
+    backgroundColor?: string;
+    borderColor?: string;
+    borderWidth?: number;
+    spriteName?: string;
+    tileType?: number;
   };
 }
 

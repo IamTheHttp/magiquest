@@ -8,8 +8,8 @@ import ITEMS_SPRITE_URL from '../assets/misc.png';
  */
 export const HUD_PADDING_LEFT_RIGHT = 20;
 export const HUD_PADDING_TOP_BOTTOM = 20;
-export const UI_HUD_FILL_COLOR = 'rgba(255,255,255,0.6)';
-export const UI_HUD_BORDER_COLOR = 'green';
+export const HUD_ITEM_FILL_COLOR = 'rgba(255,255,255,0.6)';
+export const HUD_ITEM_BORDER_COLOR = 'green';
 
 /**
  * Other constants

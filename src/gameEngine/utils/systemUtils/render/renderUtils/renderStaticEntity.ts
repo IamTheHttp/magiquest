@@ -28,6 +28,11 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
   // Draw UI Components related to a specific entity
   // These usually are related to the position of the entity itself
   entity[UI].sections.forEach((section) => {
+    // Draw static sprites like a dropped item, or a chest
+    if (section.shape === PossibleUIShapes.SPRITE) {
+      renderSprite(systemArguments, entity, section);
+    }
+
     if (section.shape === PossibleUIShapes.CIRCLE_SHAPE) {
       renderCircle(systemArguments, entity, section);
     }
@@ -37,12 +42,7 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
     }
 
     if (section.shape === PossibleUIShapes.RECT_SHAPE) {
-      renderRectOnEntity(systemArguments, entity);
-    }
-
-    // Draw static sprites like a dropped item, or a chest
-    if (section.shape === PossibleUIShapes.SPRITE) {
-      renderSprite(systemArguments, entity, section);
+      renderRectOnEntity(systemArguments, entity, section);
     }
 
     // Draw a Player on the screen
