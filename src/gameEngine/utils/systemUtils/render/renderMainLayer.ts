@@ -9,6 +9,7 @@ import {renderStaticEntity} from './renderUtils/renderStaticEntity';
 import {getColRowByTileIdx, getTileIdxByEnt} from '../../componentUtils/tileUtils/tileIdxUtils';
 import {TILE_SIZE} from '../../../gameConstants';
 import {renderHUDPlayerHealth} from './renderUtils/renderHUDPlayerHealth';
+import {renderHUDBackpackItems} from './renderUtils/renderHUDBackpackItems';
 
 interface IMainLayerData {
   closeEntitiesWithUI: BaseEntity[];
@@ -61,6 +62,7 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
   if (player) {
     renderStaticEntity({systemArguments, entity: player});
     renderHUDPlayerHealth(systemArguments, player);
+    renderHUDBackpackItems(systemArguments, player);
   }
 
   // render animations

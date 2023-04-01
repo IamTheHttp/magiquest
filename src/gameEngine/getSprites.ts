@@ -24,7 +24,7 @@ export function getSprites() {
       image: assetLoader.getAsset(ITEMS_SPRITE_URL),
       ...getSpriteCrop(1, 4)
     },
-    ENTITY_CHEST: {
+    CHEST_SPRITE: {
       image: assetLoader.getAsset(ITEMS_SPRITE_URL),
       ...getSpriteCrop(1, 0)
     },

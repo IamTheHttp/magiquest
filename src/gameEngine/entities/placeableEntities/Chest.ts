@@ -13,8 +13,10 @@ class Chest extends PlaceableEntity {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.CHEST_SHAPE,
-          data: {}
+          shape: PossibleUIShapes.SPRITE,
+          data: {
+            spriteName: 'CHEST_SPRITE'
+          }
         }
       ])
     );

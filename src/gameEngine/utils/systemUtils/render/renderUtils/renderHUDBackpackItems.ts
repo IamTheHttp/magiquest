@@ -3,7 +3,7 @@ import Player from '../../../../entities/placeableEntities/Player';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {UI_HUD_BORDER_COLOR, UI_HUD_FILL_COLOR} from '../renderValues';
 
-export function renderHUDBackpackItems(player: Player, systemArguments: ISystemArguments) {
+export function renderHUDBackpackItems(systemArguments: ISystemArguments, player: Player) {
   const {mapAPI, SPRITES} = systemArguments;
 
   const {panX, panY} = mapAPI.getCurrentPanValue();

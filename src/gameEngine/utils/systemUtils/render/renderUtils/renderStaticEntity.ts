@@ -7,6 +7,7 @@ import renderHealthBar from './renderHealthBar';
 import {renderRectOnEntity} from './renderRectOnEntity';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
+import {renderSprite} from './renderSprite';
 
 interface IRenderStaticEntity {
   systemArguments: ISystemArguments;
@@ -20,10 +21,6 @@ interface IRenderStaticEntity {
  */
 export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntity) {
   const {mapAPI, SPRITES} = systemArguments;
-
-  if (entity.isPlayer()) {
-    renderHUDBackpackItems(entity, systemArguments);
-  }
 
   // Draw the NPC interaction sign (Like a question mark)
   renderInteractionSign(entity, systemArguments);
@@ -43,35 +40,10 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
       renderRectOnEntity(systemArguments, entity);
     }
 
-    // Draw a chest
-    if (section.shape === PossibleUIShapes.CHEST_SHAPE) {
-      let {radius, x, y} = entity[POSITION];
-      mapAPI.drawImage({
-        id: `${entity.id}`,
-        ...SPRITES.ENTITY_CHEST,
-        x: x - radius,
-        y: y - radius,
-        height: TILE_SIZE,
-        width: TILE_SIZE,
-        rotation: 0 // in radians
-      });
-    }
-
-    // Draw a dropped item
-    if (section.shape === PossibleUIShapes.DROPPED_ITEM_SHAPE) {
-      let {radius, x, y} = entity[POSITION];
-
-      mapAPI.drawImage({
-        id: `${entity.id}`,
-        // TODO add a check and log errors if spriteName doesn't exist in SPRITES
-        // @ts-ignore Skip type checks of these dynamics
-        ...SPRITES[section.data.spriteName],
-        x: x - radius,
-        y: y - radius,
-        height: TILE_SIZE,
-        width: TILE_SIZE,
-        rotation: 0 // in radians
-      });
+    // Draw static sprites like a dropped item, or a chest
+    if (section.shape === PossibleUIShapes.SPRITE) {
+      console.log(section.data.spriteName);
+      renderSprite(systemArguments, entity, section);
     }
 
     // Draw a Player on the screen

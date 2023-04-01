@@ -7,6 +7,7 @@ interface IPositionComponentConstructor {
   radius?: number;
   height?: number;
   width?: number;
+  isFixedToViewPort?: boolean; // Is the position relative to the screen or not. This is similar to CSS "Fixed position"
 }
 
 class Position {
@@ -21,10 +22,13 @@ class Position {
   originX: number;
   originY: number;
   orientation: keyof typeof DIRECTIONS;
-
-  constructor({x, y, radius = -1, height = -1, width = -1}: IPositionComponentConstructor) {
+  isFixedToViewPort: boolean; // Is the position relative to the screen or not. This is similar to CSS "Fixed position"
+  constructor(posData: IPositionComponentConstructor) {
+    const {x, y, radius = -1, height = -1, width = -1, isFixedToViewPort = false} = posData;
     this.name = POSITION;
-    this.x = x;
+
+    this.isFixedToViewPort = !!isFixedToViewPort;
+    this.x = x; // when isFixedToViewPort is used, x can be a negative number
     this.y = y;
     this.radius = radius;
     this.height = height;
@@ -34,6 +38,10 @@ class Position {
     this.originX = null;
     this.originY = null;
     this.orientation = 'DOWN'; // starts with DOWN by default
+
+    if (!this.isFixedToViewPort && (x < 0 || y < 0)) {
+      throw 'Position Component: Negative X or Y values are only allowed when ixFixedToViewPort is true';
+    }
   }
 }
 

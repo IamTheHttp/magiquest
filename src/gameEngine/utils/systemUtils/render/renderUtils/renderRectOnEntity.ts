@@ -6,21 +6,25 @@ import {BaseEntity} from '../../../../BaseEntity';
 
 function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   let {mapAPI} = systemArguments;
-
   let rectWidth = entity[POSITION].width;
   let rectHeight = entity[POSITION].height;
   let posX = entity[POSITION].x;
   let posY = entity[POSITION].y;
+  let isFixedToViewPort = entity[POSITION].isFixedToViewPort;
 
-  mapAPI.drawRect({
-    id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
-    x: posX,
-    y: posY,
-    width: rectWidth,
-    height: rectHeight,
-    strokeStyle: 'lime',
-    lineWidth: 2
-  });
+  if (isFixedToViewPort) {
+    // TODO - Ensure we draw rects on relative entities
+  } else {
+    mapAPI.drawRect({
+      id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
+      x: posX,
+      y: posY,
+      width: rectWidth,
+      height: rectHeight,
+      strokeStyle: 'lime',
+      lineWidth: 2
+    });
+  }
 }
 
 export {renderRectOnEntity};

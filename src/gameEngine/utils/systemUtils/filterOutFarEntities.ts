@@ -12,7 +12,14 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
 
   for (let i = 0; i < entsToDraw.length; i++) {
     let entity = entsToDraw[i];
-    let {x, y, radius, height, width} = entity[POSITION];
+    let {x, y, radius, height, width, isFixedToViewPort} = entity[POSITION];
+
+    // If an entity is fixed to the viewport, it should never be filtered out.
+    if (isFixedToViewPort) {
+      arr.push(entity);
+      continue;
+    }
+
     let entWidth = radius * 2 || width;
     let entHeight = radius * 2 || height;
 

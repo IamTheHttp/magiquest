@@ -5,7 +5,7 @@ import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
 /**
- * Renders the health bar on the HUD, as a percent of the player's health
+ * Renders the health bar of the various entities
  * @param systemArguments
  * @param entity
  */

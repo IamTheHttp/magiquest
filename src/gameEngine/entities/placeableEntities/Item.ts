@@ -17,9 +17,9 @@ export class ItemEntity extends PlaceableEntity {
         {
           name: CANVAS_OUTPUT,
           // Hardcoded weapon shape, but in the future we can easily
-          shape: PossibleUIShapes.DROPPED_ITEM_SHAPE,
+          shape: PossibleUIShapes.SPRITE,
           data: {
-            spriteName: 'GENERIC_ITEM' // TODO
+            spriteName: 'GENERIC_ITEM'
           }
         }
       ])

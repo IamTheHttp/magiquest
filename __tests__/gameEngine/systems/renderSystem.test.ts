@@ -53,7 +53,7 @@ describe('Tests for the Render system', () => {
     createTestPlayer(5000, 5000);
     renderSystem(systemArguments);
 
-    // nothing to render, as it's too far
-    expect(spyAddImage.mock.calls.length).toBe(0);
+    // nothing to render, as it's too far - the "1" expected here is the HUD item which is always shown
+    expect(spyAddImage.mock.calls.length).toBe(1);
   });
 });

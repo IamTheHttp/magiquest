@@ -1,6 +1,11 @@
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import Player from '../../../../entities/placeableEntities/Player';
 
+/**
+ * Renders the health bar on the HUD, as a percent of the player's health
+ * @param systemArguments
+ * @param player
+ */
 export function renderHUDPlayerHealth(systemArguments: ISystemArguments, player: Player) {
   const {mapAPI, viewSize} = systemArguments;
   const {panX, panY} = mapAPI.getCurrentPanValue();
