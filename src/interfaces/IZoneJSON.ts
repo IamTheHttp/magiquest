@@ -1,4 +1,4 @@
-import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, ITileMap, PossibleTriggersArray} from './IZones';
+import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, PossibleTriggersArray} from './IZones';
 import {PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
 import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
 

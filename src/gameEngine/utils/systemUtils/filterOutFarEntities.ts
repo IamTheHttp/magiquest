@@ -4,15 +4,15 @@ import {BaseEntity} from '../../BaseEntity';
 import {TILE_SIZE} from '../../gameConstants';
 
 function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: BaseEntity[]) {
-  let buffer = TILE_SIZE * 8;
-  let {mapAPI} = systemArguments;
-  let arr = [];
-  let {panX, panY} = mapAPI.getCurrentPanValue();
-  let {viewWidth, viewHeight} = systemArguments.viewSize;
+  const buffer = TILE_SIZE * 8;
+  const {mapAPI} = systemArguments;
+  const arr = [];
+  const {panX, panY} = mapAPI.getCurrentPanValue();
+  const {viewWidth, viewHeight} = systemArguments.viewSize;
 
   for (let i = 0; i < entsToDraw.length; i++) {
-    let entity = entsToDraw[i];
-    let {x, y, radius, height, width, isFixedToViewPort} = entity[POSITION];
+    const entity = entsToDraw[i];
+    const {x, y, radius, height, width, isFixedToViewPort} = entity[POSITION];
 
     // If an entity is fixed to the viewport, it should never be filtered out.
     if (isFixedToViewPort) {
@@ -20,8 +20,8 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
       continue;
     }
 
-    let entWidth = radius * 2 || width;
-    let entHeight = radius * 2 || height;
+    const entWidth = radius * 2 || width;
+    const entHeight = radius * 2 || height;
 
     // Example
     // We have -100x, which means we move our view screen 100px to the right (the underlying is translated -100 px)
@@ -30,12 +30,12 @@ function filterOutFarEntities(systemArguments: ISystemArguments, entsToDraw: Bas
     // buffer is 0
     // x + width + buffer = 50px;
     // since our view only starts from x = 100, our entity is out of view
-    let isEntityTooFarLeft = x + entWidth + buffer < -panX;
+    const isEntityTooFarLeft = x + entWidth + buffer < -panX;
     // Same calculation, only we need to take into account the width of what we show (viewWidth).
     // If the entity's X is 'more to the right' than our current pan + the entire view, it's out of view.
-    let isEntityTooFarRight = x - entWidth - buffer > -panX + viewWidth;
-    let isEntityTooFarUp = y + entHeight + buffer < -panY;
-    let isEntityTooFarDown = y - entHeight - buffer > -panY + viewHeight;
+    const isEntityTooFarRight = x - entWidth - buffer > -panX + viewWidth;
+    const isEntityTooFarUp = y + entHeight + buffer < -panY;
+    const isEntityTooFarDown = y - entHeight - buffer > -panY + viewHeight;
 
     // is out of screen?
     if (isEntityTooFarLeft || isEntityTooFarRight || isEntityTooFarUp || isEntityTooFarDown) {

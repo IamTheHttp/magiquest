@@ -1,7 +1,7 @@
 import {IZone, ITileCoordinate} from '../interfaces/IZones';
 import {Engine, Entity} from 'game-platform';
 import createTileIndexMap from './utils/createTileIndexMap';
-import {ATTRIBUTES, SKILLS, EXPERIENCE, HEALTH, PLAYER_CONTROLLED} from './components/_ComponentNames';
+import {EXPERIENCE, HEALTH, PLAYER_CONTROLLED} from './components/_ComponentNames';
 import {IAction, IGameEventListener, IIndexedTileMap, IViewSize} from '../interfaces/IGeneral';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import triggerSystem, {DialogTrigger, pushTrigger} from './systems/triggerSystem';
@@ -67,7 +67,7 @@ class Game {
     this.placeableEntityDataMap = placeableEntityDataMap; // @data source for placeable entities
     this.dispatchAction = this.dispatchAction.bind(this);
 
-    let engine = new Engine();
+    const engine = new Engine();
     this.mode = mode;
     this.engine = engine;
     this.onZoneChange = onZoneChange;
@@ -189,7 +189,7 @@ class Game {
       viewSize: this.viewSize,
       shouldRenderBackground: this.renderBackground,
       game: this,
-      mapAPI: mapAPI,
+      mapAPI,
       minimapAPI: miniMapAPI,
       gameEvents: this.gameEvents,
       placeableEntityDataMap: this.placeableEntityDataMap,
@@ -199,7 +199,7 @@ class Game {
 
   // TODO this is for development/ EDITOR mode only!
   setPlayerPosition(col: number, row: number) {
-    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+    const player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
     player.setPos({
       x: TILE_SIZE / 2 + col * TILE_SIZE,
       y: TILE_SIZE / 2 + row * TILE_SIZE
@@ -210,13 +210,13 @@ class Game {
 
   // TODO this is for development/ EDITOR mode only!
   centerOnPlayer() {
-    let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+    const player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
     this.renderBackground = true; // for the first time
 
     if (this.mapAPI) {
-      let mapAPI = this.mapAPI;
-      let {viewWidth, viewHeight, mapWidth, mapHeight} = this.viewSize;
+      const mapAPI = this.mapAPI;
+      const {viewWidth, viewHeight, mapWidth, mapHeight} = this.viewSize;
 
       centerCameraOnEntity(player, mapAPI, this, viewWidth, viewHeight, mapWidth, mapHeight, true);
     }
@@ -235,21 +235,21 @@ class Game {
       throw 'Cannot load the current zone without a mapAPI instance';
     }
 
-    let mapAPI = this.mapAPI;
+    const mapAPI = this.mapAPI;
 
     const zone = this.getZone();
     const {tileMap} = zone;
 
-    let mapWidth = tileMap[0].length * TILE_SIZE;
-    let mapHeight = tileMap.length * TILE_SIZE;
+    const mapWidth = tileMap[0].length * TILE_SIZE;
+    const mapHeight = tileMap.length * TILE_SIZE;
 
     this.renderBackground = true; // for the first time
     this.zone = zone;
     this.viewSize = {
       viewHeight: RESOLUTION.height,
       viewWidth: RESOLUTION.width,
-      mapHeight: mapHeight,
-      mapWidth: mapWidth
+      mapHeight,
+      mapWidth
     };
 
     destroyAllButPlayer(); // TODO if we plan to have a single world, this is a problem :)
@@ -262,7 +262,7 @@ class Game {
     // only out of editor mode, when playing
     if (this.mode === 'playing') {
       const playerData = this.placeableEntityDataMap[PLACEABLE_ENTITIES.PLAYER];
-      let player = placePlayerInLevel(zone, this.indexedTileMap, playerStartingTile, playerData);
+      const player = placePlayerInLevel(zone, this.indexedTileMap, playerStartingTile, playerData);
       placeLevelEntities(zone, this.indexedTileMap, this.placeableEntityDataMap);
 
       // set triggers
@@ -360,11 +360,8 @@ class Game {
       maxHealth: player[HEALTH].max,
       currentHealth: player[HEALTH].current,
       percentHealth: player[HEALTH].current / player[HEALTH].max,
-      skills: [...player[SKILLS].skills],
       spendableXP: player[EXPERIENCE].XP,
-      levelProgress: player[EXPERIENCE].getLevelProgress(),
-      attributes: player[ATTRIBUTES].attributes,
-      spendableAttributePoints: player[ATTRIBUTES].spendableAttributePoints
+      levelProgress: player[EXPERIENCE].getLevelProgress()
     });
   }
 

@@ -1,6 +1,6 @@
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
-import {AllowedActions, DIRECTIONS, TILE_SIZE} from '../../../gameConstants';
+import {I_ALLOWED_ACTIONS, DIRECTIONS, TILE_SIZE} from '../../../gameConstants';
 
 export function panMapInEditorAction(systemArguments: ISystemArguments, action: IAction) {
   const currentPanValue = systemArguments.mapAPI.getCurrentPanValue();
@@ -10,7 +10,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
   const VIEW_WIDTH = systemArguments.viewSize.viewWidth;
   const VIEW_HEIGHT = systemArguments.viewSize.viewHeight;
 
-  if (action.name === AllowedActions.DRAG_PAN_MAP && action.data) {
+  if (action.name === 'DRAG_PAN_MAP' && action.data) {
     const pannedDistanceX = action.data.startDragCursorX - action.data.currentCursorX;
     const pannedDistanceY = action.data.startDragCursorY - action.data.currentCursorY;
 
@@ -25,8 +25,8 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
     systemArguments.mapAPI.panCamera(NEW_X, NEW_Y);
   }
 
-  if (action.name === AllowedActions.MOVE_ACTION) {
-    let {direction} = action;
+  if (action.name === 'MOVE_ACTION') {
+    const {direction} = action;
 
     if (direction === DIRECTIONS.DOWN) {
       if (MAP_HEIGHT - VIEW_HEIGHT > -currentPanValue.panY - TILE_SIZE) {

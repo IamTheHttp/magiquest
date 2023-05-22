@@ -5,12 +5,12 @@ import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
 function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity) {
-  let {mapAPI} = systemArguments;
+  const {mapAPI} = systemArguments;
 
-  for (let anim in entity.getRunningAnimations()) {
-    let {currentFrame, frames} = entity[ANIMATIONS].runningAnimations[anim];
+  for (const anim in entity.getRunningAnimations()) {
+    const {currentFrame, frames} = entity[ANIMATIONS].runningAnimations[anim];
 
-    let frame = frames[currentFrame];
+    const frame = frames[currentFrame];
 
     if (frame.spriteURL) {
       mapAPI.drawImage({
@@ -30,11 +30,11 @@ function renderAnimations(systemArguments: ISystemArguments, entity: BaseEntity)
 
     if (frame.shape === PossibleUIShapes.ARC_SHAPE) {
       // we either render the X of the entity, or the animation X provided...
-      let frameX = frame.x;
-      let frameY = frame.y;
+      const frameX = frame.x;
+      const frameY = frame.y;
 
-      let entityX = entity[POSITION].x - entity[POSITION].radius;
-      let entityY = entity[POSITION].y - entity[POSITION].radius;
+      const entityX = entity[POSITION].x - entity[POSITION].radius;
+      const entityY = entity[POSITION].y - entity[POSITION].radius;
 
       mapAPI.drawArc({
         id: `${entity.id}`,

@@ -9,21 +9,21 @@ import {Entity, entityLoop} from 'game-platform';
 import {BaseEntity} from '../BaseEntity';
 
 function aiSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([CONTROLLED_BY_AI, MOVEMENT, POSITION]);
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+  const entities = Entity.getByComps<BaseEntity>([CONTROLLED_BY_AI, MOVEMENT, POSITION]);
+  const player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   entityLoop(entities, (entity) => {
     if (entity.isMoving()) {
       return;
     }
 
-    let visionRange = entity.getAIVisionRange();
+    const visionRange = entity.getAIVisionRange();
     let chaseDirections = [];
 
     if (visionRange && player) {
-      let {x: playerX, y: playerY} = player.getPos();
-      let {x, y} = entity.getPos();
-      let dist = Math.sqrt(Math.pow(playerX - x, 2) + Math.pow(playerY - y, 2));
+      const {x: playerX, y: playerY} = player.getPos();
+      const {x, y} = entity.getPos();
+      const dist = Math.sqrt(Math.pow(playerX - x, 2) + Math.pow(playerY - y, 2));
 
       // chase
       /* istanbul ignore else */
@@ -55,12 +55,12 @@ function aiSystem(systemArguments: ISystemArguments) {
         isNextToPlayer = Math.abs(playerX - x) === TILE_SIZE;
       }
 
-      let isCurrentlyAttacking = entity.isAttacking();
+      const isCurrentlyAttacking = entity.isAttacking();
 
       if (isNextToPlayer && !isCurrentlyAttacking) {
-        let playerTileIdx = getTileIdxByEnt(player);
+        const playerTileIdx = getTileIdxByEnt(player);
 
-        let tileToAttack = systemArguments.indexedTileMap[playerTileIdx];
+        const tileToAttack = systemArguments.indexedTileMap[playerTileIdx];
         entity.addComponent(new IsAttackingComp(tileToAttack));
       }
     }
@@ -70,7 +70,7 @@ function aiSystem(systemArguments: ISystemArguments) {
       chaseDirections = [DIRECTIONS.UP, DIRECTIONS.DOWN, DIRECTIONS.LEFT, DIRECTIONS.RIGHT];
     }
 
-    let dir = oneOf(chaseDirections);
+    const dir = oneOf(chaseDirections);
 
     entity.setDestTo(dir);
     entity.addComponent(new Moving());

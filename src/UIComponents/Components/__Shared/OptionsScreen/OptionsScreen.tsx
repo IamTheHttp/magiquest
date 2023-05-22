@@ -9,7 +9,7 @@ interface IOptionsScreenOptions {
 
 class OptionsScreen extends React.Component<PropsWithChildren<IOptionsScreenOptions>> {
   render() {
-    let children = React.Children.toArray(this.props.children);
+    const children = React.Children.toArray(this.props.children);
     return (
       <div className={`options-screen ${this.props.className}`}>
         <div className="options-screen__header">

@@ -76,7 +76,7 @@ class BaseEntity extends Entity {
   }
 
   calcOrientation(destX: number, destY: number): keyof typeof DIRECTIONS {
-    let {x, y} = this.getPos();
+    const {x, y} = this.getPos();
 
     if (destX > x) {
       return DIRECTIONS.RIGHT;
@@ -224,7 +224,7 @@ class BaseEntity extends Entity {
 
   // TODO ensure this works QA
   getDestFromDirection(dir: keyof typeof DIRECTIONS) {
-    let {x, y} = this.getPos();
+    const {x, y} = this.getPos();
 
     if (dir === DIRECTIONS.UP) {
       return {
@@ -256,7 +256,7 @@ class BaseEntity extends Entity {
   }
 
   setDestTo(dir: keyof typeof DIRECTIONS) {
-    let {x, y} = this.getPos();
+    const {x, y} = this.getPos();
     this[POSITION].originX = x;
     this[POSITION].originY = y;
 
@@ -290,8 +290,8 @@ class BaseEntity extends Entity {
   }
 
   isDestReached() {
-    let xReached = this.getPos().x === this.getDest().x;
-    let yReached = this.getPos().y === this.getDest().y;
+    const xReached = this.getPos().x === this.getDest().x;
+    const yReached = this.getPos().y === this.getDest().y;
     return xReached && yReached;
   }
 }

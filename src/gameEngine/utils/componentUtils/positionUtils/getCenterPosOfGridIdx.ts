@@ -8,8 +8,8 @@ function getCenterPosOfGridIdx(col: number, row: number) {
 }
 
 function getGridIdxFromPos(x: number, y: number) {
-  let col = Math.floor(x / TILE_SIZE);
-  let row = Math.floor(y / TILE_SIZE);
+  const col = Math.floor(x / TILE_SIZE);
+  const row = Math.floor(y / TILE_SIZE);
 
   return {col, row};
 }

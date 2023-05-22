@@ -1,25 +1,16 @@
-import React, {useEffect, useRef, useState, useLayoutEffect, useMemo, ReactElement} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ComponentProps} from 'react';
-import {IPlayerState, IPlayerUIState} from '../../../interfaces/IGeneral';
+import {IPlayerState} from '../../../interfaces/IGeneral';
 import Game from '../../../gameEngine/Game';
-import {PlayerState, PlayerStateChangeEvent} from '../../../gameEngine/classes/PlayerState';
-import {AllowedAttributes} from '../../../data/attributesConfig';
+import {PlayerState} from '../../../gameEngine/classes/PlayerState';
 
 function getDefaultPlayerState(): IPlayerState {
   return {
     maxHealth: 0,
     currentHealth: 0,
     percentHealth: 0,
-    skills: [],
     spendableXP: 0, // TODO this is just XP, refactor the name 'spendable'
-    levelProgress: 0,
-    spendableAttributePoints: 0,
-    attributes: {
-      [AllowedAttributes.AGILITY]: 0, // assigned when game starts by game event
-      [AllowedAttributes.STRENGTH]: 0, // assigned when game starts by game event
-      [AllowedAttributes.WILL]: 0, // assigned when game starts by game event
-      [AllowedAttributes.ENDURANCE]: 0 // assigned when game starts by game event
-    }
+    levelProgress: 0
   };
 }
 
@@ -39,15 +30,12 @@ export function MainOverlay(props: MainOverlayProps) {
 
   useEffect(() => {
     props.game.setGameEventListener((event) => {
-      let newPlayerState: PlayerState = {
+      const newPlayerState: PlayerState = {
         maxHealth: event.maxHealth,
         currentHealth: event.currentHealth,
         percentHealth: event.percentHealth,
-        skills: event.skills,
         spendableXP: event.spendableXP,
-        levelProgress: event.levelProgress,
-        attributes: event.attributes,
-        spendableAttributePoints: event.spendableAttributePoints
+        levelProgress: event.levelProgress
       };
 
       setPlayerState(newPlayerState);

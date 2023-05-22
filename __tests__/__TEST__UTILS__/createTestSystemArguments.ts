@@ -1,5 +1,5 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import {AllowedZoneLocationIDs, PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS, PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
@@ -8,7 +8,6 @@ import Game from '../../src/gameEngine/Game';
 import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {createTestPlaceableEntity} from './createTestPlaceableEntity';
-import PlaceableEntity from '../../src/gameEngine/entities/placeableEntities/PlaceableEntity';
 
 export type MockedSystemArguments = Omit<ISystemArguments, 'mapAPI' | 'game'> & {
   mapAPI: Partial<Painter>;
@@ -32,12 +31,12 @@ function createSystemArgs({
   spyHandleAreaChange,
   spyDrawRect
 }: ICreateSystemArgsArguments): MockedSystemArguments {
-  let tileMap = [
+  const tileMap = [
     [1, 1, 1],
     [1, 1, 1],
     [0, 1, 1]
   ];
-  let viewSize = {
+  const viewSize = {
     mapWidth: TILE_SIZE * 3,
     mapHeight: TILE_SIZE * 3,
     viewWidth: TILE_SIZE * 3,
@@ -119,7 +118,7 @@ function createSystemArgs({
         triggers: {actOnEntity: {}, zoneStart: [], move: {}},
         locations: [
           {
-            id: AllowedZoneLocationIDs.TOWN,
+            id: 'TOWN',
             locationEntityLevel: 1,
             name: 'test',
             start: {

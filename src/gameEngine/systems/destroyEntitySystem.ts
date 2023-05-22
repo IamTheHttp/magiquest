@@ -6,7 +6,7 @@ import {ISystemArguments} from '../../interfaces/IGameLoop';
  * TODO export to a system file
  */
 export function destroyEntitiesSystem(systemArguments: ISystemArguments) {
-  let {destroyedPlaceableEntities} = systemArguments;
+  const {destroyedPlaceableEntities} = systemArguments;
 
   destroyedPlaceableEntities.forEach((ent) => {
     ent.destroy();

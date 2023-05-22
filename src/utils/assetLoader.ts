@@ -15,14 +15,14 @@ class AssetLoader {
 
   load(assets: Asset[], onReady: () => void) {
     assertType(assets.length, 'assets length', 'number');
-    let requests = [];
+    const requests = [];
 
     for (let i = 0; i < assets.length; i++) {
-      let asset = assets[i];
+      const asset = assets[i];
       if (asset.type === 'image') {
         requests.push(
           new Promise((resolve) => {
-            let img = new Image();
+            const img = new Image();
             img.src = asset.url;
 
             img.onload = (e) => {
@@ -66,5 +66,5 @@ class AssetLoader {
   }
 }
 
-let assetLoader = new AssetLoader();
+const assetLoader = new AssetLoader();
 export {assetLoader};

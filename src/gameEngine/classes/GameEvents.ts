@@ -59,17 +59,6 @@ export class PlayerSkillsChangeEvent extends GameEvent {
   }
 }
 
-export class PlayerAttributesChangeEvent extends GameEvent {
-  constructor(entity: Player) {
-    super(entity);
-  }
-  readEvent() {
-    return {
-      entity: this.entity
-    };
-  }
-}
-
 export class LevelUpEvent extends GameEvent {
   readEvent(): {entity: BaseEntity} {
     return {

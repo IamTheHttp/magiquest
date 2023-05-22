@@ -1,4 +1,4 @@
-import {AllowedActions, DIRECTIONS} from 'gameEngine/gameConstants';
+import {I_ALLOWED_ACTIONS, DIRECTIONS} from 'gameEngine/gameConstants';
 import Game from '../gameEngine/Game';
 
 class Glob {
@@ -21,7 +21,7 @@ const KEY_TO_CODE_MAP = {
 };
 
 function registerUserInputEvents(game: Game) {
-  let glob = new Glob();
+  const glob = new Glob();
 
   document.body.addEventListener('keyup', (event) => {
     // We only listen listen to keydowns on the body
@@ -31,7 +31,7 @@ function registerUserInputEvents(game: Game) {
     glob.keyPressed = false;
     // Stop.. on key up, right?
     game.dispatchAction({
-      name: AllowedActions.MOVE_ACTION
+      name: 'MOVE_ACTION'
     });
   });
 
@@ -50,7 +50,7 @@ function registerUserInputEvents(game: Game) {
   document.body.addEventListener('mousemove', (event) => {
     if (glob.mouseDown) {
       game.dispatchAction({
-        name: AllowedActions.DRAG_PAN_MAP,
+        name: 'DRAG_PAN_MAP',
         data: {
           startDragCursorX: glob.startDragCursorX,
           startDragCursorY: glob.startDragCursorY,
@@ -83,10 +83,10 @@ function registerUserInputEvents(game: Game) {
 
     glob.keyPressed = true;
 
-    let code = +(event.which || event.keyCode || event.code);
+    const code = +(event.which || event.keyCode || event.code);
     // Support arrow keys and WASD
 
-    let map = {
+    const map = {
       [KEY_TO_CODE_MAP.W]: DIRECTIONS.UP,
       [KEY_TO_CODE_MAP.A]: DIRECTIONS.LEFT,
       [KEY_TO_CODE_MAP.S]: DIRECTIONS.DOWN,
@@ -104,14 +104,14 @@ function registerUserInputEvents(game: Game) {
         game.resume(); // if it was paused, this unpauses it..
       } else {
         game.dispatchAction({
-          name: AllowedActions.PERFORM_ACTION
+          name: 'PERFORM_ACTION'
         });
       }
     } else {
-      let direction = map[code];
+      const direction = map[code];
       if (map.hasOwnProperty(code)) {
         game.dispatchAction({
-          name: AllowedActions.MOVE_ACTION,
+          name: 'MOVE_ACTION',
           direction
         });
       }

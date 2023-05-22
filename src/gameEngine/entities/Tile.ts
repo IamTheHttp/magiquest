@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, PossibleUIShapes, AllowedZoneLocationIDs, WALKABLE_TILE_TYPES} from '../gameConstants';
+import {CANVAS_OUTPUT, PossibleUIShapes, I_ALLOWED_ZONE_LOCATION_IDS, WALKABLE_TILE_TYPES} from '../gameConstants';
 import Position from '../components/Position';
 import Background from '../components/Background';
 import Traversable from '../components/Traversable';
@@ -13,7 +13,7 @@ interface ITileConstructor {
   height: number;
   width: number;
   tileType: number;
-  tileLocationID: AllowedZoneLocationIDs;
+  tileLocationID: I_ALLOWED_ZONE_LOCATION_IDS;
   tileEntityLevel: number;
 }
 

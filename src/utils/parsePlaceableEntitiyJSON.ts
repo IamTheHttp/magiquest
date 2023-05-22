@@ -1,11 +1,11 @@
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {createPlayerMoveAnimationDefinition} from '../gameEngine/entities/animations/playerAnimations';
 import {createEnemyMoveAnimationDefinition} from '../gameEngine/entities/animations/enemyAnimations';
-import {ATTACK_SPEEDS_OPTIONS, PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
+import {I_ATTACK_SPEED_OPTIONS, PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
 import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/IPlaceableEntityJSON';
 
 export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntityJSON[]) {
-  let placeableEntityMap: IPlaceableEntityDataMap = {};
+  const placeableEntityMap: IPlaceableEntityDataMap = {};
 
   placeableEntitiesJSON.forEach((entityJSON: IPlaceableEntityJSON) => {
     // Throws on error - Validate that the JSON structure is as expected
@@ -32,7 +32,7 @@ export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntity
       radius: entityJSON.sizeInTiles * TILE_SIZE,
       vision: entityJSON.vision,
       speed: entityJSON.speed,
-      attackSpeed: entityJSON.attackSpeed as ATTACK_SPEEDS_OPTIONS,
+      attackSpeed: entityJSON.attackSpeed as I_ATTACK_SPEED_OPTIONS,
       health: entityJSON.health
     };
   });

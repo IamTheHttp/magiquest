@@ -15,9 +15,9 @@ function placePlayerInLevel(
   playerData: IPlaceableEntityData
 ) {
   let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
-  let {col, row} = targetTile || zone.playerStartPos;
+  const {col, row} = targetTile || zone.playerStartPos;
 
-  let {x, y} = getCenterPosOfGridIdx(col, row);
+  const {x, y} = getCenterPosOfGridIdx(col, row);
 
   if (!player) {
     // TODO - when Saving progress, this has to be taken into consideration (entityLevel 1)
@@ -26,7 +26,7 @@ function placePlayerInLevel(
     player.setPos({x, y});
     player.stop();
   }
-  updateIndexedTileMap({entity: player, indexedTileMap: indexedTileMap, newX: x, newY: y});
+  updateIndexedTileMap({entity: player, indexedTileMap, newX: x, newY: y});
 
   return player;
 }

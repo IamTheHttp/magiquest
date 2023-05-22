@@ -17,12 +17,12 @@ import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {Entity, entityLoop} from 'game-platform';
 
 function questSystem(systemArguments: ISystemArguments) {
-  let {gameEvents} = systemArguments;
-  let entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([ASSIGNS_QUESTS, POSITION, UI]);
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+  const {gameEvents} = systemArguments;
+  const entitiesThatGiveQuests = Entity.getByComps<BaseEntity>([ASSIGNS_QUESTS, POSITION, UI]);
+  const player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   // Quests are entities that inside a component
-  let quests = Entity.getByComps<BaseEntity>([QUEST_DATA]) as Quest[];
+  const quests = Entity.getByComps<BaseEntity>([QUEST_DATA]) as Quest[];
 
   /**
    * System does a few things...
@@ -31,8 +31,8 @@ function questSystem(systemArguments: ISystemArguments) {
    * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComp<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
    */
 
-  let killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA]) as KillQuest[];
-  let eventsToProcess: GameEvent[] = gameEvents.getEvents();
+  const killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA]) as KillQuest[];
+  const eventsToProcess: GameEvent[] = gameEvents.getEvents();
 
   // 1. process events
   eventsToProcess.forEach((gameEvent: GameEvent) => {
@@ -59,13 +59,13 @@ function questSystem(systemArguments: ISystemArguments) {
     // }
 
     if (gameEvent instanceof InteractWithNPC) {
-      let NPCEntity = gameEvent.readEvent().entity;
+      const NPCEntity = gameEvent.readEvent().entity;
 
-      let availableQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
-      let doneQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
+      const availableQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
+      const doneQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
 
       if (isNonEmptyArray(doneQuests)) {
-        let quest = doneQuests[0];
+        const quest = doneQuests[0];
         quest.setState(AllowedQuestState.REWARDED);
 
         pushTrigger(
@@ -84,7 +84,7 @@ function questSystem(systemArguments: ISystemArguments) {
       }
 
       if (isNonEmptyArray(availableQuests)) {
-        let quest = availableQuests[0];
+        const quest = availableQuests[0];
         quest.setState(AllowedQuestState.IN_PROGRESS);
 
         pushTrigger(
@@ -129,9 +129,9 @@ function questSystem(systemArguments: ISystemArguments) {
     // if AVAILABLE, show yellow "?"
     // If done, show yellow "!"
 
-    let doneQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.DONE);
-    let availableQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.AVAILABLE);
-    let hasActionSign = entityThatGivesQuest.hasComponents(ACTION_SIGN);
+    const doneQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.DONE);
+    const availableQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.AVAILABLE);
+    const hasActionSign = entityThatGivesQuest.hasComponents(ACTION_SIGN);
 
     if (isNonEmptyArray(availableQuests)) {
       entityThatGivesQuest.setQuestActionSymbol('?');

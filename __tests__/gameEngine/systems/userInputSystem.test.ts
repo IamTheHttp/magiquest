@@ -1,17 +1,16 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
-import {AllowedActions, DIRECTIONS} from 'gameEngine/gameConstants';
+import {DIRECTIONS} from 'gameEngine/gameConstants';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
-import {AllowedSkills} from '../../../src/data/skillConfig';
 import {Entity} from 'game-platform';
 import Player from '../../../src/gameEngine/entities/placeableEntities/Player';
-import {SKILLS, EXPERIENCE} from '../../../src/gameEngine/components/_ComponentNames';
-import {PlayerSkillsChangeEvent} from '../../../src/gameEngine/classes/GameEvents';
 
 describe('Tests for the User Input system', () => {
-  let systemArguments: ISystemArguments, spyPan, player: Player;
+  let systemArguments: ISystemArguments;
+  let spyPan;
+  let player: Player;
 
   beforeEach(() => {
     Entity.reset();
@@ -32,31 +31,15 @@ describe('Tests for the User Input system', () => {
   });
 
   it('Performs a move action', () => {
-    //some sanity
+    // some sanity
     expect(player.getMoveDirection()).toBeUndefined();
 
     pushAction({
-      name: AllowedActions.MOVE_ACTION,
+      name: 'MOVE_ACTION',
       direction: DIRECTIONS.DOWN
     });
     userInputSystem(systemArguments);
 
     expect(player.getMoveDirection()).toBe(DIRECTIONS.DOWN);
-  });
-
-  it('Buys a skill', () => {
-    pushAction({
-      name: AllowedActions.BUY_SKILL,
-      data: {
-        skillID: AllowedSkills.FIRE_BULLET
-      }
-    });
-
-    // ensure player has enough XP to buy skill
-    player[EXPERIENCE].XP = 10000000; // some very big number
-    userInputSystem(systemArguments);
-
-    expect(player[SKILLS].skills).toContain(AllowedSkills.FIRE_BULLET);
-    expect(systemArguments.gameEvents.nextEvents[0]).toBeInstanceOf(PlayerSkillsChangeEvent);
   });
 });

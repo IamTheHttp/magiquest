@@ -33,7 +33,7 @@ class QuestData {
 
   constructor(questID: AllowedQuestIDs, data: IQuestData) {
     this.name = QUEST_DATA; // component name
-    let {id, requiredLevel, preCondition, reward, description, finishedText} = data;
+    const {id, requiredLevel, preCondition, reward, description, finishedText} = data;
     this.data = {
       state: AllowedQuestState.AVAILABLE,
       description,
@@ -50,7 +50,7 @@ export class KillQuestDataComponent extends QuestData {
   data: IKillQuestData;
   constructor(questID: AllowedQuestIDs, data: IKillQuestData) {
     super(questID, data);
-    let {killGoal, killed, location} = data.kill;
+    const {killGoal, killed, location} = data.kill;
     this.data.kill = {
       killGoal,
       killed,

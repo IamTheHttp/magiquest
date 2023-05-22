@@ -20,15 +20,15 @@ function placeLevelEntities(
   placeableEntityDataMap: IPlaceableEntityDataMap
 ) {
   for (let i = 0; i < zone.entitiesToPlace.length; i++) {
-    let entityToPlace = zone.entitiesToPlace[i];
+    const entityToPlace = zone.entitiesToPlace[i];
     let entity = undefined;
 
-    let {col, row} = entityToPlace.pos;
-    let {x, y} = getCenterPosOfGridIdx(col, row);
-    let entityLevel = entityToPlace.entityLevel;
+    const {col, row} = entityToPlace.pos;
+    const {x, y} = getCenterPosOfGridIdx(col, row);
+    const entityLevel = entityToPlace.entityLevel;
 
     // Fetch what to spawn from config!
-    let placeableEntityData = placeableEntityDataMap[entityToPlace.characterType];
+    const placeableEntityData = placeableEntityDataMap[entityToPlace.characterType];
 
     if (placeableEntityData) {
       switch (entityToPlace.characterType) {
@@ -53,7 +53,7 @@ function placeLevelEntities(
 
     updateIndexedTileMap({
       entity,
-      indexedTileMap: indexedTileMap,
+      indexedTileMap,
       newX: entity.getPos().x,
       newY: entity.getPos().y
     });

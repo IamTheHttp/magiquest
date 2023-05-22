@@ -1,8 +1,6 @@
-import {AllowedActions, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
+import {I_ALLOWED_ACTIONS, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
-import {AllowedSkills} from '../data/skillConfig';
-import {IAssignedCharacterAttributes} from '../gameEngine/components/Attributes';
 
 /**
  * Represents the resolution properties of the game
@@ -24,7 +22,7 @@ export interface IIndexedTileMap {
  * Incoming user actions
  */
 export interface IAction {
-  name: keyof typeof AllowedActions;
+  name: I_ALLOWED_ACTIONS;
   data?: {
     // todo move direction into data
     [key: string]: any;
@@ -56,17 +54,8 @@ export interface IPlayerState {
   maxHealth: number;
   currentHealth: number;
   percentHealth: number;
-  skills: (keyof typeof AllowedSkills)[];
   spendableXP: number;
   levelProgress: number;
-  attributes: IAssignedCharacterAttributes;
-  spendableAttributePoints: number;
-}
-
-export interface IPlayerUIState extends IPlayerState {
-  showSkillTree: boolean;
-  showAttributes: boolean;
-  showInventory: boolean;
 }
 
 /**

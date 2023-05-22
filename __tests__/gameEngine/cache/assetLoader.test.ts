@@ -2,7 +2,7 @@ import {assetLoader} from '../../../src/utils/assetLoader';
 
 import {Entity} from 'game-platform';
 
-let global2 = global as any; // TODO Should this be any?
+const global2 = global as any; // TODO Should this be any?
 
 describe('Tests for the assetLoader', () => {
   beforeEach(() => {
@@ -48,7 +48,7 @@ describe('Tests for the assetLoader', () => {
   });
 
   it('Do not load invalid asset types', () => {
-    let requests = assetLoader.load(
+    const requests = assetLoader.load(
       [
         {
           type: 'imazz' as any, // force incorrect type for the test

@@ -27,7 +27,7 @@ export function renderHUDPlayerHealth(systemArguments: ISystemArguments, player:
   });
 
   // calculate the fill width as percent of player health
-  const CALC_HEALTH_BAR_FILL_WIDTH = (player['HEALTH'].current / player['HEALTH'].max) * WIDTH_WITHOUT_BORDER;
+  const CALC_HEALTH_BAR_FILL_WIDTH = (player.HEALTH.current / player.HEALTH.max) * WIDTH_WITHOUT_BORDER;
 
   // Draw border
   mapAPI.drawRect({
@@ -36,8 +36,8 @@ export function renderHUDPlayerHealth(systemArguments: ISystemArguments, player:
     y: viewportAbsY,
     strokeStyle: 'red',
     lineWidth: HEALTH_LINE_WIDTH,
-    width: width,
-    height: height
+    width,
+    height
   });
 
   const absFill = getFixedPositionRelativeToViewport(systemArguments, {

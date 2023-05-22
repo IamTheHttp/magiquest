@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {PossibleUIShapes, CANVAS_OUTPUT, AllowedZoneLocationIDs, TILE_SIZE} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
 import {Stackable} from '../../components/Stackable';

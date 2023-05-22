@@ -8,10 +8,11 @@ import {POSITION} from '../../../src/gameEngine/components/_ComponentNames';
 import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
-import {Painter} from 'game-platform/dist/lib/PainterAPI/Painter';
 
 describe('move system tests', () => {
-  let systemArguments: ISystemArguments, spyPan: fn, player: BaseEntity;
+  let systemArguments: ISystemArguments;
+  let spyPan: fn;
+  let player: BaseEntity;
 
   beforeEach(() => {
     Entity.reset();
@@ -103,7 +104,7 @@ describe('move system tests', () => {
     player.addComponent(new Moving());
     player.setDestTo(DIRECTIONS.DOWN);
 
-    let currY = player.getPos().y;
+    const currY = player.getPos().y;
     // move two tiles down
     while (player.getDest().y) {
       moveSystem(systemArguments);

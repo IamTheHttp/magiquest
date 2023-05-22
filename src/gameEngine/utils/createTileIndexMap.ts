@@ -1,7 +1,7 @@
 import {IIndexedTileMap, IViewSize} from '../../interfaces/IGeneral';
 import {IZone, IZoneLocation} from '../../interfaces/IZones';
 import {SPAWNER} from '../components/_ComponentNames';
-import {AllowedZoneLocationIDs} from '../gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS} from '../gameConstants';
 import Tile from '../entities/Tile';
 import IndexedTile from '../classes/IndexedTile';
 
@@ -22,38 +22,38 @@ function inRange(a: number, x: number, b: number, inclusive = true) {
 }
 
 function createTileIndexMap(zone: IZone, viewSize: IViewSize): IIndexedTileMap {
-  let {mapHeight, mapWidth} = viewSize;
+  const {mapHeight, mapWidth} = viewSize;
 
-  let tileMap = zone.tileMap;
-  let locations = zone.locations;
+  const tileMap = zone.tileMap;
+  const locations = zone.locations;
 
   // take levelArea
   // If tile is in SAFE area, remove all "spawnable" from it.
 
-  let idx = {} as IIndexedTileMap;
+  const idx = {} as IIndexedTileMap;
 
   for (let rowNumber = 0; rowNumber < tileMap.length; rowNumber++) {
-    let row = tileMap[rowNumber];
+    const row = tileMap[rowNumber];
 
     for (let colNumber = 0; colNumber < row.length; colNumber++) {
-      let numOfCols = row.length;
-      let numOfRows = tileMap.length;
-      let tileIdx = `${colNumber},${rowNumber}`; // TODO move to util to abstract the comma
+      const numOfCols = row.length;
+      const numOfRows = tileMap.length;
+      const tileIdx = `${colNumber},${rowNumber}`; // TODO move to util to abstract the comma
 
-      let tileWidth = mapWidth / numOfCols;
-      let tileHeight = mapHeight / numOfRows;
+      const tileWidth = mapWidth / numOfCols;
+      const tileHeight = mapHeight / numOfRows;
 
-      let tileLocationID: AllowedZoneLocationIDs = null;
-      let tileEntityLevel: number = 1;
+      let tileLocationID: I_ALLOWED_ZONE_LOCATION_IDS = null;
+      let tileEntityLevel = 1;
       let locationsFoundForTile = 0;
       locations.forEach((levelLocation: IZoneLocation) => {
-        let colStart = levelLocation.start.col;
-        let rowStart = levelLocation.start.row;
-        let colEnd = levelLocation.end.col;
-        let rowEnd = levelLocation.end.row;
+        const colStart = levelLocation.start.col;
+        const rowStart = levelLocation.start.row;
+        const colEnd = levelLocation.end.col;
+        const rowEnd = levelLocation.end.row;
 
-        let inColRange = inRange(colStart, colNumber, colEnd);
-        let inRowRange = inRange(rowStart, rowNumber, rowEnd);
+        const inColRange = inRange(colStart, colNumber, colEnd);
+        const inRowRange = inRange(rowStart, rowNumber, rowEnd);
 
         if (inColRange && inRowRange) {
           tileLocationID = levelLocation.id;
@@ -74,7 +74,7 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): IIndexedTileMap {
         throw 'A LevelLocation cannot overlap over a tile';
       }
 
-      let tile = new Tile({
+      const tile = new Tile({
         x: colNumber * tileWidth,
         y: rowNumber * tileHeight,
         tileIdx,
@@ -88,8 +88,8 @@ function createTileIndexMap(zone: IZone, viewSize: IViewSize): IIndexedTileMap {
       // Is the tile location within a safe spot?
 
       zone.noSpawnLocations.forEach((safeLocation) => {
-        let withinX = inRange(safeLocation.start.col, colNumber, safeLocation.end.col);
-        let withinY = inRange(safeLocation.start.row, rowNumber, safeLocation.end.row);
+        const withinX = inRange(safeLocation.start.col, colNumber, safeLocation.end.col);
+        const withinY = inRange(safeLocation.start.row, rowNumber, safeLocation.end.row);
 
         if (withinX && withinY) {
           tile.removeComponent(SPAWNER);

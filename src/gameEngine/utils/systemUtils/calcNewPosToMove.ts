@@ -8,12 +8,12 @@ function calcNewPosToMove(entity: BaseEntity, originX: number, originY: number, 
   assertType(destY, 'destY', 'number');
   assertType(destX, 'destX', 'number');
 
-  let speed = entity[MOVEMENT].speed;
-  let speedX = destX >= originX ? speed : speed * -1;
-  let speedY = destY >= originY ? speed : speed * -1;
+  const speed = entity[MOVEMENT].speed;
+  const speedX = destX >= originX ? speed : speed * -1;
+  const speedY = destY >= originY ? speed : speed * -1;
 
-  let minMaxX = speedX > 0 ? Math.min : Math.max;
-  let minMaxY = speedY > 0 ? Math.min : Math.max;
+  const minMaxX = speedX > 0 ? Math.min : Math.max;
+  const minMaxY = speedY > 0 ? Math.min : Math.max;
 
   return {
     x: minMaxX(originX + speedX, destX),

@@ -3,11 +3,12 @@ import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import {Entity} from 'game-platform';
 import {SPAWNER} from '../../../src/gameEngine/components/_ComponentNames';
-import {AllowedZoneLocationIDs} from '../../../src/gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS} from '../../../src/gameEngine/gameConstants';
 import Tile from '../../../src/gameEngine/entities/Tile';
 
 describe('Tile tests', () => {
-  let systemArguments: ISystemArguments, spyPan;
+  let systemArguments: ISystemArguments;
+  let spyPan;
 
   beforeEach(() => {
     Entity.reset();
@@ -16,11 +17,11 @@ describe('Tile tests', () => {
   });
 
   it('Should populate tileLocationID correctly in CAN_SPAWN_COMP', () => {
-    let tileLocationID = AllowedZoneLocationIDs.TOWN;
-    let tileEntityLevel = 1;
+    const tileLocationID = 'TOWN' as I_ALLOWED_ZONE_LOCATION_IDS;
+    const tileEntityLevel = 1;
 
     // TODO move to util to abstract the comma (the 0,0)
-    let tileArgs = {
+    const tileArgs = {
       x: 0,
       y: 0,
       tileIdx: '0,0',
@@ -30,9 +31,9 @@ describe('Tile tests', () => {
       tileLocationID,
       tileEntityLevel
     };
-    let tile = new Tile(tileArgs);
+    const tile = new Tile(tileArgs);
 
-    let comp = tile[SPAWNER];
-    expect(comp.tileLocationID).toBe(AllowedZoneLocationIDs.TOWN);
+    const comp = tile[SPAWNER];
+    expect(comp.tileLocationID).toBe('TOWN');
   });
 });

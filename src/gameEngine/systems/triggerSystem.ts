@@ -1,10 +1,7 @@
 // store our triggers, singleton
-import {PLAYER_CONTROLLED} from 'gameEngine/components/_ComponentNames';
 import Dialog from 'gameEngine/components/Dialog';
-import {IDialogTrigger, ITriggerLinesOfText, IPortalTrigger} from '../../interfaces/ITriggers';
+import {IDialogTrigger} from '../../interfaces/ITriggers';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
-import {Entity} from 'game-platform';
-import {BaseEntity} from '../BaseEntity';
 import {isNonEmptyArray} from './portalSystem';
 
 let triggers: IDialogTrigger[] = [];
@@ -40,9 +37,9 @@ function triggerSystem(systemArguments: ISystemArguments) {
 
       if (trigger.type === 'dialog') {
         // get lines of the dialog
-        let lines = trigger.lines;
-        let line = lines[0];
-        let nextLine = lines[1];
+        const lines = trigger.lines;
+        const line = lines[0];
+        const nextLine = lines[1];
 
         if (line) {
           const speaker = line.speaker || trigger.actedOnEntity.name;
@@ -53,7 +50,7 @@ function triggerSystem(systemArguments: ISystemArguments) {
 
         if (nextLine) {
           // end of tick
-          let lines = [...trigger.lines];
+          const lines = [...trigger.lines];
           lines.shift();
           Promise.resolve().then(() => {
             pushTrigger(

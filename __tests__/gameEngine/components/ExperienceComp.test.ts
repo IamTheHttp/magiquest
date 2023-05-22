@@ -1,9 +1,9 @@
 import Experience, {getXPToLevel} from '../../../src/gameEngine/components/Experience';
 import {XP_TO_FIRST_LEVEL} from '../../../src/gameEngine/gameConstants';
 
-describe('XP Component Tests', function () {
+describe('XP Component Tests', () => {
   it('Test XP to next level', () => {
-    let xpRequired = getXPToLevel(-5);
+    const xpRequired = getXPToLevel(-5);
 
     expect(getXPToLevel(-5)).toBe(0);
     expect(getXPToLevel(1)).toBe(0);
@@ -27,8 +27,8 @@ describe('XP Component Tests', function () {
     xpComp = new Experience(3, XP_TO_FIRST_LEVEL + XP_TO_FIRST_LEVEL / 2);
     expect(xpComp.getLevelProgress()).toBe(0);
 
-    let xpToLevel4 = getXPToLevel(4);
-    let xpToLevel5 = getXPToLevel(5);
+    const xpToLevel4 = getXPToLevel(4);
+    const xpToLevel5 = getXPToLevel(5);
 
     xpComp = new Experience(4, xpToLevel5 - xpToLevel4 + (xpToLevel5 - xpToLevel4) / 5);
     expect(xpComp.getLevelProgress()).toBe(0.2);

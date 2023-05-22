@@ -12,8 +12,8 @@ function centerCameraOnEntity(
   mapHeight: number,
   force = false
 ) {
-  let {x, y} = entity.getPos();
-  let {panX, panY} = mapAPI.getCurrentPanValue();
+  const {x, y} = entity.getPos();
+  const {panX, panY} = mapAPI.getCurrentPanValue();
 
   let panToX = x < viewWidth / 2 ? panX : -x + viewWidth / 2;
   let panToY = y < viewHeight / 2 ? panY : -y + viewHeight / 2;

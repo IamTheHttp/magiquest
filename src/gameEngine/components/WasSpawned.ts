@@ -1,10 +1,10 @@
 import {WAS_SPAWNED} from './_ComponentNames';
-import {AllowedZoneLocationIDs} from '../gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS} from '../gameConstants';
 
 class WasSpawned {
   name: string;
-  spawningTileLocationID: AllowedZoneLocationIDs;
-  constructor(spawningTileLocationID: AllowedZoneLocationIDs) {
+  spawningTileLocationID: I_ALLOWED_ZONE_LOCATION_IDS;
+  constructor(spawningTileLocationID: I_ALLOWED_ZONE_LOCATION_IDS) {
     this.name = WAS_SPAWNED;
     this.spawningTileLocationID = spawningTileLocationID;
   }

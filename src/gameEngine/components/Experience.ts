@@ -19,7 +19,7 @@ class Experience {
   level: number;
   XPtoNextLevel: number;
 
-  constructor(level: number = 1, XP = 0) {
+  constructor(level = 1, XP = 0) {
     this.name = EXPERIENCE;
     this.XP = XP;
     this.level = level;
@@ -29,15 +29,15 @@ class Experience {
     // next level requirements e.g 5000
     // current level requirements e.g 2500
     // current XP = e.g 3000
-    let XPtoNextLevel = getXPToLevel(this.level + 1);
-    let XPtoCurrentLevel = getXPToLevel(this.level);
-    let currentXP = this.XP; // 3000
+    const XPtoNextLevel = getXPToLevel(this.level + 1);
+    const XPtoCurrentLevel = getXPToLevel(this.level);
+    const currentXP = this.XP; // 3000
 
     // xp over current level = 3000 - 2500 = 500
-    let XPOverLastLevel = Math.max(currentXP - XPtoCurrentLevel, 0);
+    const XPOverLastLevel = Math.max(currentXP - XPtoCurrentLevel, 0);
 
     // net xp between levels = 5000 - 2500 =  2500
-    let netXPNeededToNextLevel = XPtoNextLevel - XPtoCurrentLevel;
+    const netXPNeededToNextLevel = XPtoNextLevel - XPtoCurrentLevel;
 
     if (netXPNeededToNextLevel === 0) {
       return 0;

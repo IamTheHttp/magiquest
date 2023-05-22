@@ -28,8 +28,6 @@
 - When enemy is killed, an EnemyKill event is dispatched
 - Experience system increases experience of player based on ${BaseXP} \* ${enemyLevel}
 - Experience needed for next level is doubled every level.
-- A player is assigned one attribute point per level
-- Player attribuets are (WASE) - Will, Agility, Strength, Endurance
 
 ### The database
 

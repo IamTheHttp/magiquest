@@ -1,5 +1,5 @@
 import hasValue from '../../../gameEngine/utils/hasValue';
-import {AllowedZoneLocationIDs, PLACEABLE_ENTITIES} from '../../../gameEngine/gameConstants';
+import {PLACEABLE_ENTITIES} from '../../../gameEngine/gameConstants';
 import {IZone} from '../../../interfaces/IZones';
 
 /**
@@ -10,11 +10,11 @@ export function validateZone(zone: IZone) {
   const ERROR_PREFIX = `Invalid ZoneJSON/${zone.act}-${zone.chapter}`;
 
   if (!hasValue(zone.chapter)) {
-    throw `Invalid ZoneJSON - Missing zone.chapter`;
+    throw 'Invalid ZoneJSON - Missing zone.chapter';
   }
 
   if (!hasValue(zone.act)) {
-    throw `Invalid ZoneJSON - Missing zone.act`;
+    throw 'Invalid ZoneJSON - Missing zone.act';
   }
 
   if (!hasValue(zone.triggers)) {
@@ -36,14 +36,6 @@ export function validateZone(zone: IZone) {
   if (!hasValue(zone.spawnableEnemies)) {
     throw `${ERROR_PREFIX} - Missing zone.spawnableEnemies`;
   }
-
-  zone.locations.forEach((location) => {
-    if (!AllowedZoneLocationIDs[location.id]) {
-      throw `${ERROR_PREFIX} - Invalid location - id "${location.id}" does not appear in ${Object.keys(
-        AllowedZoneLocationIDs
-      )} of AllowedLevelLocationIDs`;
-    }
-  });
 
   zone.spawnableEnemies.forEach((enemyID) => {
     if (!PLACEABLE_ENTITIES[enemyID]) {

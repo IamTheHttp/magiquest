@@ -18,10 +18,7 @@ export const HUD_ITEM_BORDER_COLOR = 'green';
 export const WALKABLE_TILE_TYPES = [1, 7, 100, 13, 11];
 export {PLAYER_SPRITE_URL, TILESET_IMAGE_URL, ITEMS_SPRITE_URL};
 
-export enum AllowedZoneLocationIDs {
-  TOWN = 'TOWN',
-  SPAWNABLE_1 = 'SPAWNABLE_1'
-}
+export type I_ALLOWED_ZONE_LOCATION_IDS = 'TOWN' | 'SPAWNABLE_1' | 'FOO';
 
 export enum PossibleUIShapes {
   CIRCLE_SHAPE = 'CIRCLE_SHAPE',
@@ -50,15 +47,14 @@ export enum PLACEABLE_ENTITIES {
   PLAYER = 'PLAYER'
 }
 
-export enum AllowedActions {
-  PERFORM_ACTION = 'PERFORM_ACTION',
-  MOVE_ACTION = 'MOVE_ACTION',
-  DRAG_PAN_MAP = 'DRAG_PAN_MAP',
-  BUY_SKILL = 'BUY_SKILL',
-  BUY_ATTR = 'BUY_ATTR',
-  OPEN_INVENTORY = 'OPEN_INVENTORY',
-  SHOW_HELP_SCREEN = 'SHOW_HELP_SCREEN'
-}
+export type I_ALLOWED_ACTIONS =
+  | 'PERFORM_ACTION'
+  | 'MOVE_ACTION'
+  | 'DRAG_PAN_MAP'
+  | 'BUY_SKILL'
+  | 'BUY_ATTR'
+  | 'OPEN_INVENTORY'
+  | 'SHOW_HELP_SCREEN';
 
 export enum AllowedQuestIDs {
   CLEAR_CAMP = 'CLEAR_CAMP'
@@ -90,18 +86,13 @@ export const ANIMATIONS = {
 export const TILE_SIZE = 32;
 export const SPRITE_SIZE = 32; // The size of a sprite in our sprite sheets
 
-export enum ATTACK_SPEEDS_OPTIONS {
-  SLOW = 'SLOW',
-  FAST = 'FAST',
-  FASTER = 'FASTER',
-  FASTEST = 'FASTEST'
-}
+export type I_ATTACK_SPEED_OPTIONS = 'SLOW' | 'FAST' | 'FASTER' | 'FASTEST' | null;
 
-export const ATTACK_SPEEDS = {
-  [ATTACK_SPEEDS_OPTIONS.SLOW]: 90,
-  [ATTACK_SPEEDS_OPTIONS.FAST]: 70,
-  [ATTACK_SPEEDS_OPTIONS.FASTER]: 60,
-  [ATTACK_SPEEDS_OPTIONS.FASTEST]: 20
+export const ATTACK_SPEEDS: {[key in I_ATTACK_SPEED_OPTIONS]: number} = {
+  SLOW: 90,
+  FAST: 70,
+  FASTER: 60,
+  FASTEST: 20
 };
 
 export const RESOLUTION = {

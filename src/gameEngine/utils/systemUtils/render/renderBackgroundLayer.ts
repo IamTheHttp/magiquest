@@ -7,12 +7,12 @@ import {BaseEntity} from '../../../BaseEntity';
 import {mapTileTypeToSprite} from '../../../getSprites';
 
 function renderBackgroundLayer(systemArguments: ISystemArguments) {
-  let {mapAPI, Entity, SPRITES} = systemArguments;
-  let allBackgroundEnts = Entity.getByComps<BaseEntity>([BACKGROUND]);
-  let closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
+  const {mapAPI, Entity, SPRITES} = systemArguments;
+  const allBackgroundEnts = Entity.getByComps<BaseEntity>([BACKGROUND]);
+  const closeBackgroundEnts = filterOutFarEntities(systemArguments, allBackgroundEnts);
 
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
-    let entity = closeBackgroundEnts[i];
+    const entity = closeBackgroundEnts[i];
     entity[BACKGROUND].sections.forEach((section) => {
       if (section.shape === PossibleUIShapes.MAP_TILE_SHAPE) {
         // tile type

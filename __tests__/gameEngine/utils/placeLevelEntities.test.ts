@@ -1,4 +1,3 @@
-import React from 'react';
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {Entity} from 'game-platform';
@@ -15,7 +14,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('places some entities', () => {
-    let {indexedTileMap} = createSystemArgs(new SpyFns());
+    const {indexedTileMap} = createSystemArgs(new SpyFns());
     placeLevelEntities(
       {
         chapter: 0,
@@ -75,7 +74,7 @@ describe('Tests the placeLevelEntities util', () => {
     );
 
     // Expected an assertion error in this test, as we have an UNKNOWN_TYPE
-    let entsPlaced = Entity.getByComp<BaseEntity>(LEVELS);
+    const entsPlaced = Entity.getByComp<BaseEntity>(LEVELS);
     expect(entsPlaced.length).toBe(2); // and not 3
   });
 });

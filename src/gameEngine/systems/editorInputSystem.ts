@@ -1,12 +1,12 @@
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {IAction} from '../../interfaces/IGeneral';
-import {AllowedActions} from '../gameConstants';
+import {I_ALLOWED_ACTIONS} from '../gameConstants';
 import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
 
-let actionMap = {
-  [AllowedActions.MOVE_ACTION]: panMapInEditorAction,
-  [AllowedActions.DRAG_PAN_MAP]: panMapInEditorAction
-} as Record<AllowedActions, (sysArgs: ISystemArguments, action: IAction) => void>;
+const actionMap = {
+  MOVE_ACTION: panMapInEditorAction,
+  DRAG_PAN_MAP: panMapInEditorAction
+} as Record<I_ALLOWED_ACTIONS, (sysArgs: ISystemArguments, action: IAction) => void>;
 
 // store our actions, singleton
 let actions: IAction[] = [];
@@ -24,7 +24,7 @@ function editorInputSystem(systemArguments: ISystemArguments) {
     const action = actions[i];
 
     // MOVE Action
-    if (action.name === AllowedActions.MOVE_ACTION) {
+    if (action.name === 'MOVE_ACTION') {
       // Stop the interval
       clearInterval(cameraMapIntervalID);
       if (action.direction) {
@@ -43,8 +43,8 @@ function editorInputSystem(systemArguments: ISystemArguments) {
     }
 
     // MOVE MOUSE DRAG PAN ACTION
-    if (action.name === AllowedActions.DRAG_PAN_MAP) {
-      actionMap[AllowedActions.DRAG_PAN_MAP](systemArguments, action);
+    if (action.name === 'DRAG_PAN_MAP') {
+      actionMap['DRAG_PAN_MAP'](systemArguments, action);
     }
   }
   // reset actions when we're done

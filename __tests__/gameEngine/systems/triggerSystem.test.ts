@@ -9,7 +9,10 @@ import triggerSystem, {pushTrigger} from '../../../src/gameEngine/systems/trigge
 import {DIALOG} from '../../../src/gameEngine/components/_ComponentNames';
 
 describe('Tests for the trigger system', () => {
-  let systemArguments: ISystemArguments, spyPan, player: BaseEntity, NPC: BaseEntity;
+  let systemArguments: ISystemArguments;
+  let spyPan;
+  let player: BaseEntity;
+  let NPC: BaseEntity;
 
   beforeEach(() => {
     Entity.reset();

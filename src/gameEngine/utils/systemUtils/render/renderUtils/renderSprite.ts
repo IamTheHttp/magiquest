@@ -6,7 +6,7 @@ import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToVi
 
 export function renderSprite(systemArguments: ISystemArguments, entity: BaseEntity, section: IUISection) {
   const {mapAPI, SPRITES, viewSize} = systemArguments;
-  let {x, y, radius, isFixedToViewPort, width, height} = entity[POSITION];
+  const {x, y, radius, isFixedToViewPort, width, height} = entity[POSITION];
 
   // Render things fixed to the viewport (Take into account viewport size
   if (isFixedToViewPort) {
@@ -23,8 +23,8 @@ export function renderSprite(systemArguments: ISystemArguments, entity: BaseEnti
       ...SPRITES[section.data.spriteName],
       x: viewportAbsX,
       y: viewportAbsY,
-      height: height,
-      width: width,
+      height,
+      width,
       rotation: 0 // in radians
     });
   } else {
@@ -35,8 +35,8 @@ export function renderSprite(systemArguments: ISystemArguments, entity: BaseEnti
       ...SPRITES[section.data.spriteName],
       x: x - radius,
       y: y - radius,
-      height: height,
-      width: width,
+      height,
+      width,
       rotation: 0 // in radians
     });
   }

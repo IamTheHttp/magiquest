@@ -1,4 +1,3 @@
-import {AllowedAttributes} from '../../data/attributesConfig';
 import {AppState} from './AppState';
 
 export function getDefaultAppState(): AppState {

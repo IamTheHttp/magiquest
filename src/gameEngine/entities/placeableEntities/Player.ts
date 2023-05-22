@@ -1,11 +1,9 @@
 import Levels from '../../components/Levels';
-import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import PlaceableEntity from './PlaceableEntity';
-import {ATTRIBUTES, SKILLS, EXPERIENCE, INVENTORY, LEVELS} from '../../components/_ComponentNames';
+import {EXPERIENCE, INVENTORY, LEVELS} from '../../components/_ComponentNames';
 import HasUI from '../../components/HasUI';
-import Attributes from '../../components/Attributes';
-import Skills from '../../components/Skills';
 import PlayerControlled from '../../components/PlayerControlled';
 import Experience from '../../components/Experience';
 import {HasInventory} from '../../components/HasInventory';
@@ -17,8 +15,6 @@ class Player extends PlaceableEntity {
   [EXPERIENCE]: Experience;
   [INVENTORY]: HasInventory;
   [LEVELS]: Levels;
-  [SKILLS]: Skills;
-  [ATTRIBUTES]: Attributes;
 
   /**
    * See data/json files for placeableEntityData
@@ -33,8 +29,6 @@ class Player extends PlaceableEntity {
     // Blocks movement on the map
     this.addComponent(new Blocking());
     this.addComponent(new ItemPickup());
-    this.addComponent(new Skills());
-    this.addComponent(new Attributes());
     this.addComponent(new PlayerControlled());
     this.addComponent(new Experience(1, 0));
     this.addComponent(

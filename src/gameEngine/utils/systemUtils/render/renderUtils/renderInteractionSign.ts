@@ -6,8 +6,8 @@ export function renderInteractionSign(entity: BaseEntity, systemArguments: ISyst
   const {mapAPI} = systemArguments;
 
   if (entity.hasComponents(ACTION_SIGN)) {
-    let {x, y, radius} = entity[POSITION];
-    let {symbol} = entity[ACTION_SIGN];
+    const {x, y, radius} = entity[POSITION];
+    const {symbol} = entity[ACTION_SIGN];
     mapAPI.drawText({
       id: `${entity.id}-assign-quest`,
       text: symbol,

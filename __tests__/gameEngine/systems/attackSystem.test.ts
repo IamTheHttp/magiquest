@@ -8,11 +8,11 @@ import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createNewEnemy from '../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
-import {AllowedZoneLocationIDs} from '../../../src/gameEngine/gameConstants';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
 describe('attack system tests', () => {
-  let systemArguments: ISystemArguments, spyPan;
+  let systemArguments: ISystemArguments;
+  let spyPan;
   let player: BaseEntity;
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('attack system tests', () => {
     systemArguments = createSystemArgs(new SpyFns(spyPan)) as ISystemArguments;
     player = createTestPlayer(0, 0);
 
-    let {x, y} = player.getPos();
+    const {x, y} = player.getPos();
     updateIndexedTileMap({
       entity: player,
       indexedTileMap: systemArguments.indexedTileMap,
@@ -36,7 +36,7 @@ describe('attack system tests', () => {
   });
 
   it('attacks an empty tile without errors', () => {
-    let targetTile = systemArguments.indexedTileMap['1,1']; // TODO move to util to abstract the comma
+    const targetTile = systemArguments.indexedTileMap['1,1']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
@@ -45,13 +45,13 @@ describe('attack system tests', () => {
   });
 
   it('Cannot attack self', () => {
-    let targetTile = systemArguments.indexedTileMap['0,0']; // TODO move to util to abstract the comma
+    const targetTile = systemArguments.indexedTileMap['0,0']; // TODO move to util to abstract the comma
 
     player.addComponent(new IsAttackingComp(targetTile));
     attackSystem(systemArguments);
 
-    let maxHealth = player[HEALTH].max;
-    let currentHealth = player[HEALTH].current;
+    const maxHealth = player[HEALTH].max;
+    const currentHealth = player[HEALTH].current;
 
     // expect no damage, as you can't attack yourself
     expect(maxHealth).toBeGreaterThan(0);
@@ -59,16 +59,16 @@ describe('attack system tests', () => {
   });
 
   it('Player cannot attack twice in a row, has to wait for cooldown', () => {
-    let {indexedTileMap} = systemArguments;
-    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
+    const {indexedTileMap} = systemArguments;
+    const targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
 
-    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
-    let {x, y} = enemy.getPos();
-    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
+    const enemy = createNewEnemy(1, 1, 1, 'TOWN');
+    const {x, y} = enemy.getPos();
+    updateIndexedTileMap({entity: enemy, indexedTileMap, newX: x, newY: y});
 
-    let playerDmg = player[ATTACKER].damage;
-    let maxHealth = enemy[HEALTH].max;
-    let currentHealth = enemy[HEALTH].current;
+    const playerDmg = player[ATTACKER].damage;
+    const maxHealth = enemy[HEALTH].max;
+    const currentHealth = enemy[HEALTH].current;
 
     // Sanity, expect health to be defined and set correctly
     expect(maxHealth).toBe(currentHealth);
@@ -87,11 +87,11 @@ describe('attack system tests', () => {
   });
 
   it('Can kill an enemy', () => {
-    let {indexedTileMap, gameEvents} = systemArguments;
-    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
-    let {x, y} = enemy.getPos();
-    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
+    const {indexedTileMap, gameEvents} = systemArguments;
+    const targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
+    const enemy = createNewEnemy(1, 1, 1, 'TOWN');
+    const {x, y} = enemy.getPos();
+    updateIndexedTileMap({entity: enemy, indexedTileMap, newX: x, newY: y});
 
     // expect(enemy.hasComponents()).toBeFalsy();
 
@@ -112,11 +112,11 @@ describe('attack system tests', () => {
   });
 
   it('No longer attacks once the attack frames are done', () => {
-    let {indexedTileMap} = systemArguments;
-    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
-    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
-    let {x, y} = enemy.getPos();
-    updateIndexedTileMap({entity: enemy, indexedTileMap: indexedTileMap, newX: x, newY: y});
+    const {indexedTileMap} = systemArguments;
+    const targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
+    const enemy = createNewEnemy(1, 1, 1, 'TOWN');
+    const {x, y} = enemy.getPos();
+    updateIndexedTileMap({entity: enemy, indexedTileMap, newX: x, newY: y});
 
     // we add these new components to override the 'cooldown' inside them
     player.addComponent(new IsAttackingComp(targetTile));
@@ -133,10 +133,10 @@ describe('attack system tests', () => {
   });
 
   it('Higher level enemies have more damage', () => {
-    let {indexedTileMap} = systemArguments;
-    let targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
-    let weak = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
-    let strong = createNewEnemy(1, 1, 100, AllowedZoneLocationIDs.TOWN);
+    const {indexedTileMap} = systemArguments;
+    const targetTile = indexedTileMap['1,1']; // TODO move to util to abstract the comma
+    const weak = createNewEnemy(1, 1, 1, 'TOWN');
+    const strong = createNewEnemy(1, 1, 100, 'TOWN');
 
     expect(strong[ATTACKER].damage).toBeGreaterThan(weak[ATTACKER].damage);
   });

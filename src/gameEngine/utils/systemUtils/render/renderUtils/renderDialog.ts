@@ -3,12 +3,12 @@ import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 
 function renderDialog(systemArguments: ISystemArguments, entity: BaseEntity) {
-  let {mapAPI, viewSize} = systemArguments;
+  const {mapAPI, viewSize} = systemArguments;
 
-  let {panY, panX} = mapAPI.getCurrentPanValue();
-  let width = 250;
-  let x = viewSize.viewWidth - width - panX;
-  let y = -panY;
+  const {panY, panX} = mapAPI.getCurrentPanValue();
+  const width = 250;
+  const x = viewSize.viewWidth - width - panX;
+  const y = -panY;
 
   mapAPI.drawTextBubble({
     id: 'someText',

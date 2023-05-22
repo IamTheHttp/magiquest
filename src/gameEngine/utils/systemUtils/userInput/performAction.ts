@@ -17,13 +17,13 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
   targetTile: IndexedTile;
   targetEntities: IEntityMap<BaseEntity>;
 } {
-  let {indexedTileMap, Entity, zone} = systemArguments;
-  let entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+  const {indexedTileMap, Entity, zone} = systemArguments;
+  const entity = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
-  let curOrientation = entity[POSITION].orientation;
+  const curOrientation = entity[POSITION].orientation;
 
   // tile to perform action on...
-  let tileIdx = getTileIdxByEnt(entity);
+  const tileIdx = getTileIdxByEnt(entity);
   let col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
   let row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
 
@@ -43,13 +43,13 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
     row += 1;
   }
 
-  let targetIdx = `${col},${row}`; // TODO move to util to abstract the comma
+  const targetIdx = `${col},${row}`; // TODO move to util to abstract the comma
   /**
    * @type {IndexedTile}
    */
-  let targetTile = indexedTileMap[targetIdx];
+  const targetTile = indexedTileMap[targetIdx];
 
-  let entities = (targetTile && targetTile.entities) || [];
+  const entities = (targetTile && targetTile.entities) || [];
   return {
     targetTile,
     targetEntities: entities
@@ -57,9 +57,9 @@ function getEntitiesInTargetTile(systemArguments: ISystemArguments): {
 }
 
 function performAction(systemArguments: ISystemArguments, action: IAction) {
-  let {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
-  let {Entity, zone, gameEvents} = systemArguments;
-  let player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
+  const {targetEntities, targetTile} = getEntitiesInTargetTile(systemArguments);
+  const {Entity, zone, gameEvents} = systemArguments;
+  const player = Entity.getByComp<BaseEntity>(PLAYER_CONTROLLED)[0];
 
   entityLoop(targetEntities, (targetEnt) => {
     // try to attack
@@ -67,7 +67,7 @@ function performAction(systemArguments: ISystemArguments, action: IAction) {
       player.addComponent(new IsAttackingComp(targetTile));
     } else {
       // try to activate a trigger
-      let triggers = zone.triggers.actOnEntity[targetEnt.name];
+      const triggers = zone.triggers.actOnEntity[targetEnt.name];
 
       if (targetEnt instanceof FamNPC) {
         gameEvents.pushEvent(new InteractWithNPC(targetEnt));
@@ -77,7 +77,7 @@ function performAction(systemArguments: ISystemArguments, action: IAction) {
       if (isNonEmptyArray(triggers)) {
         // activate all triggers related to acting on this entity
         for (let i = 0; i < triggers.length; i++) {
-          let trigger = triggers[i];
+          const trigger = triggers[i];
 
           if (trigger.type === 'dialog') {
             pushTrigger(

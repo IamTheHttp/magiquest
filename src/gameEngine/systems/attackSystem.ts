@@ -9,14 +9,14 @@ import {BaseEntity} from '../BaseEntity';
 import PlaceableEntity from '../entities/placeableEntities/PlaceableEntity';
 
 function attackSystem(systemArguments: ISystemArguments) {
-  let {gameEvents} = systemArguments;
-  let entities = Entity.getByComps<BaseEntity>([ATTACKING, ATTACKER]);
+  const {gameEvents} = systemArguments;
+  const entities = Entity.getByComps<BaseEntity>([ATTACKING, ATTACKER]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
-      let dmg = entity[ATTACKER].damage;
-      let coolDownFrames = entity[ATTACKER].cooldownFrames;
-      let targetTile = entity[ATTACKING].targetTile;
-      let currentFrame = entity[ATTACKING].currentFrame;
+      const dmg = entity[ATTACKER].damage;
+      const coolDownFrames = entity[ATTACKER].cooldownFrames;
+      const targetTile = entity[ATTACKING].targetTile;
+      const currentFrame = entity[ATTACKING].currentFrame;
 
       if (currentFrame === coolDownFrames) {
         entity.removeComponent(ATTACKING);
@@ -33,12 +33,12 @@ function attackSystem(systemArguments: ISystemArguments) {
         return;
       }
 
-      for (let entID in targetTile.entities) {
+      for (const entID in targetTile.entities) {
         if (entity === targetTile.entities[entID] || !targetTile.entities[entID][HEALTH]) {
           continue; // cannot attack self, or anything without health
         }
 
-        let entTarget = targetTile.entities[entID] as PlaceableEntity;
+        const entTarget = targetTile.entities[entID] as PlaceableEntity;
 
         // do the attack, ensure health is >= 0
         entTarget[HEALTH].current -= dmg;

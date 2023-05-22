@@ -1,16 +1,11 @@
-import {AllowedSkills} from '../../data/skillConfig';
 import {IPlayerState, IUIEvent} from '../../interfaces/IGeneral';
-import {IAssignedCharacterAttributes} from '../components/Attributes';
 
 class PlayerState implements IPlayerState {
   public maxHealth: number;
   public currentHealth: number;
   public percentHealth: number;
-  public skills: (keyof typeof AllowedSkills)[];
   public spendableXP: number;
   public levelProgress: number;
-  public attributes: IAssignedCharacterAttributes;
-  public spendableAttributePoints: number;
 
   constructor(playerStateProperties: IPlayerState) {
     Object.assign(this, playerStateProperties);

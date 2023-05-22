@@ -1,4 +1,4 @@
-import {MOVEMENT, MOVING, POSITION, STACKABLE, ITEM_PICKUP, INVENTORY, UI} from 'gameEngine/components/_ComponentNames';
+import {MOVEMENT, MOVING, POSITION, ITEM_PICKUP, INVENTORY} from 'gameEngine/components/_ComponentNames';
 import getSafeDest from '../utils/systemUtils/getSafeDest';
 import isTraversable from '../utils/componentUtils/movementUtils/isTraversable';
 import {updateIndexedTileMap} from '../utils/systemUtils/move/updateIndexedTileMap';
@@ -25,11 +25,11 @@ import {ItemEntity} from '../entities/placeableEntities/Item';
  * @param {BaseEntity} entity
  */
 function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
-  let {mapAPI, game, indexedTileMap, viewSize, zone} = systemArguments;
-  let {mapHeight, mapWidth, viewHeight, viewWidth} = viewSize;
-  let {x: currX, y: currY} = entity.getPos();
-  let {x: desiredDestX, y: desiredDestY} = entity.getDest();
-  let direction = entity.getMoveDirection();
+  const {mapAPI, game, indexedTileMap, viewSize, zone} = systemArguments;
+  const {mapHeight, mapWidth, viewHeight, viewWidth} = viewSize;
+  const {x: currX, y: currY} = entity.getPos();
+  const {x: desiredDestX, y: desiredDestY} = entity.getDest();
+  const direction = entity.getMoveDirection();
 
   // the user has a desired place he wants to go..
   let modDestX = desiredDestX;
@@ -38,14 +38,14 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   // Set the modified, safe destination for the user
   if (isNum(desiredDestX) && isNum(desiredDestY)) {
     // make sure the that the desired destination is valid, and doesn't leave the map
-    let {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
+    const {x, y} = getSafeDest(desiredDestX, desiredDestY, mapWidth, mapHeight);
     modDestY = y;
     modDestX = x;
   } else if (typeof direction !== 'undefined' && direction !== null) {
     // TODO replace with a util? // OR change the ENUM to start from 1?
     // create destination from the direction we want to go
 
-    let {x, y} = entity.getDestFromDirection(direction);
+    const {x, y} = entity.getDestFromDirection(direction);
     modDestY = y;
     modDestX = x;
   } else {
@@ -56,8 +56,8 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
 
   entity.setOrientation(entity.calcOrientation(modDestX, modDestY));
 
-  let animationName = `MOVE_${entity.getOrientation()}`;
-  let animationToAdd = entity.getPossibleAnimations()[animationName];
+  const animationName = `MOVE_${entity.getOrientation()}`;
+  const animationToAdd = entity.getPossibleAnimations()[animationName];
 
   // Only add this animation if we don't have it already
   if (animationToAdd && !entity.isSpecificAnimationRunning(animationName)) {
@@ -104,7 +104,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     // if entity has a direction it wants to go, lets stop it, and reset its movement in the direction
     entity.stop();
 
-    let {x, y} = entity.getPos();
+    const {x, y} = entity.getPos();
     assertType((x + TILE_SIZE / 2) % TILE_SIZE === 0, `Entities should be on the grid ${x} ${y}`, true);
     assertType((y + TILE_SIZE / 2) % TILE_SIZE === 0, 'gameEngine/entities should be on the grid', true);
     if (typeof direction !== 'undefined' && direction !== null) {
@@ -114,11 +114,11 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     /**
      * Execute possible triggers when movement is done
      */
-    let {col, row} = getGridIdxFromPos(x, y);
-    let tileIdx = getTileIdxByPos(x, y);
+    const {col, row} = getGridIdxFromPos(x, y);
+    const tileIdx = getTileIdxByPos(x, y);
 
     if (entity.isPlayer()) {
-      let triggers = zone.triggers.move[tileIdx];
+      const triggers = zone.triggers.move[tileIdx];
 
       if (isNonEmptyArray(triggers)) {
         triggers.forEach((trigger) => {
@@ -153,7 +153,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
    */
   updateIndexedTileMap({
     entity,
-    indexedTileMap: indexedTileMap,
+    indexedTileMap,
     newX: entity.getDest().x,
     newY: entity.getDest().y
   });
@@ -161,7 +161,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
   /**
    * Calc the new X,Y to move to
    */
-  let {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
+  const {x: newX, y: newY} = calcNewPosToMove(entity, currX, currY, entity.getDest().x, entity.getDest().y);
 
   /**
    * Update, at the end of the tick, the indexMap
@@ -176,7 +176,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
    */
 
   Promise.resolve().then(() => {
-    updateIndexedTileMap({entity, indexedTileMap: indexedTileMap, oldX: currX, oldY: currY});
+    updateIndexedTileMap({entity, indexedTileMap, oldX: currX, oldY: currY});
   });
 
   entity.setPos({
@@ -194,7 +194,7 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
 }
 
 function moveSystem(systemArguments: ISystemArguments) {
-  let entities = Entity.getByComps<BaseEntity>([MOVEMENT, POSITION, MOVING]);
+  const entities = Entity.getByComps<BaseEntity>([MOVEMENT, POSITION, MOVING]);
   if (entities.length) {
     entityLoop(entities, (entity) => {
       moveEntity(systemArguments, entity);

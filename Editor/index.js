@@ -10,13 +10,13 @@ import {deleteTileMapJSON} from './utils/tileMaps/deleteTileMapJSON.js';
 import {deleteZoneJSON} from './utils/zones/deleteZoneJSON.js';
 import {getZoneJSON} from './utils/zones/getZoneJSON.js';
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const FILE_NAME = url.fileURLToPath(import.meta.url);
+const DIR_NAME = url.fileURLToPath(new URL('.', import.meta.url));
 
 const app = express();
 const port = 3000;
 
-const DATA_BASE_PATH = path.resolve(__dirname, '..', 'src/data');
+const DATA_BASE_PATH = path.resolve(DIR_NAME, '..', 'src/data');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -64,8 +64,12 @@ app.post('/zones', (req, res) => {
   }
 
   // Create a new tileMap
-  const col = [...new Array(numCols)].map(() => 0);
-  const tileMap = [...new Array(numRows)].map(() => col);
+  const col = [...new Array(numCols)].map(() => {
+    return 0;
+  });
+  const tileMap = [...new Array(numRows)].map(() => {
+    return col;
+  });
 
   const tileMapJSON = {
     act,
@@ -79,8 +83,8 @@ app.post('/zones', (req, res) => {
   // Create the new zone
   const zoneJSON = {
     id: `${act}-${chapter}`,
-    act: act,
-    chapter: chapter,
+    act,
+    chapter,
     description: 'New Chapter',
     playerStartPos: {
       col: 0,
@@ -106,8 +110,8 @@ app.post('/zones', (req, res) => {
     status: 'OK',
     message: 'Zone created successfully',
     data: {
-      zoneJSON: zoneJSON,
-      tileMapJSON: tileMapJSON
+      zoneJSON,
+      tileMapJSON
     }
   });
 });
@@ -142,8 +146,8 @@ app.put('/zones/:id/startPos', (req, res) => {
   const zone = getZoneJSON(act, chapter);
 
   zone.playerStartPos = {
-    col: col,
-    row: row
+    col,
+    row
   };
 
   setZoneJSON(act, chapter, zone);
@@ -155,4 +159,7 @@ app.put('/zones/:id/startPos', (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`Editor app listening on port ${port}!`));
+app.listen(port, () => {
+  /* eslint-disable */
+  return console.log(`Editor app listening on port ${port}!`);
+});

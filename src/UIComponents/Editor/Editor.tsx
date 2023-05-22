@@ -83,7 +83,7 @@ export function Editor(props: IProps) {
     }
 
     // gets ot creates a brush size entity
-    let brushSizeEnt = getBrushSizeEntity();
+    const brushSizeEnt = getBrushSizeEntity();
 
     brushSizeEnt.setBrushSize({currentBrushSize, col, row});
 
@@ -191,9 +191,11 @@ export function Editor(props: IProps) {
         </h3>
         <div className="editor-tiles">
           {Object.keys(getSprites())
-            .filter((spriteName) => spriteName.startsWith('TILE'))
+            .filter((spriteName) => {
+              return spriteName.startsWith('TILE');
+            })
             .map((spriteName: keyof ReturnType<typeof getSprites>) => {
-              let {cropStartX, cropStartY, cropSizeX, cropSizeY, image} = getSprites()[spriteName];
+              const {cropStartX, cropStartY, cropSizeX, cropSizeY, image} = getSprites()[spriteName];
 
               const tileType = mapTileNameToTileType(spriteName);
 
@@ -201,7 +203,7 @@ export function Editor(props: IProps) {
                 console.log(spriteName);
               }
 
-              let style: CSSProperties = {
+              const style: CSSProperties = {
                 backgroundImage: `url("${image.src}")`,
                 flexBasis: '32px',
                 color: 'black',
@@ -211,7 +213,7 @@ export function Editor(props: IProps) {
                 boxSizing: 'border-box'
               };
 
-              let extraStyles = selectedTileType === tileType ? 'active' : '';
+              const extraStyles = selectedTileType === tileType ? 'active' : '';
 
               return (
                 <div
@@ -229,8 +231,8 @@ export function Editor(props: IProps) {
 
         <div className="editor-tiles">
           {(() => {
-            let extraStyles = selectedEditorEntity === 'start-pos' ? 'active' : '';
-            let style: CSSProperties = {
+            const extraStyles = selectedEditorEntity === 'start-pos' ? 'active' : '';
+            const style: CSSProperties = {
               flexBasis: '32px',
               width: `${TILE_SIZE}px`,
               height: `${TILE_SIZE}px`,

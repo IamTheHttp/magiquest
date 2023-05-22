@@ -6,8 +6,8 @@ import Enemy from '../entities/placeableEntities/Enemy';
 import {BaseEntity} from '../BaseEntity';
 
 function spawnEnemiesSystem(systemArguments: ISystemArguments) {
-  let {Entity, placeableEntityDataMap} = systemArguments;
-  let spawningEntities = Entity.getByComps<BaseEntity>([SPAWNER]);
+  const {Entity, placeableEntityDataMap} = systemArguments;
+  const spawningEntities = Entity.getByComps<BaseEntity>([SPAWNER]);
   const monsterDensity = systemArguments.zone.monsterDensity;
 
   entityLoop(spawningEntities, (spawningEntity) => {
@@ -21,7 +21,7 @@ function spawnEnemiesSystem(systemArguments: ISystemArguments) {
       if (Math.random() < monsterDensity) {
         // TODO refactor to a function "rollDie" or "resolveChance"
         // Fetch what to spawn from config!
-        let placeableEntityData = placeableEntityDataMap[enemyToSpawn];
+        const placeableEntityData = placeableEntityDataMap[enemyToSpawn];
 
         if (placeableEntityData) {
           new Enemy({col, row, entityLevel, spawningTileLocationID}, placeableEntityData);

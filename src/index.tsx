@@ -18,20 +18,20 @@ import {getAllPlaceableEntityJSONFiles} from './utils/getAllPlaceableEntityJSONF
 const placeableEntityDataMap = parsePlaceableEntityJSON(getAllPlaceableEntityJSONFiles());
 
 if (!document.getElementById('app')) {
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.id = 'app';
   document.body.appendChild(div);
 }
 
 if (!document.getElementById('progress')) {
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.id = 'progress';
   document.body.appendChild(div);
 }
 
 document.title = 'MAGIQUEST!';
 
-let appDiv = document.getElementById('app');
+const appDiv = document.getElementById('app');
 appDiv.innerHTML = 'Loading game assets...';
 appDiv.className = 'loaded';
 

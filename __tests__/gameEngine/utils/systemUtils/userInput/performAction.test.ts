@@ -5,7 +5,7 @@ import createNewEnemy from '../../../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import {updateIndexedTileMap} from '../../../../../src/gameEngine/utils/systemUtils/move/updateIndexedTileMap';
-import {AllowedZoneLocationIDs, DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
+import {DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';
 import {ATTACKING} from '../../../../../src/gameEngine/components/_ComponentNames';
@@ -26,7 +26,7 @@ describe('Tests the placeLevelEntities util', () => {
   });
 
   it('Performs an action on an enemy entity(attack)', () => {
-    let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const enemy = createNewEnemy(0, 1, 1, 'TOWN');
     updateIndexedTileMap({
       entity: enemy,
       indexedTileMap: systemArguments.indexedTileMap,

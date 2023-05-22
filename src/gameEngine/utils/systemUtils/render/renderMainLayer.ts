@@ -32,7 +32,7 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
 
   // render static entities (Without animations)
   for (let i = 0; i < closeEntitiesWithUI.length; i++) {
-    let entity = closeEntitiesWithUI[i];
+    const entity = closeEntitiesWithUI[i];
 
     /**
      * Collect data to render the numbers on tiles that contain more than one element
@@ -67,13 +67,13 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
 
   // render animations
   for (let i = 0; i < closeEntitiesWithAnimations.length; i++) {
-    let entity = closeEntitiesWithAnimations[i];
+    const entity = closeEntitiesWithAnimations[i];
 
     renderAnimations(systemArguments, entity);
   }
 
   // Render item quantity on the ground
-  for (let tileIdx in ENTITY_POSITIONS) {
+  for (const tileIdx in ENTITY_POSITIONS) {
     if (ENTITY_POSITIONS[tileIdx].entities.length > 1) {
       const QUANTITY = ENTITY_POSITIONS[tileIdx].entities.length;
       const {col, row} = getColRowByTileIdx(tileIdx);
@@ -91,7 +91,7 @@ function renderMainLayer(systemArguments: ISystemArguments, mainLayerData: IMain
   }
 
   // one dialog at a time!
-  let entity = Entity.getByComp<BaseEntity>(DIALOG)[0];
+  const entity = Entity.getByComp<BaseEntity>(DIALOG)[0];
   if (entity) {
     renderDialog(systemArguments, entity);
     systemArguments.game.stop();

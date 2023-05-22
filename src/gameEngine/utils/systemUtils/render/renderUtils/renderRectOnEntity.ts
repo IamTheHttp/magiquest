@@ -6,8 +6,8 @@ import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToVi
 import {IUISection} from '../../../../../interfaces/IGeneral';
 
 function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntity, section: IUISection) {
-  let {mapAPI} = systemArguments;
-  let {x, y, radius, isFixedToViewPort, width, height} = entity[POSITION];
+  const {mapAPI} = systemArguments;
+  const {x, y, radius, isFixedToViewPort, width, height} = entity[POSITION];
 
   if (isFixedToViewPort) {
     // TODO - Ensure we draw rects on relative entities

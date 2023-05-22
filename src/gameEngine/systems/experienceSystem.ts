@@ -1,6 +1,6 @@
 import {Entity} from 'game-platform';
 import Player from '../entities/placeableEntities/Player';
-import {ATTRIBUTES, EXPERIENCE, LEVELS, PLAYER_CONTROLLED} from '../components/_ComponentNames';
+import {EXPERIENCE, LEVELS, PLAYER_CONTROLLED} from '../components/_ComponentNames';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 
 /**
@@ -8,12 +8,12 @@ import {ISystemArguments} from '../../interfaces/IGameLoop';
  * @param systemArguments
  */
 function experienceSystem(systemArguments: ISystemArguments) {
-  let {destroyedPlaceableEntities, game} = systemArguments;
-  let player = Entity.getByComps<Player>([PLAYER_CONTROLLED])[0];
+  const {destroyedPlaceableEntities, game} = systemArguments;
+  const player = Entity.getByComps<Player>([PLAYER_CONTROLLED])[0];
 
   destroyedPlaceableEntities.forEach((entity) => {
-    let currentXP = player[EXPERIENCE].XP;
-    let newXP = entity[LEVELS].entityLevel; // we currently give a certain XP boost per character level
+    const currentXP = player[EXPERIENCE].XP;
+    const newXP = entity[LEVELS].entityLevel; // we currently give a certain XP boost per character level
     player[EXPERIENCE].XP = currentXP + newXP;
   });
 
@@ -28,7 +28,6 @@ function experienceSystem(systemArguments: ISystemArguments) {
   // just in case we advanced several levels during this iteration
   while (player[EXPERIENCE].getLevelProgress() >= 1) {
     player[EXPERIENCE].level++;
-    player[ATTRIBUTES].spendableAttributePoints++;
   }
 
   // Notify the UI of experience changes

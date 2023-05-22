@@ -8,7 +8,9 @@ import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
 describe('Tests for the AI system', () => {
-  let systemArguments: ISystemArguments, spyHandleAreaChange: fn, player: BaseEntity;
+  let systemArguments: ISystemArguments;
+  let spyHandleAreaChange: fn;
+  let player: BaseEntity;
 
   beforeEach(() => {
     Entity.reset();
@@ -23,7 +25,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('triggers the handleZoneChange if player is on a tile with a correct trigger on it', () => {
-    let idx = getTileIdxByEnt(player);
+    const idx = getTileIdxByEnt(player);
     systemArguments.zone.triggers.move[idx] = [
       {
         act: 99,

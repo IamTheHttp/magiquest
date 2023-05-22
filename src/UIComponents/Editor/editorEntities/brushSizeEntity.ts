@@ -1,13 +1,7 @@
 import {BaseEntity} from '../../../gameEngine/BaseEntity';
 import {Entity} from 'game-platform';
 import Position from '../../../gameEngine/components/Position';
-import {
-  PossibleUIShapes,
-  CANVAS_OUTPUT,
-  TILE_SIZE,
-  HUD_ITEM_FILL_COLOR,
-  HUD_ITEM_BORDER_COLOR
-} from '../../../gameEngine/gameConstants';
+import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../../gameEngine/gameConstants';
 import HasUI from '../../../gameEngine/components/HasUI';
 
 class BrushSizeEntity extends BaseEntity {

@@ -116,41 +116,109 @@ export function getSprites() {
 }
 
 export function mapTileNameToTileType(str: keyof ReturnType<typeof getSprites>) {
-  if (str === 'TILE_MOUNTAIN') return 0;
-  if (str === 'TILE_GRASS') return 1;
-  if (str === 'TILE_RIVER') return 2;
-  if (str === 'TILE_BROWN_BRICK_DAY') return 3;
-  if (str === 'TILE_BROWN_DOOR_DAY') return 4;
-  if (str === 'TILE_RED_ROOF_DAY') return 5;
-  if (str === 'TILE_MONUMENT') return 6;
-  if (str === 'TILE_DIRT_PATH') return 7;
-  if (str === 'TILE_TREE_GRASS') return 8;
-  if (str === 'TILE_TREE_GRASS_GREEN') return 9;
-  if (str === 'TILE_TREE_GRASS_PINE') return 10;
-  if (str === 'TILE_ROCK_GATE') return 11;
-  if (str === 'TILE_SAND_MOUNTAIN') return 12;
-  if (str === 'TILE_CAVE_FLOOR') return 13;
-  if (str === 'TILE_CAVE_WALL') return 14;
-  if (str === 'TILE_SAND') return 100;
-  if (str === 'TILE_SEA') return 1000;
+  if (str === 'TILE_MOUNTAIN') {
+    return 0;
+  }
+  if (str === 'TILE_GRASS') {
+    return 1;
+  }
+  if (str === 'TILE_RIVER') {
+    return 2;
+  }
+  if (str === 'TILE_BROWN_BRICK_DAY') {
+    return 3;
+  }
+  if (str === 'TILE_BROWN_DOOR_DAY') {
+    return 4;
+  }
+  if (str === 'TILE_RED_ROOF_DAY') {
+    return 5;
+  }
+  if (str === 'TILE_MONUMENT') {
+    return 6;
+  }
+  if (str === 'TILE_DIRT_PATH') {
+    return 7;
+  }
+  if (str === 'TILE_TREE_GRASS') {
+    return 8;
+  }
+  if (str === 'TILE_TREE_GRASS_GREEN') {
+    return 9;
+  }
+  if (str === 'TILE_TREE_GRASS_PINE') {
+    return 10;
+  }
+  if (str === 'TILE_ROCK_GATE') {
+    return 11;
+  }
+  if (str === 'TILE_SAND_MOUNTAIN') {
+    return 12;
+  }
+  if (str === 'TILE_CAVE_FLOOR') {
+    return 13;
+  }
+  if (str === 'TILE_CAVE_WALL') {
+    return 14;
+  }
+  if (str === 'TILE_SAND') {
+    return 100;
+  }
+  if (str === 'TILE_SEA') {
+    return 1000;
+  }
 }
 
 export function mapTileTypeToSprite(num: number, SPRITES: ReturnType<typeof getSprites>) {
-  if (num === 0) return SPRITES.TILE_MOUNTAIN;
-  if (num === 1) return SPRITES.TILE_GRASS;
-  if (num === 2) return SPRITES.TILE_RIVER;
-  if (num === 3) return SPRITES.TILE_BROWN_BRICK_DAY;
-  if (num === 4) return SPRITES.TILE_BROWN_DOOR_DAY;
-  if (num === 5) return SPRITES.TILE_RED_ROOF_DAY;
-  if (num === 6) return SPRITES.TILE_MONUMENT;
-  if (num === 7) return SPRITES.TILE_DIRT_PATH;
-  if (num === 8) return SPRITES.TILE_TREE_GRASS;
-  if (num === 9) return SPRITES.TILE_TREE_GRASS_GREEN;
-  if (num === 10) return SPRITES.TILE_TREE_GRASS_PINE;
-  if (num === 11) return SPRITES.TILE_ROCK_GATE;
-  if (num === 12) return SPRITES.TILE_SAND_MOUNTAIN;
-  if (num === 13) return SPRITES.TILE_CAVE_FLOOR;
-  if (num === 14) return SPRITES.TILE_CAVE_WALL;
-  if (num === 100) return SPRITES.TILE_SAND;
-  if (num === 1000) return SPRITES.TILE_SEA;
+  if (num === 0) {
+    return SPRITES.TILE_MOUNTAIN;
+  }
+  if (num === 1) {
+    return SPRITES.TILE_GRASS;
+  }
+  if (num === 2) {
+    return SPRITES.TILE_RIVER;
+  }
+  if (num === 3) {
+    return SPRITES.TILE_BROWN_BRICK_DAY;
+  }
+  if (num === 4) {
+    return SPRITES.TILE_BROWN_DOOR_DAY;
+  }
+  if (num === 5) {
+    return SPRITES.TILE_RED_ROOF_DAY;
+  }
+  if (num === 6) {
+    return SPRITES.TILE_MONUMENT;
+  }
+  if (num === 7) {
+    return SPRITES.TILE_DIRT_PATH;
+  }
+  if (num === 8) {
+    return SPRITES.TILE_TREE_GRASS;
+  }
+  if (num === 9) {
+    return SPRITES.TILE_TREE_GRASS_GREEN;
+  }
+  if (num === 10) {
+    return SPRITES.TILE_TREE_GRASS_PINE;
+  }
+  if (num === 11) {
+    return SPRITES.TILE_ROCK_GATE;
+  }
+  if (num === 12) {
+    return SPRITES.TILE_SAND_MOUNTAIN;
+  }
+  if (num === 13) {
+    return SPRITES.TILE_CAVE_FLOOR;
+  }
+  if (num === 14) {
+    return SPRITES.TILE_CAVE_WALL;
+  }
+  if (num === 100) {
+    return SPRITES.TILE_SAND;
+  }
+  if (num === 1000) {
+    return SPRITES.TILE_SEA;
+  }
 }

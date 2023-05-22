@@ -11,12 +11,12 @@ import {BaseEntity} from '../../../../BaseEntity';
  */
 function renderHealthBar(systemArguments: ISystemArguments, entity: BaseEntity) {
   assertType(entity[HEALTH], 'Health Component', 'object');
-  let {mapAPI} = systemArguments;
+  const {mapAPI} = systemArguments;
 
-  let healthWidth = entity[HEALTH].width;
-  let healthMargin = entity[HEALTH].height;
-  let healthHeight = 2;
-  let healthPercent = entity[HEALTH].current / entity[HEALTH].max;
+  const healthWidth = entity[HEALTH].width;
+  const healthMargin = entity[HEALTH].height;
+  const healthHeight = 2;
+  const healthPercent = entity[HEALTH].current / entity[HEALTH].max;
 
   mapAPI.drawRect({
     id: `${entity.id}-full-${PossibleUIShapes.HEALTH_BAR_SHAPE}-`,

@@ -7,7 +7,8 @@ import {Entity} from 'game-platform';
 import {getSpriteCrop} from '../../../src/gameEngine/utils/getSpriteCrop';
 
 describe('Tests for the Animation system', () => {
-  let systemArguments: ISystemArguments, spyPan;
+  let systemArguments: ISystemArguments;
+  let spyPan;
 
   beforeEach(() => {
     Entity.reset();
@@ -20,7 +21,7 @@ describe('Tests for the Animation system', () => {
   });
 
   it('Adds a and runs a simple animation', () => {
-    let player = createTestPlayer(0, 0);
+    const player = createTestPlayer(0, 0);
     player.addAnimationToRun({
       animationDurationInTicks: 5, // arbitrary for tests
       frames: [
@@ -37,34 +38,34 @@ describe('Tests for the Animation system', () => {
       loops: false
     });
 
-    expect(player.getRunningAnimations()['TEST_ANIMATION'].ticksRunning).toBe(0);
+    expect(player.getRunningAnimations().TEST_ANIMATION.ticksRunning).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getRunningAnimations()['TEST_ANIMATION'].ticksRunning).toBe(1);
+    expect(player.getRunningAnimations().TEST_ANIMATION.ticksRunning).toBe(1);
   });
 
   it('Advances a single frame when run', () => {
     // Add a player...
     // Set Direction
 
-    let player = createTestPlayer(0, 0);
+    const player = createTestPlayer(0, 0);
 
-    player.addAnimationToRun(player.getPossibleAnimations()['MOVE_RIGHT']);
-    expect(player.getRunningAnimations()['MOVE_RIGHT'].ticksRunning).toBe(0);
+    player.addAnimationToRun(player.getPossibleAnimations().MOVE_RIGHT);
+    expect(player.getRunningAnimations().MOVE_RIGHT.ticksRunning).toBe(0);
 
     animationSystem(systemArguments);
-    expect(player.getRunningAnimations()['MOVE_RIGHT'].ticksRunning).toBe(1);
+    expect(player.getRunningAnimations().MOVE_RIGHT.ticksRunning).toBe(1);
   });
 
   it('Animation will run its course successfully', () => {
-    let player = createTestPlayer(0, 0);
-    player.addAnimationToRun(player.getPossibleAnimations()['MOVE_RIGHT']);
+    const player = createTestPlayer(0, 0);
+    player.addAnimationToRun(player.getPossibleAnimations().MOVE_RIGHT);
 
     // animation duration (in frames) is related to the frame count it takes to move 32 pixels
     // run all the frames
     let i = 0;
-    while (player.getRunningAnimations()['MOVE_RIGHT']) {
-      let anim = player.getRunningAnimations()['MOVE_RIGHT'];
+    while (player.getRunningAnimations().MOVE_RIGHT) {
+      const anim = player.getRunningAnimations().MOVE_RIGHT;
       expect(anim.ticksRunning).toBe(i);
 
       animationSystem(systemArguments);
@@ -73,7 +74,7 @@ describe('Tests for the Animation system', () => {
   });
 
   it('Animation will loop when over if so configured', () => {
-    let player = createTestPlayer(0, 0);
+    const player = createTestPlayer(0, 0);
 
     player.addAnimationToRun({
       loops: true,
@@ -87,7 +88,7 @@ describe('Tests for the Animation system', () => {
     animationSystem(systemArguments);
     animationSystem(systemArguments);
     animationSystem(systemArguments);
-    let anim = player.getRunningAnimations()['TEST_LOOP'];
+    const anim = player.getRunningAnimations().TEST_LOOP;
     expect(anim.ticksRunning).toBe(0);
   });
 });

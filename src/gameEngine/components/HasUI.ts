@@ -13,7 +13,7 @@ class HasUI {
   constructor(sections: IUISection[] = []) {
     this.name = UI;
 
-    let sectionsArray = Array.isArray(sections) ? sections : [sections];
+    const sectionsArray = Array.isArray(sections) ? sections : [sections];
 
     this.sections = sectionsArray.map((section) => {
       // if it's an object, great, we're done.

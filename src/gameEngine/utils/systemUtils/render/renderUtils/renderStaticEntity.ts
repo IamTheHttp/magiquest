@@ -1,4 +1,3 @@
-import {renderHUDBackpackItems} from './renderHUDBackpackItems';
 import {renderInteractionSign} from './renderInteractionSign';
 import {POSITION, UI} from '../../../../components/_ComponentNames';
 import {DIRECTIONS, PossibleUIShapes, TILE_SIZE} from '../../../../gameConstants';
@@ -47,16 +46,16 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
 
     // Draw a Player on the screen
     if (section.shape === PossibleUIShapes.PLAYER_CHAR) {
-      let spriteCrop = {
+      const spriteCrop = {
         [DIRECTIONS.LEFT]: SPRITES.ENTITY_PLAYER_LEFT,
         [DIRECTIONS.RIGHT]: SPRITES.ENTITY_PLAYER_RIGHT,
         [DIRECTIONS.UP]: SPRITES.ENTITY_PLAYER_UP,
         [DIRECTIONS.DOWN]: SPRITES.ENTITY_PLAYER_DOWN
       };
 
-      let playerSprite = spriteCrop[entity.getOrientation()];
+      const playerSprite = spriteCrop[entity.getOrientation()];
 
-      let {radius, x, y} = entity[POSITION];
+      const {radius, x, y} = entity[POSITION];
       // When the player is out of animation phase, this is what we show
       mapAPI.drawImage({
         id: `${entity.id}`,

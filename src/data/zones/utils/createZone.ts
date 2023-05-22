@@ -16,7 +16,7 @@ function createZone(id: string, tileMap: ITileMap, zoneJSON: IZoneJSON): IZone {
     return;
   }
 
-  let NEW_ZONE: IZone = {
+  const NEW_ZONE: IZone = {
     ...zoneJSON,
     id,
     tileMap

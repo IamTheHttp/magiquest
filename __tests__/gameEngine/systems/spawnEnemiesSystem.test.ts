@@ -1,6 +1,6 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import spawnEnemiesSystem from 'gameEngine/systems/spawnEnemiesSystem';
-import {CONTROLLED_BY_AI, SPAWNER, WAS_SPAWNED} from 'gameEngine/components/_ComponentNames';
+import {CONTROLLED_BY_AI, WAS_SPAWNED} from 'gameEngine/components/_ComponentNames';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import PlaceableEntity from 'gameEngine/entities/placeableEntities/PlaceableEntity';
@@ -9,8 +9,10 @@ import {Entity} from 'game-platform';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
 describe('Tests for the AI system', () => {
-  let systemArguments: ISystemArguments, spyHandleAreaChange, player: BaseEntity;
-  let MATH_RANDOM = global.Math.random;
+  let systemArguments: ISystemArguments;
+  let spyHandleAreaChange;
+  let player: BaseEntity;
+  const MATH_RANDOM = global.Math.random;
   beforeEach(() => {
     Entity.reset();
     spyHandleAreaChange = jest.fn();
@@ -46,7 +48,7 @@ describe('Tests for the AI system', () => {
   it('Spawns an enemy that gets the right SpawnedComponent', () => {
     spawnEnemiesSystem(systemArguments);
 
-    let ents = Entity.getByComp<BaseEntity>(WAS_SPAWNED) as PlaceableEntity[];
+    const ents = Entity.getByComp<BaseEntity>(WAS_SPAWNED) as PlaceableEntity[];
     ents.forEach((ent) => {
       expect(typeof ent[WAS_SPAWNED].spawningTileLocationID).toBe('string');
     });

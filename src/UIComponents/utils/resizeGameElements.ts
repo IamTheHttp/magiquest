@@ -1,9 +1,9 @@
 import {WIDTH_TO_HEIGHT_RATIO} from '../IUIConfig';
 
 export function resizeGameElements() {
-  let EDITOR_TILE_SELECTOR: HTMLElement = document.querySelector('#editor-tile-selector');
-  let gameCanvasElement: HTMLElement = document.querySelector('.canvas-main-container');
-  let widthToHeight = WIDTH_TO_HEIGHT_RATIO;
+  const EDITOR_TILE_SELECTOR: HTMLElement = document.querySelector('#editor-tile-selector');
+  const gameCanvasElement: HTMLElement = document.querySelector('.canvas-main-container');
+  const widthToHeight = WIDTH_TO_HEIGHT_RATIO;
 
   // TILE_SELECTOR is the editor menu on the left
   const TILE_SELECTOR_WIDTH = EDITOR_TILE_SELECTOR ? +EDITOR_TILE_SELECTOR.clientWidth : 0;
@@ -11,7 +11,7 @@ export function resizeGameElements() {
 
   let newWidth = window.innerWidth - TILE_SELECTOR_WIDTH;
   let newHeight = Math.min(window.innerHeight, window.innerHeight); // Always leave 200px for the UI at the bottom
-  let newWidthToHeight = newWidth / newHeight;
+  const newWidthToHeight = newWidth / newHeight;
 
   if (gameCanvasElement) {
     if (newWidthToHeight > widthToHeight) {

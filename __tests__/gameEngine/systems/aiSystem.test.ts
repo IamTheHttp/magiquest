@@ -1,4 +1,4 @@
-import createSystemArgs, {MockedSystemArguments} from '../../__TEST__UTILS__/createTestSystemArguments';
+import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
@@ -9,12 +9,13 @@ import {updateIndexedTileMap} from '../../../src/gameEngine/utils/systemUtils/mo
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import Moving from '../../../src/gameEngine/components/Moving';
-import {AllowedZoneLocationIDs, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
 import {HEALTH} from '../../../src/gameEngine/components/_ComponentNames';
 
 describe('Tests for the AI system', () => {
-  let systemArguments: ISystemArguments, spyPan;
+  let systemArguments: ISystemArguments;
+  let spyPan;
 
   beforeEach(() => {
     Entity.reset();
@@ -28,33 +29,33 @@ describe('Tests for the AI system', () => {
 
   it('Moves the AI', () => {
     // position in the center, so it can move up down left or right
-    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const ent = createNewEnemy(1, 1, 1, 'TOWN');
 
     aiSystem(systemArguments as ISystemArguments);
     moveSystem(systemArguments as ISystemArguments);
 
-    let {x, y} = ent.getPos();
+    const {x, y} = ent.getPos();
 
-    let xOrYDiff = x !== 48 || y !== 48;
+    const xOrYDiff = x !== 48 || y !== 48;
     expect(xOrYDiff).toBe(true);
   });
 
   it('doesnt move an already moving AI', () => {
-    let ent = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const ent = createNewEnemy(1, 1, 1, 'TOWN');
 
     ent.addComponent(new Moving());
 
     aiSystem(systemArguments);
     moveSystem(systemArguments);
 
-    let {x, y} = ent.getPos();
+    const {x, y} = ent.getPos();
 
-    let xOrYDiff = x !== 48 || y !== 48;
+    const xOrYDiff = x !== 48 || y !== 48;
     expect(xOrYDiff).toBe(false);
   });
 
   it('Chases the player if within vision', () => {
-    let player = createTestPlayer(0, 0);
+    const player = createTestPlayer(0, 0);
 
     updateIndexedTileMap({
       entity: player,
@@ -63,7 +64,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(2, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const enemy = createNewEnemy(2, 1, 1, 'TOWN');
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -76,8 +77,8 @@ describe('Tests for the AI system', () => {
       moveSystem(systemArguments);
     }
 
-    let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = enemy.getPos();
+    const {x: playerX, y: playerY} = player.getPos();
+    const {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(x - playerX + y - playerY).toBe(TILE_SIZE);
@@ -86,7 +87,7 @@ describe('Tests for the AI system', () => {
     aiSystem(systemArguments);
 
     let currentHealth = player[HEALTH].current;
-    let max = player[HEALTH].max;
+    const max = player[HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick-in to attack the player
     attackSystem(systemArguments);
@@ -96,7 +97,7 @@ describe('Tests for the AI system', () => {
   });
 
   it('Chase player right', () => {
-    let player = createTestPlayer(2, 1);
+    const player = createTestPlayer(2, 1);
 
     updateIndexedTileMap({
       entity: player,
@@ -105,7 +106,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const enemy = createNewEnemy(0, 1, 1, 'TOWN');
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -118,15 +119,15 @@ describe('Tests for the AI system', () => {
       moveSystem(systemArguments);
     }
 
-    let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = enemy.getPos();
+    const {x: playerX, y: playerY} = player.getPos();
+    const {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
   });
 
   it('Chase player down', () => {
-    let player = createTestPlayer(0, 2);
+    const player = createTestPlayer(0, 2);
 
     updateIndexedTileMap({
       entity: player,
@@ -135,7 +136,7 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(0, 0, 1, AllowedZoneLocationIDs.TOWN);
+    const enemy = createNewEnemy(0, 0, 1, 'TOWN');
 
     // in two moves, enemy should be next to the player
     aiSystem(systemArguments);
@@ -148,8 +149,8 @@ describe('Tests for the AI system', () => {
       moveSystem(systemArguments);
     }
 
-    let {x: playerX, y: playerY} = player.getPos();
-    let {x, y} = enemy.getPos();
+    const {x: playerX, y: playerY} = player.getPos();
+    const {x, y} = enemy.getPos();
 
     // we expect to be a tile away from the player
     expect(Math.abs(x - playerX + y - playerY)).toBe(TILE_SIZE);
@@ -159,7 +160,7 @@ describe('Tests for the AI system', () => {
     /**
      * @type {BaseEntity}
      */
-    let player = createTestPlayer(0, 0);
+    const player = createTestPlayer(0, 0);
 
     updateIndexedTileMap({
       entity: player,
@@ -168,13 +169,13 @@ describe('Tests for the AI system', () => {
       newY: player.getPos().y
     });
 
-    let enemy = createNewEnemy(1, 1, 1, AllowedZoneLocationIDs.TOWN);
+    const enemy = createNewEnemy(1, 1, 1, 'TOWN');
 
     // since both X and Y are different, no attack is possible
     aiSystem(systemArguments);
 
     let currentHealth = player[HEALTH].current;
-    let max = player[HEALTH].max;
+    const max = player[HEALTH].max;
     expect(currentHealth).toBe(max);
     // the attack system should now kick in to attack the player
     attackSystem(systemArguments);

@@ -8,7 +8,7 @@ import {BaseEntity} from '../BaseEntity';
 import Player from '../entities/placeableEntities/Player';
 
 function renderSystem(systemArguments: ISystemArguments) {
-  let {mapAPI, shouldRenderBackground, game} = systemArguments;
+  const {mapAPI, shouldRenderBackground, game} = systemArguments;
   // clear everything before we move forward
   mapAPI.clearAllShapesInLayer();
 
@@ -20,11 +20,11 @@ function renderSystem(systemArguments: ISystemArguments) {
     mapAPI.drawAllShapesInLayer('background');
   }
 
-  let entitiesWithUI = Entity.getByComps<BaseEntity>([UI, POSITION]); // O1 fetching
-  let closeEntitiesWithUI = filterOutFarEntities(systemArguments, entitiesWithUI);
+  const entitiesWithUI = Entity.getByComps<BaseEntity>([UI, POSITION]); // O1 fetching
+  const closeEntitiesWithUI = filterOutFarEntities(systemArguments, entitiesWithUI);
 
-  let entitiesWithAnimations = Entity.getByComps<BaseEntity>([ANIMATIONS]);
-  let closeEntitiesWithAnimations = filterOutFarEntities(systemArguments, entitiesWithAnimations);
+  const entitiesWithAnimations = Entity.getByComps<BaseEntity>([ANIMATIONS]);
+  const closeEntitiesWithAnimations = filterOutFarEntities(systemArguments, entitiesWithAnimations);
 
   // Just in case we pan out from the player, somehow, skip the rendering of the player.
   const player = filterOutFarEntities(systemArguments, Entity.getByComp<Player>(PLAYER_CONTROLLED))[0] as Player;

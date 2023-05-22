@@ -1,18 +1,16 @@
 {
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "unused-imports"
+  ],
+  "extends": [
+    "eslint:recommended"
+  ],
   "rules": {
+    "no-unused-vars" : "off",
+    "unused-imports/no-unused-imports": "error",
     "comma-spacing": 2,
     "curly": 2,
     "no-fallthrough": 2,
@@ -79,7 +77,9 @@
       }
     ],
     "camelcase": 2,
-    "no-underscore-dangle": 2,
+    "no-underscore-dangle": [2, {
+      "allow": ["__dirname", "__filename"]
+    }],
     "indent": [2, 2, {"SwitchCase": 1}],
     "keyword-spacing": 2,
     "space-infix-ops": 2,
@@ -89,6 +89,12 @@
     "max-len": [1, 120]
   },
   "globals": {
+    "__dirname": true,
+    "__filename": true,
+    "require": true,
+    "URL": true,
+    "console": true,
+    "module": true,
     "expect": true,
     "it": true,
     "describe": true,

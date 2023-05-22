@@ -9,8 +9,8 @@ export function getColRowByTileIdx(tileIdx: string): {
   col: number;
   row: number;
 } {
-  let col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
-  let row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
+  const col = +tileIdx.split(',')[0]; // TODO move to util to abstract the comma
+  const row = +tileIdx.split(',')[1]; // TODO move to util to abstract the comma
   return {
     row,
     col
@@ -28,8 +28,8 @@ export function getColRowByEntity(ent: BaseEntity) {
  * @param y
  */
 export function getTileIdxByPos(x: number, y: number) {
-  let col = Math.floor(x / TILE_SIZE);
-  let row = Math.floor(y / TILE_SIZE);
+  const col = Math.floor(x / TILE_SIZE);
+  const row = Math.floor(y / TILE_SIZE);
 
   return `${col},${row}`; // TODO move to util to abstract the comma
 }
@@ -39,7 +39,7 @@ export function getTileIdxByPos(x: number, y: number) {
  * @param entity
  */
 export function getTileIdxByEnt(entity: BaseEntity) {
-  let {x, y} = entity.getPos();
+  const {x, y} = entity.getPos();
 
   return getTileIdxByPos(x, y);
 }

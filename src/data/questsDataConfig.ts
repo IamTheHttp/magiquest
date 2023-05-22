@@ -1,7 +1,7 @@
-import {AllowedZoneLocationIDs, AllowedQuestIDs} from '../gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS, AllowedQuestIDs} from '../gameEngine/gameConstants';
 import {IKillQuestData, IQuestData} from '../gameEngine/components/QuestData';
 
-let questsDataConfig: {
+const questsDataConfig: {
   [key: string]: IQuestData | IKillQuestData;
 } = {
   [AllowedQuestIDs.CLEAR_CAMP]: {
@@ -16,7 +16,7 @@ let questsDataConfig: {
       // kill specifies a TYPE of quest..
       killed: 0,
       killGoal: 2,
-      location: AllowedZoneLocationIDs.SPAWNABLE_1
+      location: 'SPAWNABLE_1'
     }
   } as IKillQuestData
 };

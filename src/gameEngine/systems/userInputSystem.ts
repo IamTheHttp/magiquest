@@ -1,20 +1,15 @@
 import moveAction from '../utils/systemUtils/userInput/moveAction';
 import performAction from '../utils/systemUtils/userInput/performAction';
-import buySkill from '../utils/systemUtils/userInput/buySkill';
-import buyAttr from '../utils/systemUtils/userInput/buyAttr';
 
 import {ISystemArguments} from '../../interfaces/IGameLoop';
 import {IAction} from '../../interfaces/IGeneral';
-import {AllowedActions} from '../gameConstants';
-import {panMapInEditorAction} from '../utils/systemUtils/userInput/panMapInEditorAction';
+import {I_ALLOWED_ACTIONS} from '../gameConstants';
 
-let mapUserActionNameToAction = {
-  [AllowedActions.OPEN_INVENTORY]: moveAction,
-  [AllowedActions.MOVE_ACTION]: moveAction,
-  [AllowedActions.PERFORM_ACTION]: performAction,
-  [AllowedActions.BUY_SKILL]: buySkill,
-  [AllowedActions.BUY_ATTR]: buyAttr
-} as Record<AllowedActions, (sysArgs: ISystemArguments, action: IAction) => void>;
+const mapUserActionNameToAction = {
+  OPEN_INVENTORY: moveAction,
+  MOVE_ACTION: moveAction,
+  PERFORM_ACTION: performAction
+} as Record<I_ALLOWED_ACTIONS, (sysArgs: ISystemArguments, action: IAction) => void>;
 
 // store our actions, singleton
 let actions: IAction[] = [];

@@ -10,7 +10,7 @@ import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
 function getCenterPosOfTile(tileIdx: string) {
-  let {col, row} = getColRowByTileIdx(tileIdx);
+  const {col, row} = getColRowByTileIdx(tileIdx);
 
   return {
     x: col * TILE_SIZE + TILE_SIZE / 2,
@@ -34,10 +34,10 @@ class ShockWave extends BaseEntity {
     this.addComponent(new Position({x, y, radius}));
     this.addComponent(new HasUI([]));
 
-    let origin = getCenterPosOfTile(fromTileIdx);
-    let target = getCenterPosOfTile(toTileIdx);
-    let deltaX = target.x - origin.x;
-    let deltaY = target.y - origin.y;
+    const origin = getCenterPosOfTile(fromTileIdx);
+    const target = getCenterPosOfTile(toTileIdx);
+    const deltaX = target.x - origin.x;
+    const deltaY = target.y - origin.y;
     let direction;
 
     if (deltaX === 0) {
@@ -48,13 +48,13 @@ class ShockWave extends BaseEntity {
       direction = Math.atan(deltaY / deltaX);
     }
 
-    let frames = [];
-    let frameCount = 15;
-    let animationDurationInTicks = 15;
+    const frames = [];
+    const frameCount = 15;
+    const animationDurationInTicks = 15;
     let i = 0;
 
-    let sizeToGrow = 0.1;
-    let radiusToGrow = 20;
+    const sizeToGrow = 0.1;
+    const radiusToGrow = 20;
 
     while (i < frameCount) {
       frames.push({

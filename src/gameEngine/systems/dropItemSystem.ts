@@ -1,6 +1,6 @@
 import {ISystemArguments} from '../../interfaces/IGameLoop';
-import {dropNewItem, ItemEntity} from '../entities/placeableEntities/Item';
-import {getColRowByEntity, getTileIdxByEnt} from '../utils/componentUtils/tileUtils/tileIdxUtils';
+import {dropNewItem} from '../entities/placeableEntities/Item';
+import {getColRowByEntity} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 import {updateIndexedTileMap} from '../utils/systemUtils/move/updateIndexedTileMap';
 
 /**
@@ -8,14 +8,14 @@ import {updateIndexedTileMap} from '../utils/systemUtils/move/updateIndexedTileM
  * Drop an item from a destroyedEntity
  */
 export function dropItemSystem(systemArguments: ISystemArguments) {
-  let {destroyedPlaceableEntities, indexedTileMap} = systemArguments;
+  const {destroyedPlaceableEntities, indexedTileMap} = systemArguments;
 
   destroyedPlaceableEntities.forEach((ent) => {
     const {col, row} = getColRowByEntity(ent);
     const itemEntity = dropNewItem({col, row});
 
     updateIndexedTileMap({
-      indexedTileMap: indexedTileMap,
+      indexedTileMap,
       entity: itemEntity,
       newX: itemEntity.getPos().x,
       newY: itemEntity.getPos().y,

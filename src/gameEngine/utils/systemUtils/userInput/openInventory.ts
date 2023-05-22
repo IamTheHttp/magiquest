@@ -1,16 +1,4 @@
-import {PLAYER_CONTROLLED, POSITION} from 'gameEngine/components/_ComponentNames';
-import {getTileIdxByEnt} from 'gameEngine/utils/componentUtils/tileUtils/tileIdxUtils';
-import {DIRECTIONS} from 'gameEngine/gameConstants';
-import IsAttackingComp from 'gameEngine/components/Attacking';
-import {pushTrigger, DialogTrigger} from 'gameEngine/systems/triggerSystem';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
-import {entityLoop} from 'game-platform';
-import {IEntityMap} from 'game-platform/dist/lib/interfaces';
-import FamNPC from '../../../entities/placeableEntities/FamNPC';
-import {BaseEntity} from '../../../BaseEntity';
-import IndexedTile from '../../../classes/IndexedTile';
-import {InteractWithNPC} from '../../../classes/GameEvents';
-import {isNonEmptyArray} from '../../../systems/portalSystem';
 import {IAction} from '../../../../interfaces/IGeneral';
 
 export function performAction(systemArguments: ISystemArguments, action: IAction) {
