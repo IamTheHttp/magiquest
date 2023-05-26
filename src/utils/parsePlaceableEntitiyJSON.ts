@@ -1,7 +1,7 @@
 import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {createPlayerMoveAnimationDefinition} from '../gameEngine/entities/animations/playerAnimations';
 import {createEnemyMoveAnimationDefinition} from '../gameEngine/entities/animations/enemyAnimations';
-import {I_ATTACK_SPEED_OPTIONS, PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
+import {I_ATTACK_SPEED_OPTIONS, I_PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
 import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/IPlaceableEntityJSON';
 
 export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntityJSON[]) {
@@ -24,9 +24,9 @@ export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntity
     /**
      * Go from JSON representation to in memory object representation
      */
-    placeableEntityMap[entityJSON.id as PLACEABLE_ENTITIES] = {
+    placeableEntityMap[entityJSON.id as I_PLACEABLE_ENTITIES] = {
       possibleAnimationsForEntity: animations,
-      id: entityJSON.id as PLACEABLE_ENTITIES,
+      id: entityJSON.id as I_PLACEABLE_ENTITIES,
       displayName: entityJSON.displayName,
       dmg: entityJSON.dmg,
       radius: entityJSON.sizeInTiles * TILE_SIZE,

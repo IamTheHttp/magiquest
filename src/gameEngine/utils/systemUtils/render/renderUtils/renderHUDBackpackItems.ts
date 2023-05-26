@@ -49,8 +49,8 @@ export function renderHUDBackpackItems(systemArguments: ISystemArguments, player
         ...SPRITES[spriteName],
         x: viewportAbsX,
         y: viewportAbsY,
-        height: WIDTH,
-        width: HEIGHT,
+        height: HEIGHT,
+        width: WIDTH,
         rotation: 0 // in radians
       });
     });

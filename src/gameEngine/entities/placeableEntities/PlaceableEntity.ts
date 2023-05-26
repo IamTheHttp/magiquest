@@ -1,5 +1,5 @@
 import Levels from '../../components/Levels';
-import {PossibleUIShapes, ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
+import {ATTACK_SPEEDS, CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import Health from '../../components/Health';
 import Position from '../../components/Position';
@@ -39,7 +39,7 @@ class PlaceableEntity extends BaseEntity {
         new HasUI([
           {
             name: CANVAS_OUTPUT,
-            shape: PossibleUIShapes.HEALTH_BAR_SHAPE,
+            shape: 'HEALTH_BAR_SHAPE',
             data: {}
           }
         ])

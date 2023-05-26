@@ -1,6 +1,6 @@
 import {ANIMATIONS} from 'gameEngine/components/_ComponentNames';
 import assertType from 'gameEngine/utils/assertType';
-import {PossibleUIShapes} from '../gameConstants';
+import {I_POSSIBLE_UI_SHAPES} from '../gameConstants';
 
 export type IAnimationDefinition = {
   animationName: string;
@@ -21,7 +21,7 @@ export interface IAnimationFrame {
   cropStartY?: number;
   cropSizeX?: number;
   cropSizeY?: number;
-  shape?: keyof typeof PossibleUIShapes;
+  shape?: I_POSSIBLE_UI_SHAPES;
   direction?: number; // TODO this is confusing as we already have a string direction - rename to ANGLE_DIRECTION
   size?: number;
   radius?: number;
@@ -60,7 +60,6 @@ export class Animations {
 
     assertType(animationName, 'Name of animation', 'string');
     if (Object.keys(rest).length > 0) {
-      debugger;
       throw `Extra arguments not supported to animationDefinition ${JSON.stringify(Object.keys(rest))}`;
     }
 

@@ -1,5 +1,5 @@
 import Player from '../../src/gameEngine/entities/placeableEntities/Player';
-import {PLACEABLE_ENTITIES, TILE_SIZE} from '../../src/gameEngine/gameConstants';
+import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
 import {INVENTORY} from '../../src/gameEngine/components/_ComponentNames';
 
@@ -12,7 +12,7 @@ function createTestPlayer(col: number, row: number) {
       spawningTileLocationID: null
     },
     {
-      id: PLACEABLE_ENTITIES.PLAYER,
+      id: 'PLAYER',
       displayName: "'The amazing player'",
       dmg: 2500,
       health: 1500,

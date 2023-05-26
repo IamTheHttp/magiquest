@@ -1,11 +1,10 @@
-import {I_ALLOWED_ZONE_LOCATION_IDS, AllowedQuestIDs} from '../gameEngine/gameConstants';
 import {IKillQuestData, IQuestData} from '../gameEngine/components/QuestData';
 
 const questsDataConfig: {
   [key: string]: IQuestData | IKillQuestData;
 } = {
-  [AllowedQuestIDs.CLEAR_CAMP]: {
-    id: AllowedQuestIDs.CLEAR_CAMP,
+  ['CLEAR_CAMP']: {
+    id: 'CLEAR_CAMP',
     requiredLevel: 1,
     preCondition: '',
     reward: '',

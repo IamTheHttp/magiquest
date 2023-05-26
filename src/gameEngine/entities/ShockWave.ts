@@ -5,8 +5,8 @@
 import {BaseEntity} from 'gameEngine/BaseEntity';
 import Position from 'gameEngine/components/Position';
 import HasUI from 'gameEngine/components/HasUI';
-import {Animations} from 'gameEngine/components/Animations';
-import {PossibleUIShapes, TILE_SIZE} from 'gameEngine/gameConstants';
+import {Animations, IAnimationFrame} from 'gameEngine/components/Animations';
+import {TILE_SIZE} from 'gameEngine/gameConstants';
 import {getColRowByTileIdx} from '../utils/componentUtils/tileUtils/tileIdxUtils';
 
 function getCenterPosOfTile(tileIdx: string) {
@@ -48,7 +48,7 @@ class ShockWave extends BaseEntity {
       direction = Math.atan(deltaY / deltaX);
     }
 
-    const frames = [];
+    const frames: IAnimationFrame[] = [];
     const frameCount = 15;
     const animationDurationInTicks = 15;
     let i = 0;
@@ -58,7 +58,7 @@ class ShockWave extends BaseEntity {
 
     while (i < frameCount) {
       frames.push({
-        shape: PossibleUIShapes.ARC_SHAPE,
+        shape: 'ARC_SHAPE',
         direction,
         size: 0.2 + (i * sizeToGrow) / frameCount,
         radius: TILE_SIZE / 2 + (i * radiusToGrow) / frameCount,

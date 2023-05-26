@@ -9,7 +9,7 @@ import {updateIndexedTileMap} from '../../../src/gameEngine/utils/systemUtils/mo
 import attackSystem from '../../../src/gameEngine/systems/attackSystem';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import Moving from '../../../src/gameEngine/components/Moving';
-import {I_ALLOWED_ZONE_LOCATION_IDS, TILE_SIZE} from '../../../src/gameEngine/gameConstants';
+import {TILE_SIZE} from '../../../src/gameEngine/gameConstants';
 import aiSystem from '../../../src/gameEngine/systems/aiSystem';
 import {HEALTH} from '../../../src/gameEngine/components/_ComponentNames';
 

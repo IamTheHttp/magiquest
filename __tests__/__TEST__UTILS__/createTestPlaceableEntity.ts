@@ -1,10 +1,10 @@
-import {PLACEABLE_ENTITIES, TILE_SIZE} from '../../src/gameEngine/gameConstants';
+import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {IPlaceableEntityData} from '../../src/interfaces/IPlaceableEntityData';
 
 export function createTestPlaceableEntity(entityData?: Partial<IPlaceableEntityData>): IPlaceableEntityData {
   const dataToMerge = entityData ? entityData : {};
   return {
-    id: PLACEABLE_ENTITIES.PLAYER,
+    id: 'PLAYER',
     displayName: "'The amazing player'",
     dmg: 2500,
     health: 1500,

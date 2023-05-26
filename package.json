@@ -13,7 +13,7 @@
     "start:editor": "cd Editor; npm start",
     "release": "release-it",
     "lint": "eslint . --fix",
-    "formatcode": "prettier --write --print-width 120 --single-quote --no-bracket-spacing --trailing-comma none src __tests__ Editor *.js *.json"
+    "formatcode": "prettier --write src __tests__ Editor *.js *.json"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.8",

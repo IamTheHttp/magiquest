@@ -1,5 +1,5 @@
 import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, PossibleTriggersArray} from './IZones';
-import {PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
+import {I_PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
 import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
 
 interface IExits {
@@ -38,7 +38,7 @@ export interface IZoneJSON {
     move: MoveTriggers;
   };
   entitiesToPlace: IEntitiesToPlace;
-  spawnableEnemies: (keyof typeof PLACEABLE_ENTITIES)[];
+  spawnableEnemies: I_PLACEABLE_ENTITIES[];
 
   description: string;
   exits: IExits;

@@ -42,7 +42,6 @@ function moveEntity(systemArguments: ISystemArguments, entity: BaseEntity) {
     modDestY = y;
     modDestX = x;
   } else if (typeof direction !== 'undefined' && direction !== null) {
-    // TODO replace with a util? // OR change the ENUM to start from 1?
     // create destination from the direction we want to go
 
     const {x, y} = entity.getDestFromDirection(direction);

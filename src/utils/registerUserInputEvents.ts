@@ -1,4 +1,4 @@
-import {I_ALLOWED_ACTIONS, DIRECTIONS} from 'gameEngine/gameConstants';
+import {I_DIRECTIONS} from 'gameEngine/gameConstants';
 import Game from '../gameEngine/Game';
 
 class Glob {
@@ -87,16 +87,16 @@ function registerUserInputEvents(game: Game) {
     // Support arrow keys and WASD
 
     const map = {
-      [KEY_TO_CODE_MAP.W]: DIRECTIONS.UP,
-      [KEY_TO_CODE_MAP.A]: DIRECTIONS.LEFT,
-      [KEY_TO_CODE_MAP.S]: DIRECTIONS.DOWN,
-      [KEY_TO_CODE_MAP.D]: DIRECTIONS.RIGHT,
-      [KEY_TO_CODE_MAP.ARROW_UP]: DIRECTIONS.UP,
-      [KEY_TO_CODE_MAP.ARROW_LEFT]: DIRECTIONS.LEFT,
-      [KEY_TO_CODE_MAP.ARROW_DOWN]: DIRECTIONS.DOWN,
-      [KEY_TO_CODE_MAP.ARROW_RIGHT]: DIRECTIONS.RIGHT
+      [KEY_TO_CODE_MAP.W]: 'UP',
+      [KEY_TO_CODE_MAP.A]: 'LEFT',
+      [KEY_TO_CODE_MAP.S]: 'DOWN',
+      [KEY_TO_CODE_MAP.D]: 'RIGHT',
+      [KEY_TO_CODE_MAP.ARROW_UP]: 'UP',
+      [KEY_TO_CODE_MAP.ARROW_LEFT]: 'LEFT',
+      [KEY_TO_CODE_MAP.ARROW_DOWN]: 'DOWN',
+      [KEY_TO_CODE_MAP.ARROW_RIGHT]: 'RIGHT'
     } as {
-      [key: number]: keyof typeof DIRECTIONS;
+      [key: number]: I_DIRECTIONS;
     };
 
     if (code === KEY_TO_CODE_MAP.SPACE_BAR) {

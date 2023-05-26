@@ -1,5 +1,5 @@
 import FamNPC from '../../src/gameEngine/entities/placeableEntities/FamNPC';
-import {PLACEABLE_ENTITIES, TILE_SIZE} from '../../src/gameEngine/gameConstants';
+import {TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import {createPlayerMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/playerAnimations';
 
 function createTestFamNPC(col: number, row: number) {
@@ -11,7 +11,7 @@ function createTestFamNPC(col: number, row: number) {
       spawningTileLocationID: null
     },
     {
-      id: PLACEABLE_ENTITIES.FAM_NPC,
+      id: 'FAM_NPC',
       displayName: "'The amazing player'",
       dmg: 2500,
       health: 1500,

@@ -1,5 +1,5 @@
 import {createEnemyMoveAnimationDefinition} from '../../src/gameEngine/entities/animations/enemyAnimations';
-import {I_ALLOWED_ZONE_LOCATION_IDS, PLACEABLE_ENTITIES, TILE_SIZE} from '../../src/gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS, TILE_SIZE} from '../../src/gameEngine/gameConstants';
 import Enemy from '../../src/gameEngine/entities/placeableEntities/Enemy';
 
 function createNewEnemy(
@@ -23,7 +23,7 @@ function createNewEnemy(
       speed: 2,
       attackSpeed: 'FAST',
       displayName: 'test',
-      id: PLACEABLE_ENTITIES.IMP,
+      id: 'IMP',
       possibleAnimationsForEntity: createEnemyMoveAnimationDefinition(1) // arbitrary for tests
     }
   );

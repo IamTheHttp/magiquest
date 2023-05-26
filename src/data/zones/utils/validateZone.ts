@@ -38,18 +38,17 @@ export function validateZone(zone: IZone) {
   }
 
   zone.spawnableEnemies.forEach((enemyID) => {
-    if (!PLACEABLE_ENTITIES[enemyID]) {
-      throw `${ERROR_PREFIX} - Invalid entity - id "${enemyID}" does not appear in ${Object.keys(
-        PLACEABLE_ENTITIES
-      )} of ENTITIES`;
+    if (!PLACEABLE_ENTITIES.includes(enemyID)) {
+      throw `${ERROR_PREFIX} - Invalid entity - id "${enemyID}" 
+      does not appear in ${PLACEABLE_ENTITIES.toString()} of ENTITIES`;
     }
   });
 
   zone.entitiesToPlace.forEach((ent) => {
-    if (!PLACEABLE_ENTITIES[ent.characterType]) {
-      throw `${ERROR_PREFIX} - Invalid entity - id "${ent.characterType}" does not appear in ${Object.keys(
-        PLACEABLE_ENTITIES
-      )} of ENTITIES`;
+    if (!PLACEABLE_ENTITIES.includes(ent.characterType)) {
+      throw `${ERROR_PREFIX} - Invalid entity - id "${
+        ent.characterType
+      }" does not appear in ${PLACEABLE_ENTITIES.toString()} of ENTITIES`;
     }
   });
 }

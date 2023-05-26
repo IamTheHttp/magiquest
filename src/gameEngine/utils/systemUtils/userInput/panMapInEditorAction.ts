@@ -1,6 +1,6 @@
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {IAction} from '../../../../interfaces/IGeneral';
-import {I_ALLOWED_ACTIONS, DIRECTIONS, TILE_SIZE} from '../../../gameConstants';
+import {TILE_SIZE} from '../../../gameConstants';
 
 export function panMapInEditorAction(systemArguments: ISystemArguments, action: IAction) {
   const currentPanValue = systemArguments.mapAPI.getCurrentPanValue();
@@ -28,7 +28,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
   if (action.name === 'MOVE_ACTION') {
     const {direction} = action;
 
-    if (direction === DIRECTIONS.DOWN) {
+    if (direction === 'DOWN') {
       if (MAP_HEIGHT - VIEW_HEIGHT > -currentPanValue.panY - TILE_SIZE) {
         systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY - TILE_SIZE);
       } else {
@@ -36,7 +36,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
       }
     }
 
-    if (direction === DIRECTIONS.UP) {
+    if (direction === 'UP') {
       if (currentPanValue.panY < TILE_SIZE) {
         systemArguments.mapAPI.panCamera(currentPanValue.panX, currentPanValue.panY + 32);
       } else {
@@ -44,7 +44,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
       }
     }
 
-    if (direction === DIRECTIONS.LEFT) {
+    if (direction === 'LEFT') {
       if (currentPanValue.panX < TILE_SIZE) {
         systemArguments.mapAPI.panCamera(currentPanValue.panX + TILE_SIZE, currentPanValue.panY);
       } else {
@@ -52,7 +52,7 @@ export function panMapInEditorAction(systemArguments: ISystemArguments, action: 
       }
     }
 
-    if (direction === DIRECTIONS.RIGHT) {
+    if (direction === 'RIGHT') {
       if (MAP_WIDTH - VIEW_WIDTH > -currentPanValue.panX - TILE_SIZE) {
         systemArguments.mapAPI.panCamera(currentPanValue.panX - TILE_SIZE, currentPanValue.panY);
       } else {

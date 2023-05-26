@@ -1,4 +1,4 @@
-import {I_ALLOWED_ACTIONS, PossibleUIShapes, DIRECTIONS} from '../gameEngine/gameConstants';
+import {I_ALLOWED_ACTIONS, I_POSSIBLE_UI_SHAPES, I_DIRECTIONS} from '../gameEngine/gameConstants';
 import {PlayerStateChangeEvent} from '../gameEngine/classes/PlayerState';
 import IndexedTile from '../gameEngine/classes/IndexedTile';
 
@@ -27,7 +27,7 @@ export interface IAction {
     // todo move direction into data
     [key: string]: any;
   };
-  direction?: keyof typeof DIRECTIONS;
+  direction?: I_DIRECTIONS;
 }
 
 /**
@@ -35,7 +35,7 @@ export interface IAction {
  */
 export interface IUISection {
   name: string;
-  shape: keyof typeof PossibleUIShapes;
+  shape: I_POSSIBLE_UI_SHAPES;
   data: {
     backgroundColor?: string;
     borderColor?: string;

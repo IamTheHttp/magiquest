@@ -5,7 +5,6 @@ import {Entity} from 'game-platform';
 import moveSystem from '../../../src/gameEngine/systems/moveSystem';
 import Moving from '../../../src/gameEngine/components/Moving';
 import {POSITION} from '../../../src/gameEngine/components/_ComponentNames';
-import {DIRECTIONS} from '../../../src/gameEngine/gameConstants';
 import SpyFns, {fn} from '../../__TEST__UTILS__/SpyFns';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
 
@@ -29,7 +28,7 @@ describe('move system tests', () => {
   it('moves an entity', () => {
     player.addComponent(new Moving());
 
-    player.setDestTo(DIRECTIONS.DOWN);
+    player.setDestTo('DOWN');
 
     moveSystem(systemArguments);
 
@@ -50,7 +49,7 @@ describe('move system tests', () => {
   it('Test trying to move out of screen', () => {
     player.addComponent(new Moving());
 
-    player.setDestTo(DIRECTIONS.LEFT);
+    player.setDestTo('LEFT');
 
     moveSystem(systemArguments);
 
@@ -62,7 +61,7 @@ describe('move system tests', () => {
   });
 
   it('Test movement with a direction instead of X,Y', () => {
-    player.setMoveDirection(DIRECTIONS.DOWN);
+    player.setMoveDirection('DOWN');
     expect(player.getDest().y).toBe(null);
     moveSystem(systemArguments);
     expect(player.getDest().y).toBe(48); // since we start at 16 16 and go one tile down
@@ -85,7 +84,7 @@ describe('move system tests', () => {
 
   it('Test moving over a mountain (two steps down in our mock data)', () => {
     player.addComponent(new Moving());
-    player.setDestTo(DIRECTIONS.DOWN);
+    player.setDestTo('DOWN');
 
     // move one tile down
     while (player.getDest().y) {
@@ -93,7 +92,7 @@ describe('move system tests', () => {
     }
 
     player.addComponent(new Moving());
-    player.setDestTo(DIRECTIONS.DOWN);
+    player.setDestTo('DOWN');
 
     // move two tiles down
     while (player.getDest().y) {
@@ -102,7 +101,7 @@ describe('move system tests', () => {
 
     // try a third move down (we can't, there's a mountain there)
     player.addComponent(new Moving());
-    player.setDestTo(DIRECTIONS.DOWN);
+    player.setDestTo('DOWN');
 
     const currY = player.getPos().y;
     // move two tiles down

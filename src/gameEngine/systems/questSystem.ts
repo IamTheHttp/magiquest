@@ -10,7 +10,6 @@ import {
 } from '../components/_ComponentNames';
 import Quest, {KillQuest} from '../entities/Quest';
 import {BaseEntity} from '../BaseEntity';
-import {AllowedQuestState} from '../components/QuestData';
 import {isNonEmptyArray} from './portalSystem';
 import {DialogTrigger, pushTrigger} from './triggerSystem';
 import {ISystemArguments} from '../../interfaces/IGameLoop';
@@ -27,8 +26,10 @@ function questSystem(systemArguments: ISystemArguments) {
   /**
    * System does a few things...
    * 1.
-   * 2. Move the Quests state around based on conditions and checks, this is done on -- Entity.getByComp<BaseEntity>([QUEST_DATA_COMP])
-   * 3. Assign UI elements to NPCs based on Quest state, this is done on -- Entity.getByComp<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
+   * 2. Move the Quests state around based on conditions and checks,
+   *    this is done on -- Entity.getByComp<BaseEntity>([QUEST_DATA_COMP])
+   * 3. Assign UI elements to NPCs based on Quest state, this is done on --
+   *    Entity.getByComp<BaseEntity>([CAN_ASSIGN_QUESTS_COMP, POSITION_COMP, UI_COMP])
    */
 
   const killQuests = Entity.getByComps<BaseEntity>([KILL_QUEST_DATA]) as KillQuest[];
@@ -61,12 +62,12 @@ function questSystem(systemArguments: ISystemArguments) {
     if (gameEvent instanceof InteractWithNPC) {
       const NPCEntity = gameEvent.readEvent().entity;
 
-      const availableQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.AVAILABLE) as Quest[];
-      const doneQuests = NPCEntity.getQuestsByStatus(AllowedQuestState.DONE) as Quest[];
+      const availableQuests = NPCEntity.getQuestsByStatus('AVAILABLE');
+      const doneQuests = NPCEntity.getQuestsByStatus('DONE') as Quest[];
 
       if (isNonEmptyArray(doneQuests)) {
         const quest = doneQuests[0];
-        quest.setState(AllowedQuestState.REWARDED);
+        quest.setState('REWARDED');
 
         pushTrigger(
           new DialogTrigger({
@@ -85,7 +86,7 @@ function questSystem(systemArguments: ISystemArguments) {
 
       if (isNonEmptyArray(availableQuests)) {
         const quest = availableQuests[0];
-        quest.setState(AllowedQuestState.IN_PROGRESS);
+        quest.setState('IN_PROGRESS');
 
         pushTrigger(
           new DialogTrigger({
@@ -107,18 +108,18 @@ function questSystem(systemArguments: ISystemArguments) {
   // 2. Adjust Quest state
   quests.forEach((quest) => {
     // Hidden should turn to Available, if quest see-conditions are met.
-    if (quest.getState() === AllowedQuestState.HIDDEN) {
+    if (quest.getState() === 'HIDDEN') {
       // if precondition is right
       if (true) {
-        quest.setState(AllowedQuestState.AVAILABLE);
+        quest.setState('AVAILABLE');
       }
     }
 
     // In progress should be done, if quest fulfil-conditions are met
-    if (quest.getState() === AllowedQuestState.IN_PROGRESS) {
+    if (quest.getState() === 'IN_PROGRESS') {
       // if precondition is right
       if (quest.isPostReqComplete()) {
-        quest.setState(AllowedQuestState.DONE);
+        quest.setState('DONE');
       }
     }
   });
@@ -129,8 +130,8 @@ function questSystem(systemArguments: ISystemArguments) {
     // if AVAILABLE, show yellow "?"
     // If done, show yellow "!"
 
-    const doneQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.DONE);
-    const availableQuests = entityThatGivesQuest.getQuestsByStatus(AllowedQuestState.AVAILABLE);
+    const doneQuests = entityThatGivesQuest.getQuestsByStatus('DONE');
+    const availableQuests = entityThatGivesQuest.getQuestsByStatus('AVAILABLE');
     const hasActionSign = entityThatGivesQuest.hasComponents(ACTION_SIGN);
 
     if (isNonEmptyArray(availableQuests)) {

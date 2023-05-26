@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {ComponentProps} from 'react';
+import React, {useEffect, useState, ComponentProps} from 'react';
 import {IPlayerState} from '../../../interfaces/IGeneral';
 import Game from '../../../gameEngine/Game';
 import {PlayerState} from '../../../gameEngine/classes/PlayerState';

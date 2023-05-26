@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {PossibleUIShapes, CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
+import {CANVAS_OUTPUT, TILE_SIZE} from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
 import {Stackable} from '../../components/Stackable';
@@ -17,7 +17,7 @@ export class ItemEntity extends PlaceableEntity {
         {
           name: CANVAS_OUTPUT,
           // Hardcoded weapon shape, but in the future we can easily
-          shape: PossibleUIShapes.SPRITE,
+          shape: 'SPRITE',
           data: {
             spriteName: 'GENERIC_ITEM'
           }

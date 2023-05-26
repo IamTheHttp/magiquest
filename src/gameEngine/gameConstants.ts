@@ -1,5 +1,4 @@
 export const CANVAS_OUTPUT = 'CANVAS_OUTPUT';
-import PLAYER_SPRITE_URL from '../assets/tileSet.png';
 import TILESET_IMAGE_URL from '../assets/tileSet.png';
 import ITEMS_SPRITE_URL from '../assets/misc.png';
 
@@ -16,65 +15,57 @@ export const HUD_ITEM_BORDER_COLOR = 'green';
  */
 
 export const WALKABLE_TILE_TYPES = [1, 7, 100, 13, 11];
-export {PLAYER_SPRITE_URL, TILESET_IMAGE_URL, ITEMS_SPRITE_URL};
+export {TILESET_IMAGE_URL, ITEMS_SPRITE_URL};
 
-export type I_ALLOWED_ZONE_LOCATION_IDS = 'TOWN' | 'SPAWNABLE_1' | 'FOO';
+export const ALLOWED_ZONE_LOCATION_IDS = ['TOWN', 'SPAWNABLE_1', 'FOO'] as const;
+export type I_ALLOWED_ZONE_LOCATION_IDS = (typeof ALLOWED_ZONE_LOCATION_IDS)[number];
 
-export enum PossibleUIShapes {
-  CIRCLE_SHAPE = 'CIRCLE_SHAPE',
-  DROPPED_ITEM_SHAPE = 'DROPPED_ITEM_SHAPE',
-  ARC_SHAPE = 'ARC_SHAPE',
-  MAP_TILE_SHAPE = 'MAP_TILE_SHAPE',
-  RECT_SHAPE = 'RECT_SHAPE',
-  HEALTH_BAR_SHAPE = 'HEALTH_BAR_SHAPE',
-  CHEST_SHAPE = 'CHEST_SHAPE',
-  PLAYER_CHAR = 'PLAYER_CHAR',
-  SPRITE = 'SPRITE'
-}
+export const POSSIBLE_UI_SHAPES = [
+  'CIRCLE_SHAPE',
+  'DROPPED_ITEM_SHAPE',
+  'ARC_SHAPE',
+  'MAP_TILE_SHAPE',
+  'RECT_SHAPE',
+  'HEALTH_BAR_SHAPE',
+  'CHEST_SHAPE',
+  'PLAYER_CHAR',
+  'SPRITE'
+];
+export type I_POSSIBLE_UI_SHAPES = (typeof POSSIBLE_UI_SHAPES)[number];
 
 /**
  * Most of our entities are placed here, some entities aren't here such as Tile or SHOCKWAVE
  */
-export enum PLACEABLE_ENTITIES {
-  ENEMY = 'ENEMY',
-  FAM_NPC = 'FAM_NPC',
-  ITEM = 'ITEM',
-  CHEST = 'CHEST',
-  IMP = 'IMP',
-  GARGOYLE = 'GARGOYLE',
-  DEMON = 'DEMON',
-  VAMPIRE = 'VAMPIRE',
-  PLAYER = 'PLAYER'
-}
 
-export type I_ALLOWED_ACTIONS =
-  | 'PERFORM_ACTION'
-  | 'MOVE_ACTION'
-  | 'DRAG_PAN_MAP'
-  | 'BUY_SKILL'
-  | 'BUY_ATTR'
-  | 'OPEN_INVENTORY'
-  | 'SHOW_HELP_SCREEN';
+export const PLACEABLE_ENTITIES = [
+  'ENEMY',
+  'FAM_NPC',
+  'ITEM',
+  'CHEST',
+  'IMP',
+  'GARGOYLE',
+  'DEMON',
+  'VAMPIRE',
+  'PLAYER'
+] as const;
+export type I_PLACEABLE_ENTITIES = (typeof PLACEABLE_ENTITIES)[number];
 
-export enum AllowedQuestIDs {
-  CLEAR_CAMP = 'CLEAR_CAMP'
-}
+export const ALLOWED_ACTIONS = [
+  'PERFORM_ACTION',
+  'MOVE_ACTION',
+  'DRAG_PAN_MAP',
+  'BUY_SKILL',
+  'BUY_ATTR',
+  'OPEN_INVENTORY',
+  'SHOW_HELP_SCREEN'
+] as const;
+export type I_ALLOWED_ACTIONS = (typeof ALLOWED_ACTIONS)[number];
 
-// TODO can these two be combined?
-export enum DIRECTIONS {
-  UP = 'UP',
-  DOWN = 'DOWN',
-  LEFT = 'LEFT',
-  RIGHT = 'RIGHT'
-}
+export const ALLOWED_QUEST_IDS = ['CLEAR_CAMP'] as const;
+export type I_ALLOWED_QUEST_IDS = (typeof ALLOWED_QUEST_IDS)[number];
 
-// TODO can these two be combined?
-// export let DIRECTIONS = {
-//   [DIRECTIONS.UP]: 'UP',
-//   [DIRECTIONS.DOWN]: 'DOWN',
-//   [DIRECTIONS.LEFT]: 'LEFT',
-//   [DIRECTIONS.RIGHT]: 'RIGHT'
-// };
+export const DIRECTIONS = ['UP', 'DOWN', 'LEFT', 'RIGHT'] as const;
+export type I_DIRECTIONS = (typeof DIRECTIONS)[number];
 
 export const ANIMATIONS = {
   MOVE_LEFT: 'MOVE_LEFT',
@@ -86,9 +77,11 @@ export const ANIMATIONS = {
 export const TILE_SIZE = 32;
 export const SPRITE_SIZE = 32; // The size of a sprite in our sprite sheets
 
-export type I_ATTACK_SPEED_OPTIONS = 'SLOW' | 'FAST' | 'FASTER' | 'FASTEST' | null;
+export const ATTACK_SPEED_OPTIONS = ['SLOW', 'FAST', 'FASTER', 'FASTEST', 'NONE'] as const;
+export type I_ATTACK_SPEED_OPTIONS = (typeof ATTACK_SPEED_OPTIONS)[number];
 
 export const ATTACK_SPEEDS: {[key in I_ATTACK_SPEED_OPTIONS]: number} = {
+  NONE: 0,
   SLOW: 90,
   FAST: 70,
   FASTER: 60,

@@ -25,7 +25,7 @@ import {PlayerStateChangeEvent} from './classes/PlayerState';
 import experienceSystem from './systems/experienceSystem';
 import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
-import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT, PossibleUIShapes, PLACEABLE_ENTITIES} from './gameConstants';
+import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
 import {zoneConfig} from '../data/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
@@ -131,7 +131,7 @@ class Game {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.CIRCLE_SHAPE,
+          shape: 'CIRCLE_SHAPE',
           data: {
             backgroundColor: 'lime'
           }
@@ -193,7 +193,8 @@ class Game {
       minimapAPI: miniMapAPI,
       gameEvents: this.gameEvents,
       placeableEntityDataMap: this.placeableEntityDataMap,
-      destroyedPlaceableEntities: [] // An array containing entities that were destroyed, gets reset every tick after processing is done
+      // An array containing entities that were destroyed, gets reset every tick after processing is done
+      destroyedPlaceableEntities: []
     };
   }
 
@@ -261,7 +262,7 @@ class Game {
 
     // only out of editor mode, when playing
     if (this.mode === 'playing') {
-      const playerData = this.placeableEntityDataMap[PLACEABLE_ENTITIES.PLAYER];
+      const playerData = this.placeableEntityDataMap['PLAYER'];
       const player = placePlayerInLevel(zone, this.indexedTileMap, playerStartingTile, playerData);
       placeLevelEntities(zone, this.indexedTileMap, this.placeableEntityDataMap);
 

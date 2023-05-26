@@ -5,7 +5,6 @@ import createNewEnemy from '../../../../__TEST__UTILS__/createTestEnemy';
 import createTestPlayer from '../../../../__TEST__UTILS__/createTestPlayer';
 import {Entity} from 'game-platform';
 import {updateIndexedTileMap} from '../../../../../src/gameEngine/utils/systemUtils/move/updateIndexedTileMap';
-import {DIRECTIONS} from '../../../../../src/gameEngine/gameConstants';
 import performAction from '../../../../../src/gameEngine/utils/systemUtils/userInput/performAction';
 import {BaseEntity} from '../../../../../src/gameEngine/BaseEntity';
 import {ATTACKING} from '../../../../../src/gameEngine/components/_ComponentNames';
@@ -40,7 +39,7 @@ describe('Tests the placeLevelEntities util', () => {
       newY: player.getPos().y
     });
 
-    player.setOrientation(DIRECTIONS.DOWN);
+    player.setOrientation('DOWN');
 
     performAction(systemArguments, null);
 

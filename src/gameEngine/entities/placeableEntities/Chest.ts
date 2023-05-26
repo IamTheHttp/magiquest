@@ -1,5 +1,5 @@
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
-import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {CANVAS_OUTPUT} from '../../gameConstants';
 import HasUI from '../../components/HasUI';
 import PlaceableEntity from './PlaceableEntity';
 import {Blocking} from '../../components/Blocking';
@@ -13,7 +13,7 @@ class Chest extends PlaceableEntity {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.SPRITE,
+          shape: 'SPRITE',
           data: {
             spriteName: 'CHEST_SPRITE'
           }

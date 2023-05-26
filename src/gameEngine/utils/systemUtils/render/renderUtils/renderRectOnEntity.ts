@@ -1,5 +1,4 @@
 import {POSITION} from '../../../../components/_ComponentNames';
-import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../../BaseEntity';
 import {getFixedPositionRelativeToViewport} from './getFixedPositionRelativeToViewport';
@@ -19,7 +18,7 @@ function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntit
     });
 
     mapAPI.drawRect({
-      id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
+      id: `${entity.id}-${'RECT_SHAPE'}-`,
       x: viewportAbsX,
       y: viewportAbsY,
       width,
@@ -30,7 +29,7 @@ function renderRectOnEntity(systemArguments: ISystemArguments, entity: BaseEntit
     });
   } else {
     mapAPI.drawRect({
-      id: `${entity.id}-${PossibleUIShapes.RECT_SHAPE}-`,
+      id: `${entity.id}-${'RECT_SHAPE'}-`,
       x,
       y,
       width,

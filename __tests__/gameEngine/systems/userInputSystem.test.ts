@@ -1,6 +1,5 @@
 import createSystemArgs from '../../__TEST__UTILS__/createTestSystemArguments';
 import userInputSystem, {pushAction} from 'gameEngine/systems/userInputSystem';
-import {DIRECTIONS} from 'gameEngine/gameConstants';
 import SpyFns from '../../__TEST__UTILS__/SpyFns';
 import {ISystemArguments} from '../../../src/interfaces/IGameLoop';
 import createTestPlayer from '../../__TEST__UTILS__/createTestPlayer';
@@ -36,10 +35,10 @@ describe('Tests for the User Input system', () => {
 
     pushAction({
       name: 'MOVE_ACTION',
-      direction: DIRECTIONS.DOWN
+      direction: 'DOWN'
     });
     userInputSystem(systemArguments);
 
-    expect(player.getMoveDirection()).toBe(DIRECTIONS.DOWN);
+    expect(player.getMoveDirection()).toBe('DOWN');
   });
 });

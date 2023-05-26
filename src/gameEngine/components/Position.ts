@@ -1,5 +1,5 @@
 import {POSITION} from 'gameEngine/components/_ComponentNames';
-import {DIRECTIONS} from '../gameConstants';
+import {I_DIRECTIONS} from '../gameConstants';
 
 interface IPositionComponentConstructor {
   x: number;
@@ -21,7 +21,7 @@ class Position {
   destX: number;
   originX: number;
   originY: number;
-  orientation: keyof typeof DIRECTIONS;
+  orientation: I_DIRECTIONS;
   isFixedToViewPort: boolean; // Is the position relative to the screen or not. This is similar to CSS "Fixed position"
   constructor(posData: IPositionComponentConstructor) {
     const {x, y, radius = -0, height = 0, width = 0, isFixedToViewPort = false} = posData;

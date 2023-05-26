@@ -1,4 +1,4 @@
-import {CANVAS_OUTPUT, PossibleUIShapes, I_ALLOWED_ZONE_LOCATION_IDS, WALKABLE_TILE_TYPES} from '../gameConstants';
+import {CANVAS_OUTPUT, I_ALLOWED_ZONE_LOCATION_IDS, WALKABLE_TILE_TYPES} from '../gameConstants';
 import Position from '../components/Position';
 import Background from '../components/Background';
 import Traversable from '../components/Traversable';
@@ -39,7 +39,7 @@ class Tile extends BaseEntity {
       new Background([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.MAP_TILE_SHAPE,
+          shape: 'MAP_TILE_SHAPE',
           data: {
             tileType
           }
@@ -61,7 +61,7 @@ class Tile extends BaseEntity {
       new Background([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.MAP_TILE_SHAPE,
+          shape: 'MAP_TILE_SHAPE',
           data: {
             tileType
           }

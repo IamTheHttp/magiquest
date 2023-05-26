@@ -44,7 +44,6 @@ export function useForm() {
   /**
    * @public The main function of the hook, used to generate input fields
    * @example  <form> {generateFields([{name:string, type:number|text}]) </form>
-   * @param fields
    */
   function generateFields({
     fields,

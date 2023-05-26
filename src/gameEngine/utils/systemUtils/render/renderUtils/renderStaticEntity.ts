@@ -1,6 +1,6 @@
 import {renderInteractionSign} from './renderInteractionSign';
 import {POSITION, UI} from '../../../../components/_ComponentNames';
-import {DIRECTIONS, PossibleUIShapes, TILE_SIZE} from '../../../../gameConstants';
+import {TILE_SIZE} from '../../../../gameConstants';
 import renderCircle from './renderCircle';
 import renderHealthBar from './renderHealthBar';
 import {renderRectOnEntity} from './renderRectOnEntity';
@@ -28,29 +28,29 @@ export function renderStaticEntity({systemArguments, entity}: IRenderStaticEntit
   // These usually are related to the position of the entity itself
   entity[UI].sections.forEach((section) => {
     // Draw static sprites like a dropped item, or a chest
-    if (section.shape === PossibleUIShapes.SPRITE) {
+    if (section.shape === 'SPRITE') {
       renderSprite(systemArguments, entity, section);
     }
 
-    if (section.shape === PossibleUIShapes.CIRCLE_SHAPE) {
+    if (section.shape === 'CIRCLE_SHAPE') {
       renderCircle(systemArguments, entity, section);
     }
 
-    if (section.shape === PossibleUIShapes.HEALTH_BAR_SHAPE) {
+    if (section.shape === 'HEALTH_BAR_SHAPE') {
       renderHealthBar(systemArguments, entity);
     }
 
-    if (section.shape === PossibleUIShapes.RECT_SHAPE) {
+    if (section.shape === 'RECT_SHAPE') {
       renderRectOnEntity(systemArguments, entity, section);
     }
 
     // Draw a Player on the screen
-    if (section.shape === PossibleUIShapes.PLAYER_CHAR) {
+    if (section.shape === 'PLAYER_CHAR') {
       const spriteCrop = {
-        [DIRECTIONS.LEFT]: SPRITES.ENTITY_PLAYER_LEFT,
-        [DIRECTIONS.RIGHT]: SPRITES.ENTITY_PLAYER_RIGHT,
-        [DIRECTIONS.UP]: SPRITES.ENTITY_PLAYER_UP,
-        [DIRECTIONS.DOWN]: SPRITES.ENTITY_PLAYER_DOWN
+        ['LEFT']: SPRITES.ENTITY_PLAYER_LEFT,
+        ['RIGHT']: SPRITES.ENTITY_PLAYER_RIGHT,
+        ['UP']: SPRITES.ENTITY_PLAYER_UP,
+        ['DOWN']: SPRITES.ENTITY_PLAYER_DOWN
       };
 
       const playerSprite = spriteCrop[entity.getOrientation()];

@@ -4,7 +4,6 @@ import {Entity} from 'game-platform';
 import placeLevelEntities from '../../../src/gameEngine/utils/placeLevelEntities';
 import {LEVELS} from '../../../src/gameEngine/components/_ComponentNames';
 import {BaseEntity} from '../../../src/gameEngine/BaseEntity';
-import {PLACEABLE_ENTITIES} from '../../../src/gameEngine/gameConstants';
 import {createTestPlaceableEntity} from '../../__TEST__UTILS__/createTestPlaceableEntity';
 
 describe('Tests the placeLevelEntities util', () => {
@@ -38,7 +37,7 @@ describe('Tests the placeLevelEntities util', () => {
         },
         entitiesToPlace: [
           {
-            characterType: PLACEABLE_ENTITIES.FAM_NPC,
+            characterType: 'FAM_NPC',
             entityLevel: 1,
             name: 'NPC_1',
             pos: {
@@ -47,7 +46,7 @@ describe('Tests the placeLevelEntities util', () => {
             }
           },
           {
-            characterType: PLACEABLE_ENTITIES.IMP,
+            characterType: 'IMP',
             entityLevel: 1,
             name: 'ENEMY_1',
             pos: {
@@ -68,8 +67,8 @@ describe('Tests the placeLevelEntities util', () => {
       },
       indexedTileMap,
       {
-        [PLACEABLE_ENTITIES.FAM_NPC]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.FAM_NPC}),
-        [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})
+        ['FAM_NPC']: createTestPlaceableEntity({id: 'FAM_NPC'}),
+        ['IMP']: createTestPlaceableEntity({id: 'IMP'})
       }
     );
 

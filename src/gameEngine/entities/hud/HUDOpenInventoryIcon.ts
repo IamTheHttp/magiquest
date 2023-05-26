@@ -4,7 +4,6 @@ import {
   CANVAS_OUTPUT,
   HUD_PADDING_LEFT_RIGHT,
   HUD_PADDING_TOP_BOTTOM,
-  PossibleUIShapes,
   TILE_SIZE,
   HUD_ITEM_BORDER_COLOR,
   HUD_ITEM_FILL_COLOR
@@ -31,7 +30,7 @@ export class HUDOpenInventoryIcon extends BaseEntity {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.RECT_SHAPE,
+          shape: 'RECT_SHAPE',
           data: {
             backgroundColor: HUD_ITEM_FILL_COLOR,
             borderColor: HUD_ITEM_BORDER_COLOR,
@@ -40,7 +39,7 @@ export class HUDOpenInventoryIcon extends BaseEntity {
         },
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.SPRITE,
+          shape: 'SPRITE',
           data: {
             spriteName: 'CHEST_SPRITE'
           }

@@ -1,5 +1,5 @@
 import {IDialogTrigger, IPortalTrigger} from './ITriggers';
-import {I_ALLOWED_ZONE_LOCATION_IDS, PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
+import {I_ALLOWED_ZONE_LOCATION_IDS, I_PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
 import {IZoneJSON} from './IZoneJSON';
 
 export type ITileMap = number[][];
@@ -10,7 +10,7 @@ export interface ITileCoordinate {
 }
 
 export type IEntitiesToPlace = {
-  characterType: keyof typeof PLACEABLE_ENTITIES;
+  characterType: I_PLACEABLE_ENTITIES;
   entityLevel: number;
   pos: ITileCoordinate;
   name: string;

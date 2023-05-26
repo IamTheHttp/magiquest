@@ -1,6 +1,5 @@
 import {BACKGROUND, POSITION} from '../../../components/_ComponentNames';
 import filterOutFarEntities from '../filterOutFarEntities';
-import {PossibleUIShapes} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../../../interfaces/IGameLoop';
 import {BaseEntity} from '../../../BaseEntity';
 
@@ -14,7 +13,7 @@ function renderBackgroundLayer(systemArguments: ISystemArguments) {
   for (let i = 0; i < closeBackgroundEnts.length; i++) {
     const entity = closeBackgroundEnts[i];
     entity[BACKGROUND].sections.forEach((section) => {
-      if (section.shape === PossibleUIShapes.MAP_TILE_SHAPE) {
+      if (section.shape === 'MAP_TILE_SHAPE') {
         // tile type
         mapAPI.drawImage({
           id: `${entity.id}-${i}`,

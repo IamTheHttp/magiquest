@@ -18,13 +18,13 @@ import {
   UI
 } from './components/_ComponentNames';
 import ActionSign from './components/ActionSign';
-import {AllowedQuestState} from './components/QuestData';
+import {I_ALLOWED_QUEST_STATE} from './components/QuestData';
 import Spawner from './components/Spawner';
 import Background from './components/Background';
 import PlayerControlled from './components/PlayerControlled';
 import Dialog from './components/Dialog';
 import {Animations, IRunningAnimationMap, IAnimationDefinition} from './components/Animations';
-import {TILE_SIZE, DIRECTIONS} from './gameConstants';
+import {TILE_SIZE, I_DIRECTIONS} from './gameConstants';
 import {ICoordinates} from 'game-platform/dist/lib/interfaces';
 import Movement from './components/Movement';
 import WasSpawned from './components/WasSpawned';
@@ -75,17 +75,17 @@ class BaseEntity extends Entity {
     this[ANIMATIONS].runningAnimations = {};
   }
 
-  calcOrientation(destX: number, destY: number): keyof typeof DIRECTIONS {
+  calcOrientation(destX: number, destY: number): I_DIRECTIONS {
     const {x, y} = this.getPos();
 
     if (destX > x) {
-      return DIRECTIONS.RIGHT;
+      return 'RIGHT';
     } else if (destX < x) {
-      return DIRECTIONS.LEFT;
+      return 'LEFT';
     } else if (destY > y) {
-      return DIRECTIONS.DOWN;
+      return 'DOWN';
     } else if (destY < y) {
-      return DIRECTIONS.UP;
+      return 'UP';
     } else {
       return this.getOrientation(); // by default, get current one
     }
@@ -139,7 +139,7 @@ class BaseEntity extends Entity {
     }
   }
 
-  setMoveDirection(dir: keyof typeof DIRECTIONS) {
+  setMoveDirection(dir: I_DIRECTIONS) {
     if (!this[MOVING]) {
       this.addComponent(new Moving());
     }
@@ -174,7 +174,7 @@ class BaseEntity extends Entity {
     return this[MOVING] && this[MOVING].direction;
   }
 
-  setOrientation(direction: keyof typeof DIRECTIONS) {
+  setOrientation(direction: I_DIRECTIONS) {
     this[POSITION].orientation = direction;
   }
 
@@ -191,7 +191,7 @@ class BaseEntity extends Entity {
     this[POSITION].y = y;
   }
 
-  getQuestsByStatus(questState: AllowedQuestState) {
+  getQuestsByStatus(questState: I_ALLOWED_QUEST_STATE) {
     return this.getQuests().filter((quest: Quest) => {
       return quest.getState() === questState;
     });
@@ -223,31 +223,31 @@ class BaseEntity extends Entity {
   }
 
   // TODO ensure this works QA
-  getDestFromDirection(dir: keyof typeof DIRECTIONS) {
+  getDestFromDirection(dir: I_DIRECTIONS) {
     const {x, y} = this.getPos();
 
-    if (dir === DIRECTIONS.UP) {
+    if (dir === 'UP') {
       return {
         x,
         y: y - TILE_SIZE
       };
     }
 
-    if (dir === DIRECTIONS.DOWN) {
+    if (dir === 'DOWN') {
       return {
         x,
         y: y + TILE_SIZE
       };
     }
 
-    if (dir === DIRECTIONS.LEFT) {
+    if (dir === 'LEFT') {
       return {
         x: x - TILE_SIZE,
         y
       };
     }
 
-    if (dir === DIRECTIONS.RIGHT) {
+    if (dir === 'RIGHT') {
       return {
         x: x + TILE_SIZE,
         y
@@ -255,33 +255,33 @@ class BaseEntity extends Entity {
     }
   }
 
-  setDestTo(dir: keyof typeof DIRECTIONS) {
+  setDestTo(dir: I_DIRECTIONS) {
     const {x, y} = this.getPos();
     this[POSITION].originX = x;
     this[POSITION].originY = y;
 
-    if (dir === DIRECTIONS.UP) {
+    if (dir === 'UP') {
       this.setDest({
         x,
         y: y - TILE_SIZE
       });
     }
 
-    if (dir === DIRECTIONS.DOWN) {
+    if (dir === 'DOWN') {
       this.setDest({
         x,
         y: y + TILE_SIZE
       });
     }
 
-    if (dir === DIRECTIONS.LEFT) {
+    if (dir === 'LEFT') {
       this.setDest({
         x: x - TILE_SIZE,
         y
       });
     }
 
-    if (dir === DIRECTIONS.RIGHT) {
+    if (dir === 'RIGHT') {
       this.setDest({
         x: x + TILE_SIZE,
         y

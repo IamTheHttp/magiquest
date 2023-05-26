@@ -4,10 +4,7 @@ class Attacker {
   name: string;
   damage: number;
   cooldownFrames: number;
-  /**
-   *
-   * @param {number} damage
-   */
+
   constructor(damage: number, cooldownFrames: number) {
     this.name = ATTACKER;
     this.damage = damage;

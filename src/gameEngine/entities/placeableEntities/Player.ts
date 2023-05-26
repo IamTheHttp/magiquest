@@ -1,5 +1,5 @@
 import Levels from '../../components/Levels';
-import {PossibleUIShapes, CANVAS_OUTPUT} from '../../gameConstants';
+import {CANVAS_OUTPUT} from '../../gameConstants';
 import {IPlaceableEntityData, IPlacedEntityInstanceAttr} from '../../../interfaces/IPlaceableEntityData';
 import PlaceableEntity from './PlaceableEntity';
 import {EXPERIENCE, INVENTORY, LEVELS} from '../../components/_ComponentNames';
@@ -35,7 +35,7 @@ class Player extends PlaceableEntity {
       new HasUI([
         {
           name: CANVAS_OUTPUT,
-          shape: PossibleUIShapes.PLAYER_CHAR,
+          shape: 'PLAYER_CHAR',
           data: {}
         }
       ])

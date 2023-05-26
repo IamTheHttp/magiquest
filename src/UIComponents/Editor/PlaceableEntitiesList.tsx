@@ -6,7 +6,6 @@ const placeableEntities = getAllPlaceableEntityJSONFiles();
 
 /**
  * Displays the JSON data for each zone, and provides a button to navigate between them
- * @param props
  * @constructor
  */
 export function PlaceableEntitiesList() {

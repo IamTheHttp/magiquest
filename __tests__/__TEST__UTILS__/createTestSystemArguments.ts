@@ -1,5 +1,4 @@
 import createTileIndexMap from 'gameEngine/utils/createTileIndexMap';
-import {I_ALLOWED_ZONE_LOCATION_IDS, PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {ISystemArguments} from '../../src/interfaces/IGameLoop';
 import {fn} from './SpyFns';
 import {Entity} from 'game-platform';
@@ -45,7 +44,7 @@ function createSystemArgs({
 
   return {
     placeableEntityDataMap: {
-      [PLACEABLE_ENTITIES.IMP]: createTestPlaceableEntity({id: PLACEABLE_ENTITIES.IMP})
+      ['IMP']: createTestPlaceableEntity({id: 'IMP'})
     },
     gameEvents: new GameEvents(),
     // @ts-ignore we'll only define one type here
@@ -69,7 +68,7 @@ function createSystemArgs({
       exits: {},
       noSpawnLocations: [],
       monsterDensity: 0.01,
-      spawnableEnemies: [PLACEABLE_ENTITIES.IMP],
+      spawnableEnemies: ['IMP'],
       id: 'TEST LEVEL',
       locations: [],
       tileMap: [[]],

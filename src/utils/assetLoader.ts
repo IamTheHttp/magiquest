@@ -50,10 +50,11 @@ class AssetLoader {
      * When running the actual app, Loading the assets happens in the index file
      * Tests skip this file, causing a cache miss that results in an exception.
      *
-     * The real fix here is to somehow pass getAssets as a dependency and not letting any underlying system or util access
-     * this function directly (only through the dependecy injection)
+     * The real fix here is to somehow pass getAssets as a dependency
+     * and not letting any underlying system or util access
+     * this function directly (only through the dependency injection)
      */
-    if (global.process && process?.env?.NODE_ENV === 'test' && typeof name !== 'string') {
+    if (global.process && global.process?.env?.NODE_ENV === 'test' && typeof name !== 'string') {
       return new Image();
     }
 

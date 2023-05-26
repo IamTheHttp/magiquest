@@ -44,7 +44,7 @@ function editorInputSystem(systemArguments: ISystemArguments) {
 
     // MOVE MOUSE DRAG PAN ACTION
     if (action.name === 'DRAG_PAN_MAP') {
-      actionMap['DRAG_PAN_MAP'](systemArguments, action);
+      actionMap.DRAG_PAN_MAP(systemArguments, action);
     }
   }
   // reset actions when we're done

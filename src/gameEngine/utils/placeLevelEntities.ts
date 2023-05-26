@@ -1,7 +1,6 @@
 import assertType from 'gameEngine/utils/assertType';
 import {updateIndexedTileMap} from 'gameEngine/utils/systemUtils/move/updateIndexedTileMap';
 import {getCenterPosOfGridIdx} from 'gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
-import {PLACEABLE_ENTITIES} from 'gameEngine/gameConstants';
 import {IZone} from '../../interfaces/IZones';
 import {IIndexedTileMap} from '../../interfaces/IGeneral';
 import Chest from '../entities/placeableEntities/Chest';
@@ -32,11 +31,11 @@ function placeLevelEntities(
 
     if (placeableEntityData) {
       switch (entityToPlace.characterType) {
-        case PLACEABLE_ENTITIES.CHEST: {
+        case 'CHEST': {
           entity = new Chest({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityData);
           break;
         }
-        case PLACEABLE_ENTITIES.FAM_NPC: {
+        case 'FAM_NPC': {
           entity = new FamNPC({col, row, entityLevel, spawningTileLocationID: null}, placeableEntityData);
           break;
         }
