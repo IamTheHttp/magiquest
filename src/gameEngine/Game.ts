@@ -167,10 +167,19 @@ class Game {
     this.currentChapter = chapterNum;
   }
 
+  /**
+   * Allows the game to dispatch events to external listeners
+   */
   dispatchGameEvent(event: PlayerStateChangeEvent) {
-    this.gameEventListener(event);
+    if (this.gameEventListener) {
+      this.gameEventListener(event);
+    }
   }
 
+  /**
+   * Allows external listeners to set a listener on the game object.
+   * Any event dispatched by dispatchGameEvent will be sent.
+   */
   setGameEventListener(listener: IGameEventListener) {
     this.gameEventListener = listener;
   }
@@ -319,9 +328,6 @@ class Game {
   notifyGame(msg: string) {
     // When the UI is ready, dispatch a player state event.
     // Do not dispatch this event in editor mode
-    if (msg === 'UI_READY' && this.mode === 'playing') {
-      this.dispatchGameEvent(this.getPlayerStateEvent());
-    }
   }
 
   handleZoneChange(act: number, chapter: number, newPlayerPosition: ITileCoordinate) {

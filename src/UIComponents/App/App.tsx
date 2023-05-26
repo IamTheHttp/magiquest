@@ -5,12 +5,11 @@ import {RESOLUTION} from '../../gameEngine/gameConstants';
 import {MainMenu} from '../Components/MainMenu/MainMenu';
 import {AppState} from './AppState';
 import {getDefaultAppState} from './getDefaultAppState';
-import {MainOverlay} from '../Components/MainOverlay/MainOverlay';
 import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
 import {resizeGameElements} from '../utils/resizeGameElements';
 import registerUserInputEvents from '../../utils/registerUserInputEvents';
-import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
+import {Canvas} from '../Components/Canvas';
 import {Editor} from '../Editor/Editor';
 import {IPlaceableEntityDataMap} from '../../interfaces/IPlaceableEntityData';
 
@@ -28,8 +27,8 @@ export class App extends React.Component<AppProps, AppState> {
     // listen to esc key
     document.addEventListener('keydown', this.onEscPress);
     this.state = getDefaultAppState();
-    window.addEventListener('resize', this.resize.bind(this));
-    window.addEventListener('orientationchange', this.resize.bind(this));
+    window.addEventListener('resize', resizeGameElements);
+    window.addEventListener('orientationchange', resizeGameElements);
   }
 
   /**
@@ -92,7 +91,7 @@ export class App extends React.Component<AppProps, AppState> {
         isEditorOpen: false
       },
       () => {
-        this.resize();
+        resizeGameElements();
       }
     );
   }
@@ -123,13 +122,9 @@ export class App extends React.Component<AppProps, AppState> {
         isGameRunning: false
       },
       () => {
-        this.resize();
+        resizeGameElements();
       }
     );
-  }
-
-  resize() {
-    resizeGameElements();
   }
 
   render() {
@@ -140,26 +135,22 @@ export class App extends React.Component<AppProps, AppState> {
       return <MainMenu startNewGame={this.setupGameObject.bind(this)} startEditor={this.startEditor.bind(this)} />;
     } else if (!isGameStarted && isEditorOpen) {
       return (
-        <MainOverlay game={this.game}>
-          <div id="editor-wrapper">
-            <Editor
-              onZoneNav={() => {}}
-              onPosNav={() => {}}
-              act={this.game.currentAct}
-              chapter={this.game.currentChapter}
-              game={this.game}
-              gameCanvasManager={this.gameCanvasManager}
-            />
-          </div>
-        </MainOverlay>
+        <div id="editor-wrapper">
+          <Editor
+            onZoneNav={() => {}}
+            onPosNav={() => {}}
+            act={this.game.currentAct}
+            chapter={this.game.currentChapter}
+            game={this.game}
+            gameCanvasManager={this.gameCanvasManager}
+          />
+        </div>
       );
     } else {
       return (
-        <MainOverlay game={this.game}>
-          <div className="canvas-main-container">
-            <ManagedCanvasMemo game={this.game} gameCanvasManager={this.gameCanvasManager} />
-          </div>
-        </MainOverlay>
+        <div className="canvas-main-container">
+          <Canvas game={this.game} gameCanvasManager={this.gameCanvasManager}></Canvas>
+        </div>
       );
     }
   }

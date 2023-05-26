@@ -2,7 +2,7 @@ import * as React from 'react';
 import {CSSProperties, useEffect, useState} from 'react';
 import Game from '../../gameEngine/Game';
 import {Entity, GameCanvas} from 'game-platform';
-import {ManagedCanvasMemo} from '../Components/ManagedCanvas';
+import {CanvasMemo} from '../Components/Canvas';
 import {getGridIdxFromPos} from '../../gameEngine/utils/componentUtils/positionUtils/getCenterPosOfGridIdx';
 import {EditorPopup} from './EditorPopup';
 import {ZoneList} from './ZoneList';
@@ -278,7 +278,7 @@ export function Editor(props: IProps) {
         />
       </div>
       <div className="canvas-main-container">
-        <ManagedCanvasMemo game={game} gameCanvasManager={gameCanvasManager} />
+        <CanvasMemo game={game} gameCanvasManager={gameCanvasManager} />
       </div>
     </>
   );

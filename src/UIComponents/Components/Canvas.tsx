@@ -2,8 +2,12 @@ import Game from '../../gameEngine/Game';
 import {GameCanvas} from 'game-platform';
 import * as React from 'react';
 
-export function ManagedCanvas(props: {game: Game; gameCanvasManager: GameCanvas}) {
-  const {game, gameCanvasManager} = props;
+/**
+ * Used to memo
+ * @param props
+ * @constructor
+ */
+export function Canvas({game, gameCanvasManager}: {game: Game; gameCanvasManager: GameCanvas}) {
   return (
     <canvas
       ref={(el) => {
@@ -18,4 +22,4 @@ export function ManagedCanvas(props: {game: Game; gameCanvasManager: GameCanvas}
   );
 }
 
-export const ManagedCanvasMemo = React.memo(ManagedCanvas);
+export const CanvasMemo = React.memo(Canvas);
