@@ -2,7 +2,7 @@ import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {createPlayerMoveAnimationDefinition} from '../gameEngine/entities/animations/playerAnimations';
 import {createEnemyMoveAnimationDefinition} from '../gameEngine/entities/animations/enemyAnimations';
 import {I_ATTACK_SPEED_OPTIONS, I_PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
-import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/IPlaceableEntityJSON';
+import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/database/IPlaceableEntityJSON';
 
 export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntityJSON[]) {
   const placeableEntityMap: IPlaceableEntityDataMap = {};

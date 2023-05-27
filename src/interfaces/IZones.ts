@@ -1,6 +1,6 @@
 import {IDialogTrigger, IPortalTrigger} from './ITriggers';
 import {I_ALLOWED_ZONE_LOCATION_IDS, I_PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
-import {IZoneJSON} from './IZoneJSON';
+import {IZoneJSON} from './database/IZoneJSON';
 
 export type ITileMap = number[][];
 

@@ -1,6 +1,6 @@
-import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, PossibleTriggersArray} from './IZones';
-import {I_PLACEABLE_ENTITIES} from '../gameEngine/gameConstants';
-import {ActOnEntityTriggers, MoveTriggers} from './ITriggers';
+import {IEntitiesToPlace, IZoneLocation, ITileCoordinate, PossibleTriggersArray} from '../IZones';
+import {I_PLACEABLE_ENTITIES} from '../../gameEngine/gameConstants';
+import {ActOnEntityTriggers, MoveTriggers} from '../ITriggers';
 
 interface IExits {
   [key: string]: {

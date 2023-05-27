@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useForm} from '../Components/__Shared/Form/useForm';
 import {createNewZoneRequest} from './editorRequests/createNewZoneRequest';
 import {getZones} from './editorRequests/getZones';
-import {createZone} from '../../data/zones/utils/createZone';
-import {populateGlobalZoneConfig} from '../../data/zones/zoneConfig';
+import {createZone} from '../../data/config/zones/utils/createZone';
+import {populateGlobalZoneConfig} from '../../data/config/zones/zoneConfig';
 import {deleteZone} from './editorRequests/deleteZone';
 
 function NewZoneForm(props: {onClose: () => void; handleSubmit: (formState: Record<string, string>) => void}) {

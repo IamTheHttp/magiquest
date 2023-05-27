@@ -17,7 +17,7 @@ class Player extends PlaceableEntity {
   [LEVELS]: Levels;
 
   /**
-   * See data/json files for placeableEntityData
+   * See data/database files for placeableEntityData
    * @param instanceAttributes
    * @param placeableEntityData
    */

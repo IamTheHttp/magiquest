@@ -1,8 +1,8 @@
-import {IZone} from '../../interfaces/IZones';
+import {IZone} from '../../../interfaces/IZones';
 import {createZone} from './utils/createZone';
-import {IZoneJSON} from '../../interfaces/IZoneJSON';
-import {getAllTileMapJSONFiles} from '../../utils/getAllTileMapJSONFiles';
-import {getAllZoneJSONFiles} from '../../utils/getAllZoneJSONFiles';
+import {IZoneJSON} from '../../../interfaces/database/IZoneJSON';
+import {getAllTileMapJSONFiles} from '../../../utils/getAllTileMapJSONFiles';
+import {getAllZoneJSONFiles} from '../../../utils/getAllZoneJSONFiles';
 
 const zoneConfig: {
   [numAct: number]: {

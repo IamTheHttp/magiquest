@@ -1,6 +1,6 @@
 import React from 'react';
 import {getAllPlaceableEntityJSONFiles} from '../../utils/getAllPlaceableEntityJSONFiles';
-import {IPlaceableEntityJSON} from '../../interfaces/IPlaceableEntityJSON';
+import {IPlaceableEntityJSON} from '../../interfaces/database/IPlaceableEntityJSON';
 
 const placeableEntities = getAllPlaceableEntityJSONFiles();
 

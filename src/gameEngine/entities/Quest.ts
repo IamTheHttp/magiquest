@@ -1,5 +1,5 @@
 import {BaseEntity} from '../BaseEntity';
-import questsDataConfig from '../../data/questsDataConfig';
+import questsDataConfig from '../../data/config/questsDataConfig';
 import QuestData, {I_ALLOWED_QUEST_STATE, KillQuestDataComponent} from '../components/QuestData';
 import {KILL_QUEST_DATA, QUEST_DATA} from '../components/_ComponentNames';
 import {I_ALLOWED_QUEST_IDS} from '../gameConstants';
