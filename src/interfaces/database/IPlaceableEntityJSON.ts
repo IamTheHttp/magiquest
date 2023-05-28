@@ -3,7 +3,7 @@ import {z} from 'zod';
 export const PlaceableEntityZodSchema = z.object({
   dmg: z.number(),
   health: z.number(),
-  speed: z.number(),
+  speedTilesPerSecond: z.number(),
   vision: z.number(),
   attackSpeed: z.string(),
   id: z.string(),

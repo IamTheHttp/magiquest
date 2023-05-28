@@ -16,7 +16,7 @@ function createTestPlayer(col: number, row: number) {
       displayName: "'The amazing player'",
       dmg: 2500,
       health: 1500,
-      speed: 4,
+      speedTilesPerSecond: 4,
       vision: 0,
       attackSpeed: 'FASTEST',
       radius: TILE_SIZE / 2,

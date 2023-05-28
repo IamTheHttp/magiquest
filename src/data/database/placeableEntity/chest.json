@@ -3,7 +3,7 @@
   "displayName": "'Chest'",
   "dmg": 0,
   "health": 20,
-  "speed": 0,
+  "speedTilesPerSecond": 0,
   "vision": 0,
   "attackSpeed": "null",
   "sizeInTiles": 0.5,

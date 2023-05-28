@@ -3,11 +3,11 @@ import {commonMoveAnimations} from './characterAnimations';
 
 /**
  * Create a movement animation.
- * Requires the speed of the entity sync the duration of the animation with the duration of movement
- * @param movementSpeed
+ * Requires the speedTilesPerSecond of the entity sync the duration of the animation with the duration of movement
+ * @param speedTilesPerSecond
  */
-export function createEnemyMoveAnimationDefinition(movementSpeed: number) {
+export function createEnemyMoveAnimationDefinition(speedTilesPerSecond: number) {
   return {
-    ...commonMoveAnimations(enemyCharSpriteURL, movementSpeed)
+    ...commonMoveAnimations(enemyCharSpriteURL, speedTilesPerSecond)
   };
 }

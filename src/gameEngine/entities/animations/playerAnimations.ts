@@ -1,8 +1,8 @@
 import charImageURL from '../../../assets/player.png';
 import {commonMoveAnimations} from './characterAnimations';
 
-export function createPlayerMoveAnimationDefinition(movementSpeed: number) {
+export function createPlayerMoveAnimationDefinition(speedTilesPerSecond: number) {
   return {
-    ...commonMoveAnimations(charImageURL, movementSpeed)
+    ...commonMoveAnimations(charImageURL, speedTilesPerSecond)
   };
 }
