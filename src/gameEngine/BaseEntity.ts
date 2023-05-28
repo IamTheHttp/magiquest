@@ -110,7 +110,7 @@ class BaseEntity extends Entity {
   }
 
   getMovementSpeed() {
-    return this[MOVEMENT] && this[MOVEMENT].speed;
+    return this[MOVEMENT] && this[MOVEMENT].speedTilesPerSecond;
   }
 
   removeRunningAnimation(animationName: string) {

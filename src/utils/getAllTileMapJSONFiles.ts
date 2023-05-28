@@ -1,6 +1,6 @@
 // get all stuff :D
 // @ts-ignore
-import {ITileMapJSON} from '../interfaces/ITileMapJSON';
+import {ITileMapJSON} from '../interfaces/database/ITileMapJSON';
 
 function requireAll(r: any) {
   return r.keys().map(r);
@@ -8,6 +8,6 @@ function requireAll(r: any) {
 
 export function getAllTileMapJSONFiles() {
   // @ts-ignore
-  const tileMapsJSONs: ITileMapJSON[] = requireAll(require.context('../data/json/maps', true, /\.json$/));
+  const tileMapsJSONs: ITileMapJSON[] = requireAll(require.context('../data/database/maps', true, /\.json$/));
   return tileMapsJSONs;
 }

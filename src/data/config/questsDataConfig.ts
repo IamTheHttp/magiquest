@@ -1,8 +1,6 @@
-import {IKillQuestData, IQuestData} from '../gameEngine/components/QuestData';
+import {IKillQuestData, IQuestData} from '../../gameEngine/components/QuestData';
 
-const questsDataConfig: {
-  [key: string]: IQuestData | IKillQuestData;
-} = {
+const questsDataConfig: {[key: string]: IQuestData | IKillQuestData} = {
   ['CLEAR_CAMP']: {
     id: 'CLEAR_CAMP',
     requiredLevel: 1,

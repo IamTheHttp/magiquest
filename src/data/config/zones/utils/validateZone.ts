@@ -1,6 +1,6 @@
-import hasValue from '../../../gameEngine/utils/hasValue';
-import {PLACEABLE_ENTITIES} from '../../../gameEngine/gameConstants';
-import {IZone} from '../../../interfaces/IZones';
+import hasValue from '../../../../gameEngine/utils/hasValue';
+import {PLACEABLE_ENTITIES} from '../../../../gameEngine/gameConstants';
+import {IZone} from '../../../../interfaces/IZones';
 
 /**
  * validates the properties of the zone, throws for any violation

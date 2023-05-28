@@ -1,6 +1,6 @@
 // get all stuff :D
 // @ts-ignore
-import {IPlaceableEntityJSON} from '../interfaces/IPlaceableEntityJSON';
+import {IPlaceableEntityJSON} from '../interfaces/database/IPlaceableEntityJSON';
 
 function requireAll(r: any) {
   return r.keys().map(r);
@@ -9,7 +9,7 @@ function requireAll(r: any) {
 export function getAllPlaceableEntityJSONFiles() {
   const placeableEntitiesJSON: IPlaceableEntityJSON[] = requireAll(
     // @ts-ignore
-    require.context('../data/json/placeableEntity', true, /\.json$/)
+    require.context('../data/database/placeableEntity', true, /\.json$/)
   );
   return placeableEntitiesJSON;
 }

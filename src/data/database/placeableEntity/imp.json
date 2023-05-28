@@ -1,9 +1,9 @@
 {
-  "id": "VAMPIRE",
-  "displayName": "'A Vampire'",
+  "id": "IMP",
+  "displayName": "'An Imp'",
   "dmg": 20,
   "health": 100,
-  "speed": 1,
+  "speedTilesPerSecond": 1,
   "vision": 200,
   "attackSpeed": "FAST",
   "sizeInTiles": 0.5,

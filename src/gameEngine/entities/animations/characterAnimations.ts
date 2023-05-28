@@ -10,12 +10,17 @@ import {IAnimationDefinitionMap} from '../../components/Animations';
 
 /**
  * Create move animations based on a sprite URL.
- * Requires movement speed to determine animation duration
+ * Requires movement speedTilesPerSecond to determine animation duration
  * @param charSpriteURL
- * @param movementSpeed
+ * @param speedTilesPerSecond
  */
-export function commonMoveAnimations(charSpriteURL: string, movementSpeed: number): IAnimationDefinitionMap {
-  const ticksToCrossTile = TILE_SIZE / movementSpeed;
+export function commonMoveAnimations(charSpriteURL: string, speedTilesPerSecond: number): IAnimationDefinitionMap {
+  const tilesPerTick = speedTilesPerSecond / 60;
+  const pixelsToMove = tilesPerTick * TILE_SIZE;
+
+  // ticksToCrossTile must be an integer, since we go over frame by frame in a loop
+  const ticksToCrossTile = Math.floor(TILE_SIZE / pixelsToMove);
+
   return {
     [ANIMATIONS.MOVE_RIGHT]: {
       animationName: ANIMATIONS.MOVE_RIGHT,

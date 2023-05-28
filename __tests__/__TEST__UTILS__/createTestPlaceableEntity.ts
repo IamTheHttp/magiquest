@@ -8,11 +8,11 @@ export function createTestPlaceableEntity(entityData?: Partial<IPlaceableEntityD
     displayName: "'The amazing player'",
     dmg: 2500,
     health: 1500,
-    speed: 4,
+    speedTilesPerSecond: 4,
     vision: 0,
     attackSpeed: 'FASTEST',
     radius: TILE_SIZE / 2,
-    // animationTypes: createPlayerMoveAnimationDefinition(dataToMerge.speed || 1),
+    // animationTypes: createPlayerMoveAnimationDefinition(dataToMerge.speedTilesPerSecond || 1),
     ...dataToMerge
   };
 }

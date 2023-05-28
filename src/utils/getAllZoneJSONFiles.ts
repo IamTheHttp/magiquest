@@ -1,6 +1,6 @@
 // get all stuff :D
 // @ts-ignore
-import {IZoneJSON} from '../interfaces/IZoneJSON';
+import {IZoneJSON} from '../interfaces/database/IZoneJSON';
 
 function requireAll(r: any) {
   return r.keys().map(r);
@@ -8,6 +8,6 @@ function requireAll(r: any) {
 
 export function getAllZoneJSONFiles() {
   // @ts-ignore
-  const zones: IZoneJSON[] = requireAll(require.context('../data/json/zones', true, /\.json$/));
+  const zones: IZoneJSON[] = requireAll(require.context('../data/database/zones', true, /\.json$/));
   return zones;
 }

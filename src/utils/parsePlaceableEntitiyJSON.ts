@@ -2,7 +2,7 @@ import {IPlaceableEntityDataMap} from '../interfaces/IPlaceableEntityData';
 import {createPlayerMoveAnimationDefinition} from '../gameEngine/entities/animations/playerAnimations';
 import {createEnemyMoveAnimationDefinition} from '../gameEngine/entities/animations/enemyAnimations';
 import {I_ATTACK_SPEED_OPTIONS, I_PLACEABLE_ENTITIES, TILE_SIZE} from '../gameEngine/gameConstants';
-import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/IPlaceableEntityJSON';
+import {IPlaceableEntityJSON, PlaceableEntityZodSchema} from '../interfaces/database/IPlaceableEntityJSON';
 
 export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntityJSON[]) {
   const placeableEntityMap: IPlaceableEntityDataMap = {};
@@ -14,9 +14,9 @@ export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntity
 
     let animations = null;
     if (entityJSON.animationNames === 'PLAYER_ANIMATION') {
-      animations = createPlayerMoveAnimationDefinition(entityJSON.speed);
+      animations = createPlayerMoveAnimationDefinition(entityJSON.speedTilesPerSecond);
     } else if (entityJSON.animationNames === 'ENEMY_ANIMATION') {
-      animations = createEnemyMoveAnimationDefinition(entityJSON.speed);
+      animations = createEnemyMoveAnimationDefinition(entityJSON.speedTilesPerSecond);
     } else {
       // nothing, stay null
     }
@@ -31,7 +31,7 @@ export function parsePlaceableEntityJSON(placeableEntitiesJSON: IPlaceableEntity
       dmg: entityJSON.dmg,
       radius: entityJSON.sizeInTiles * TILE_SIZE,
       vision: entityJSON.vision,
-      speed: entityJSON.speed,
+      speedTilesPerSecond: entityJSON.speedTilesPerSecond,
       attackSpeed: entityJSON.attackSpeed as I_ATTACK_SPEED_OPTIONS,
       health: entityJSON.health
     };

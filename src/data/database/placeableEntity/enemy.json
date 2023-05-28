@@ -1,9 +1,9 @@
 {
-  "id": "GARGOYLE",
-  "displayName": "'A gargoyle'",
+  "id": "ENEMY",
+  "displayName": "'The Generic Enemy",
   "dmg": 20,
-  "health": 100,
-  "speed": 4,
+  "health": 1000,
+  "speedTilesPerSecond": 1,
   "vision": 200,
   "attackSpeed": "FAST",
   "sizeInTiles": 0.5,

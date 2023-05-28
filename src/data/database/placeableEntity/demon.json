@@ -1,9 +1,9 @@
 {
-  "id": "IMP",
-  "displayName": "'An Imp'",
+  "id": "DEMON",
+  "displayName": "'A Demon'",
   "dmg": 20,
   "health": 100,
-  "speed": 1,
+  "speedTilesPerSecond": 1,
   "vision": 200,
   "attackSpeed": "FAST",
   "sizeInTiles": 0.5,

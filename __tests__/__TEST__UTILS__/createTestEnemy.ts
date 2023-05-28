@@ -20,7 +20,7 @@ function createNewEnemy(
       dmg: 10,
       health: 20,
       radius: TILE_SIZE / 2,
-      speed: 2,
+      speedTilesPerSecond: 2,
       attackSpeed: 'FAST',
       displayName: 'test',
       id: 'IMP',

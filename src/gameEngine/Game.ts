@@ -27,7 +27,7 @@ import moveSystem from './systems/moveSystem';
 import placeLevelEntities from './utils/placeLevelEntities';
 import {TILE_SIZE, RESOLUTION, CANVAS_OUTPUT} from './gameConstants';
 import {IGameConstructor, onZoneChangeCallback} from './IGameTypes';
-import {zoneConfig} from '../data/zones/zoneConfig';
+import {zoneConfig} from '../data/config/zones/zoneConfig';
 import {editorInputSystem, pushEditorAction} from './systems/editorInputSystem';
 import Position from './components/Position';
 import HasUI from './components/HasUI';
@@ -73,7 +73,7 @@ class Game {
     this.onZoneChange = onZoneChange;
     this.gameEvents = new GameEvents();
 
-    // TODO this probably needs to be related to player movement speed
+    // TODO this probably needs to be related to player movement speedTilesPerSecond
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
 

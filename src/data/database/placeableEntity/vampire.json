@@ -1,9 +1,9 @@
 {
-  "id": "ENEMY",
-  "displayName": "'The Generic Enemy",
+  "id": "VAMPIRE",
+  "displayName": "'A Vampire'",
   "dmg": 20,
-  "health": 1000,
-  "speed": 4,
+  "health": 100,
+  "speedTilesPerSecond": 1,
   "vision": 200,
   "attackSpeed": "FAST",
   "sizeInTiles": 0.5,

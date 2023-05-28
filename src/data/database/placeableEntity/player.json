@@ -3,7 +3,7 @@
   "displayName": "'The amazing player'",
   "dmg": 2500,
   "health": 1500,
-  "speed": 4,
+  "speedTilesPerSecond": 6.3,
   "vision": 0,
   "attackSpeed": "FASTEST",
   "sizeInTiles": 0.5,

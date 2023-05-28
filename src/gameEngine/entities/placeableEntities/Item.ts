@@ -41,7 +41,7 @@ export function dropNewItem({col, row}: {col: number; row: number}) {
       displayName: 'wtf',
       attackSpeed: 'SLOW',
       dmg: 1,
-      speed: null,
+      speedTilesPerSecond: null,
       vision: 0,
       id: 'ITEM'
     }
