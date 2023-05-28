@@ -19,16 +19,25 @@ class PlaceableEntity extends BaseEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super();
     const {col, row, entityLevel} = instanceAttributes;
-    const {speed, health, radius, dmg, attackSpeed, vision, id, displayName, possibleAnimationsForEntity} =
-      placeableEntityData;
+    const {
+      speedTilesPerSecond,
+      health,
+      radius,
+      dmg,
+      attackSpeed,
+      vision,
+      id,
+      displayName,
+      possibleAnimationsForEntity
+    } = placeableEntityData;
 
     const {x, y} = getCenterPosOfGridIdx(col, row);
 
     this.addComponent(new Levels(entityLevel));
     this.addComponent(new Position({x, y, radius}));
 
-    if (speed) {
-      this.addComponent(new Movement(speed));
+    if (speedTilesPerSecond) {
+      this.addComponent(new Movement(speedTilesPerSecond));
     }
 
     if (health) {

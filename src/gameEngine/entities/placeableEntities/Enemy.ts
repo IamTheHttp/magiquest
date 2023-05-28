@@ -12,8 +12,17 @@ class Enemy extends PlaceableEntity {
   constructor(instanceAttributes: IPlacedEntityInstanceAttr, placeableEntityData: IPlaceableEntityData) {
     super(instanceAttributes, placeableEntityData);
     const {col, row, entityLevel, spawningTileLocationID} = instanceAttributes;
-    const {speed, health, radius, dmg, attackSpeed, vision, possibleAnimationsForEntity, id, displayName} =
-      placeableEntityData;
+    const {
+      speedTilesPerSecond,
+      health,
+      radius,
+      dmg,
+      attackSpeed,
+      vision,
+      possibleAnimationsForEntity,
+      id,
+      displayName
+    } = placeableEntityData;
 
     this.addComponent(new WasSpawned(spawningTileLocationID));
     this.addComponent(new ControlledByAI());

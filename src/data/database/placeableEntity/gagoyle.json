@@ -3,7 +3,7 @@
   "displayName": "'A gargoyle'",
   "dmg": 20,
   "health": 100,
-  "speed": 4,
+  "speedTilesPerSecond": 1,
   "vision": 200,
   "attackSpeed": "FAST",
   "sizeInTiles": 0.5,

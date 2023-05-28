@@ -2,10 +2,10 @@ import {MOVEMENT} from './_ComponentNames';
 
 class Movement {
   name: string;
-  speed: number;
-  constructor(speed: number) {
+  speedTilesPerSecond: number;
+  constructor(speedTilesPerSecond: number) {
     this.name = MOVEMENT;
-    this.speed = speed;
+    this.speedTilesPerSecond = speedTilesPerSecond;
   }
 }
 

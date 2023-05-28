@@ -73,7 +73,7 @@ class Game {
     this.onZoneChange = onZoneChange;
     this.gameEvents = new GameEvents();
 
-    // TODO this probably needs to be related to player movement speed
+    // TODO this probably needs to be related to player movement speedTilesPerSecond
     // this should also probably be refactored out
     this.requestBackgroundRender = throttle(this.requestBackgroundRender.bind(this), 100);
 

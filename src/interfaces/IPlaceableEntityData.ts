@@ -4,7 +4,7 @@ import {IAnimationDefinitionMap} from '../gameEngine/components/Animations';
 type IPlaceableEntityData = {
   dmg: number;
   health: number;
-  speed: number;
+  speedTilesPerSecond: number;
   vision: number;
   attackSpeed: I_ATTACK_SPEED_OPTIONS;
   id: I_PLACEABLE_ENTITIES;

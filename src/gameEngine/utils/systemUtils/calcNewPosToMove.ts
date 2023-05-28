@@ -1,6 +1,7 @@
 import {MOVEMENT} from '../../components/_ComponentNames';
 import assertType from '../assertType';
 import {BaseEntity} from '../../BaseEntity';
+import {TILE_SIZE} from '../../gameConstants';
 
 function calcNewPosToMove(entity: BaseEntity, originX: number, originY: number, destX: number, destY: number) {
   assertType(originX, 'originX', 'number');
@@ -8,9 +9,12 @@ function calcNewPosToMove(entity: BaseEntity, originX: number, originY: number, 
   assertType(destY, 'destY', 'number');
   assertType(destX, 'destX', 'number');
 
-  const speed = entity[MOVEMENT].speed;
-  const speedX = destX >= originX ? speed : speed * -1;
-  const speedY = destY >= originY ? speed : speed * -1;
+  const tilesPerSecond = entity[MOVEMENT].speedTilesPerSecond;
+  const tilesPerTick = tilesPerSecond / 60;
+  const pixelsToMove = tilesPerTick * TILE_SIZE;
+
+  const speedX = destX >= originX ? pixelsToMove : pixelsToMove * -1;
+  const speedY = destY >= originY ? pixelsToMove : pixelsToMove * -1;
 
   const minMaxX = speedX > 0 ? Math.min : Math.max;
   const minMaxY = speedY > 0 ? Math.min : Math.max;
