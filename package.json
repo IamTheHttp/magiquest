@@ -27,7 +27,7 @@
     "ts-jest": "29.1.0",
     "ts-loader": "9.4.3",
     "ts-node": "10.9.1",
-    "zod": "3.21.4"
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@babel/core": "7.22.1",
