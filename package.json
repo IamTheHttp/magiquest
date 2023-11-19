@@ -16,7 +16,7 @@
     "formatcode": "prettier --write src __tests__ Editor *.js *.json"
   },
   "dependencies": {
-    "babel-loader": "9.1.2",
+    "babel-loader": "9.1.3",
     "bootstrap": "5.2.3",
     "canvas": "2.11.2",
     "core-js": "3.30.2",
