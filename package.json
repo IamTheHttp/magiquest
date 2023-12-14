@@ -43,7 +43,7 @@
     "@web/dev-server": "0.2.1",
     "css-loader": "6.8.1",
     "eslint": "^8.52.0",
-    "eslint-plugin-unused-imports": "2.0.0",
+    "eslint-plugin-unused-imports": "3.0.0",
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.1",
     "husky": "8.0.3",
