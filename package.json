@@ -33,7 +33,7 @@
     "@babel/core": "7.24.4",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-env": "7.24.4",
-    "@babel/preset-react": "7.23.3",
+    "@babel/preset-react": "7.24.1",
     "@types/eslint": "8.56.3",
     "@types/jest": "29.5.1",
     "@types/react": "18.2.47",
